@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Jdiobe STEM Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body style="font-family: 'EB Garamond', serif;" class="bg-gray-50 text-gray-800">
+  <div id="header"></div>
+
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-r from-orange-600 to-orange-400 text-white py-16 mb-8 overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" alt="STEM background" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" style="z-index:1;">
+    <div class="relative max-w-3xl mx-auto px-4 text-center" style="z-index:2;">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-3">Contact Us</h1>
+      <p class="text-lg md:text-xl">Reach out to connect, collaborate, or learn more about the Jdiobe STEM Foundation.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-16 bg-orange-50">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-orange-700 mb-4 text-center">Contact Us</h2>
+      <p class="text-center text-gray-700 mb-10">We'd love to hear from you! Reach out for questions, partnership opportunities, or to get involved with the Jdiobe STEM Foundation.</p>
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <!-- Contact Info -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 md:mb-0">
+          <h3 class="text-xl font-semibold text-orange-700 mb-4 flex items-center"><i data-feather="mail" class="w-5 h-5 mr-2"></i> Get in Touch</h3>
+          <div class="mb-4">
+            <div class="flex items-start mb-2"><i data-feather="map-pin" class="w-5 h-5 mr-2 text-orange-500"></i><span>9905 S Pennsylvania Ave, Ste A, Oklahoma City, OK 73159, USA</span></div>
+            <div class="flex items-center mb-2"><i data-feather="mail" class="w-5 h-5 mr-2 text-orange-500"></i><a href="mailto:jdiobestem.foundation@gmail.com" class="underline hover:text-orange-600">jdiobestem.foundation@gmail.com</a></div>
+            <div class="flex items-center"><i data-feather="phone" class="w-5 h-5 mr-2 text-orange-500"></i><a href="tel:+14057474161" class="underline hover:text-orange-600">+1-405-747-4161</a></div>
+          </div>
+          <div class="mt-6">
+            <span class="block text-gray-700 font-semibold mb-2">Follow Us</span>
+            <div class="flex space-x-4">
+              <a href="#" class="hover:text-orange-400"><i data-feather="facebook" class="w-6 h-6"></i></a>
+              <a href="#" class="hover:text-orange-400"><i data-feather="twitter" class="w-6 h-6"></i></a>
+              <a href="#" class="hover:text-orange-400"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- Contact Form -->
+        <form class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+          <h3 class="text-xl font-semibold text-orange-700 mb-4 flex items-center"><i data-feather="edit-3" class="w-5 h-5 mr-2"></i> Send a Message</h3>
+          <div>
+            <label class="block mb-2 font-semibold" for="name">Name</label>
+            <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400" type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold" for="email">Email</label>
+            <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400" type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold" for="message">Message</label>
+            <textarea class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400" id="message" name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="w-full bg-orange-600 text-white font-semibold py-3 rounded hover:bg-orange-700 transition">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="main.js"></script>
+</body>
+</html> 

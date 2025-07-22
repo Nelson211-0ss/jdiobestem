@@ -1,0 +1,81 @@
+// Dynamically load header and footer
+function loadFragment(id, file, callback) {
+  fetch(file)
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById(id).innerHTML = html;
+      if (callback) callback();
+    });
+}
+
+// Animated Counters Logic
+function animateCounter(counter, target, duration = 2000) {
+  let start = 0;
+  const increment = target / (duration / 16);
+  function update() {
+    start += increment;
+    if (start < target) {
+      counter.textContent = Math.floor(start).toLocaleString();
+      requestAnimationFrame(update);
+    } else {
+      counter.textContent = target.toLocaleString();
+    }
+  }
+  update();
+}
+
+function handleCountersOnScroll() {
+  const counters = document.querySelectorAll('.counter');
+  let animated = false;
+  function checkAndAnimate() {
+    if (animated) return;
+    const section = document.querySelector('.counter')?.parentElement?.parentElement?.parentElement;
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        animateCounter(counter, target);
+      });
+      animated = true;
+      window.removeEventListener('scroll', checkAndAnimate);
+    }
+  }
+  window.addEventListener('scroll', checkAndAnimate);
+  checkAndAnimate();
+}
+
+// Load header and footer, then initialize features
+window.addEventListener('DOMContentLoaded', function() {
+  loadFragment('header', 'header.html', function() {
+    if (window.feather) feather.replace();
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    // Sticky header fix: ensure parent is positioned
+    const headerDiv = document.getElementById('header');
+    if (headerDiv && headerDiv.parentElement) {
+      const parent = headerDiv.parentElement;
+      const style = window.getComputedStyle(parent);
+      if (style.position === 'static') {
+        parent.style.position = 'relative';
+      }
+    }
+    handleCountersOnScroll();
+  });
+  loadFragment('footer', 'footer.html', function() {
+    // FAQ accordion toggle (for FAQs page)
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const content = this.parentElement.querySelector('.faq-content');
+        content.classList.toggle('hidden');
+        this.querySelector('i').classList.toggle('rotate-180');
+      });
+    });
+  });
+}); 

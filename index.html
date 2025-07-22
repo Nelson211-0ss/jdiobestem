@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jdiobe STEM Foundation - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gray-50 text-gray-800" style="font-family: 'EB Garamond', serif;">
+  <div id="header"></div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[90vh] flex items-center justify-center text-white overflow-hidden">
+    <img src="images/1.jpeg" alt="STEM student" class="absolute inset-0 w-full h-full object-cover z-0" />
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-700/80 to-orange-400/70 z-10"></div>
+    <div class="relative z-20 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-2 drop-shadow-lg">Welcome To Jdiobe STEM Foundation</h1>
+      <h2 class="text-2xl md:text-3xl font-bold mb-4 drop-shadow-lg">Empowering STEM</h2>
+      <p class="text-lg md:text-xl mb-8 drop-shadow-lg">Empowering future STEM leaders through scholarships, mentorship, and career development. Founded by aerospace engineer Dr. Muwanika Jdiobe, we foster innovation and excellence. Join us in shaping a brighter future.</p>
+      <a href="programs.html" class="inline-block bg-white text-orange-700 font-semibold px-8 py-3 rounded-full shadow hover:bg-orange-100 transition">Explore Our Programs</a>
+    </div>
+  </section>
+
+  <!-- Counters Section -->
+  <section class="py-16 bg-gradient-to-r from-orange-50 via-white to-orange-100 relative">
+    <div class="max-w-2xl mx-auto text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Our Impact</h2>
+      <p class="text-lg text-gray-600">See how we are making a difference in the STEM community</p>
+    </div>
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 mb-4 shadow"><i data-feather="users" class="w-8 h-8 text-orange-600"></i></div>
+          <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="10" id="volunteers-counter">0</div>
+          <div class="text-lg font-semibold text-gray-700">Volunteers</div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 mb-4 shadow"><i data-feather="dollar-sign" class="w-8 h-8 text-orange-600"></i></div>
+          <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="5" id="donations-counter">0</div>
+          <div class="text-lg font-semibold text-gray-700">Donations ($)</div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 mb-4 shadow"><i data-feather="award" class="w-8 h-8 text-orange-600"></i></div>
+          <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="12
+          " id="projects-counter">0</div>
+          <div class="text-lg font-semibold text-gray-700">Projects</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Activities Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Recent Activities</h2>
+        <p class="text-lg text-gray-600">See what we've been up to lately</p>
+      </div>
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Activity 1 -->
+        <div class="bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
+          <img src="images/robot.jpeg" alt="Robotics Workshop" class="h-48 w-full object-cover">
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-orange-700 mb-2">Robotics Workshop</h3>
+            <p class="text-gray-700 mb-4 flex-1">Our students built and programmed their own robots, learning hands-on engineering and teamwork skills.</p>
+            <div class="text-sm text-gray-500">June 2024</div>
+          </div>
+        </div>
+        <!-- Activity 2 -->
+        <div class="bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
+          <img src="images/teachers.jpeg" alt="STEM Outreach" class="h-48 w-full object-cover">
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-orange-700 mb-2">STEM Outreach in Schools</h3>
+            <p class="text-gray-700 mb-4 flex-1">We visited local schools to inspire young minds with interactive STEM demonstrations and talks.</p>
+            <div class="text-sm text-gray-500">May 2024</div>
+          </div>
+        </div>
+        <!-- Activity 3 -->
+        <div class="bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
+          <img src="images/about-3-scaled.jpg" alt="Scholarship Awards" class="h-48 w-full object-cover">
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-orange-700 mb-2">Scholarship Awards</h3>
+            <p class="text-gray-700 mb-4 flex-1">Congratulations to our latest scholarship recipients, supporting their journey in STEM education.</p>
+            <div class="text-sm text-gray-500">April 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEM Fields Cards Section -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid gap-8 md:grid-cols-4">
+        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+          <div class="flex justify-center mb-4"><i data-feather="aperture" class="w-10 h-10 text-orange-500"></i></div>
+          <h3 class="text-xl font-bold mb-2">Science</h3>
+          <p class="text-gray-700">Exploring the wonders of the natural world through curiosity, research, and discovery.</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+          <div class="flex justify-center mb-4"><i data-feather="cpu" class="w-10 h-10 text-orange-500"></i></div>
+          <h3 class="text-xl font-bold mb-2">Technology</h3>
+          <p class="text-gray-700">Harnessing innovation to solve problems and improve lives in a digital world.</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+          <div class="flex justify-center mb-4"><i data-feather="settings" class="w-10 h-10 text-orange-500"></i></div>
+          <h3 class="text-xl font-bold mb-2">Engineering</h3>
+          <p class="text-gray-700">Designing and building solutions that shape the future of our communities.</p>
+        </div>
+        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+          <div class="flex justify-center mb-4"><i data-feather="bar-chart-2" class="w-10 h-10 text-orange-500"></i></div>
+          <h3 class="text-xl font-bold mb-2">Mathematics</h3>
+          <p class="text-gray-700">Unlocking patterns and logic to understand and model the world around us.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Partners Section -->
+  <section class="py-12 bg-orange-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-orange-700 mb-8">Our Partners</h2>
+      <div class="relative overflow-hidden flex justify-center">
+        <div id="partners-carousel" class="flex space-x-12 transition-transform duration-700 will-change-transform">
+          
+          <img src="images/HCLV-BUDGE-1-267x300.png" alt="Partner 5" class="h-20 w-auto object-contain grayscale hover:grayscale-0 transition" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Volunteer With Us Section -->
+  <section class="py-16 relative bg-white">
+    <img src="images/wall.jpeg" alt="Volunteer background" class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none select-none" style="z-index:1;" />
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-100/80 to-white/80" style="z-index:2;"></div>
+    <div class="relative max-w-4xl mx-auto px-4 text-center" style="z-index:3;">
+      <div class="bg-orange-50 rounded-2xl shadow-lg p-10 flex flex-col items-center bg-opacity-90">
+        <i data-feather="heart" class="w-14 h-14 text-orange-600 mb-4"></i>
+        <h2 class="text-3xl font-bold text-orange-700 mb-4">Volunteer With Us</h2>
+        <p class="text-lg text-gray-700 mb-6">Join our mission to empower the next generation of STEM leaders. Whether you want to mentor, organize events, or support our outreach, your contribution makes a difference!</p>
+        <a href="volunteers.html" class="inline-block bg-orange-600 text-white px-8 py-3 rounded-full font-semibold shadow hover:bg-orange-700 transition">Apply to Volunteer</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+  <script src="main.js"></script>
+  <script>
+    // Simple auto-sliding carousel for partners
+    document.addEventListener('DOMContentLoaded', function() {
+      const carousel = document.getElementById('partners-carousel');
+      if (!carousel) return;
+      let scrollAmount = 0;
+      const slideWidth = carousel.children[0].offsetWidth + 48; // image width + space-x-12
+      setInterval(() => {
+        scrollAmount += slideWidth;
+        if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+          scrollAmount = 0;
+        }
+        carousel.style.transform = `translateX(-${scrollAmount}px)`;
+      }, 2000);
+    });
+  </script>
+</body>
+</html> 
