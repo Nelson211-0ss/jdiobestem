@@ -24,6 +24,64 @@ function animateCounter(counter, target, duration = 2000) {
   update();
 }
 
+function initScrollReveal() {
+  const selectors = ['.sr-fade-up', '.sr-fade-left', '.sr-fade-right', '.sr-zoom'];
+  const elements = document.querySelectorAll(selectors.join(', '));
+  if (!elements.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    elements.forEach(function (el) {
+      el.classList.add('sr-in');
+    });
+    return;
+  }
+
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('sr-in');
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
+  );
+
+  elements.forEach(function (el) {
+    observer.observe(el);
+  });
+}
+
+function initHeroParallax() {
+  var hero = document.querySelector('.hero-parallax');
+  var bg = document.querySelector('.hero-parallax-bg');
+  if (!hero || !bg) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    bg.style.removeProperty('--hero-parallax-y');
+    return;
+  }
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var y = window.scrollY * 0.42;
+    bg.style.setProperty('--hero-parallax-y', y + 'px');
+  }
+
+  window.addEventListener(
+    'scroll',
+    function () {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+  update();
+}
+
 function handleCountersOnScroll() {
   const counters = document.querySelectorAll('.counter');
   let animated = false;
@@ -47,6 +105,9 @@ function handleCountersOnScroll() {
 
 // Load header and footer, then initialize features
 window.addEventListener('DOMContentLoaded', function() {
+  initScrollReveal();
+  initHeroParallax();
+
   loadFragment('header', 'header.html', function() {
     if (window.feather) feather.replace();
     // Mobile menu toggle

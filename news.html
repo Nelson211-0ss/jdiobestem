@@ -3,60 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/logo.png">
   <title>News & Updates - Jdiobe STEM Foundation</title>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scroll-animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body style="font-family: 'EB Garamond', serif;"
+<body class="bg-gray-50 text-gray-800" style="font-family: 'EB Garamond', serif;">
   <div id="header"></div>
 
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-r from-orange-600 to-orange-400 text-white py-16 mb-8 overflow-hidden">
     <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" alt="STEM news" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" style="z-index:1;">
     <div class="relative max-w-3xl mx-auto px-4 text-center" style="z-index:2;">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-3">News & Updates</h1>
-      <p class="text-lg md:text-xl">Stay up to date with the latest news, events, and stories from the Jdiobe STEM Foundation.</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-3">News</h1>
+      <p class="text-lg md:text-xl">Latest story from the Jdiobe STEM Foundation.</p>
     </div>
   </section>
 
-  <!-- News Cards Section -->
-  <section class="py-12">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- News Card 1 -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="STEM Event" class="h-48 w-full object-cover">
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold text-orange-700 mb-2">STEM Fair 2024 Inspires Hundreds</h3>
-            <span class="text-xs text-gray-400 mb-2">April 10, 2024</span>
-            <p class="text-gray-700 mb-4 flex-1">Our annual STEM Fair brought together students, educators, and industry leaders for a day of innovation and discovery.</p>
-            <a href="#" class="mt-auto inline-block bg-orange-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:bg-orange-700 transition">Read More</a>
-          </div>
-        </div>
-        <!-- News Card 2 -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-          <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fd0?auto=format&fit=crop&w=600&q=80" alt="Mentorship" class="h-48 w-full object-cover">
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold text-orange-700 mb-2">Mentorship Program Launches</h3>
-            <span class="text-xs text-gray-400 mb-2">March 22, 2024</span>
-            <p class="text-gray-700 mb-4 flex-1">We launched our new mentorship initiative, connecting students with STEM professionals for guidance and support.</p>
-            <a href="#" class="mt-auto inline-block bg-orange-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:bg-orange-700 transition">Read More</a>
-          </div>
-        </div>
-        <!-- News Card 3 -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col">
-          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=600&q=80" alt="Scholarship" class="h-48 w-full object-cover">
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold text-orange-700 mb-2">Scholarship Recipients Announced</h3>
-            <span class="text-xs text-gray-400 mb-2">February 15, 2024</span>
-            <p class="text-gray-700 mb-4 flex-1">Congratulations to our 2024 scholarship recipients! Meet the students who are shaping the future of STEM.</p>
-            <a href="#" class="mt-auto inline-block bg-orange-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:bg-orange-700 transition">Read More</a>
-          </div>
-        </div>
+  <!-- Story: Moses Nambiro travel scholarship -->
+  <article id="nambiro-scholarship" class="py-12 md:py-16 bg-white scroll-mt-24">
+    <div class="max-w-3xl mx-auto px-4">
+      <figure class="mb-10 rounded-2xl bg-gray-100 shadow-inner overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-8">
+        <img src="images/moses%20nambiro.png" alt="Moses Nambiro" width="1200" height="1600" class="w-full max-w-lg h-auto max-h-[min(78vh,880px)] object-contain object-center" />
+      </figure>
+      <p class="text-sm font-semibold text-orange-600 mb-2">April 6, 2026</p>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-orange-700 mb-8 leading-tight">Jdiobe STEM Foundation Awards Travel Scholarship to Future Aeronautical Engineer</h2>
+      <div class="space-y-5 text-lg text-gray-700 leading-relaxed">
+        <p>The Jdiobe STEM Foundation is proud to announce the award of a $1,000 travel scholarship to Moses Nambiro, a student from Uganda who has been admitted and awarded a scholarship to pursue a Bachelor of Science in Aeronautical Engineering.</p>
+        <p>While Nambiro successfully secured admission and academic funding, additional financial support was required to cover travel expenses. Through this scholarship, the Jdiobe STEM Foundation is supporting his airfare from Uganda to Alegría, enabling him to begin his academic journey.</p>
+        <p>This award reflects the Foundation’s mission to remove barriers and expand access to STEM education for talented individuals globally. By addressing critical gaps such as travel costs, the Foundation ensures that opportunity is not limited by circumstance.</p>
+        <blockquote class="border-l-4 border-orange-500 pl-5 py-1 my-8 text-gray-800 italic">
+          “We believe that talent is universal, but opportunity is not. Supporting students like Nambiro is central to our mission of empowering the next generation of engineers and innovators.”
+          <cite class="not-italic block mt-3 text-base text-gray-600">— Dr. Muwanika Jdiobe</cite>
+        </blockquote>
+        <p>The Jdiobe STEM Foundation congratulates Moses Nambiro on this achievement and looks forward to his future contributions to the field of aeronautical engineering.</p>
       </div>
     </div>
-  </section>
+  </article>
 
   <div id="footer"></div>
   <script src="main.js"></script>

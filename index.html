@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/logo.png">
   <title>Jdiobe STEM Foundation - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scroll-animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
@@ -12,39 +15,38 @@
   <div id="header"></div>
 
   <!-- Hero Section -->
-  <section class="relative min-h-[90vh] flex items-center justify-center text-white overflow-hidden">
-    <img src="images/1.jpeg" alt="STEM student" class="absolute inset-0 w-full h-full object-cover z-0" />
+  <section class="hero-parallax relative min-h-[90vh] flex items-center justify-center text-white overflow-hidden">
+    <img src="images/1.jpeg" alt="STEM student" class="hero-parallax-bg absolute inset-0 w-full h-full object-cover z-0" />
     <div class="absolute inset-0 bg-gradient-to-r from-orange-700/80 to-orange-400/70 z-10"></div>
     <div class="relative z-20 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-2 drop-shadow-lg">Welcome To Jdiobe STEM Foundation</h1>
-      <h2 class="text-2xl md:text-3xl font-bold mb-4 drop-shadow-lg">Empowering STEM</h2>
-      <p class="text-lg md:text-xl mb-8 drop-shadow-lg">Empowering future STEM leaders through scholarships, mentorship, and career development. Founded by aerospace engineer Dr. Muwanika Jdiobe, we foster innovation and excellence. Join us in shaping a brighter future.</p>
-      <a href="programs.html" class="inline-block bg-white text-orange-700 font-semibold px-8 py-3 rounded-full shadow hover:bg-orange-100 transition">Explore Our Programs</a>
+      <h1 class="hero-title-in text-4xl md:text-5xl font-extrabold mb-2 drop-shadow-lg">Welcome To Jdiobe STEM Foundation</h1>
+      <h2 class="hero-title-in delay-1 text-2xl md:text-3xl font-bold mb-4 drop-shadow-lg">Empowering STEM</h2>
+      <p class="hero-title-in delay-2 text-lg md:text-xl mb-8 drop-shadow-lg">Empowering future STEM leaders through scholarships, mentorship, and career development. Founded by aerospace engineer Dr. Muwanika Jdiobe, we foster innovation and excellence. Join us in shaping a brighter future.</p>
+      <a href="programs.html" class="hero-title-in delay-3 inline-block bg-white text-orange-700 font-semibold px-8 py-3 rounded-full shadow hover:bg-orange-100 transition">Explore Our Programs</a>
     </div>
   </section>
 
   <!-- Counters Section -->
   <section class="py-16 bg-gradient-to-r from-orange-50 via-white to-orange-100 relative">
-    <div class="max-w-2xl mx-auto text-center mb-10">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Our Impact</h2>
-      <p class="text-lg text-gray-600">See how we are making a difference in the STEM community</p>
+    <div class="max-w-2xl mx-auto text-center mb-10 sr-stagger">
+      <h2 class="sr-fade-up text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Our Impact</h2>
+      <p class="sr-fade-up text-lg text-gray-600">See how we are making a difference in the STEM community</p>
     </div>
     <div class="max-w-4xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
+      <div class="sr-stagger grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="sr-fade-up bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
           <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 mb-4 shadow"><i data-feather="users" class="w-8 h-8 text-orange-600"></i></div>
           <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="10" id="volunteers-counter">0</div>
           <div class="text-lg font-semibold text-gray-700">Volunteers</div>
         </div>
-        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="sr-fade-up bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
           <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 mb-4 shadow"><i data-feather="dollar-sign" class="w-8 h-8 text-orange-600"></i></div>
           <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="5" id="donations-counter">0</div>
           <div class="text-lg font-semibold text-gray-700">Donations ($)</div>
         </div>
-        <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="sr-fade-up bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transition-transform hover:-translate-y-1 hover:shadow-2xl">
           <div class="flex items-center justify-center w-16 h-16 rounded-full bg-orange-100 mb-4 shadow"><i data-feather="award" class="w-8 h-8 text-orange-600"></i></div>
-          <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="12
-          " id="projects-counter">0</div>
+          <div class="text-5xl font-extrabold text-orange-700 mb-2 counter" data-target="12" id="projects-counter">0</div>
           <div class="text-lg font-semibold text-gray-700">Projects</div>
         </div>
       </div>
@@ -54,13 +56,13 @@
   <!-- Recent Activities Section -->
   <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Recent Activities</h2>
-        <p class="text-lg text-gray-600">See what we've been up to lately</p>
+      <div class="text-center mb-10 sr-stagger">
+        <h2 class="sr-fade-up text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Recent Activities</h2>
+        <p class="sr-fade-up text-lg text-gray-600">See what we've been up to lately</p>
       </div>
-      <div class="grid gap-8 md:grid-cols-3">
+      <div class="sr-stagger grid gap-8 md:grid-cols-3">
         <!-- Activity 1 -->
-        <div class="bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
+        <div class="sr-fade-up bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
           <img src="images/robot.jpeg" alt="Robotics Workshop" class="h-48 w-full object-cover">
           <div class="p-6 flex flex-col flex-1">
             <h3 class="text-xl font-bold text-orange-700 mb-2">Robotics Workshop</h3>
@@ -69,7 +71,7 @@
           </div>
         </div>
         <!-- Activity 2 -->
-        <div class="bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
+        <div class="sr-fade-up bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
           <img src="images/teachers.jpeg" alt="STEM Outreach" class="h-48 w-full object-cover">
           <div class="p-6 flex flex-col flex-1">
             <h3 class="text-xl font-bold text-orange-700 mb-2">STEM Outreach in Schools</h3>
@@ -78,7 +80,7 @@
           </div>
         </div>
         <!-- Activity 3 -->
-        <div class="bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
+        <div class="sr-fade-up bg-orange-50 rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow">
           <img src="images/about-3-scaled.jpg" alt="Scholarship Awards" class="h-48 w-full object-cover">
           <div class="p-6 flex flex-col flex-1">
             <h3 class="text-xl font-bold text-orange-700 mb-2">Scholarship Awards</h3>
@@ -90,26 +92,58 @@
     </div>
   </section>
 
+  <!-- Success Stories -->
+  <section class="py-16 bg-gradient-to-b from-orange-50 via-white to-orange-50/80">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12 sr-stagger">
+        <h2 class="sr-fade-up text-3xl md:text-4xl font-extrabold text-orange-700 mb-2">Success Stories</h2>
+        <p class="sr-fade-up text-lg text-gray-600">Students whose journeys we are proud to support</p>
+      </div>
+      <article class="sr-fade-up bg-white rounded-2xl shadow-xl overflow-hidden border border-orange-100">
+        <div class="grid md:grid-cols-5 gap-0 md:items-stretch">
+          <div class="md:col-span-2 bg-gray-100 flex items-center justify-center p-6 md:p-8 min-h-[280px]">
+            <img src="images/moses%20nambiro.png" alt="Moses Nambiro" width="800" height="1000" class="w-full max-w-sm mx-auto h-auto max-h-[min(70vh,720px)] object-contain object-center" />
+          </div>
+          <div class="md:col-span-3 p-8 md:p-10 lg:p-12">
+            <p class="text-sm font-semibold text-orange-600 mb-2">April 6, 2026</p>
+            <h3 class="text-2xl md:text-3xl font-extrabold text-orange-700 mb-6 leading-tight">Jdiobe STEM Foundation Awards Travel Scholarship to Future Aeronautical Engineer</h3>
+            <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+              <p>The Jdiobe STEM Foundation is proud to announce the award of a $1,000 travel scholarship to Moses Nambiro, a student from Uganda who has been admitted and awarded a scholarship to pursue a Bachelor of Science in Aeronautical Engineering.</p>
+              <p>While Nambiro successfully secured admission and academic funding, additional financial support was required to cover travel expenses. Through this scholarship, the Jdiobe STEM Foundation is supporting his airfare from Uganda to Alegría, enabling him to begin his academic journey.</p>
+              <p>This award reflects the Foundation’s mission to remove barriers and expand access to STEM education for talented individuals globally. By addressing critical gaps such as travel costs, the Foundation ensures that opportunity is not limited by circumstance.</p>
+              <blockquote class="border-l-4 border-orange-500 pl-5 py-1 my-6 text-gray-800 italic">
+                “We believe that talent is universal, but opportunity is not. Supporting students like Nambiro is central to our mission of empowering the next generation of engineers and innovators.”
+                <cite class="not-italic block mt-3 text-base text-gray-600">— Dr. Muwanika Jdiobe</cite>
+              </blockquote>
+              <p>The Jdiobe STEM Foundation congratulates Moses Nambiro on this achievement and looks forward to his future contributions to the field of aeronautical engineering.</p>
+            </div>
+            <a href="news.html" class="inline-block mt-8 text-orange-700 font-semibold hover:text-orange-800 underline underline-offset-4 decoration-orange-300 hover:decoration-orange-500 transition">Read on News</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- STEM Fields Cards Section -->
   <section class="py-12 bg-white">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="grid gap-8 md:grid-cols-4">
-        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+      <div class="sr-stagger grid gap-8 md:grid-cols-4">
+        <div class="sr-fade-up bg-gray-50 rounded-lg shadow p-6 text-center">
           <div class="flex justify-center mb-4"><i data-feather="aperture" class="w-10 h-10 text-orange-500"></i></div>
           <h3 class="text-xl font-bold mb-2">Science</h3>
           <p class="text-gray-700">Exploring the wonders of the natural world through curiosity, research, and discovery.</p>
         </div>
-        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+        <div class="sr-fade-up bg-gray-50 rounded-lg shadow p-6 text-center">
           <div class="flex justify-center mb-4"><i data-feather="cpu" class="w-10 h-10 text-orange-500"></i></div>
           <h3 class="text-xl font-bold mb-2">Technology</h3>
           <p class="text-gray-700">Harnessing innovation to solve problems and improve lives in a digital world.</p>
         </div>
-        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+        <div class="sr-fade-up bg-gray-50 rounded-lg shadow p-6 text-center">
           <div class="flex justify-center mb-4"><i data-feather="settings" class="w-10 h-10 text-orange-500"></i></div>
           <h3 class="text-xl font-bold mb-2">Engineering</h3>
           <p class="text-gray-700">Designing and building solutions that shape the future of our communities.</p>
         </div>
-        <div class="bg-gray-50 rounded-lg shadow p-6 text-center">
+        <div class="sr-fade-up bg-gray-50 rounded-lg shadow p-6 text-center">
           <div class="flex justify-center mb-4"><i data-feather="bar-chart-2" class="w-10 h-10 text-orange-500"></i></div>
           <h3 class="text-xl font-bold mb-2">Mathematics</h3>
           <p class="text-gray-700">Unlocking patterns and logic to understand and model the world around us.</p>
@@ -121,7 +155,7 @@
   <!-- Our Partners Section -->
   <section class="py-12 bg-orange-50">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center text-orange-700 mb-8">Our Partners</h2>
+      <h2 class="sr-fade-up text-3xl font-bold text-center text-orange-700 mb-8">Our Partners</h2>
       <div class="relative overflow-hidden flex justify-center">
         <div id="partners-carousel" class="flex space-x-12 transition-transform duration-700 will-change-transform">
           
@@ -136,7 +170,7 @@
     <img src="images/wall.jpeg" alt="Volunteer background" class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none select-none" style="z-index:1;" />
     <div class="absolute inset-0 bg-gradient-to-r from-orange-100/80 to-white/80" style="z-index:2;"></div>
     <div class="relative max-w-4xl mx-auto px-4 text-center" style="z-index:3;">
-      <div class="bg-orange-50 rounded-2xl shadow-lg p-10 flex flex-col items-center bg-opacity-90">
+      <div class="sr-zoom bg-orange-50 rounded-2xl shadow-lg p-10 flex flex-col items-center bg-opacity-90">
         <i data-feather="heart" class="w-14 h-14 text-orange-600 mb-4"></i>
         <h2 class="text-3xl font-bold text-orange-700 mb-4">Volunteer With Us</h2>
         <p class="text-lg text-gray-700 mb-6">Join our mission to empower the next generation of STEM leaders. Whether you want to mentor, organize events, or support our outreach, your contribution makes a difference!</p>
