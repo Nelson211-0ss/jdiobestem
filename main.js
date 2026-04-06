@@ -130,12 +130,14 @@ window.addEventListener('DOMContentLoaded', function() {
     handleCountersOnScroll();
   });
   loadFragment('footer', 'footer.html', function() {
+    if (window.feather) feather.replace();
     // FAQ accordion toggle (for FAQs page)
     document.querySelectorAll('.faq-toggle').forEach(btn => {
       btn.addEventListener('click', function() {
         const content = this.parentElement.querySelector('.faq-content');
         content.classList.toggle('hidden');
-        this.querySelector('i').classList.toggle('rotate-180');
+        const icon = this.querySelector('svg') || this.querySelector('i');
+        if (icon) icon.classList.toggle('rotate-180');
       });
     });
   });

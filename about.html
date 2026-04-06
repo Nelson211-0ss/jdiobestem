@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png?v=2" type="image/png" sizes="256x256">
+  <link rel="apple-touch-icon" href="favicon.png?v=2">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="images/logo.png" type="image/png">
-  <link rel="apple-touch-icon" href="images/logo.png">
   <title>About - Jdiobe STEM Foundation</title>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="scroll-animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body style="font-family: 'EB Garamond', serif;">
+<body class="bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
   <!-- Hero Section -->
@@ -84,40 +84,114 @@
   </section>
 
   <!-- Team Members Section -->
-  <section class="py-12 bg-orange-50">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center text-orange-700 mb-10">Meet Our Team</h2>
-      <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-        <!-- Team Member 1 -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition group">
-          <img src="images/team/jdiobepic.webp" alt="Grace Okello" class="w-32 h-32 object-cover rounded-full border-4 border-orange-200 mb-4 shadow-md" />
-          <h3 class="text-xl font-bold text-orange-700 mb-1 mt-2">Muwanika Jdiobe, PhD</h3>
-          <span class="text-sm text-gray-500 mb-3 text-justify">Founder & CEO</span>
-          <div class="flex space-x-4 mt-2">
-            <a href="#" class="hover:text-orange-500" aria-label="LinkedIn"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-            <a href="#" class="hover:text-orange-500" aria-label="Twitter"><i data-feather="twitter" class="w-6 h-6"></i></a>
-          </div>
+  <section class="relative py-16 md:py-24 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-orange-50/40">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(251,146,60,0.12),transparent)]"></div>
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center mb-14 md:mb-16 sr-stagger">
+        <div class="inline-flex items-center gap-2 rounded-full border border-orange-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-orange-800 shadow-sm backdrop-blur-sm sr-fade-up">
+          <i data-feather="users" class="h-4 w-4 text-orange-600"></i>
+          <span>Leadership</span>
         </div>
-        <!-- Team Member 2 -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition group">
-          <img src="images/team/prof.jpeg" alt="Samuel Mwangi" class="w-32 h-32 object-cover rounded-full border-4 border-orange-200 mb-4 shadow-md" />
-          <h3 class="text-xl font-bold text-orange-700 mb-1 mt-2">Nelson O. Ochan</h3>
-          <span class="text-sm text-gray-500 mb-3 text-justify">Chieft Technology Officer</span>
-          <div class="flex space-x-4 mt-2">
-            <a href="#" class="hover:text-orange-500" aria-label="LinkedIn"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-            <a href="#" class="hover:text-orange-500" aria-label="Twitter"><i data-feather="twitter" class="w-6 h-6"></i></a>
+        <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl sr-fade-up" style="font-family: 'EB Garamond', Georgia, serif;">Meet Our Team</h2>
+        <p class="mt-4 text-lg text-gray-600 leading-relaxed sr-fade-up">Experienced professionals guiding strategy, technology, and programs across the foundation.</p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8 sr-stagger">
+        <!-- Muwanika Jdiobe -->
+        <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm ring-1 ring-black/[0.03] transition duration-300 hover:-translate-y-1 hover:border-orange-200/90 hover:shadow-lg hover:shadow-orange-950/5">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+            <img src="images/team/jdiobepic.webp" alt="Muwanika Jdiobe, PhD" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" />
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
+            <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-800 shadow-sm backdrop-blur-sm">
+              <i data-feather="award" class="h-3.5 w-3.5 text-orange-600"></i>
+              Executive
+            </div>
           </div>
-        </div>
-        <!-- Team Member 3 -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition group">
-          <img src="images/team/nicholas.jpg" alt="Linda Nabwire" class="w-32 h-32 object-cover rounded-full border-4 border-orange-200 mb-4 shadow-md" />
-          <h3 class="text-xl font-bold text-orange-700 mb-1 mt-2">Nicholas Ssebalamu</h3>
-          <span class="text-sm text-gray-500 mb-3 text-justify">Projects Manager</span>
-          <div class="flex space-x-4 mt-2">
-            <a href="#" class="hover:text-orange-500" aria-label="LinkedIn"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-            <a href="#" class="hover:text-orange-500" aria-label="Twitter"><i data-feather="twitter" class="w-6 h-6"></i></a>
+          <div class="flex flex-1 flex-col p-6 md:p-7">
+            <h3 class="text-xl font-bold text-gray-900 leading-snug">Muwanika Jdiobe, PhD</h3>
+            <p class="mt-2 flex items-center gap-2 text-sm font-medium text-orange-700">
+              <i data-feather="briefcase" class="h-4 w-4 shrink-0 text-orange-500"></i>
+              Founder &amp; CEO
+            </p>
+            <p class="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Aerospace engineer and president, driving the foundation’s vision and partnerships.</p>
+            <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-5">
+              <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="LinkedIn">
+                <i data-feather="linkedin" class="h-[18px] w-[18px]"></i>
+              </a>
+              <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="X (Twitter)">
+                <i data-feather="twitter" class="h-[18px] w-[18px]"></i>
+              </a>
+              <a href="mailto:jdiobestem.foundation@gmail.com" class="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                <i data-feather="mail" class="h-4 w-4"></i>
+                Email
+              </a>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <!-- Nelson O. Ochan -->
+        <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm ring-1 ring-black/[0.03] transition duration-300 hover:-translate-y-1 hover:border-orange-200/90 hover:shadow-lg hover:shadow-orange-950/5">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+            <img src="images/team/prof.jpeg" alt="Nelson O. Ochan" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" />
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
+            <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-800 shadow-sm backdrop-blur-sm">
+              <i data-feather="cpu" class="h-3.5 w-3.5 text-orange-600"></i>
+              Technology
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col p-6 md:p-7">
+            <h3 class="text-xl font-bold text-gray-900 leading-snug">Nelson O. Ochan</h3>
+            <p class="mt-2 flex items-center gap-2 text-sm font-medium text-orange-700">
+              <i data-feather="layers" class="h-4 w-4 shrink-0 text-orange-500"></i>
+              Chief Technology Officer
+            </p>
+            <p class="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Leads technical direction, systems, and digital initiatives for our programs.</p>
+            <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-5">
+              <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="LinkedIn">
+                <i data-feather="linkedin" class="h-[18px] w-[18px]"></i>
+              </a>
+              <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="X (Twitter)">
+                <i data-feather="twitter" class="h-[18px] w-[18px]"></i>
+              </a>
+              <a href="mailto:jdiobestem.foundation@gmail.com" class="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                <i data-feather="mail" class="h-4 w-4"></i>
+                Email
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Nicholas Ssebalamu -->
+        <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm ring-1 ring-black/[0.03] transition duration-300 hover:-translate-y-1 hover:border-orange-200/90 hover:shadow-lg hover:shadow-orange-950/5">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+            <img src="images/team/nicholas.jpg" alt="Nicholas Ssebalamu" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" />
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
+            <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-800 shadow-sm backdrop-blur-sm">
+              <i data-feather="clipboard" class="h-3.5 w-3.5 text-orange-600"></i>
+              Programs
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col p-6 md:p-7">
+            <h3 class="text-xl font-bold text-gray-900 leading-snug">Nicholas Ssebalamu</h3>
+            <p class="mt-2 flex items-center gap-2 text-sm font-medium text-orange-700">
+              <i data-feather="target" class="h-4 w-4 shrink-0 text-orange-500"></i>
+              Projects Manager
+            </p>
+            <p class="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Coordinates project delivery, timelines, and stakeholder engagement.</p>
+            <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-5">
+              <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="LinkedIn">
+                <i data-feather="linkedin" class="h-[18px] w-[18px]"></i>
+              </a>
+              <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="X (Twitter)">
+                <i data-feather="twitter" class="h-[18px] w-[18px]"></i>
+              </a>
+              <a href="mailto:jdiobestem.foundation@gmail.com" class="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                <i data-feather="mail" class="h-4 w-4"></i>
+                Email
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
