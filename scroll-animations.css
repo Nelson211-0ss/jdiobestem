@@ -128,4 +128,8 @@
   .hero-parallax-bg {
     transform: none !important;
   }
+
+  .hero-slide {
+    transition: none !important;
+  }
 }

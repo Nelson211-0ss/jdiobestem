@@ -16,9 +16,43 @@
 
   <!-- Hero Section -->
   <section class="hero-parallax relative min-h-[90vh] flex items-center justify-center text-white overflow-hidden">
-    <img src="images/1.jpeg" alt="STEM student" class="hero-parallax-bg absolute inset-0 w-full h-full object-cover z-0" />
-    <div class="absolute inset-0 bg-gradient-to-r from-orange-700/80 to-orange-400/70 z-10"></div>
-    <div class="relative z-20 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
+    <div class="hero-parallax-bg absolute inset-0 z-0">
+      <div id="hero-slider" class="absolute inset-0" role="region" aria-roledescription="carousel" aria-label="Featured images">
+        <div class="hero-slide absolute inset-0 transition-opacity duration-[1100ms] ease-in-out opacity-100" data-slide="0" aria-hidden="false">
+          <img src="images/1.jpeg" alt="STEM learning" class="h-full w-full object-cover scale-105" width="1920" height="1080" />
+        </div>
+        <div class="hero-slide absolute inset-0 transition-opacity duration-[1100ms] ease-in-out opacity-0 pointer-events-none" data-slide="1" aria-hidden="true">
+          <img src="images/robot.jpeg" alt="Robotics and engineering" class="h-full w-full object-cover scale-105" width="1920" height="1080" />
+        </div>
+        <div class="hero-slide absolute inset-0 transition-opacity duration-[1100ms] ease-in-out opacity-0 pointer-events-none" data-slide="2" aria-hidden="true">
+          <img src="images/teachers.jpeg" alt="STEM outreach and teaching" class="h-full w-full object-cover scale-105" width="1920" height="1080" />
+        </div>
+        <div class="hero-slide absolute inset-0 transition-opacity duration-[1100ms] ease-in-out opacity-0 pointer-events-none" data-slide="3" aria-hidden="true">
+          <img src="images/about-3-scaled.jpg" alt="Scholarship and student success" class="h-full w-full object-cover scale-105" width="1920" height="1080" />
+        </div>
+        <div class="hero-slide absolute inset-0 transition-opacity duration-[1100ms] ease-in-out opacity-0 pointer-events-none" data-slide="4" aria-hidden="true">
+          <img src="images/catapilar.jpeg" alt="Hands-on STEM activities" class="h-full w-full object-cover scale-105" width="1920" height="1080" />
+        </div>
+      </div>
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-700/80 to-orange-400/70 z-10 pointer-events-none"></div>
+
+    <button type="button" data-hero-slider="prev" class="hero-slider-btn absolute left-2 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/25 bg-black/20 p-2.5 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/35 focus:outline-none focus:ring-2 focus:ring-white/60 sm:left-4" aria-label="Previous image">
+      <i data-feather="chevron-left" class="h-6 w-6"></i>
+    </button>
+    <button type="button" data-hero-slider="next" class="hero-slider-btn absolute right-2 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/25 bg-black/20 p-2.5 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/35 focus:outline-none focus:ring-2 focus:ring-white/60 sm:right-4" aria-label="Next image">
+      <i data-feather="chevron-right" class="h-6 w-6"></i>
+    </button>
+
+    <div class="absolute bottom-6 left-0 right-0 z-30 flex justify-center gap-2 sm:bottom-8" role="tablist" aria-label="Choose slide">
+      <button type="button" class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full" data-index="0" aria-label="Slide 1" aria-selected="true" role="tab"></button>
+      <button type="button" class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/35 shadow-sm transition-all hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full" data-index="1" aria-label="Slide 2" aria-selected="false" role="tab"></button>
+      <button type="button" class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/35 shadow-sm transition-all hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full" data-index="2" aria-label="Slide 3" aria-selected="false" role="tab"></button>
+      <button type="button" class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/35 shadow-sm transition-all hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full" data-index="3" aria-label="Slide 4" aria-selected="false" role="tab"></button>
+      <button type="button" class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/35 shadow-sm transition-all hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full" data-index="4" aria-label="Slide 5" aria-selected="false" role="tab"></button>
+    </div>
+
+    <div class="relative z-20 max-w-4xl mx-auto px-4 pb-14 text-center flex flex-col items-center sm:pb-10">
       <h1 class="hero-title-in text-4xl md:text-5xl font-extrabold mb-2 drop-shadow-lg">Welcome To Jdiobe STEM Foundation</h1>
       <h2 class="hero-title-in delay-1 text-2xl md:text-3xl font-bold mb-4 drop-shadow-lg">Empowering STEM</h2>
       <p class="hero-title-in delay-2 text-lg md:text-xl mb-8 drop-shadow-lg">Empowering future STEM leaders through scholarships, mentorship, and career development. Founded by aerospace engineer Dr. Muwanika Jdiobe, we foster innovation and excellence. Join us in shaping a brighter future.</p>
