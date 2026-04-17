@@ -1,32 +1,38 @@
 /* Loaded after Tailwind CDN: larger body copy; subheads / section titles stepped up a bit more. */
 
+html {
+  scroll-padding-top: 6rem;
+}
+
 body {
-  font-size: 1.125rem;
+  font-size: 1.1875rem;
+  /* Offset for fixed site header so content is not hidden under the bar */
+  padding-top: 6rem;
 }
 
 .text-xs {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.35rem;
 }
 
 .text-sm {
-  font-size: 1rem;
-  line-height: 1.45rem;
+  font-size: 1.125rem;
+  line-height: 1.6rem;
 }
 
 .text-base {
-  font-size: 1.125rem;
-  line-height: 1.65rem;
+  font-size: 1.25rem;
+  line-height: 1.85rem;
 }
 
 .text-lg {
-  font-size: 1.3125rem;
-  line-height: 1.8125rem;
+  font-size: 1.4375rem;
+  line-height: 1.95rem;
 }
 
 .text-xl {
-  font-size: 1.4375rem;
-  line-height: 1.8125rem;
+  font-size: 1.5rem;
+  line-height: 1.95rem;
 }
 
 .text-2xl {
@@ -63,8 +69,8 @@ body {
 
 @media (min-width: 768px) {
   .md\:text-xl {
-    font-size: 1.4375rem;
-    line-height: 1.8125rem;
+    font-size: 1.5rem;
+    line-height: 1.95rem;
   }
 
   .md\:text-2xl {

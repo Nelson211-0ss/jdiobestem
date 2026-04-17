@@ -52,36 +52,6 @@ function initScrollReveal() {
   });
 }
 
-function initHeroParallax() {
-  var hero = document.querySelector('.hero-parallax');
-  var bg = document.querySelector('.hero-parallax-bg');
-  if (!hero || !bg) return;
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    bg.style.removeProperty('--hero-parallax-y');
-    return;
-  }
-
-  var ticking = false;
-  function update() {
-    ticking = false;
-    var y = window.scrollY * 0.42;
-    bg.style.setProperty('--hero-parallax-y', y + 'px');
-  }
-
-  window.addEventListener(
-    'scroll',
-    function () {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
-    },
-    { passive: true }
-  );
-  update();
-}
-
 function initHeroSlider() {
   var root = document.getElementById('hero-slider');
   if (!root) return;
@@ -200,7 +170,6 @@ function handleCountersOnScroll() {
 // Load header and footer, then initialize features
 window.addEventListener('DOMContentLoaded', function() {
   initScrollReveal();
-  initHeroParallax();
   initHeroSlider();
   if (window.feather) feather.replace();
 
@@ -213,15 +182,6 @@ window.addEventListener('DOMContentLoaded', function() {
       menuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
       });
-    }
-    // Sticky header fix: ensure parent is positioned
-    const headerDiv = document.getElementById('header');
-    if (headerDiv && headerDiv.parentElement) {
-      const parent = headerDiv.parentElement;
-      const style = window.getComputedStyle(parent);
-      if (style.position === 'static') {
-        parent.style.position = 'relative';
-      }
     }
     handleCountersOnScroll();
   });

@@ -103,10 +103,10 @@
   }
 }
 
-/* Parallax background (JS sets --hero-parallax-y) */
+/* Hero image container moves with the card (no independent parallax shift) */
 .hero-parallax-bg {
-  transform: translate3d(0, var(--hero-parallax-y, 0px), 0) scale(1.08);
-  will-change: transform;
+  transform: none;
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
