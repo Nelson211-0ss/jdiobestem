@@ -1,50 +1,34 @@
-/* Loaded after Tailwind CDN: larger body copy; subheads / section titles stepped up a bit more. */
+/* Loaded after Tailwind CDN: slightly larger body copy; heading utilities (text-xl+) unchanged below. */
 
 html {
   scroll-padding-top: 6rem;
 }
 
 body {
-  font-size: 1.3125rem;
+  font-size: 1.375rem;
   line-height: 1.65;
-  text-align: justify;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
 }
 
-/* Headings stay left-aligned; sections with .text-center on the heading still win (higher specificity). */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-align: start;
-}
-
-/* Navigation should not inherit justified text from body. */
-#header nav {
-  text-align: start;
-}
-
 .text-xs {
-  font-size: 1.0625rem;
-  line-height: 1.45rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
 }
 
 .text-sm {
-  font-size: 1.25rem;
-  line-height: 1.725rem;
+  font-size: 1.3125rem;
+  line-height: 1.8rem;
 }
 
 .text-base {
-  font-size: 1.375rem;
-  line-height: 1.975rem;
+  font-size: 1.4375rem;
+  line-height: 2rem;
 }
 
 .text-lg {
-  font-size: 1.5625rem;
-  line-height: 2.075rem;
+  font-size: 1.625rem;
+  line-height: 2.125rem;
 }
 
 .text-xl {
