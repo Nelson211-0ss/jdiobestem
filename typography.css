@@ -1,32 +1,35 @@
-/* Loaded after Tailwind CDN: slightly larger body copy; heading utilities (text-xl+) unchanged below. */
+/*
+ * Content font sizes: selectors use `body .text-*` so they win over Tailwind CDN
+ * utilities (injected after this file in the cascade).
+ */
 
 html {
   scroll-padding-top: 6rem;
 }
 
-body {
+html body {
   font-size: 1.375rem;
   line-height: 1.65;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
 }
 
-.text-xs {
+body .text-xs {
   font-size: 1.125rem;
   line-height: 1.5rem;
 }
 
-.text-sm {
+body .text-sm {
   font-size: 1.3125rem;
   line-height: 1.8rem;
 }
 
-.text-base {
+body .text-base {
   font-size: 1.4375rem;
   line-height: 2rem;
 }
 
-.text-lg {
+body .text-lg {
   font-size: 1.625rem;
   line-height: 2.125rem;
 }
