@@ -5,29 +5,30 @@ html {
 }
 
 body {
-  font-size: 1.1875rem;
+  font-size: 1.3125rem;
+  line-height: 1.65;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
 }
 
 .text-xs {
-  font-size: 0.9375rem;
-  line-height: 1.35rem;
+  font-size: 1.0625rem;
+  line-height: 1.45rem;
 }
 
 .text-sm {
-  font-size: 1.125rem;
-  line-height: 1.6rem;
+  font-size: 1.25rem;
+  line-height: 1.725rem;
 }
 
 .text-base {
-  font-size: 1.25rem;
-  line-height: 1.85rem;
+  font-size: 1.375rem;
+  line-height: 1.975rem;
 }
 
 .text-lg {
-  font-size: 1.4375rem;
-  line-height: 1.95rem;
+  font-size: 1.5625rem;
+  line-height: 2.075rem;
 }
 
 .text-xl {
