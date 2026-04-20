@@ -7,8 +7,24 @@ html {
 body {
   font-size: 1.3125rem;
   line-height: 1.65;
+  text-align: justify;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
+}
+
+/* Headings stay left-aligned; sections with .text-center on the heading still win (higher specificity). */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: start;
+}
+
+/* Navigation should not inherit justified text from body. */
+#header nav {
+  text-align: start;
 }
 
 .text-xs {
