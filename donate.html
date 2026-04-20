@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
 </head>
-<body style="font-family: 'EB Garamond', serif;" class="bg-gray-50 text-gray-800">
+<body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
   <!-- Hero Section -->
@@ -56,8 +56,9 @@
             </div>
             <span id="donation-total" class="text-2xl font-bold text-orange-700">$0</span>
           </div>
+          <p id="donate-error" class="hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert"></p>
           <!-- Donate Button -->
-          <button type="submit" class="w-full bg-orange-600 text-white font-semibold py-4 rounded-full shadow hover:bg-orange-700 transition text-lg flex items-center justify-center gap-2"><i data-feather="heart" class="w-6 h-6"></i> Donate Now</button>
+          <button type="submit" id="donate-submit" class="w-full bg-orange-600 text-white font-semibold py-4 rounded-full shadow hover:bg-orange-700 transition text-lg flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-70"><i data-feather="heart" class="w-6 h-6"></i> Donate Now</button>
         </form>
       </div>
     </div>
@@ -66,33 +67,92 @@
   <div id="footer"></div>
   <script src="main.js"></script>
   <script>
-    // Feather icons
-    if(window.feather) feather.replace();
-    // Donation cart logic
+    if (window.feather) feather.replace();
+
+    const CHECKOUT_API = '/api/create-checkout-session';
+
     const amountBtns = document.querySelectorAll('.donate-amount-btn');
     const customAmount = document.getElementById('custom-amount');
     const donationTotal = document.getElementById('donation-total');
+    const donateError = document.getElementById('donate-error');
+    const donateSubmit = document.getElementById('donate-submit');
+    const donationForm = document.getElementById('donation-form');
+
     let selectedAmount = 0;
-    amountBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        amountBtns.forEach(b => b.classList.remove('bg-orange-200'));
+
+    function hideError() {
+      donateError.classList.add('hidden');
+      donateError.textContent = '';
+    }
+
+    function showError(msg) {
+      donateError.textContent = msg;
+      donateError.classList.remove('hidden');
+    }
+
+    amountBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        amountBtns.forEach(function (b) {
+          b.classList.remove('bg-orange-200');
+        });
         this.classList.add('bg-orange-200');
-        selectedAmount = parseInt(this.getAttribute('data-amount'));
+        selectedAmount = parseInt(this.getAttribute('data-amount'), 10);
         customAmount.value = '';
-        donationTotal.textContent = `$${selectedAmount}`;
+        donationTotal.textContent = '$' + selectedAmount;
+        hideError();
       });
     });
-    customAmount.addEventListener('input', function() {
-      amountBtns.forEach(b => b.classList.remove('bg-orange-200'));
-      selectedAmount = parseInt(this.value) || 0;
-      donationTotal.textContent = `$${selectedAmount}`;
+
+    function formatTotal(d) {
+      if (!d || !Number.isFinite(d)) return '$0';
+      if (Math.abs(d - Math.round(d)) < 1e-9) return '$' + Math.round(d);
+      return '$' + d.toFixed(2);
+    }
+
+    customAmount.addEventListener('input', function () {
+      amountBtns.forEach(function (b) {
+        b.classList.remove('bg-orange-200');
+      });
+      selectedAmount = parseFloat(this.value);
+      if (!Number.isFinite(selectedAmount)) selectedAmount = 0;
+      donationTotal.textContent = formatTotal(selectedAmount);
+      hideError();
     });
-    document.getElementById('donation-form').addEventListener('submit', function(e) {
+
+    donationForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      if(selectedAmount > 0) {
-        alert(`Thank you for your generous donation of $${selectedAmount}!`);
-      } else {
-        alert('Please select or enter a donation amount.');
+      hideError();
+
+      const dollars = selectedAmount;
+      if (!dollars || dollars < 1) {
+        showError('Please select or enter a donation of at least $1.');
+        return;
+      }
+
+      const amountCents = Math.round(dollars * 100);
+      donateSubmit.disabled = true;
+
+      try {
+        const res = await fetch(CHECKOUT_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amountCents: amountCents }),
+        });
+        const data = await res.json().catch(function () {
+          return {};
+        });
+        if (!res.ok) {
+          throw new Error(data.error || 'Could not start secure checkout.');
+        }
+        if (data.url) {
+          window.location.href = data.url;
+          return;
+        }
+        throw new Error('No checkout URL returned.');
+      } catch (err) {
+        showError(err.message || 'Something went wrong. Please try again.');
+      } finally {
+        donateSubmit.disabled = false;
       }
     });
   </script>
