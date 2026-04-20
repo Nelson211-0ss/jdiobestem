@@ -8,30 +8,46 @@ html {
 }
 
 html body {
-  font-size: 1.375rem;
-  line-height: 1.65;
+  font-size: 1.3206rem;
+  line-height: 1.585;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
 }
 
 body .text-xs {
-  font-size: 1.125rem;
-  line-height: 1.5rem;
+  font-size: 1.0805rem;
+  line-height: 1.441rem;
 }
 
 body .text-sm {
-  font-size: 1.3125rem;
-  line-height: 1.8rem;
+  font-size: 1.2605rem;
+  line-height: 1.729rem;
 }
 
 body .text-base {
-  font-size: 1.4375rem;
-  line-height: 2rem;
+  font-size: 1.3806rem;
+  line-height: 1.921rem;
 }
 
 body .text-lg {
-  font-size: 1.625rem;
-  line-height: 2.125rem;
+  font-size: 1.5607rem;
+  line-height: 2.041rem;
+}
+
+/* Footer (#footer): smaller than main content */
+#footer .text-xs {
+  font-size: 0.9725rem;
+  line-height: 1.3rem;
+}
+
+#footer .text-sm {
+  font-size: 1.134rem;
+  line-height: 1.556rem;
+}
+
+#footer .text-xl {
+  font-size: 1.35rem;
+  line-height: 1.75rem;
 }
 
 .text-xl {
