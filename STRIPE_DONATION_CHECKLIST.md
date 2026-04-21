@@ -1,6 +1,6 @@
 # Stripe donation setup — checklist
 
-**Implemented in this repo:** **Stripe Checkout (custom amount)** — `api/create-checkout-session.js` (Vercel), `netlify/functions/…` + `netlify.toml` (Netlify), shared `lib/stripeCheckoutSession.js`. See **`README.md`** for env vars and deploy.
+**Implemented in this repo:** **Stripe Checkout (custom amount)** — `netlify/functions/create-checkout-session.js` + `netlify.toml` (primary), optional `api/create-checkout-session.js` for other hosts, shared `lib/stripeCheckoutSession.js`. See **`README.md`** for env vars and deploy.
 
 Use the list below in order. Check items off as you complete them.
 

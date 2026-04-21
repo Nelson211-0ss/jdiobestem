@@ -1,4 +1,6 @@
 const { createCheckoutSession } = require('../../lib/stripeCheckoutSession');
+const { mockCheckoutRedirectUrl } = require('../../lib/mockCheckoutUrl');
+const { isMockCheckoutEnabled } = require('../../lib/productionCheckout');
 
 function resolveSiteUrl(event) {
   const fromEnv = process.env.PUBLIC_SITE_URL || process.env.URL || process.env.DEPLOY_PRIME_URL;
@@ -52,6 +54,17 @@ exports.handler = async function (event) {
 
   const siteUrl = resolveSiteUrl(event);
 
+  if (isMockCheckoutEnabled()) {
+    return {
+      statusCode: 200,
+      headers: jsonHeaders,
+      body: JSON.stringify({
+        url: mockCheckoutRedirectUrl(siteUrl, amountCents),
+        mock: true,
+      }),
+    };
+  }
+
   try {
     const session = await createCheckoutSession({ amountCents, siteUrl });
     return {
@@ -62,7 +75,7 @@ exports.handler = async function (event) {
   } catch (err) {
     console.error(err);
     const message =
-      err && err.code === 'MISSING_KEY'
+      err && (err.code === 'MISSING_KEY' || err.code === 'STRIPE_TEST_KEY_IN_PRODUCTION')
         ? err.message
         : 'Unable to start checkout. Please try again later.';
     return {

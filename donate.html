@@ -11,6 +11,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
+  <style>
+    #donation-form .donate-amount-btn.is-selected {
+      background: linear-gradient(135deg, rgb(234 88 12) 0%, rgb(219 39 119) 100%);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 24px -6px rgb(234 88 12 / 0.45);
+    }
+    #donation-form .donate-amount-btn:focus-visible {
+      outline: 2px solid rgb(251 146 60);
+      outline-offset: 2px;
+    }
+    .donate-icon {
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
@@ -24,41 +39,69 @@
     </div>
   </section>
 
-  <!-- Donation Cart Section -->
-  <section class="py-12">
-    <div class="max-w-2xl mx-auto px-4">
-      <div class="bg-white rounded-2xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-orange-700 mb-6 flex items-center"><i data-feather="shopping-cart" class="w-7 h-7 mr-2"></i> Donation Cart</h2>
-        <form id="donation-form" class="space-y-6">
-          <!-- Preset Amounts -->
-          <div>
-            <label class="block font-semibold mb-2">Select Amount</label>
-            <div class="flex flex-wrap gap-4">
-              <button type="button" class="donate-amount-btn bg-orange-50 border border-orange-200 text-orange-700 font-semibold px-6 py-3 rounded-full hover:bg-orange-100 focus:bg-orange-200 focus:outline-none transition" data-amount="25">$25</button>
-              <button type="button" class="donate-amount-btn bg-orange-50 border border-orange-200 text-orange-700 font-semibold px-6 py-3 rounded-full hover:bg-orange-100 focus:bg-orange-200 focus:outline-none transition" data-amount="50">$50</button>
-              <button type="button" class="donate-amount-btn bg-orange-50 border border-orange-200 text-orange-700 font-semibold px-6 py-3 rounded-full hover:bg-orange-100 focus:bg-orange-200 focus:outline-none transition" data-amount="100">$100</button>
-              <button type="button" class="donate-amount-btn bg-orange-50 border border-orange-200 text-orange-700 font-semibold px-6 py-3 rounded-full hover:bg-orange-100 focus:bg-orange-200 focus:outline-none transition" data-amount="250">$250</button>
+  <!-- Donation cart — solid icons (inline SVG), modern colored UI -->
+  <section class="py-14 pb-24 bg-gradient-to-br from-amber-100/90 via-orange-50 to-rose-50/80">
+    <div class="max-w-md mx-auto px-4">
+      <div class="overflow-hidden rounded-3xl border border-white/80 bg-white shadow-xl shadow-orange-900/10 ring-1 ring-orange-100/90">
+        <div class="bg-gradient-to-r from-orange-500 via-orange-500 to-rose-500 px-8 py-7 text-white">
+          <div class="flex items-center gap-4">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm ring-1 ring-white/30" aria-hidden="true">
+              <svg class="donate-icon h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold tracking-tight md:text-2xl">Give to STEM</h2>
+              <p class="mt-1 text-sm text-white/90">One-time gift · secure checkout</p>
             </div>
           </div>
-          <!-- Custom Amount -->
+        </div>
+
+        <form id="donation-form" class="space-y-6 p-8 md:p-9">
+          <div id="donate-mock-banner" class="hidden rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="status">
+            <strong class="font-semibold">Local practice mode.</strong> No card charge. Remove <code class="rounded bg-amber-100/80 px-1 text-xs">?mock_checkout=1</code> and <code class="rounded bg-amber-100/80 px-1 text-xs">localStorage jdiobe_donate_mock</code> to test real Stripe checkout. (Only available on <code class="rounded bg-amber-100/80 px-1 text-xs">localhost</code>.)
+          </div>
           <div>
-            <label for="custom-amount" class="block font-semibold mb-2">Or Enter Custom Amount</label>
+            <p class="mb-3 flex items-center gap-2 text-sm font-bold text-slate-800">
+              <svg class="donate-icon h-5 w-5 text-orange-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM9.624 7.866h3.75v-.75a.75.75 0 011.5 0v.75h1.5a.75.75 0 010 1.5h-7.5a.75.75 0 000 1.5h6a2.25 2.25 0 010 4.5h-1.5v.75a.75.75 0 01-1.5 0v-.75h-3.75a.75.75 0 010-1.5h7.5a.75.75 0 000-1.5h-6a2.25 2.25 0 010-4.5h1.5v-.75a.75.75 0 011.5 0v.75z" clip-rule="evenodd"/></svg>
+              Choose amount
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:border-orange-200 hover:bg-orange-50/80 sm:flex-initial" data-amount="25">$25</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:border-orange-200 hover:bg-orange-50/80 sm:flex-initial" data-amount="50">$50</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:border-orange-200 hover:bg-orange-50/80 sm:flex-initial" data-amount="100">$100</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:border-orange-200 hover:bg-orange-50/80 sm:flex-initial" data-amount="250">$250</button>
+            </div>
+          </div>
+
+          <div>
+            <label for="custom-amount" class="mb-2 flex items-center gap-2 text-sm font-bold text-slate-800">
+              <svg class="donate-icon h-5 w-5 text-rose-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd"/></svg>
+              Custom amount
+            </label>
             <div class="relative">
-              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-orange-400 font-bold">$</span>
-              <input id="custom-amount" name="custom-amount" type="number" min="1" step="1" placeholder="Other amount" class="pl-8 pr-4 py-3 border border-orange-200 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-orange-400" />
+              <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 font-bold text-orange-500">$</span>
+              <input id="custom-amount" name="custom-amount" type="number" min="1" step="1" inputmode="decimal" placeholder="0" autocomplete="transaction-amount" class="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-3 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/30" />
             </div>
+            <p class="mt-1.5 text-xs text-slate-500">Minimum $1 · decimals allowed</p>
           </div>
-          <!-- Cart Summary -->
-          <div class="bg-orange-50 rounded-xl p-6 flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-              <i data-feather="gift" class="w-8 h-8 text-orange-600"></i>
-              <span class="font-semibold text-lg">Your Donation</span>
-            </div>
-            <span id="donation-total" class="text-2xl font-bold text-orange-700">$0</span>
+
+          <div class="flex items-center justify-between rounded-2xl bg-gradient-to-r from-orange-50 to-rose-50 px-4 py-4 ring-1 ring-orange-100">
+            <span class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+              <svg class="donate-icon h-5 w-5 text-orange-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.25 2.25a3 3 0 00-3 3v4.318a3 3 0 00.879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428l2.152-1.52a2.25 2.25 0 011.575-.458l4.652.52a.75.75 0 00.657-.744V9.75a.75.75 0 00-.648-.743l-4.15-.463a2.25 2.25 0 01-1.575-.458l-2.152-1.52a2.25 2.25 0 00-2.196-.094l-2.09 1.054a.75.75 0 01-.855-.172L5.812 5.5a.75.75 0 01-.562-.305H5.25zm4.25 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+              Total
+            </span>
+            <span id="donation-total" class="text-2xl font-bold tabular-nums text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-rose-600">$0</span>
           </div>
-          <p id="donate-error" class="hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert"></p>
-          <!-- Donate Button -->
-          <button type="submit" id="donate-submit" class="w-full bg-orange-600 text-white font-semibold py-4 rounded-full shadow hover:bg-orange-700 transition text-lg flex items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-70"><i data-feather="heart" class="w-6 h-6"></i> Donate Now</button>
+
+          <p id="donate-error" class="hidden rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-800" role="alert"></p>
+
+          <button type="submit" id="donate-submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-rose-500 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-500/30 transition hover:from-orange-600 hover:to-rose-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">
+            <svg class="donate-icon h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+            Donate now
+          </button>
+          <p id="donate-trust-line" class="flex items-center justify-center gap-2 text-center text-xs font-medium text-slate-500">
+            <svg class="donate-icon h-4 w-4 text-teal-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3V21a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-8.25a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+            <span id="donate-trust-text">Encrypted checkout with Stripe</span>
+          </p>
         </form>
       </div>
     </div>
@@ -70,6 +113,24 @@
     if (window.feather) feather.replace();
 
     const CHECKOUT_API = '/api/create-checkout-session';
+
+    function donateIsLocalDevHost() {
+      var h = location.hostname;
+      return h === 'localhost' || h === '127.0.0.1' || h === '[::1]';
+    }
+
+    var donateUrlParams = new URLSearchParams(window.location.search);
+    var USE_CLIENT_MOCK_CHECKOUT =
+      donateIsLocalDevHost() &&
+      (donateUrlParams.get('mock_checkout') === '1' ||
+        (window.localStorage && window.localStorage.getItem('jdiobe_donate_mock') === '1'));
+
+    if (USE_CLIENT_MOCK_CHECKOUT) {
+      var mockBanner = document.getElementById('donate-mock-banner');
+      if (mockBanner) mockBanner.classList.remove('hidden');
+      var trustText = document.getElementById('donate-trust-text');
+      if (trustText) trustText.textContent = 'Practice mode — no payment processed.';
+    }
 
     const amountBtns = document.querySelectorAll('.donate-amount-btn');
     const customAmount = document.getElementById('custom-amount');
@@ -93,9 +154,9 @@
     amountBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         amountBtns.forEach(function (b) {
-          b.classList.remove('bg-orange-200');
+          b.classList.remove('is-selected');
         });
-        this.classList.add('bg-orange-200');
+        this.classList.add('is-selected');
         selectedAmount = parseInt(this.getAttribute('data-amount'), 10);
         customAmount.value = '';
         donationTotal.textContent = '$' + selectedAmount;
@@ -111,7 +172,7 @@
 
     customAmount.addEventListener('input', function () {
       amountBtns.forEach(function (b) {
-        b.classList.remove('bg-orange-200');
+        b.classList.remove('is-selected');
       });
       selectedAmount = parseFloat(this.value);
       if (!Number.isFinite(selectedAmount)) selectedAmount = 0;
@@ -133,6 +194,12 @@
       donateSubmit.disabled = true;
 
       try {
+        if (USE_CLIENT_MOCK_CHECKOUT) {
+          window.location.href =
+            'donate-success.html?mock=1&amount_cents=' + encodeURIComponent(String(amountCents));
+          return;
+        }
+
         const res = await fetch(CHECKOUT_API, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -21,7 +21,7 @@
         <i data-feather="check-circle" class="h-9 w-9"></i>
       </div>
       <h1 class="text-4xl font-extrabold tracking-tight md:text-5xl">Thank you</h1>
-      <p class="mt-4 text-lg text-white/95">
+      <p id="donate-success-body" class="mt-4 text-lg text-white/95">
         Your payment was submitted successfully. Stripe will email you a receipt. We are grateful for your support of STEM education.
       </p>
       <a href="index.html" class="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-orange-700 shadow transition hover:bg-orange-50">
@@ -35,6 +35,30 @@
   <script src="main.js"></script>
   <script>
     if (window.feather) feather.replace();
+
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('mock') !== '1') return;
+      var h = location.hostname;
+      var local = h === 'localhost' || h === '127.0.0.1' || h === '[::1]';
+      var el = document.getElementById('donate-success-body');
+      if (!el) return;
+      if (!local) {
+        el.textContent =
+          'This address is only for local testing. No payment was processed. To donate, use the Donate page and complete checkout on the live site.';
+        return;
+      }
+      var cents = parseInt(params.get('amount_cents'), 10);
+      var amountLine = '';
+      if (Number.isFinite(cents) && cents > 0) {
+        var dollars = (cents / 100).toFixed(cents % 100 === 0 ? 0 : 2);
+        amountLine = ' (practice amount: $' + dollars + ')';
+      }
+      el.textContent =
+        'This was a local practice run — no card was charged and no money moved.' +
+        amountLine +
+        ' For a real donation, use the deployed site with Stripe checkout.';
+    })();
   </script>
 </body>
 </html>

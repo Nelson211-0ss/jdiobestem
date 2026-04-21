@@ -1,10 +1,14 @@
 const { createCheckoutSession } = require('../lib/stripeCheckoutSession');
+const { mockCheckoutRedirectUrl } = require('../lib/mockCheckoutUrl');
+const { isMockCheckoutEnabled } = require('../lib/productionCheckout');
 
 function resolveSiteUrl(req) {
   const fromEnv =
     process.env.PUBLIC_SITE_URL ||
     process.env.URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null);
+    process.env.DEPLOY_PRIME_URL ||
+    process.env.DEPLOY_URL ||
+    null;
   if (fromEnv) return String(fromEnv).replace(/\/$/, '');
 
   const proto = (req.headers['x-forwarded-proto'] || 'https').split(',')[0].trim();
@@ -45,13 +49,20 @@ module.exports = async function handler(req, res) {
 
   const siteUrl = resolveSiteUrl(req);
 
+  if (isMockCheckoutEnabled()) {
+    return res.status(200).json({
+      url: mockCheckoutRedirectUrl(siteUrl, amountCents),
+      mock: true,
+    });
+  }
+
   try {
     const session = await createCheckoutSession({ amountCents, siteUrl });
     return res.status(200).json({ url: session.url });
   } catch (err) {
     console.error(err);
     const message =
-      err && err.code === 'MISSING_KEY'
+      err && (err.code === 'MISSING_KEY' || err.code === 'STRIPE_TEST_KEY_IN_PRODUCTION')
         ? err.message
         : 'Unable to start checkout. Please try again later.';
     return res.status(500).json({ error: message });
