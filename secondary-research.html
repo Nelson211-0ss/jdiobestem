@@ -12,63 +12,128 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
 </head>
-<body style="font-family: 'EB Garamond', serif;"
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-r from-orange-600 to-orange-400 text-white py-16 mb-8 overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fd0?auto=format&fit=crop&w=900&q=80" alt="Research" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" style="z-index:1;">
-    <div class="relative max-w-3xl mx-auto px-4 text-center" style="z-index:2;">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-3">Secondary School Research Program</h1>
-      <p class="text-lg md:text-xl">Fostering research, innovation, and product development in STEM for the next generation.</p>
+  <nav class="border-b border-orange-100/80 bg-white/95 backdrop-blur-sm" aria-label="Breadcrumb">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 gap-y-1 px-4 py-3 text-sm">
+      <a href="index.html" class="font-medium text-orange-600 transition hover:text-orange-700">Home</a>
+      <span class="text-slate-300" aria-hidden="true">/</span>
+      <a href="programs.html" class="font-medium text-orange-600 transition hover:text-orange-700">Programs</a>
+      <span class="text-slate-300" aria-hidden="true">/</span>
+      <span class="text-slate-600">Secondary School Research</span>
     </div>
-  </section>
+  </nav>
 
-  <!-- Program Overview Section -->
-  <section class="py-12 bg-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-orange-700 mb-6">Program Overview</h2>
-      <p class="text-lg text-gray-700">The research, innovation and development program aims to foster research and product development in STEM fields especially UAVs, software, robotics and aerospace by providing state of the art research facilities, nurturing global collaborations and mobilizing investment funding to support research and innovations.</p>
+  <header class="relative overflow-hidden bg-gradient-to-br from-orange-600 via-orange-500 to-amber-500 text-white">
+    <img
+      src="images/hero-science-fair-projects.png"
+      alt=""
+      class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-35"
+      width="1600"
+      height="900"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-orange-900/35 to-orange-600/20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-4 py-16 md:py-20 lg:py-24">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-white/90">Program</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl lg:text-[3.25rem] lg:leading-tight">
+        Secondary School Research
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-white/95">
+        Labs, mentors, and partnerships that turn curiosity into UAV, software, robotics, and aerospace prototypes.
+      </p>
     </div>
-  </section>
+  </header>
 
-  <!-- Research Opportunities Cards -->
-  <section class="py-8">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl font-bold text-center text-orange-700 mb-8">Research Opportunities</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl shadow p-6 text-center flex flex-col items-center">
-          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Lab Experiments" class="w-40 h-40 object-cover rounded-lg mb-3">
-          <i data-feather="microscope" class="w-10 h-10 text-orange-600 mb-3"></i>
-          <h3 class="font-semibold mb-2">Lab Experiments</h3>
-          <p class="text-gray-700">Hands-on experience in school and partner labs.</p>
+  <main>
+    <section class="bg-white py-16 md:py-20">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 md:text-3xl">Program overview</h2>
+            <p class="mt-5 text-lg leading-relaxed text-slate-600">
+              The research, innovation, and development program nurtures secondary students building real projects in
+              STEM—with emphasis on UAVs, software, robotics, and aerospace. We work toward modern facilities, global
+              collaborations, and funding pathways so ideas become tested systems and publications.
+            </p>
+          </div>
+          <div class="overflow-hidden rounded-3xl border border-orange-100 shadow-xl shadow-orange-900/10 ring-1 ring-orange-50">
+            <img src="images/hero-diy-stem-car.png" alt="Student engineering build with motor and recycled materials" class="aspect-[4/3] w-full object-cover" width="1000" height="750" />
+          </div>
         </div>
-        <div class="bg-white rounded-xl shadow p-6 text-center flex flex-col items-center">
-          <img src="images/185A1601-scaled.jpg" alt="Data Analysis" class="w-40 h-40 object-cover rounded-lg mb-3">
-          <i data-feather="bar-chart-2" class="w-10 h-10 text-orange-600 mb-3"></i>
-          <h3 class="font-semibold mb-2">Data Analysis</h3>
-          <p class="text-gray-700">Learn to collect, analyze, and present scientific data.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6 text-center flex flex-col items-center">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Mentored Projects" class="w-40 h-40 object-cover rounded-lg mb-3">
-          <i data-feather="users" class="w-10 h-10 text-orange-600 mb-3"></i>
-          <h3 class="font-semibold mb-2">Mentored Projects</h3>
-          <p class="text-gray-700">Work with STEM mentors on real-world research topics.</p>
+
+        <div class="mt-16 grid gap-6 sm:grid-cols-3">
+          <div class="rounded-2xl border border-orange-100 bg-orange-50/60 p-6">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">1</span>
+            <h3 class="mt-4 font-bold text-slate-900">Form a team</h3>
+            <p class="mt-2 text-sm text-slate-600">School clubs and teacher sponsors connect to our mentor network.</p>
+          </div>
+          <div class="rounded-2xl border border-orange-100 bg-orange-50/60 p-6">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">2</span>
+            <h3 class="mt-4 font-bold text-slate-900">Design &amp; build</h3>
+            <p class="mt-2 text-sm text-slate-600">Iterative builds with safety, documentation, and open questions.</p>
+          </div>
+          <div class="rounded-2xl border border-orange-100 bg-orange-50/60 p-6">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 text-sm font-bold text-white">3</span>
+            <h3 class="mt-4 font-bold text-slate-900">Present &amp; scale</h3>
+            <p class="mt-2 text-sm text-slate-600">Fairs, reviewers, and partners help ready projects for the next level.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Call to Action -->
-  <section class="py-12">
-    <div class="max-w-2xl mx-auto px-4 text-center">
-      <h2 class="text-2xl font-bold text-orange-700 mb-4">Join the Research</h2>
-      <p class="text-gray-700 mb-6">Interested in research? Contact us to learn how your school can participate or to become a mentor.</p>
-      <a href="contact.html" class="inline-block bg-orange-600 text-white px-8 py-3 rounded-full font-semibold shadow hover:bg-orange-700 transition">Contact Us</a>
-    </div>
-  </section>
+    <section class="border-y border-orange-100 bg-gradient-to-b from-orange-50/40 to-white py-16 md:py-20">
+      <div class="mx-auto max-w-6xl px-4">
+        <h2 class="text-center text-2xl font-bold text-slate-900 md:text-3xl">Research opportunities</h2>
+        <div class="mt-12 grid gap-8 md:grid-cols-3">
+          <div class="rounded-3xl border border-orange-100 bg-white p-8 shadow-md shadow-orange-900/5">
+            <div class="mx-auto mb-5 h-24 w-24 overflow-hidden rounded-2xl ring-2 ring-orange-100">
+              <img src="images/hero-science-fair-projects.png" alt="" class="h-full w-full object-cover" width="200" height="200" />
+            </div>
+            <div class="flex justify-center text-orange-600">
+              <i data-feather="cpu" class="h-8 w-8"></i>
+            </div>
+            <h3 class="mt-4 text-center text-lg font-bold text-slate-900">Hardware &amp; systems</h3>
+            <p class="mt-2 text-center text-sm leading-relaxed text-slate-600">Sensors, flight controllers, robotics platforms, and test rigs.</p>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white p-8 shadow-md shadow-orange-900/5">
+            <div class="mx-auto mb-5 h-24 w-24 overflow-hidden rounded-2xl ring-2 ring-orange-100">
+              <img src="images/hero-diy-stem-car.png" alt="" class="h-full w-full object-cover" width="200" height="200" />
+            </div>
+            <div class="flex justify-center text-orange-600">
+              <i data-feather="code" class="h-8 w-8"></i>
+            </div>
+            <h3 class="mt-4 text-center text-lg font-bold text-slate-900">Software &amp; data</h3>
+            <p class="mt-2 text-center text-sm leading-relaxed text-slate-600">Instrumentation code, simulation, datasets, and reproducible analysis.</p>
+          </div>
+          <div class="rounded-3xl border border-orange-100 bg-white p-8 shadow-md shadow-orange-900/5">
+            <div class="mx-auto mb-5 h-24 w-24 overflow-hidden rounded-2xl ring-2 ring-orange-100">
+              <img src="images/hero-students-community.png" alt="" class="h-full w-full object-cover object-top" width="200" height="200" />
+            </div>
+            <div class="flex justify-center text-orange-600">
+              <i data-feather="users" class="h-8 w-8"></i>
+            </div>
+            <h3 class="mt-4 text-center text-lg font-bold text-slate-900">Mentored projects</h3>
+            <p class="mt-2 text-center text-sm leading-relaxed text-slate-600">Pair with university and industry mentors on tractable research questions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-orange-700 via-orange-700 to-orange-800 py-16 text-white">
+      <div class="mx-auto max-w-3xl px-4 text-center">
+        <h2 class="text-2xl font-bold md:text-3xl">Bring research to your school</h2>
+        <p class="mt-4 text-lg text-orange-100">
+          Ask about partnerships, equipment, mentor matchmaking, and how students can enter regional showcases.
+        </p>
+        <a href="contact.html" class="mt-8 inline-flex items-center justify-center rounded-2xl bg-white px-8 py-3.5 font-semibold text-orange-700 shadow-lg transition hover:bg-orange-50">
+          Contact us
+        </a>
+      </div>
+    </section>
+  </main>
 
   <div id="footer"></div>
   <script src="main.js"></script>
 </body>
-</html> 
+</html>
