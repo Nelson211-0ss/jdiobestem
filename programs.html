@@ -11,104 +11,411 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
+  <link rel="stylesheet" href="brand-colors.css" />
 </head>
-<body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
+<body class="programs-page min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <!-- Hero Section -->
-  <section class="relative mb-8 overflow-hidden bg-gradient-to-r from-orange-600 to-orange-400 py-16 text-white">
-    <img
-      src="images/hero-science-fair-projects.png"
-      alt=""
-      class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-25 select-none"
-      width="1600"
-      height="900"
-    />
-    <div
-      class="absolute inset-0 z-[1] bg-gradient-to-r from-orange-900/55 via-orange-700/35 to-orange-500/45"
-      aria-hidden="true"
-    ></div>
-    <div class="relative z-10 mx-auto max-w-3xl px-4 text-center">
-      <h1 class="mb-3 text-4xl font-extrabold md:text-5xl">Our Programs</h1>
-      <p class="text-lg md:text-xl">
-        Discover our workshops, mentorship, and outreach initiatives empowering STEM leaders.
-      </p>
-    </div>
-  </section>
+  <main>
+    <!-- Hero -->
+    <section class="relative overflow-hidden bg-orange-700 py-10 text-white md:py-12 lg:py-14">
+      <img
+        src="images/hero-science-fair-projects.png"
+        alt=""
+        class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-30 select-none"
+        width="1600"
+        height="900"
+      />
+      <div class="absolute inset-0 z-[1] bg-orange-900/45" aria-hidden="true"></div>
+      <div class="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
+        <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Our Programs</p>
+        <h1 class="sr-fade-up mt-3 max-w-4xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+          Practical programs that help students access, prepare for, and succeed in STEM.
+        </h1>
+        <p class="sr-fade-up mt-4 max-w-3xl text-base leading-7 text-orange-50 md:text-lg md:leading-8">
+          Jdiobe STEM Foundation designs programs that remove barriers, provide mentorship, build confidence, and connect underserved students in Uganda to meaningful STEM opportunities.
+        </p>
+      </div>
+    </section>
 
-  <!-- Programs Section -->
-  <section class="bg-gray-100 py-16">
-    <div class="mx-auto max-w-6xl px-4">
-      <h2 class="mb-10 text-center text-3xl font-bold text-orange-700">Our Programs</h2>
-      <div class="grid gap-8 md:grid-cols-3">
-        <!-- Youth STEM School Program Card -->
-        <div class="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow transition hover:shadow-2xl">
-          <i data-feather="users" class="mb-4 h-12 w-12 text-orange-600"></i>
-          <h3 class="mb-2 text-xl font-semibold">Youth STEM School Program</h3>
-          <p class="mb-4 flex-1 text-gray-700">
-            Inspiring and empowering youth to innovate and excel in STEM through hands-on learning and mentorship.
-          </p>
-          <a
-            href="youth-stem.html"
-            class="inline-block rounded-full bg-orange-600 px-5 py-2 font-semibold text-white shadow transition hover:bg-orange-700"
-            >Learn More</a
-          >
-        </div>
-        <!-- Scholarship Program Card -->
-        <div class="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow transition hover:shadow-2xl">
-          <i data-feather="award" class="mb-4 h-12 w-12 text-orange-600"></i>
-          <h3 class="mb-2 text-xl font-semibold">Scholarship Program</h3>
-          <p class="mb-4 flex-1 text-gray-700">
-            Supporting high-achieving, deserving students to pursue advanced STEM education and careers.
-          </p>
-          <a
-            href="scholarship.html"
-            class="inline-block rounded-full bg-orange-600 px-5 py-2 font-semibold text-white shadow transition hover:bg-orange-700"
-            >Learn More</a
-          >
-        </div>
-        <!-- Secondary School Research Card -->
-        <div class="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow transition hover:shadow-2xl">
-          <i data-feather="book-open" class="mb-4 h-12 w-12 text-orange-600"></i>
-          <h3 class="mb-2 text-xl font-semibold">Secondary School Research</h3>
-          <p class="mb-4 flex-1 text-gray-700">
-            Fostering research, innovation, and product development in STEM for the next generation.
-          </p>
-          <a
-            href="secondary-research.html"
-            class="inline-block rounded-full bg-orange-600 px-5 py-2 font-semibold text-white shadow transition hover:bg-orange-700"
-            >Learn More</a
-          >
-        </div>
-        <!-- Community STEM Outreach Card -->
-        <div class="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow transition hover:shadow-2xl">
-          <i data-feather="globe" class="mb-4 h-12 w-12 text-orange-600"></i>
-          <h3 class="mb-2 text-xl font-semibold">Community STEM Outreach</h3>
-          <p class="mb-4 flex-1 text-gray-700">
-            Equipping out of school youth and refugees with practical ICT and innovation skills.
-          </p>
-          <a
-            href="community-outreach.html"
-            class="inline-block rounded-full bg-orange-600 px-5 py-2 font-semibold text-white shadow transition hover:bg-orange-700"
-            >Learn More</a
-          >
-        </div>
-        <!-- Aerospace Institute Card -->
-        <div class="flex flex-col items-center rounded-lg bg-white p-6 text-center shadow transition hover:shadow-2xl">
-          <i data-feather="activity" class="mb-4 h-12 w-12 text-orange-600"></i>
-          <h3 class="mb-2 text-xl font-semibold">Aerospace Institute</h3>
-          <p class="mb-4 flex-1 text-gray-700">
-            Advancing aerospace education, research, and innovation for future leaders.
-          </p>
-          <a
-            href="aerospace-institute.html"
-            class="inline-block rounded-full bg-orange-600 px-5 py-2 font-semibold text-white shadow transition hover:bg-orange-700"
-            >Learn More</a
-          >
+    <!-- Our initiatives — orange cards -->
+    <section class="border-b border-orange-100 bg-white py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <p class="sr-fade-up text-center text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our initiatives</p>
+        <h2 class="sr-fade-up mt-3 text-center text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          Explore our programs
+        </h2>
+        <p class="sr-fade-up mx-auto mt-4 max-w-2xl text-center text-base leading-7 text-gray-600">
+          Hands-on learning, scholarships, research, outreach, and aerospace education for the next generation of STEM leaders.
+        </p>
+        <div class="sr-stagger mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <a href="youth-stem.html" class="sr-fade-up group flex flex-col rounded-2xl bg-orange-700 p-6 text-white shadow-lg shadow-orange-900/20 ring-1 ring-orange-600/50 transition hover:bg-orange-800 hover:shadow-xl">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="users" class="h-6 w-6"></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">Youth STEM School Program</h3>
+            <p class="mt-3 flex-1 text-sm leading-6 text-orange-50">
+              Inspiring youth to innovate and excel in STEM through hands-on learning and mentorship.
+            </p>
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-100 group-hover:text-white">
+              Learn more <i data-feather="arrow-right" class="h-4 w-4"></i>
+            </span>
+          </a>
+          <a href="scholarship.html" class="sr-fade-up group flex flex-col rounded-2xl bg-orange-700 p-6 text-white shadow-lg shadow-orange-900/20 ring-1 ring-orange-600/50 transition hover:bg-orange-800 hover:shadow-xl">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="award" class="h-6 w-6"></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">Scholarship Program</h3>
+            <p class="mt-3 flex-1 text-sm leading-6 text-orange-50">
+              Supporting high-achieving students to pursue advanced STEM education and careers.
+            </p>
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-100 group-hover:text-white">
+              Learn more <i data-feather="arrow-right" class="h-4 w-4"></i>
+            </span>
+          </a>
+          <a href="secondary-research.html" class="sr-fade-up group flex flex-col rounded-2xl bg-orange-700 p-6 text-white shadow-lg shadow-orange-900/20 ring-1 ring-orange-600/50 transition hover:bg-orange-800 hover:shadow-xl">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="book-open" class="h-6 w-6"></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">Secondary School Research</h3>
+            <p class="mt-3 flex-1 text-sm leading-6 text-orange-50">
+              Fostering research, innovation, and product development in STEM for the next generation.
+            </p>
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-100 group-hover:text-white">
+              Learn more <i data-feather="arrow-right" class="h-4 w-4"></i>
+            </span>
+          </a>
+          <a href="community-outreach.html" class="sr-fade-up group flex flex-col rounded-2xl bg-orange-700 p-6 text-white shadow-lg shadow-orange-900/20 ring-1 ring-orange-600/50 transition hover:bg-orange-800 hover:shadow-xl">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="globe" class="h-6 w-6"></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">Community STEM Outreach</h3>
+            <p class="mt-3 flex-1 text-sm leading-6 text-orange-50">
+              Equipping out-of-school youth and refugees with practical ICT and innovation skills.
+            </p>
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-100 group-hover:text-white">
+              Learn more <i data-feather="arrow-right" class="h-4 w-4"></i>
+            </span>
+          </a>
+          <a href="aerospace-institute.html" class="sr-fade-up group flex flex-col rounded-2xl bg-orange-700 p-6 text-white shadow-lg shadow-orange-900/20 ring-1 ring-orange-600/50 transition hover:bg-orange-800 hover:shadow-xl sm:col-span-2 lg:col-span-1">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="navigation" class="h-6 w-6"></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">Aerospace Institute</h3>
+            <p class="mt-3 flex-1 text-sm leading-6 text-orange-50">
+              Advancing aerospace education, research, and innovation for future leaders.
+            </p>
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-100 group-hover:text-white">
+              Learn more <i data-feather="arrow-right" class="h-4 w-4"></i>
+            </span>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Program Overview -->
+    <section class="py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Program Overview</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            We focus on the barriers that most often stop students from moving forward.
+          </h2>
+        </div>
+        <div class="space-y-5 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+          <p class="sr-fade-up">
+            Our programs are designed to support students at multiple points in their journey. Some students need financial assistance. Others need exposure, mentorship, career guidance, or a chance to apply what they are learning through real projects.
+          </p>
+          <p class="sr-fade-up">
+            Instead of treating these needs separately, we connect scholarships, training, mentorship, and innovation support into a pathway that helps students build both opportunity and confidence.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Programs -->
+    <section id="core-programs" class="bg-orange-50 py-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Core Programs</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            Four connected areas of support
+          </h2>
+          <p class="sr-fade-up mt-6 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+            Each program is designed to be practical, measurable, and directly connected to student success.
+          </p>
+        </div>
+
+        <div class="mt-12 space-y-8">
+          <!-- 01 Scholarships -->
+          <article class="sr-fade-up grid gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100 lg:grid-cols-[0.9fr_1.1fr] lg:p-8">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Removing financial barriers</p>
+              <h3 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">Scholarships Program</h3>
+              <p class="mt-5 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+                We provide financial support to students pursuing STEM education, helping reduce the cost barriers that prevent talented learners from continuing their academic journey.
+              </p>
+              <div class="mt-6 rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">Who it serves</p>
+                <p class="mt-3 text-base leading-7 text-gray-600">
+                  Students from underserved communities in Uganda who are pursuing or preparing to pursue STEM education.
+                </p>
+              </div>
+              <a href="scholarship.html" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                Learn about scholarships <i data-feather="arrow-right" class="h-4 w-4"></i>
+              </a>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="font-semibold text-gray-900">What it includes</p>
+                <ul class="mt-4 space-y-3 text-sm leading-6 text-gray-600">
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Tuition support</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Learning materials</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Academic related expenses</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Travel or access needs when applicable</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl bg-orange-700 p-5 text-white ring-1 ring-orange-600/50">
+                <p class="font-semibold">Expected outcome</p>
+                <p class="mt-4 text-sm leading-6 text-orange-100">
+                  Students are better able to enroll, remain in school, and continue progressing toward STEM degrees and careers.
+                </p>
+                <p class="mt-8 text-5xl font-bold text-white/15">01</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02 STEM Education -->
+          <article class="sr-fade-up grid gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100 lg:grid-cols-[0.9fr_1.1fr] lg:p-8">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Building exposure and confidence</p>
+              <h3 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">STEM Education &amp; Training</h3>
+              <p class="mt-5 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+                We create hands on learning experiences that introduce students to practical STEM concepts and show how science, technology, engineering, and mathematics can be applied to real world challenges.
+              </p>
+              <div class="mt-6 rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">Who it serves</p>
+                <p class="mt-3 text-base leading-7 text-gray-600">
+                  Students who need early exposure, encouragement, and practical learning opportunities in STEM fields.
+                </p>
+              </div>
+              <a href="youth-stem.html" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                Explore youth STEM <i data-feather="arrow-right" class="h-4 w-4"></i>
+              </a>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="font-semibold text-gray-900">What it includes</p>
+                <ul class="mt-4 space-y-3 text-sm leading-6 text-gray-600">
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>STEM workshops</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Practical demonstrations</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Learning sessions</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Exposure to engineering and technology applications</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl bg-orange-700 p-5 text-white ring-1 ring-orange-600/50">
+                <p class="font-semibold">Expected outcome</p>
+                <p class="mt-4 text-sm leading-6 text-orange-100">
+                  Students gain confidence, curiosity, and a stronger understanding of how STEM connects to future careers and community problem solving.
+                </p>
+                <p class="mt-8 text-5xl font-bold text-white/15">02</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03 Mentorship -->
+          <article class="sr-fade-up grid gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100 lg:grid-cols-[0.9fr_1.1fr] lg:p-8">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Guidance beyond the classroom</p>
+              <h3 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">Mentorship &amp; Career Development</h3>
+              <p class="mt-5 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+                We connect students with educators, professionals, and role models who can provide academic guidance, career direction, encouragement, and exposure to opportunities.
+              </p>
+              <div class="mt-6 rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">Who it serves</p>
+                <p class="mt-3 text-base leading-7 text-gray-600">
+                  Students who need guidance on academic choices, STEM pathways, career planning, and professional development.
+                </p>
+              </div>
+              <a href="volunteers.html" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                Become a mentor <i data-feather="arrow-right" class="h-4 w-4"></i>
+              </a>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="font-semibold text-gray-900">What it includes</p>
+                <ul class="mt-4 space-y-3 text-sm leading-6 text-gray-600">
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Academic advising</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Career guidance</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Professional mentorship</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Exposure to global STEM pathways</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl bg-orange-700 p-5 text-white ring-1 ring-orange-600/50">
+                <p class="font-semibold">Expected outcome</p>
+                <p class="mt-4 text-sm leading-6 text-orange-100">
+                  Students make more informed decisions about their education and future while building the confidence to pursue ambitious STEM goals.
+                </p>
+                <p class="mt-8 text-5xl font-bold text-white/15">03</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04 Innovation -->
+          <article class="sr-fade-up grid gap-8 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100 lg:grid-cols-[0.9fr_1.1fr] lg:p-8">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Turning ideas into impact</p>
+              <h3 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">Innovation &amp; Research Support</h3>
+              <p class="mt-5 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+                We encourage students to apply STEM knowledge through projects, research experiences, and innovation activities that address real challenges in their communities.
+              </p>
+              <div class="mt-6 rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">Who it serves</p>
+                <p class="mt-3 text-base leading-7 text-gray-600">
+                  Students interested in engineering design, technology, environmental problem solving, research, and applied innovation.
+                </p>
+              </div>
+              <a href="secondary-research.html" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                Explore research programs <i data-feather="arrow-right" class="h-4 w-4"></i>
+              </a>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="rounded-2xl bg-orange-50 p-5 ring-1 ring-orange-100/80">
+                <p class="font-semibold text-gray-900">What it includes</p>
+                <ul class="mt-4 space-y-3 text-sm leading-6 text-gray-600">
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Student led projects</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Research exposure</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Engineering design activities</span></li>
+                  <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-700"></span><span>Technology and environmental innovation</span></li>
+                </ul>
+              </div>
+              <div class="rounded-2xl bg-orange-700 p-5 text-white ring-1 ring-orange-600/50">
+                <p class="font-semibold">Expected outcome</p>
+                <p class="mt-4 text-sm leading-6 text-orange-100">
+                  Students learn to think like innovators and problem solvers while developing practical skills that can create community impact.
+                </p>
+                <p class="mt-8 text-5xl font-bold text-white/15">04</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">How It Works</p>
+            <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+              Our programs work together as a student pathway.
+            </h2>
+            <p class="sr-fade-up mt-6 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+              We do not view scholarships, mentorship, training, and innovation as separate efforts. Together, they create a structured journey from exposure to opportunity.
+            </p>
+          </div>
+          <div class="sr-stagger grid gap-5 sm:grid-cols-2">
+            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80">
+              <p class="text-sm font-bold text-orange-400">01</p>
+              <h3 class="mt-4 text-xl font-semibold text-gray-900">Exposure</h3>
+              <p class="mt-3 text-sm leading-6 text-gray-600">
+                Students are introduced to STEM through workshops, demonstrations, and practical learning experiences.
+              </p>
+            </div>
+            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80">
+              <p class="text-sm font-bold text-orange-400">02</p>
+              <h3 class="mt-4 text-xl font-semibold text-gray-900">Guidance</h3>
+              <p class="mt-3 text-sm leading-6 text-gray-600">
+                Mentorship helps students understand academic pathways, career options, and future opportunities.
+              </p>
+            </div>
+            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80">
+              <p class="text-sm font-bold text-orange-400">03</p>
+              <h3 class="mt-4 text-xl font-semibold text-gray-900">Support</h3>
+              <p class="mt-3 text-sm leading-6 text-gray-600">
+                Scholarships and financial assistance help reduce barriers that prevent students from continuing their education.
+              </p>
+            </div>
+            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80">
+              <p class="text-sm font-bold text-orange-400">04</p>
+              <h3 class="mt-4 text-xl font-semibold text-gray-900">Application</h3>
+              <p class="mt-3 text-sm leading-6 text-gray-600">
+                Innovation and research projects help students apply what they learn to real world problems.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who We Serve -->
+    <section class="bg-orange-700 py-20 text-white">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">Who We Serve</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            Students with potential who need access, guidance, and support.
+          </h2>
+        </div>
+        <div class="sr-stagger grid gap-4 sm:grid-cols-2">
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+            <p class="font-semibold">Underserved students in Uganda</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+            <p class="font-semibold">STEM interested learners</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+            <p class="font-semibold">Students facing financial barriers</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+            <p class="font-semibold">Future engineers, scientists, researchers, and innovators</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support a Program -->
+    <section class="py-20">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-8">
+        <div>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Support a Program</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            Your support helps turn student potential into real opportunity.
+          </h2>
+          <p class="sr-fade-up mt-6 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+            Whether through scholarships, mentorship, training support, or partnership, your involvement helps students gain access to the tools and experiences they need to pursue STEM futures.
+          </p>
+        </div>
+        <div class="sr-fade-up rounded-3xl bg-orange-50 p-8 ring-1 ring-orange-100">
+          <div class="space-y-4">
+            <a
+              href="donate.html"
+              class="flex items-center justify-between rounded-2xl bg-orange-700 px-6 py-4 font-semibold text-white shadow-sm transition hover:bg-orange-800"
+            >
+              <span class="inline-flex items-center gap-2"><i data-feather="heart" class="h-4 w-4"></i> Sponsor a Student</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a
+              href="contact.html"
+              class="flex items-center justify-between rounded-2xl border border-orange-200 bg-white px-6 py-4 font-semibold text-gray-900 transition hover:bg-orange-50"
+            >
+              <span class="inline-flex items-center gap-2"><i data-feather="users" class="h-4 w-4 text-orange-700"></i> Partner With Us</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a
+              href="donate.html"
+              class="flex items-center justify-between rounded-2xl border border-orange-200 bg-white px-6 py-4 font-semibold text-gray-900 transition hover:bg-orange-50"
+            >
+              <span class="inline-flex items-center gap-2"><i data-feather="layers" class="h-4 w-4 text-orange-700"></i> Support a Program</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <div id="footer"></div>
   <script src="main.js"></script>

@@ -1,0 +1,11 @@
+/*
+ * Brand orange matches homepage "Our Impact" (Tailwind orange-700 / #c2410c).
+ * Linked after typography.css on all pages.
+ */
+:root {
+  --brand-orange: #c2410c;
+  --brand-orange-hover: #9a3412;
+  --brand-orange-dark: #7c2d12;
+  --brand-orange-soft: #fff7ed;
+  --brand-orange-muted: #ffedd5;
+}

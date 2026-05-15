@@ -11,6 +11,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
+  <link rel="stylesheet" href="brand-colors.css" />
   <style>
     body.about-page {
       font-size: 1.125rem;
@@ -41,26 +42,37 @@
 <body class="about-page min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <main>
-    <!-- Intro -->
-    <section class="border-b border-gray-200 bg-white">
-      <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">About Us</p>
-        <h1 class="sr-fade-up mt-5 max-w-4xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-          We exist because talent should never be limited by lack of opportunity.
-        </h1>
-        <p class="sr-fade-up mt-8 max-w-3xl text-lg leading-8 text-gray-600">
-          Jdiobe STEM Foundation expands access to STEM education for underserved students in Uganda through scholarships, mentorship, exposure, and innovation centered support.
-        </p>
-      </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="relative mb-8 overflow-hidden bg-orange-700 py-16 text-white md:py-20 lg:py-24">
+    <img
+      src="images/hero-students-community.png"
+      alt=""
+      class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top opacity-30 select-none"
+      width="1600"
+      height="900"
+    />
+    <div
+      class="absolute inset-0 z-[1] bg-orange-900/45"
+      aria-hidden="true"
+    ></div>
+    <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Our Purpose</p>
+      <h1 class="mt-5 max-w-4xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        We exist because talent should never be limited by lack of opportunity.
+      </h1>
+      <p class="mt-6 max-w-3xl text-base leading-7 text-orange-50 md:text-lg md:leading-8">
+        Jdiobe STEM Foundation expands access to STEM education for underserved students in Uganda through scholarships, mentorship, exposure, and innovation centered support.
+      </p>
+    </div>
+  </section>
 
+  <main>
     <!-- Our Story -->
     <section class="py-20">
       <div class="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <aside class="sr-fade-up lg:sticky lg:top-28 lg:self-start">
           <div class="rounded-3xl bg-orange-50/70 p-8 ring-1 ring-orange-100">
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Our Story</p>
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Story</p>
             <h2 class="mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Why we began</h2>
             <div class="mt-8 overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
               <img
@@ -74,20 +86,20 @@
               />
             </div>
             <div class="mt-6 grid grid-cols-2 gap-2">
-              <div class="flex items-center gap-2 rounded-xl bg-white px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="cpu" class="h-4 w-4 shrink-0 text-orange-600"></i>
+              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
+                <i data-feather="cpu" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Robotics
               </div>
-              <div class="flex items-center gap-2 rounded-xl bg-white px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="navigation" class="h-4 w-4 shrink-0 text-orange-600"></i>
+              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
+                <i data-feather="navigation" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Aerospace
               </div>
-              <div class="flex items-center gap-2 rounded-xl bg-white px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="droplet" class="h-4 w-4 shrink-0 text-orange-600"></i>
+              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
+                <i data-feather="droplet" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Water monitoring
               </div>
-              <div class="flex items-center gap-2 rounded-xl bg-white px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="sun" class="h-4 w-4 shrink-0 text-orange-600"></i>
+              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
+                <i data-feather="sun" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Environmental engineering
               </div>
             </div>
@@ -114,7 +126,7 @@
     <!-- Impact Strip -->
     <section class="py-12">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-50">
+        <div class="sr-fade-up rounded-3xl border border-orange-200 bg-orange-100 p-6 shadow-sm ring-1 ring-orange-200/60">
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <div class="text-center">
               <p class="text-2xl font-bold text-orange-700">25+</p>
@@ -138,21 +150,21 @@
     </section>
 
     <!-- Mission & Vision -->
-    <section class="bg-gradient-to-b from-gray-50 to-orange-50/40 py-20">
+    <section class="bg-orange-50 py-20">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="grid gap-6 lg:grid-cols-2">
-          <div class="sr-fade-up rounded-3xl bg-white p-8 shadow-sm ring-1 ring-orange-100 lg:p-10">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
-              <i data-feather="target" class="h-6 w-6 text-orange-600"></i>
+          <div class="sr-fade-up rounded-3xl bg-orange-700 p-8 text-white shadow-sm ring-1 ring-orange-700/50 lg:p-10">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="target" class="h-6 w-6 text-white"></i>
             </div>
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Mission</p>
-            <h2 class="mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Our purpose</h2>
-            <p class="mt-6 text-base leading-7 text-gray-600">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Mission</p>
+            <h2 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">Our purpose</h2>
+            <p class="mt-6 text-base leading-7 text-orange-50">
               To empower underserved students through access to STEM education, scholarships, mentorship, and innovation driven opportunities that prepare them to become future leaders and problem solvers.
             </p>
           </div>
 
-          <div class="sr-fade-up rounded-3xl bg-orange-800 p-8 text-white shadow-sm lg:p-10">
+          <div class="sr-fade-up rounded-3xl bg-orange-700 p-8 text-white shadow-sm ring-2 ring-white/20 lg:p-10">
             <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20" aria-hidden="true">
               <i data-feather="eye" class="h-6 w-6 text-orange-100"></i>
             </div>
@@ -167,35 +179,35 @@
     </section>
 
     <!-- Founder&rsquo;s Journey -->
-    <section class="py-20">
+    <section class="bg-orange-50/40 py-20">
       <div class="mx-auto grid max-w-7xl items-start gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
-          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Founder&rsquo;s Journey</p>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Founder&rsquo;s Journey</p>
           <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             A foundation shaped by education, engineering, and service
           </h2>
-          <div class="sr-fade-up mt-8 overflow-hidden rounded-3xl ring-1 ring-orange-100 shadow-lg">
+          <div class="sr-fade-up mt-8 w-full max-w-xs overflow-hidden rounded-3xl ring-1 ring-orange-100 shadow-lg sm:max-w-sm md:max-w-md">
             <img
               src="images/muwanika.jpg"
               alt="Dr. Muwanika Jdiobe, founder of Jdiobe STEM Foundation"
               class="aspect-[4/5] w-full object-cover object-top"
-              width="600"
-              height="750"
+              width="448"
+              height="560"
               loading="lazy"
               decoding="async"
             />
           </div>
-          <div class="sr-fade-up mt-6 flex flex-wrap gap-2">
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
-              <i data-feather="award" class="h-3.5 w-3.5 shrink-0 text-orange-600"></i>
+          <div class="sr-fade-up mt-6 flex max-w-md flex-wrap gap-2">
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
+              <i data-feather="award" class="h-3.5 w-3.5 shrink-0 text-orange-700"></i>
               Ph.D., Aerospace Engineering
             </span>
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
-              <i data-feather="briefcase" class="h-3.5 w-3.5 shrink-0 text-orange-600"></i>
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
+              <i data-feather="briefcase" class="h-3.5 w-3.5 shrink-0 text-orange-700"></i>
               The Boeing Company
             </span>
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
-              <i data-feather="book-open" class="h-3.5 w-3.5 shrink-0 text-orange-600"></i>
+            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
+              <i data-feather="book-open" class="h-3.5 w-3.5 shrink-0 text-orange-700"></i>
               Oklahoma State University
             </span>
           </div>
@@ -219,49 +231,49 @@
     </section>
 
     <!-- Our Values -->
-    <section class="bg-gradient-to-b from-gray-50 to-orange-50/30 py-20">
+    <section class="bg-orange-50 py-20">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
-          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Our Values</p>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Values</p>
           <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             The principles that guide our work
           </h2>
         </div>
 
         <div class="sr-stagger mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
-              <i data-feather="unlock" class="h-5 w-5 text-orange-600"></i>
+          <div class="sr-fade-up rounded-3xl bg-orange-700 p-6 shadow-lg shadow-orange-900/15 ring-1 ring-orange-400/40">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="unlock" class="h-5 w-5 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold text-gray-900">Access</h3>
-            <p class="mt-4 text-sm leading-6 text-gray-600">
+            <h3 class="text-lg font-semibold text-white">Access</h3>
+            <p class="mt-4 text-sm leading-6 text-orange-50">
               We believe capable students should not be limited by financial barriers, geography, or lack of exposure.
             </p>
           </div>
-          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
-              <i data-feather="users" class="h-5 w-5 text-orange-600"></i>
+          <div class="sr-fade-up rounded-3xl bg-orange-700 p-6 shadow-lg shadow-orange-900/15 ring-1 ring-orange-400/40">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="users" class="h-5 w-5 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold text-gray-900">Mentorship</h3>
-            <p class="mt-4 text-sm leading-6 text-gray-600">
+            <h3 class="text-lg font-semibold text-white">Mentorship</h3>
+            <p class="mt-4 text-sm leading-6 text-orange-50">
               We believe guidance from educators, professionals, and role models can change the direction of a student&rsquo;s life.
             </p>
           </div>
-          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
-              <i data-feather="zap" class="h-5 w-5 text-orange-600"></i>
+          <div class="sr-fade-up rounded-3xl bg-orange-700 p-6 shadow-lg shadow-orange-900/15 ring-1 ring-orange-400/40">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="zap" class="h-5 w-5 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold text-gray-900">Innovation</h3>
-            <p class="mt-4 text-sm leading-6 text-gray-600">
+            <h3 class="text-lg font-semibold text-white">Innovation</h3>
+            <p class="mt-4 text-sm leading-6 text-orange-50">
               We encourage students to use STEM knowledge to solve real problems in their communities and beyond.
             </p>
           </div>
-          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
-              <i data-feather="heart" class="h-5 w-5 text-orange-600"></i>
+          <div class="sr-fade-up rounded-3xl bg-orange-700 p-6 shadow-lg shadow-orange-900/15 ring-1 ring-orange-400/40">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+              <i data-feather="heart" class="h-5 w-5 text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold text-gray-900">Service</h3>
-            <p class="mt-4 text-sm leading-6 text-gray-600">
+            <h3 class="text-lg font-semibold text-white">Service</h3>
+            <p class="mt-4 text-sm leading-6 text-orange-50">
               We are committed to building opportunities that create lasting impact for students, families, and communities.
             </p>
           </div>
@@ -273,7 +285,7 @@
     <section class="py-20">
       <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <div>
-          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Where We Work</p>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Where We Work</p>
           <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             Rooted in Uganda, connected to global opportunity
           </h2>
@@ -304,7 +316,7 @@
     </section>
 
     <!-- Moving Forward CTA -->
-    <section class="bg-orange-800 py-20 text-white">
+    <section class="bg-orange-700 py-20 text-white">
       <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
         <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">Moving Forward</p>
         <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-4xl">
@@ -318,7 +330,7 @@
             href="contact.html"
             class="inline-flex items-center gap-2 rounded-full bg-white px-7 py-2.5 text-sm font-semibold text-gray-900 shadow-lg transition hover:bg-orange-50"
           >
-            <i data-feather="users" class="h-4 w-4 text-orange-600"></i>
+            <i data-feather="users" class="h-4 w-4 text-orange-700"></i>
             Partner With Us
           </a>
           <a
@@ -333,12 +345,12 @@
     </section>
 
     <!-- Team Members -->
-    <section class="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-orange-50/40 py-16 md:py-24">
-      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(251,146,60,0.12),transparent)]" aria-hidden="true"></div>
+    <section class="relative overflow-hidden bg-orange-50 py-16 md:py-24">
+      <div class="pointer-events-none absolute inset-0 bg-orange-50/50" aria-hidden="true"></div>
       <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="sr-stagger mx-auto mb-14 max-w-2xl text-center md:mb-16">
-          <div class="sr-fade-up inline-flex items-center gap-2 rounded-full border border-orange-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-orange-800 shadow-sm backdrop-blur-sm">
-            <i data-feather="users" class="h-4 w-4 text-orange-600"></i>
+          <div class="sr-fade-up inline-flex items-center gap-2 rounded-full border border-orange-200/80 bg-white/90 px-4 py-1.5 text-sm font-semibold text-orange-700 shadow-sm backdrop-blur-sm">
+            <i data-feather="users" class="h-4 w-4 text-orange-700"></i>
             <span>Leadership</span>
           </div>
           <h2 class="sr-fade-up mt-5 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Meet Our Team</h2>
@@ -346,28 +358,31 @@
         </div>
 
         <div class="sr-stagger grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm ring-1 ring-black/[0.03] transition duration-300 hover:-translate-y-1 hover:border-orange-200/90 hover:shadow-lg hover:shadow-orange-950/5">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-orange-100 bg-orange-50 shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-950/10">
             <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
               <img src="images/muwanika.jpg" alt="Muwanika Jdiobe, PhD" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
               <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
-              <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-800 shadow-sm backdrop-blur-sm">
-                <i data-feather="award" class="h-3.5 w-3.5 text-orange-600"></i>
+              <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-700 shadow-sm backdrop-blur-sm">
+                <i data-feather="award" class="h-3.5 w-3.5 text-orange-700"></i>
                 Executive
               </div>
             </div>
             <div class="flex flex-1 flex-col p-6 md:p-7">
               <h3 class="text-lg font-bold leading-snug text-gray-900">Muwanika Jdiobe, PhD</h3>
               <p class="mt-2 flex items-center gap-2 text-sm font-medium text-orange-700">
-                <i data-feather="briefcase" class="h-4 w-4 shrink-0 text-orange-500"></i>
+                <i data-feather="briefcase" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Founder &amp; CEO
               </p>
               <p class="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Aerospace engineer and president, driving the foundation&rsquo;s vision and partnerships.</p>
-              <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-5">
-                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="LinkedIn">
-                  <i data-feather="linkedin" class="h-[18px] w-[18px]"></i>
+              <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-orange-100 pt-5">
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="Facebook">
+                  <span data-social-icon="facebook" class="h-[18px] w-[18px]"></span>
                 </a>
-                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="X (Twitter)">
-                  <i data-feather="twitter" class="h-[18px] w-[18px]"></i>
+                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="LinkedIn">
+                  <span data-social-icon="linkedin" class="h-[18px] w-[18px]"></span>
+                </a>
+                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="X (Twitter)">
+                  <span data-social-icon="x" class="h-[18px] w-[18px]"></span>
                 </a>
                 <a href="mailto:info@jdiobestem.org" class="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
                   <i data-feather="mail" class="h-4 w-4"></i>
@@ -377,28 +392,31 @@
             </div>
           </article>
 
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm ring-1 ring-black/[0.03] transition duration-300 hover:-translate-y-1 hover:border-orange-200/90 hover:shadow-lg hover:shadow-orange-950/5">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-orange-100 bg-orange-50 shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-950/10">
             <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
               <img src="images/team/prof.jpeg" alt="Nelson O. Ochan" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
               <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
-              <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-800 shadow-sm backdrop-blur-sm">
-                <i data-feather="cpu" class="h-3.5 w-3.5 text-orange-600"></i>
+              <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-700 shadow-sm backdrop-blur-sm">
+                <i data-feather="cpu" class="h-3.5 w-3.5 text-orange-700"></i>
                 Technology
               </div>
             </div>
             <div class="flex flex-1 flex-col p-6 md:p-7">
               <h3 class="text-lg font-bold leading-snug text-gray-900">Nelson O. Ochan</h3>
               <p class="mt-2 flex items-center gap-2 text-sm font-medium text-orange-700">
-                <i data-feather="layers" class="h-4 w-4 shrink-0 text-orange-500"></i>
+                <i data-feather="layers" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Chief Technology Officer
               </p>
               <p class="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Leads technical direction, systems, and digital initiatives for our programs.</p>
-              <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-5">
-                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="LinkedIn">
-                  <i data-feather="linkedin" class="h-[18px] w-[18px]"></i>
+              <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-orange-100 pt-5">
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="Facebook">
+                  <span data-social-icon="facebook" class="h-[18px] w-[18px]"></span>
                 </a>
-                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="X (Twitter)">
-                  <i data-feather="twitter" class="h-[18px] w-[18px]"></i>
+                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="LinkedIn">
+                  <span data-social-icon="linkedin" class="h-[18px] w-[18px]"></span>
+                </a>
+                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="X (Twitter)">
+                  <span data-social-icon="x" class="h-[18px] w-[18px]"></span>
                 </a>
                 <a href="mailto:info@jdiobestem.org" class="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
                   <i data-feather="mail" class="h-4 w-4"></i>
@@ -408,28 +426,31 @@
             </div>
           </article>
 
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-gray-200/90 bg-white shadow-sm ring-1 ring-black/[0.03] transition duration-300 hover:-translate-y-1 hover:border-orange-200/90 hover:shadow-lg hover:shadow-orange-950/5">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-orange-100 bg-orange-50 shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-950/10">
             <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
               <img src="images/team/nicholas.jpg" alt="Nicholas Ssebalamu" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
               <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
-              <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-800 shadow-sm backdrop-blur-sm">
-                <i data-feather="clipboard" class="h-3.5 w-3.5 text-orange-600"></i>
+              <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-700 shadow-sm backdrop-blur-sm">
+                <i data-feather="clipboard" class="h-3.5 w-3.5 text-orange-700"></i>
                 Programs
               </div>
             </div>
             <div class="flex flex-1 flex-col p-6 md:p-7">
               <h3 class="text-lg font-bold leading-snug text-gray-900">Nicholas Ssebalamu</h3>
               <p class="mt-2 flex items-center gap-2 text-sm font-medium text-orange-700">
-                <i data-feather="target" class="h-4 w-4 shrink-0 text-orange-500"></i>
+                <i data-feather="target" class="h-4 w-4 shrink-0 text-orange-700"></i>
                 Projects Manager
               </p>
               <p class="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Coordinates project delivery, timelines, and stakeholder engagement.</p>
-              <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-5">
-                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="LinkedIn">
-                  <i data-feather="linkedin" class="h-[18px] w-[18px]"></i>
+              <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-orange-100 pt-5">
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="Facebook">
+                  <span data-social-icon="facebook" class="h-[18px] w-[18px]"></span>
                 </a>
-                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700" aria-label="X (Twitter)">
-                  <i data-feather="twitter" class="h-[18px] w-[18px]"></i>
+                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="LinkedIn">
+                  <span data-social-icon="linkedin" class="h-[18px] w-[18px]"></span>
+                </a>
+                <a href="#" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-orange-200 bg-orange-100 text-orange-700 transition hover:border-orange-300 hover:bg-orange-200 hover:text-orange-900" aria-label="X (Twitter)">
+                  <span data-social-icon="x" class="h-[18px] w-[18px]"></span>
                 </a>
                 <a href="mailto:info@jdiobestem.org" class="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
                   <i data-feather="mail" class="h-4 w-4"></i>
@@ -443,15 +464,15 @@
     </section>
 
     <!-- Volunteer -->
-    <section class="relative bg-white py-16">
+    <section class="relative bg-orange-50 py-16">
       <img src="images/wall.jpeg" alt="" class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30 select-none" style="z-index:1;" aria-hidden="true" />
-      <div class="absolute inset-0 bg-gradient-to-r from-orange-100/80 to-white/80" style="z-index:2;" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-orange-50/90" style="z-index:2;" aria-hidden="true"></div>
       <div class="relative mx-auto max-w-4xl px-4 text-center" style="z-index:3;">
         <div class="flex flex-col items-center rounded-2xl bg-orange-50/95 p-10 shadow-lg">
-          <i data-feather="heart" class="mb-4 h-12 w-12 text-orange-600"></i>
+          <i data-feather="heart" class="mb-4 h-12 w-12 text-orange-700"></i>
           <h2 class="mb-4 text-2xl font-bold text-orange-700 sm:text-3xl">Volunteer With Us</h2>
           <p class="mb-6 text-base text-gray-700">Join our mission to empower the next generation of STEM leaders. Whether you want to mentor, organize events, or support our outreach, your contribution makes a difference!</p>
-          <a href="volunteers.html" class="inline-block rounded-full bg-orange-600 px-8 py-3 text-sm font-semibold text-white shadow transition hover:bg-orange-700">Apply to Volunteer</a>
+          <a href="volunteers.html" class="inline-block rounded-full bg-orange-700 px-8 py-3 text-sm font-semibold text-white shadow transition hover:bg-orange-800">Apply to Volunteer</a>
         </div>
       </div>
     </section>

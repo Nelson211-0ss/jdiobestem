@@ -11,64 +11,332 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
+  <link rel="stylesheet" href="brand-colors.css" />
 </head>
-<body style="font-family: 'EB Garamond', serif;" class="bg-gray-50 text-gray-800">
+<body class="contact-page min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-r from-orange-600 to-orange-400 text-white py-16 mb-8 overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" alt="STEM background" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" style="z-index:1;">
-    <div class="relative max-w-3xl mx-auto px-4 text-center" style="z-index:2;">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-3">Contact Us</h1>
-      <p class="text-lg md:text-xl">Reach out to connect, collaborate, or learn more about the Jdiobe STEM Foundation.</p>
+  <!-- Hero -->
+  <section class="relative mb-0 overflow-hidden bg-orange-700 py-16 text-white md:py-20 lg:py-24">
+    <img
+      src="images/hero-students-community.png"
+      alt=""
+      class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top opacity-30 select-none"
+      width="1600"
+      height="900"
+    />
+    <div class="absolute inset-0 z-[1] bg-orange-900/45" aria-hidden="true"></div>
+    <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Get in Touch</p>
+      <h1 class="mt-5 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        We&rsquo;d love to hear from you
+      </h1>
+      <p class="mt-6 max-w-2xl text-base leading-7 text-orange-50 md:text-lg md:leading-8">
+        Questions, partnerships, volunteering, or media inquiries&mdash;reach out and our team will respond as soon as we can.
+      </p>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="py-16 bg-orange-50">
-    <div class="max-w-5xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-orange-700 mb-4 text-center">Contact Us</h2>
-      <p class="text-center text-gray-700 mb-10">We'd love to hear from you! Reach out for questions, partnership opportunities, or to get involved with the Jdiobe STEM Foundation.</p>
-      <div class="grid md:grid-cols-2 gap-10 items-start">
-        <!-- Contact Info -->
-        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 md:mb-0">
-          <h3 class="text-xl font-semibold text-orange-700 mb-4 flex items-center"><i data-feather="mail" class="w-5 h-5 mr-2"></i> Get in Touch</h3>
-          <div class="mb-4">
-            <div class="flex items-start mb-2"><i data-feather="map-pin" class="w-5 h-5 mr-2 text-orange-500"></i><span>9905 S Pennsylvania Ave, Ste A, Oklahoma City, OK 73159, USA</span></div>
-            <div class="flex items-center mb-2"><i data-feather="mail" class="w-5 h-5 mr-2 text-orange-500"></i><a href="mailto:info@jdiobestem.org" class="underline hover:text-orange-600">info@jdiobestem.org</a></div>
-            <div class="flex items-center"><i data-feather="phone" class="w-5 h-5 mr-2 text-orange-500"></i><a href="tel:+14054374755" class="underline hover:text-orange-600">+1405-437-4755</a></div>
+  <main>
+    <!-- Quick contact cards -->
+    <section class="relative z-10 -mt-10 pb-4">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="sr-stagger grid gap-4 sm:grid-cols-3">
+          <a
+            href="mailto:info@jdiobestem.org"
+            class="sr-fade-up group flex gap-4 rounded-2xl border border-orange-100 bg-white p-5 shadow-md shadow-orange-900/5 ring-1 ring-orange-100/80 transition hover:border-orange-200 hover:shadow-lg"
+          >
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/60">
+              <i data-feather="mail" class="h-5 w-5"></i>
+            </span>
+            <span>
+              <span class="block text-sm font-semibold text-gray-900">Email us</span>
+              <span class="mt-1 block text-sm text-orange-700 group-hover:underline">info@jdiobestem.org</span>
+            </span>
+          </a>
+          <a
+            href="tel:+14054374755"
+            class="sr-fade-up group flex gap-4 rounded-2xl border border-orange-100 bg-white p-5 shadow-md shadow-orange-900/5 ring-1 ring-orange-100/80 transition hover:border-orange-200 hover:shadow-lg"
+          >
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/60">
+              <i data-feather="phone" class="h-5 w-5"></i>
+            </span>
+            <span>
+              <span class="block text-sm font-semibold text-gray-900">Call us</span>
+              <span class="mt-1 block text-sm text-orange-700 group-hover:underline">+1 (405) 437-4755</span>
+            </span>
+          </a>
+          <div class="sr-fade-up flex gap-4 rounded-2xl border border-orange-100 bg-white p-5 shadow-md shadow-orange-900/5 ring-1 ring-orange-100/80">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/60">
+              <i data-feather="clock" class="h-5 w-5"></i>
+            </span>
+            <span>
+              <span class="block text-sm font-semibold text-gray-900">Response time</span>
+              <span class="mt-1 block text-sm text-gray-600">Typically within 2&ndash;3 business days</span>
+            </span>
           </div>
-          <div class="mt-6">
-            <span class="block text-gray-700 font-semibold mb-2">Follow Us</span>
-            <div class="flex space-x-4">
-              <a href="#" class="hover:text-orange-400"><i data-feather="facebook" class="w-6 h-6"></i></a>
-              <a href="#" class="hover:text-orange-400"><i data-feather="twitter" class="w-6 h-6"></i></a>
-              <a href="#" class="hover:text-orange-400"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form + sidebar -->
+    <section class="py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <!-- Form -->
+          <div class="sr-fade-up overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-xl shadow-orange-900/10 ring-1 ring-orange-100/90">
+            <div class="bg-orange-700 px-6 py-6 text-white sm:px-8 sm:py-7">
+              <div class="flex items-center gap-4">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+                  <i data-feather="edit-3" class="h-6 w-6"></i>
+                </span>
+                <div>
+                  <h2 class="text-xl font-bold tracking-tight sm:text-2xl">Send a message</h2>
+                  <p class="mt-1 text-sm text-orange-100">All fields marked with * are required.</p>
+                </div>
+              </div>
+            </div>
+            <form id="contact-form" class="space-y-5 p-6 sm:p-8" novalidate>
+              <div id="form-success" class="hidden rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
+                Thank you! Your email client should open with your message ready to send.
+              </div>
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="name" class="mb-1.5 block text-sm font-semibold text-gray-800">Full name *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    autocomplete="name"
+                    class="w-full rounded-xl border border-orange-200/80 bg-orange-50/40 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="mb-1.5 block text-sm font-semibold text-gray-800">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    class="w-full rounded-xl border border-orange-200/80 bg-orange-50/40 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+                    placeholder="you@example.com"
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="subject" class="mb-1.5 block text-sm font-semibold text-gray-800">Subject *</label>
+                <select
+                  id="subject"
+                  name="subject"
+                  required
+                  class="w-full rounded-xl border border-orange-200/80 bg-orange-50/40 px-4 py-3 text-gray-900 focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+                >
+                  <option value="">Choose a topic</option>
+                  <option value="General inquiry">General inquiry</option>
+                  <option value="Partnership">Partnership &amp; collaboration</option>
+                  <option value="Volunteering">Volunteering</option>
+                  <option value="Scholarships">Scholarships &amp; programs</option>
+                  <option value="Media">Media &amp; press</option>
+                  <option value="Donations">Donations</option>
+                </select>
+              </div>
+              <div>
+                <label for="message" class="mb-1.5 block text-sm font-semibold text-gray-800">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                  class="w-full resize-y rounded-xl border border-orange-200/80 bg-orange-50/40 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/30"
+                  placeholder="How can we help?"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-700 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-900/20 transition hover:bg-orange-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 sm:w-auto"
+              >
+                <i data-feather="send" class="h-4 w-4"></i>
+                Send message
+              </button>
+            </form>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="space-y-6">
+            <div class="sr-fade-up rounded-3xl bg-orange-50 p-6 ring-1 ring-orange-100 sm:p-8">
+              <h3 class="text-lg font-bold text-gray-900">U.S. office</h3>
+              <p class="mt-4 flex gap-3 text-sm leading-relaxed text-gray-600">
+                <i data-feather="map-pin" class="mt-0.5 h-5 w-5 shrink-0 text-orange-700"></i>
+                <span>
+                  9905 S Pennsylvania Ave, Ste A<br />
+                  Oklahoma City, OK 73159<br />
+                  United States
+                </span>
+              </p>
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=9905+S+Pennsylvania+Ave+Ste+A+Oklahoma+City+OK+73159"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-800"
+              >
+                <i data-feather="navigation" class="h-4 w-4"></i>
+                Get directions
+              </a>
+            </div>
+
+            <div class="sr-fade-up rounded-3xl bg-orange-700 p-6 text-white shadow-sm ring-1 ring-orange-500/40 sm:p-8">
+              <h3 class="text-lg font-bold">Program operations</h3>
+              <p class="mt-3 text-sm leading-relaxed text-orange-50">
+                Our STEM scholarships, mentorship, and outreach work primarily serve students in <strong class="font-semibold text-white">Uganda</strong>. The Oklahoma City office supports U.S. administration, partnerships, and fundraising.
+              </p>
+              <div class="mt-5 flex items-center gap-2 text-sm text-orange-100">
+                <i data-feather="globe" class="h-4 w-4 shrink-0"></i>
+                <span>Primary area of impact: Uganda</span>
+              </div>
+            </div>
+
+            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 ring-1 ring-orange-100/80 sm:p-8">
+              <h3 class="text-lg font-bold text-gray-900">Follow us</h3>
+              <p class="mt-2 text-sm text-gray-600">Stay connected for news, stories, and program updates.</p>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-orange-200 bg-orange-50 text-orange-700 transition hover:border-orange-300 hover:bg-orange-100" aria-label="Facebook">
+                  <span data-social-icon="facebook" class="h-5 w-5"></span>
+                </a>
+                <a href="https://x.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-orange-200 bg-orange-50 text-orange-700 transition hover:border-orange-300 hover:bg-orange-100" aria-label="X">
+                  <span data-social-icon="x" class="h-5 w-5"></span>
+                </a>
+                <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-orange-200 bg-orange-50 text-orange-700 transition hover:border-orange-300 hover:bg-orange-100" aria-label="YouTube">
+                  <span data-social-icon="youtube" class="h-5 w-5"></span>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-orange-200 bg-orange-50 text-orange-700 transition hover:border-orange-300 hover:bg-orange-100" aria-label="LinkedIn">
+                  <span data-social-icon="linkedin" class="h-5 w-5"></span>
+                </a>
+              </div>
+            </div>
+
+            <div class="sr-fade-up grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+              <a href="volunteers.html" class="flex items-center justify-between rounded-2xl border border-orange-100 bg-orange-50/80 px-4 py-3.5 text-sm font-semibold text-orange-700 transition hover:border-orange-200 hover:bg-orange-100">
+                Volunteer with us
+                <i data-feather="arrow-right" class="h-4 w-4"></i>
+              </a>
+              <a href="donate.html" class="flex items-center justify-between rounded-2xl bg-orange-700 px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-800">
+                Support our mission
+                <i data-feather="heart" class="h-4 w-4"></i>
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="border-t border-orange-100 bg-orange-50/60 py-16 md:py-20" aria-labelledby="map-heading">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="sr-fade-up max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Find us</p>
+          <h2 id="map-heading" class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Visit our Oklahoma City office
+          </h2>
+          <p class="mt-4 text-base leading-7 text-gray-600">
+            Jdiobe STEM Foundation is headquartered in Oklahoma City. Use the map below for directions, or open it in Google Maps on your device.
+          </p>
+        </div>
+
+        <div class="sr-fade-up mt-10 overflow-hidden rounded-3xl border border-orange-200/80 bg-white shadow-xl shadow-orange-900/10 ring-1 ring-orange-100">
+          <div class="flex flex-col gap-0 sm:flex-row sm:items-stretch">
+            <div class="border-b border-orange-100 bg-white p-6 sm:w-72 sm:shrink-0 sm:border-b-0 sm:border-r lg:w-80 lg:p-8">
+              <h3 class="font-bold text-gray-900">Jdiobe STEM Foundation</h3>
+              <address class="mt-4 not-italic text-sm leading-relaxed text-gray-600">
+                9905 S Pennsylvania Ave, Ste A<br />
+                Oklahoma City, OK 73159<br />
+                United States
+              </address>
+              <ul class="mt-6 space-y-3 text-sm">
+                <li>
+                  <a href="mailto:info@jdiobestem.org" class="inline-flex items-center gap-2 font-medium text-orange-700 hover:text-orange-800">
+                    <i data-feather="mail" class="h-4 w-4"></i>
+                    info@jdiobestem.org
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+14054374755" class="inline-flex items-center gap-2 font-medium text-orange-700 hover:text-orange-800">
+                    <i data-feather="phone" class="h-4 w-4"></i>
+                    +1 (405) 437-4755
+                  </a>
+                </li>
+              </ul>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=9905+S+Pennsylvania+Ave+Ste+A+Oklahoma+City+OK+73159"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-orange-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-800 sm:w-auto"
+              >
+                <i data-feather="external-link" class="h-4 w-4"></i>
+                Open in Google Maps
+              </a>
+            </div>
+            <div class="relative min-h-[280px] flex-1 sm:min-h-[360px] lg:min-h-[420px]">
+              <iframe
+                title="Map showing Jdiobe STEM Foundation office at 9905 S Pennsylvania Ave, Oklahoma City, OK"
+                class="absolute inset-0 h-full w-full border-0"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+                src="https://maps.google.com/maps?q=9905+S+Pennsylvania+Ave,+Ste+A,+Oklahoma+City,+OK+73159&amp;hl=en&amp;z=16&amp;output=embed"
+              ></iframe>
             </div>
           </div>
         </div>
-        <!-- Contact Form -->
-        <form class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
-          <h3 class="text-xl font-semibold text-orange-700 mb-4 flex items-center"><i data-feather="edit-3" class="w-5 h-5 mr-2"></i> Send a Message</h3>
-          <div>
-            <label class="block mb-2 font-semibold" for="name">Name</label>
-            <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400" type="text" id="name" name="name" required>
-          </div>
-          <div>
-            <label class="block mb-2 font-semibold" for="email">Email</label>
-            <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400" type="email" id="email" name="email" required>
-          </div>
-          <div>
-            <label class="block mb-2 font-semibold" for="message">Message</label>
-            <textarea class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400" id="message" name="message" rows="4" required></textarea>
-          </div>
-          <button type="submit" class="w-full bg-orange-600 text-white font-semibold py-3 rounded hover:bg-orange-700 transition">Send Message</button>
-        </form>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-orange-700 py-16 text-white">
+      <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Ready to make an impact?</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-orange-100">
+          Partner with us, volunteer your time, or sponsor a student&mdash;every connection helps expand STEM opportunity in Uganda.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="donate.html" class="inline-flex items-center gap-2 rounded-full bg-white px-7 py-2.5 text-sm font-semibold text-orange-700 shadow-lg transition hover:bg-orange-50">
+            <i data-feather="heart" class="h-4 w-4"></i>
+            Donate
+          </a>
+          <a href="programs.html" class="inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">
+            <i data-feather="layers" class="h-4 w-4"></i>
+            Our programs
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <div id="footer"></div>
   <script src="main.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var subject = document.getElementById('subject').value;
+        var message = document.getElementById('message').value.trim();
+        if (!name || !email || !subject || !message) {
+          form.reportValidity();
+          return;
+        }
+        var body = 'Name: ' + name + '%0D%0AEmail: ' + email + '%0D%0A%0D%0A' + encodeURIComponent(message);
+        var mailto = 'mailto:info@jdiobestem.org?subject=' + encodeURIComponent('[Contact] ' + subject) + '&body=' + body;
+        window.location.href = mailto;
+        var success = document.getElementById('form-success');
+        if (success) success.classList.remove('hidden');
+      });
+    })();
+  </script>
 </body>
-</html> 
+</html>
