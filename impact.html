@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png?v=3" type="image/png" sizes="256x256">
+  <link rel="apple-touch-icon" href="favicon.png?v=3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impact - Jdiobe STEM Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scroll-animations.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="typography.css" />
+  <style>
+    body.impact-page {
+      font-size: 1.125rem;
+      line-height: 1.55;
+    }
+    body.impact-page .text-sm { font-size: 1.05rem; line-height: 1.5rem; }
+    body.impact-page .text-base { font-size: 1.15rem; line-height: 1.6rem; }
+    body.impact-page .text-lg { font-size: 1.4rem; line-height: 1.85rem; }
+    body.impact-page .text-xl { font-size: 1.32rem; line-height: 1.75rem; }
+    body.impact-page .text-2xl { font-size: 1.55rem; line-height: 1.95rem; }
+    body.impact-page .text-3xl { font-size: 1.9rem; line-height: 2.15rem; }
+    body.impact-page .text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
+    body.impact-page .text-5xl { font-size: 2.75rem; line-height: 1.1; }
+    @media (min-width: 640px) {
+      body.impact-page .sm\:text-3xl { font-size: 1.9rem; line-height: 2.15rem; }
+      body.impact-page .sm\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
+      body.impact-page .sm\:text-5xl { font-size: 2.75rem; line-height: 1.1; }
+    }
+    @media (min-width: 768px) {
+      body.impact-page .md\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
+      body.impact-page .md\:text-xl { font-size: 1.32rem; line-height: 1.75rem; }
+    }
+    @media (min-width: 1024px) {
+      body.impact-page .lg\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
+      body.impact-page .lg\:text-5xl { font-size: 2.75rem; line-height: 1.1; }
+    }
+  </style>
+</head>
+<body class="impact-page min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
+  <div id="header"></div>
+
+  <!-- Hero -->
+  <section class="relative mb-0 overflow-hidden bg-gradient-to-r from-orange-600 to-orange-400 py-16 text-white">
+    <img
+      src="images/hero-students-community.png"
+      alt="Students gathered for a community STEM program"
+      class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top opacity-30 select-none"
+      width="1600"
+      height="900"
+    />
+    <div
+      class="absolute inset-0 z-[1] bg-gradient-to-r from-orange-900/55 via-orange-700/35 to-orange-500/45"
+      aria-hidden="true"
+    ></div>
+    <div class="relative z-10 mx-auto max-w-3xl px-4 text-center">
+      <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 ring-1 ring-white/30 backdrop-blur-sm" aria-hidden="true">
+        <i data-feather="bar-chart-2" class="h-7 w-7 text-white"></i>
+      </div>
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Our Impact</p>
+      <h1 class="mb-3 mt-3 text-3xl font-extrabold md:text-4xl">Measuring progress toward STEM opportunity</h1>
+      <p class="text-base md:text-lg text-orange-50">
+        Real students, growing programs, and momentum across Uganda.
+      </p>
+    </div>
+  </section>
+
+  <main>
+    <!-- Intro -->
+    <section class="border-b border-gray-200 bg-white">
+      <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+        <div>
+          <h2 class="sr-fade-up text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
+            Measuring progress toward a future where more students can access STEM opportunity.
+          </h2>
+          <p class="sr-fade-up mt-8 text-lg leading-8 text-gray-600">
+            Our impact is measured not only by numbers, but by the students who gain access, confidence, mentorship, and a clearer path toward STEM education and careers.
+          </p>
+        </div>
+        <div class="sr-fade-up grid grid-cols-2 gap-3" aria-label="STEM program highlights">
+          <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
+            <img src="images/hero-students-community.png" alt="Students in a community STEM gathering" class="aspect-[4/3] h-full w-full object-cover object-top" width="400" height="300" loading="lazy" decoding="async" />
+          </div>
+          <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
+            <img src="images/robot.jpeg" alt="Students working on a robotics project" class="aspect-[4/3] h-full w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+          </div>
+          <div class="col-span-2 overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
+            <img src="images/hero-diy-stem-car.png" alt="Student-built STEM model vehicle" class="aspect-[21/9] w-full object-cover" width="800" height="340" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Snapshot -->
+    <section class="bg-gradient-to-b from-gray-50 via-white to-orange-50/40 py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Impact Snapshot</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Early progress, real students, and growing momentum
+          </h2>
+          <p class="sr-fade-up mt-6 text-base leading-7 text-gray-600">
+            These figures should be updated regularly as programs expand. Even at an early stage, clear reporting helps donors, partners, and grant reviewers understand what has already begun.
+          </p>
+        </div>
+
+        <div class="sr-fade-up mt-10 grid gap-3 sm:grid-cols-3" aria-label="Program photography">
+          <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+            <img src="images/teachers.jpeg" alt="Educators supporting students in STEM learning" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
+          </div>
+          <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+            <img src="images/hero-science-fair-projects.png" alt="Students presenting science fair projects" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
+          </div>
+          <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+            <img src="images/catapilar.jpeg" alt="Hands-on STEM workshop activity" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <div class="sr-stagger mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="users" class="h-6 w-6 text-orange-600"></i>
+            </div>
+            <p class="mt-5 text-3xl font-bold tracking-tight text-orange-700">25+</p>
+            <h3 class="mt-3 text-base font-semibold text-gray-900">Students Supported</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">
+              Students reached through scholarships, guidance, mentorship, or STEM focused support.
+            </p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="award" class="h-6 w-6 text-orange-600"></i>
+            </div>
+            <p class="mt-5 text-3xl font-bold tracking-tight text-orange-700">3+</p>
+            <h3 class="mt-3 text-base font-semibold text-gray-900">Scholarships Awarded</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">
+              Scholarship support provided to students pursuing education in STEM related fields.
+            </p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="layers" class="h-6 w-6 text-orange-600"></i>
+            </div>
+            <p class="mt-5 text-3xl font-bold tracking-tight text-orange-700">2+</p>
+            <h3 class="mt-3 text-base font-semibold text-gray-900">Active Initiatives</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">
+              Ongoing efforts focused on scholarships, mentorship, and student opportunity building.
+            </p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="map-pin" class="h-6 w-6 text-orange-600"></i>
+            </div>
+            <p class="mt-5 text-3xl font-bold tracking-tight text-orange-700">Uganda</p>
+            <h3 class="mt-3 text-base font-semibold text-gray-900">Primary Area of Operation</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">
+              Current work is focused on expanding access for underserved students in Uganda.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Story -->
+    <section class="py-20">
+      <div class="mx-auto grid max-w-7xl items-start gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Impact Story</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Behind every number is a student with potential.
+          </h2>
+          <div class="sr-fade-up mt-8 space-y-3">
+            <div class="overflow-hidden rounded-3xl ring-1 ring-orange-100/90 shadow-lg">
+              <img
+                src="images/hero-science-fair-projects.png"
+                alt="Students presenting STEM projects at a science fair"
+                class="aspect-[5/4] w-full object-cover"
+                width="800"
+                height="640"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+                <img src="images/inspect.jpeg" alt="Students inspecting a STEM build" class="aspect-square w-full object-cover" width="400" height="400" loading="lazy" decoding="async" />
+              </div>
+              <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+                <img src="images/about-3-scaled.jpg" alt="Students engaged in collaborative learning" class="aspect-square w-full object-cover" width="400" height="400" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6 text-base leading-7 text-gray-600">
+          <p class="sr-fade-up">
+            One of the foundation&rsquo;s early priorities has been helping students pursue STEM pathways that may otherwise feel out of reach because of financial barriers, limited exposure, or lack of guidance.
+          </p>
+          <p class="sr-fade-up">
+            Through scholarship support and mentorship, students receive more than financial assistance. They receive encouragement, direction, and a reminder that their goals are possible.
+          </p>
+          <p class="sr-fade-up">
+            For students pursuing fields such as engineering, science, and technology, this support can make the difference between pausing a dream and continuing toward a career with long term impact.
+          </p>
+          <blockquote class="sr-fade-up relative rounded-3xl bg-orange-50 p-6 pl-14 text-lg font-semibold leading-7 text-gray-900 ring-1 ring-orange-100">
+            <i data-feather="message-circle" class="absolute left-5 top-6 h-6 w-6 text-orange-500" aria-hidden="true"></i>
+            &ldquo;We are not just supporting students. We are helping build future engineers, scientists, and innovators.&rdquo;
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- What We Measure -->
+    <section class="bg-orange-800 py-20 text-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">What We Measure</p>
+            <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
+              We track outcomes that show whether students are moving forward.
+            </h2>
+            <p class="sr-fade-up mt-6 text-base leading-7 text-orange-100">
+              Our work is strongest when it can be measured. As programs grow, we will continue tracking both quantitative and qualitative indicators of student progress.
+            </p>
+            <div class="sr-fade-up mt-8 grid grid-cols-2 gap-3">
+              <div class="overflow-hidden rounded-2xl ring-1 ring-white/20">
+                <img src="images/robot.jpeg" alt="Robotics program in action" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+              </div>
+              <div class="overflow-hidden rounded-2xl ring-1 ring-white/20">
+                <img src="images/plane.jpg" alt="Aerospace education activity" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+
+          <div class="sr-stagger grid gap-5 sm:grid-cols-2">
+            <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+              <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/15" aria-hidden="true">
+                <i data-feather="book-open" class="h-5 w-5 text-orange-200"></i>
+              </div>
+              <h3 class="text-lg font-semibold">Access to Education</h3>
+              <p class="mt-3 text-sm leading-6 text-orange-100">
+                Students receive support that helps reduce financial barriers and makes STEM education more reachable.
+              </p>
+            </div>
+            <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+              <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/15" aria-hidden="true">
+                <i data-feather="trending-up" class="h-5 w-5 text-orange-200"></i>
+              </div>
+              <h3 class="text-lg font-semibold">Increased Confidence</h3>
+              <p class="mt-3 text-sm leading-6 text-orange-100">
+                Mentorship and exposure help students see themselves as future engineers, scientists, researchers, and innovators.
+              </p>
+            </div>
+            <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+              <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/15" aria-hidden="true">
+                <i data-feather="compass" class="h-5 w-5 text-orange-200"></i>
+              </div>
+              <h3 class="text-lg font-semibold">Career Direction</h3>
+              <p class="mt-3 text-sm leading-6 text-orange-100">
+                Guidance helps students understand academic pathways, professional options, and the steps needed to pursue STEM careers.
+              </p>
+            </div>
+            <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15">
+              <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/15" aria-hidden="true">
+                <i data-feather="zap" class="h-5 w-5 text-orange-200"></i>
+              </div>
+              <h3 class="text-lg font-semibold">Innovation Mindset</h3>
+              <p class="mt-3 text-sm leading-6 text-orange-100">
+                Students are encouraged to think beyond the classroom and apply STEM knowledge to real community challenges.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evidence of Activity -->
+    <section class="py-20">
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Evidence of Activity</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Impact grows through consistent, visible action.
+          </h2>
+          <p class="sr-fade-up mt-6 text-base leading-7 text-gray-600">
+            From scholarships and mentorship to hands-on STEM learning, our programs create visible progress students and partners can see.
+          </p>
+          <div class="sr-fade-up mt-8 grid grid-cols-2 gap-3">
+            <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+              <img src="images/1713891129693.jpeg" alt="STEM outreach with students" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+            </div>
+            <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+              <img src="images/1.jpeg" alt="Students participating in a foundation program" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+            </div>
+            <div class="col-span-2 overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
+              <img src="images/185A1601-scaled.jpg" alt="Group learning session in Uganda" class="aspect-[21/9] w-full object-cover" width="800" height="340" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+
+        <div class="sr-fade-up rounded-3xl bg-orange-50/60 p-8 ring-1 ring-orange-100">
+          <ul class="space-y-5">
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-orange-100/80">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+                <i data-feather="award" class="h-5 w-5 text-orange-600"></i>
+              </div>
+              <span class="text-sm leading-6 text-gray-700">Scholarship support for STEM focused students</span>
+            </li>
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-orange-100/80">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+                <i data-feather="users" class="h-5 w-5 text-orange-600"></i>
+              </div>
+              <span class="text-sm leading-6 text-gray-700">Mentorship and academic guidance for underserved learners</span>
+            </li>
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-orange-100/80">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+                <i data-feather="cpu" class="h-5 w-5 text-orange-600"></i>
+              </div>
+              <span class="text-sm leading-6 text-gray-700">Support for students pursuing engineering and science pathways</span>
+            </li>
+            <li class="flex gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-orange-100/80">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+                <i data-feather="globe" class="h-5 w-5 text-orange-600"></i>
+              </div>
+              <span class="text-sm leading-6 text-gray-700">Early stage partnerships and outreach efforts in Uganda</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Looking Ahead -->
+    <section class="bg-gradient-to-b from-gray-50 to-orange-50/30 py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Looking Ahead</p>
+          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Our next phase is focused on scale, structure, and stronger measurement.
+          </h2>
+          <p class="sr-fade-up mt-6 text-base leading-7 text-gray-600">
+            As the foundation grows, we aim to expand the number of students reached while strengthening the systems used to track outcomes, report progress, and sustain long term impact.
+          </p>
+        </div>
+
+        <div class="sr-stagger mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="award" class="h-5 w-5 text-orange-600"></i>
+            </div>
+            <p class="text-sm font-semibold leading-6 text-gray-900">Expand scholarship support for more STEM students</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="users" class="h-5 w-5 text-orange-600"></i>
+            </div>
+            <p class="text-sm font-semibold leading-6 text-gray-900">Develop structured mentorship cohorts</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="tool" class="h-5 w-5 text-orange-600"></i>
+            </div>
+            <p class="text-sm font-semibold leading-6 text-gray-900">Launch more hands on STEM learning activities</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100/90">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 ring-1 ring-orange-100" aria-hidden="true">
+              <i data-feather="briefcase" class="h-5 w-5 text-orange-600"></i>
+            </div>
+            <p class="text-sm font-semibold leading-6 text-gray-900">Build stronger partnerships with schools, universities, and community organizations</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20">
+      <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+        <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Support the Impact</p>
+        <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Help more students move from potential to opportunity.
+        </h2>
+        <p class="sr-fade-up mx-auto mt-6 max-w-3xl text-base leading-7 text-gray-600">
+          Your support helps expand scholarships, mentorship, STEM training, and innovation opportunities for underserved students in Uganda.
+        </p>
+        <div class="sr-fade-up mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href="donate.html"
+            class="inline-flex items-center gap-2 rounded-full bg-orange-600 px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/20 transition hover:bg-orange-700"
+          >
+            <i data-feather="heart" class="h-4 w-4"></i>
+            Support Our Work
+          </a>
+          <a
+            href="contact.html"
+            class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-7 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-orange-50"
+          >
+            <i data-feather="users" class="h-4 w-4 text-orange-600"></i>
+            Partner With Us
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="main.js"></script>
+</body>
+</html>
