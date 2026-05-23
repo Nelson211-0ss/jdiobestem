@@ -1,0 +1,18 @@
+{
+  "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/aerospace-institute", "destination": "/aerospace-institute.html" },
+    { "source": "/community-outreach", "destination": "/community-outreach.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/donate", "destination": "/donate.html" },
+    { "source": "/donate-success", "destination": "/donate-success.html" },
+    { "source": "/faqs", "destination": "/faqs.html" },
+    { "source": "/impact", "destination": "/impact.html" },
+    { "source": "/news", "destination": "/news.html" },
+    { "source": "/programs", "destination": "/programs.html" },
+    { "source": "/scholarship", "destination": "/scholarship.html" },
+    { "source": "/secondary-research", "destination": "/secondary-research.html" },
+    { "source": "/volunteers", "destination": "/volunteers.html" },
+    { "source": "/youth-stem", "destination": "/youth-stem.html" }
+  ]
+}

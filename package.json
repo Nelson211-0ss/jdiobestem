@@ -1,6 +1,9 @@
 {
   "name": "jdiobestem",
   "private": true,
+  "scripts": {
+    "dev": "node dev-server.js"
+  },
   "dependencies": {
     "stripe": "^17.4.0"
   }

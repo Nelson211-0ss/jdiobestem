@@ -1,0 +1,19 @@
+# Clean URLs - remove .html extension
+/about              /about.html                     200
+/aerospace-institute /aerospace-institute.html     200
+/community-outreach /community-outreach.html       200
+/contact            /contact.html                  200
+/donate             /donate.html                   200
+/donate-success     /donate-success.html           200
+/faqs               /faqs.html                     200
+/impact             /impact.html                   200
+/news               /news.html                     200
+/programs           /programs.html                 200
+/scholarship        /scholarship.html              200
+/secondary-research /secondary-research.html       200
+/volunteers         /volunteers.html               200
+/youth-stem         /youth-stem.html               200
+
+# Redirect index.html variations
+/index              /index.html                    200
+/                   /index.html                    200
