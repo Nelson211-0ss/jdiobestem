@@ -23,31 +23,30 @@
       outline: 2px solid rgb(251 146 60);
       outline-offset: 2px;
     }
-    .donate-icon {
-      flex-shrink: 0;
-    }
   </style>
 </head>
 <body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
   <!-- Hero Section -->
-  <section class="relative bg-orange-700 text-white py-16 mb-8 overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" alt="Donate" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none select-none" style="z-index:1;">
-    <div class="relative max-w-3xl mx-auto px-4 text-center" style="z-index:2;">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-3">Support Our Mission</h1>
-      <p class="text-lg md:text-xl">Your donation empowers the next generation of STEM leaders. Every gift makes a difference!</p>
+  <section class="page-hero mb-8">
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" alt="" class="page-hero__bg" />
+    <div class="page-hero__overlay" aria-hidden="true"></div>
+    <div class="page-hero__inner">
+      <p class="page-hero__eyebrow">Support Our Mission</p>
+      <h1>Donate</h1>
+      <p class="page-hero__lede">Your gift empowers the next generation of STEM leaders. Every contribution helps students access education and opportunity.</p>
     </div>
   </section>
 
-  <!-- Donation cart — solid icons (inline SVG), modern colored UI -->
+  <!-- Donation cart -->
   <section class="py-14 pb-24 bg-orange-50">
     <div class="max-w-md mx-auto px-4">
       <div class="overflow-hidden rounded-3xl border border-white/80 bg-white shadow-xl shadow-orange-900/10 ring-1 ring-orange-100/90">
         <div class="bg-orange-700 px-8 py-7 text-white">
           <div class="flex items-center gap-4">
-            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm ring-1 ring-white/30" aria-hidden="true">
-              <svg class="donate-icon h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+            <div class="flex h-14 w-14 items-center justify-center rounded bg-white/20 ring-1 ring-white/30" aria-hidden="true">
+              <i data-feather="heart" class="h-8 w-8 text-white"></i>
             </div>
             <div>
               <h2 class="text-xl font-bold tracking-tight md:text-2xl">Give to STEM</h2>
@@ -62,7 +61,7 @@
           </div>
           <div>
             <p class="mb-3 flex items-center gap-2 text-sm font-bold text-slate-800">
-              <svg class="donate-icon h-5 w-5 text-orange-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM9.624 7.866h3.75v-.75a.75.75 0 011.5 0v.75h1.5a.75.75 0 010 1.5h-7.5a.75.75 0 000 1.5h6a2.25 2.25 0 010 4.5h-1.5v.75a.75.75 0 01-1.5 0v-.75h-3.75a.75.75 0 010-1.5h7.5a.75.75 0 000-1.5h-6a2.25 2.25 0 010-4.5h1.5v-.75a.75.75 0 011.5 0v.75z" clip-rule="evenodd"/></svg>
+              <i data-feather="dollar-sign" class="h-5 w-5 text-orange-700"></i>
               Choose amount
             </p>
             <div class="flex flex-wrap gap-2">
@@ -75,7 +74,7 @@
 
           <div>
             <label for="custom-amount" class="mb-2 flex items-center gap-2 text-sm font-bold text-slate-800">
-              <svg class="donate-icon h-5 w-5 text-rose-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 9a.75.75 0 00-1.5 0v2.25H9a.75.75 0 000 1.5h2.25V15a.75.75 0 001.5 0v-2.25H15a.75.75 0 000-1.5h-2.25V9z" clip-rule="evenodd"/></svg>
+              <i data-feather="plus-circle" class="h-5 w-5 text-rose-500"></i>
               Custom amount
             </label>
             <div class="relative">
@@ -87,7 +86,7 @@
 
           <div class="flex items-center justify-between rounded-2xl bg-orange-50 px-4 py-4 ring-1 ring-orange-100">
             <span class="flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <svg class="donate-icon h-5 w-5 text-orange-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.25 2.25a3 3 0 00-3 3v4.318a3 3 0 00.879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428l2.152-1.52a2.25 2.25 0 011.575-.458l4.652.52a.75.75 0 00.657-.744V9.75a.75.75 0 00-.648-.743l-4.15-.463a2.25 2.25 0 01-1.575-.458l-2.152-1.52a2.25 2.25 0 00-2.196-.094l-2.09 1.054a.75.75 0 01-.855-.172L5.812 5.5a.75.75 0 01-.562-.305H5.25zm4.25 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
+              <i data-feather="tag" class="h-5 w-5 text-orange-700"></i>
               Total
             </span>
             <span id="donation-total" class="text-2xl font-bold tabular-nums text-orange-700">$0</span>
@@ -95,12 +94,12 @@
 
           <p id="donate-error" class="hidden rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-800" role="alert"></p>
 
-          <button type="submit" id="donate-submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-700 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-700/30 transition hover:bg-orange-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">
-            <svg class="donate-icon h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+          <button type="submit" id="donate-submit" class="flex w-full items-center justify-center gap-2 rounded bg-orange-700 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-700/30 transition hover:bg-orange-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">
+            <i data-feather="heart" class="h-5 w-5"></i>
             Donate now
           </button>
           <p id="donate-trust-line" class="flex items-center justify-center gap-2 text-center text-xs font-medium text-slate-500">
-            <svg class="donate-icon h-4 w-4 text-teal-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3V21a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-8.25a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+            <i data-feather="lock" class="h-4 w-4 text-teal-600"></i>
             <span id="donate-trust-text">Encrypted checkout with Stripe</span>
           </p>
         </form>
@@ -111,7 +110,7 @@
   <div id="footer"></div>
   <script src="main.js"></script>
   <script>
-    if (window.feather) feather.replace();
+    if (window.feather) feather.replace({ 'stroke-width': 2.5 });
 
     const CHECKOUT_API = '/api/create-checkout-session';
 

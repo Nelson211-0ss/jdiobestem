@@ -12,59 +12,18 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
-  <style>
-    body.impact-page {
-      font-size: 1.125rem;
-      line-height: 1.55;
-    }
-    body.impact-page .text-sm { font-size: 1.05rem; line-height: 1.5rem; }
-    body.impact-page .text-base { font-size: 1.15rem; line-height: 1.6rem; }
-    body.impact-page .text-lg { font-size: 1.4rem; line-height: 1.85rem; }
-    body.impact-page .text-xl { font-size: 1.32rem; line-height: 1.75rem; }
-    body.impact-page .text-2xl { font-size: 1.55rem; line-height: 1.95rem; }
-    body.impact-page .text-3xl { font-size: 1.9rem; line-height: 2.15rem; }
-    body.impact-page .text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-    body.impact-page .text-5xl { font-size: 2.75rem; line-height: 1.1; }
-    @media (min-width: 640px) {
-      body.impact-page .sm\:text-3xl { font-size: 1.9rem; line-height: 2.15rem; }
-      body.impact-page .sm\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-      body.impact-page .sm\:text-5xl { font-size: 2.75rem; line-height: 1.1; }
-    }
-    @media (min-width: 768px) {
-      body.impact-page .md\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-      body.impact-page .md\:text-xl { font-size: 1.32rem; line-height: 1.75rem; }
-    }
-    @media (min-width: 1024px) {
-      body.impact-page .lg\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-      body.impact-page .lg\:text-5xl { font-size: 2.75rem; line-height: 1.1; }
-    }
-  </style>
 </head>
 <body class="impact-page min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
   <!-- Hero -->
-  <section class="relative mb-0 overflow-hidden bg-orange-700 py-16 text-white">
-    <img
-      src="images/hero-students-community.png"
-      alt="Students gathered for a community STEM program"
-      class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top opacity-30 select-none"
-      width="1600"
-      height="900"
-    />
-    <div
-      class="absolute inset-0 z-[1] bg-orange-900/45"
-      aria-hidden="true"
-    ></div>
-    <div class="relative z-10 mx-auto max-w-3xl px-4 text-center">
-      <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 ring-1 ring-white/30 backdrop-blur-sm" aria-hidden="true">
-        <i data-feather="bar-chart-2" class="h-7 w-7 text-white"></i>
-      </div>
-      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Our Impact</p>
-      <h1 class="mb-3 mt-3 text-3xl font-extrabold md:text-4xl">Measuring progress toward STEM opportunity</h1>
-      <p class="text-base md:text-lg text-orange-50">
-        Real students, growing programs, and momentum across Uganda.
-      </p>
+  <section class="page-hero mb-0">
+    <img src="images/hero-students-community.png" alt="" class="page-hero__bg object-top" width="1600" height="900" />
+    <div class="page-hero__overlay" aria-hidden="true"></div>
+    <div class="page-hero__inner">
+      <p class="page-hero__eyebrow">Our Impact</p>
+      <h1>Measuring real progress</h1>
+      <p class="page-hero__lede">Students gaining access, confidence, and clearer paths toward STEM education and careers across Uganda.</p>
     </div>
   </section>
 
@@ -82,13 +41,13 @@
         </div>
         <div class="sr-fade-up grid grid-cols-2 gap-3" aria-label="STEM program highlights">
           <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
-            <img src="images/hero-students-community.png" alt="Students in a community STEM gathering" class="aspect-[4/3] h-full w-full object-cover object-top" width="400" height="300" loading="lazy" decoding="async" />
+            <img src="images/185A1601-scaled.jpg" alt="Students in a community STEM gathering" class="aspect-[4/3] h-full w-full object-cover object-top" width="400" height="300" loading="lazy" decoding="async" />
           </div>
           <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
             <img src="images/robot.jpeg" alt="Students working on a robotics project" class="aspect-[4/3] h-full w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
           </div>
           <div class="col-span-2 overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
-            <img src="images/hero-diy-stem-car.png" alt="Student-built STEM model vehicle" class="aspect-[21/9] w-full object-cover" width="800" height="340" loading="lazy" decoding="async" />
+            <img src="images/plane.jpg" alt="Student-built STEM model vehicle" class="aspect-[21/9] w-full object-cover" width="800" height="340" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -112,7 +71,7 @@
             <img src="images/teachers.jpeg" alt="Educators supporting students in STEM learning" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
           </div>
           <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
-            <img src="images/hero-science-fair-projects.png" alt="Students presenting science fair projects" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
+            <img src="images/1718038140753.jpeg" alt="Students presenting science fair projects" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
           </div>
           <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
             <img src="images/catapilar.jpeg" alt="Hands-on STEM workshop activity" class="h-40 w-full object-cover sm:h-44" width="600" height="400" loading="lazy" decoding="async" />
@@ -175,7 +134,7 @@
           <div class="sr-fade-up mt-8 space-y-3">
             <div class="overflow-hidden rounded-3xl ring-1 ring-orange-100/90 shadow-lg">
               <img
-                src="images/hero-science-fair-projects.png"
+                src="images/wall.jpeg"
                 alt="Students presenting STEM projects at a science fair"
                 class="aspect-[5/4] w-full object-cover"
                 width="800"
@@ -227,10 +186,10 @@
             </p>
             <div class="sr-fade-up mt-8 grid grid-cols-2 gap-3">
               <div class="overflow-hidden rounded-2xl ring-1 ring-white/20">
-                <img src="images/robot.jpeg" alt="Robotics program in action" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+                <img src="images/1.jpeg" alt="Robotics program in action" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
               </div>
               <div class="overflow-hidden rounded-2xl ring-1 ring-white/20">
-                <img src="images/plane.jpg" alt="Aerospace education activity" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+                <img src="images/team/prof.jpeg" alt="Aerospace education activity" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
@@ -293,10 +252,10 @@
               <img src="images/1713891129693.jpeg" alt="STEM outreach with students" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
             </div>
             <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
-              <img src="images/1.jpeg" alt="Students participating in a foundation program" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
+              <img src="images/team/nicholas.jpg" alt="Students participating in a foundation program" class="aspect-[4/3] w-full object-cover" width="400" height="300" loading="lazy" decoding="async" />
             </div>
             <div class="col-span-2 overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
-              <img src="images/185A1601-scaled.jpg" alt="Group learning session in Uganda" class="aspect-[21/9] w-full object-cover" width="800" height="340" loading="lazy" decoding="async" />
+              <img src="images/team/jdiobepic.webp" alt="Group learning session in Uganda" class="aspect-[21/9] w-full object-cover" width="800" height="340" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>

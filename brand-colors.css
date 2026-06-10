@@ -8,4 +8,135 @@
   --brand-orange-dark: #7c2d12;
   --brand-orange-soft: #fff7ed;
   --brand-orange-muted: #ffedd5;
+  --radius-card: 0.375rem;
+  --radius-button: 0.25rem;
+}
+
+/* Sharper corners on cards, buttons, and inputs */
+.rounded-3xl,
+.rounded-2xl {
+  border-radius: var(--radius-card) !important;
+}
+
+.rounded-xl,
+.rounded-lg {
+  border-radius: var(--radius-button) !important;
+}
+
+.rounded-full:not(.hero-slider-dot) {
+  border-radius: var(--radius-button) !important;
+}
+
+/* Solid feather icons — consistent weight and color */
+svg.feather {
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+/* Compact sub-page heroes (all pages except home) */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--brand-orange);
+  color: #fff;
+  padding-top: 2.75rem;
+  padding-bottom: 2.75rem;
+}
+
+@media (min-width: 768px) {
+  .page-hero {
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
+  }
+}
+
+.page-hero__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  user-select: none;
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgb(124 45 18 / 0.45);
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 10;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.page-hero__eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(255 237 213 / 0.95);
+}
+
+.page-hero h1 {
+  margin-top: 0.5rem;
+  max-width: 42rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.page-hero__lede {
+  margin-top: 0.75rem;
+  max-width: 38rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgb(255 247 237 / 0.92);
+}
+
+@media (min-width: 640px) {
+  .page-hero h1 {
+    font-size: 1.85rem;
+  }
+
+  .page-hero__lede {
+    font-size: 1.05rem;
+    margin-top: 0.875rem;
+  }
+}
+
+/* Header nav icons */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.nav-link svg.feather {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.nav-link-mobile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link-mobile svg.feather {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
 }

@@ -6,9 +6,12 @@ Static HTML/CSS/JS with optional **Stripe Checkout** for donations via **Netlify
 
 1. Copy `.env.example` to `.env` and set `STRIPE_SECRET_KEY` (Stripe Dashboard → Developers → API keys — start with **test** keys for local/preview).
 2. Install dependencies: `npm install`
-3. Run locally so `/api/create-checkout-session` is served: **`npx netlify dev`** (uses `netlify.toml` to route `/api/…` to the function).
-4. Connect the repo to **Netlify**, set **`STRIPE_SECRET_KEY`** (and **`PUBLIC_SITE_URL`**) in the site’s environment variables. Deploy.
-5. Use [Stripe test cards](https://stripe.com/docs/testing) on **deploy previews** until you switch the **production** context to **live** keys.
+3. Run locally so `/api/create-checkout-session` is served: **`npm run dev`** then open **http://localhost:3000/donate**. The dev server loads `.env` and serves the same checkout handler used in production. (Avoid the editor's "Live Server" on port 5500 — it serves static files only and cannot run the donate API.)
+4. Test the flow with a [Stripe test card](https://stripe.com/docs/testing) such as `4242 4242 4242 4242`, any future expiry, any CVC/ZIP.
+5. Connect the repo to **Netlify**, set **`STRIPE_SECRET_KEY`** (and **`PUBLIC_SITE_URL`**) in the site’s environment variables. Deploy.
+6. Use [Stripe test cards](https://stripe.com/docs/testing) on **deploy previews** until you switch the **production** context to **live** keys.
+
+> Alternative: `npx netlify dev` also works and additionally exercises the Netlify rewrite in `netlify.toml`, but requires the Netlify CLI.
 
 ### Production (go-live)
 
@@ -25,7 +28,7 @@ Before pointing donors at the live site:
 Real Stripe Checkout needs the internet. For **UI-only** testing:
 
 1. **Browser-only (localhost)** — `donate.html?mock_checkout=1` on `localhost` / `127.0.0.1`. Optional: `localStorage.setItem('jdiobe_donate_mock', '1')`; clear with `removeItem`.
-2. **Local Netlify dev, no Stripe** — in `.env`, `MOCK_CHECKOUT=1` and `npx netlify dev`. Ignored on Netlify **production** deploys.
+2. **Local dev server, no Stripe** — in `.env`, `MOCK_CHECKOUT=1` and `npm run dev` (or `npx netlify dev`). Ignored on **production** deploys.
 
 **GitHub Pages–only** cannot run Netlify Functions; use Netlify (or another backend that implements the same POST API) for donations.
 

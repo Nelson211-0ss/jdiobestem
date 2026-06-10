@@ -103,26 +103,14 @@
   }
 }
 
-/* Hero: fine stipple + soft diagonal weave over the warm wash (no extra assets) */
+/* Hero: solid wash overlay (no gradients) */
 .hero-parallax::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.42;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.14) 1px, transparent 0),
-    repeating-linear-gradient(
-      118deg,
-      transparent 0,
-      transparent 11px,
-      rgba(255, 255, 255, 0.045) 11px,
-      rgba(255, 255, 255, 0.045) 12px
-    );
-  background-size:
-    16px 16px,
-    100% 100%;
+  background-color: rgba(255, 255, 255, 0.04);
 }
 
 /* Hero image container moves with the card (no independent parallax shift) */

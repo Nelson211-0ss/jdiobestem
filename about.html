@@ -12,69 +12,36 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
-  <style>
-    body.about-page {
-      font-size: 1.125rem;
-      line-height: 1.55;
-    }
-    body.about-page .text-sm { font-size: 1.05rem; line-height: 1.5rem; }
-    body.about-page .text-base { font-size: 1.15rem; line-height: 1.6rem; }
-    body.about-page .text-lg { font-size: 1.4rem; line-height: 1.85rem; }
-    body.about-page .text-xl { font-size: 1.32rem; line-height: 1.75rem; }
-    body.about-page .text-2xl { font-size: 1.55rem; line-height: 1.95rem; }
-    body.about-page .text-3xl { font-size: 1.9rem; line-height: 2.15rem; }
-    body.about-page .text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-    body.about-page .text-5xl { font-size: 2.75rem; line-height: 1.1; }
-    @media (min-width: 640px) {
-      body.about-page .sm\:text-3xl { font-size: 1.9rem; line-height: 2.15rem; }
-      body.about-page .sm\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-      body.about-page .sm\:text-5xl { font-size: 2.75rem; line-height: 1.1; }
-    }
-    @media (min-width: 768px) {
-      body.about-page .md\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-    }
-    @media (min-width: 1024px) {
-      body.about-page .lg\:text-4xl { font-size: 2.15rem; line-height: 2.35rem; }
-      body.about-page .lg\:text-5xl { font-size: 2.75rem; line-height: 1.1; }
-    }
-  </style>
 </head>
 <body class="about-page min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
   <!-- Hero Section -->
-  <section class="relative mb-8 overflow-hidden bg-orange-700 py-16 text-white md:py-20 lg:py-24">
-    <img
-      src="images/hero-students-community.png"
-      alt=""
-      class="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-top opacity-30 select-none"
-      width="1600"
-      height="900"
-    />
-    <div
-      class="absolute inset-0 z-[1] bg-orange-900/45"
-      aria-hidden="true"
-    ></div>
-    <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Our Purpose</p>
-      <h1 class="mt-5 max-w-4xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-        We exist because talent should never be limited by lack of opportunity.
-      </h1>
-      <p class="mt-6 max-w-3xl text-base leading-7 text-orange-50 md:text-lg md:leading-8">
-        Jdiobe STEM Foundation expands access to STEM education for underserved students in Uganda through scholarships, mentorship, exposure, and innovation centered support.
-      </p>
+  <section class="page-hero mb-8">
+    <img src="images/hero-students-community.png" alt="" class="page-hero__bg object-top" width="1600" height="900" />
+    <div class="page-hero__overlay" aria-hidden="true"></div>
+    <div class="page-hero__inner">
+      <p class="page-hero__eyebrow">Our Purpose</p>
+      <h1>About Us</h1>
+      <p class="page-hero__lede">We expand STEM access for underserved students in Uganda through scholarships, mentorship, and hands-on learning.</p>
     </div>
   </section>
 
   <main>
     <!-- Our Story -->
-    <section class="py-20">
-      <div class="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
-        <aside class="sr-fade-up lg:sticky lg:top-28 lg:self-start">
-          <div class="rounded-3xl bg-orange-50/70 p-8 ring-1 ring-orange-100">
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Story</p>
-            <h2 class="mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Why we began</h2>
-            <div class="mt-8 overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-md">
+    <section class="border-b border-orange-100 bg-white py-16 md:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <header class="sr-fade-up max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Story</p>
+          <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+            Why we began
+          </h2>
+        </header>
+
+        <div class="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
+          <!-- Image & focus areas -->
+          <aside class="sr-fade-up lg:col-span-4 lg:sticky lg:top-28">
+            <figure class="overflow-hidden border border-orange-100 bg-orange-50 shadow-sm">
               <img
                 src="images/catapilar.jpeg"
                 alt="Students engaged in hands-on STEM learning"
@@ -84,41 +51,56 @@
                 loading="lazy"
                 decoding="async"
               />
-            </div>
-            <div class="mt-6 grid grid-cols-2 gap-2">
-              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="cpu" class="h-4 w-4 shrink-0 text-orange-700"></i>
-                Robotics
-              </div>
-              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="navigation" class="h-4 w-4 shrink-0 text-orange-700"></i>
-                Aerospace
-              </div>
-              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="droplet" class="h-4 w-4 shrink-0 text-orange-700"></i>
-                Water monitoring
-              </div>
-              <div class="flex items-center gap-2 rounded-xl bg-orange-50 px-3 py-2.5 text-xs font-medium text-gray-800 ring-1 ring-orange-100 sm:text-sm">
-                <i data-feather="sun" class="h-4 w-4 shrink-0 text-orange-700"></i>
-                Environmental engineering
-              </div>
+              <figcaption class="border-t border-orange-100 bg-white px-5 py-3.5 text-sm font-medium text-gray-700">
+                Hands-on STEM learning in action
+              </figcaption>
+            </figure>
+
+            <ul class="mt-5 space-y-2 border border-orange-100 bg-orange-50/60 p-4" aria-label="STEM focus areas">
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="cpu" class="h-4 w-4"></i>
+                </span>
+                <span>Robotics</span>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="navigation" class="h-4 w-4"></i>
+                </span>
+                <span>Aerospace</span>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="droplet" class="h-4 w-4"></i>
+                </span>
+                <span>Water monitoring</span>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="sun" class="h-4 w-4"></i>
+                </span>
+                <span>Environmental engineering</span>
+              </li>
+            </ul>
+          </aside>
+
+          <!-- Narrative -->
+          <div class="lg:col-span-8">
+            <div class="space-y-5 text-base leading-7 text-gray-600 sm:text-[1.05rem] sm:leading-8">
+              <p class="sr-fade-up text-justify">
+                Jdiobe STEM Foundation was established to address a simple but urgent reality: many talented students in underserved communities have the ability to succeed in science, technology, engineering, and mathematics, but lack the resources and support needed to pursue that path.
+              </p>
+              <p class="sr-fade-up text-justify">
+                For many students, the barrier is not ability. It is the cost of education, limited exposure to STEM careers, lack of mentorship, and the absence of professional networks that can help them imagine and prepare for a different future.
+              </p>
+              <p class="sr-fade-up text-justify">
+                The foundation was created to help close that gap. Our work focuses on supporting students not only with financial assistance, but also with guidance, encouragement, and real world exposure that helps them build confidence and direction.
+              </p>
+              <p class="sr-fade-up text-justify">
+                We believe that when students are given access to opportunity, they can become engineers, scientists, researchers, entrepreneurs, educators, and problem solvers who strengthen their communities and contribute to global progress.
+              </p>
             </div>
           </div>
-        </aside>
-
-        <div class="space-y-7 text-base leading-7 text-gray-600">
-          <p class="sr-fade-up">
-            Jdiobe STEM Foundation was established to address a simple but urgent reality: many talented students in underserved communities have the ability to succeed in science, technology, engineering, and mathematics, but lack the resources and support needed to pursue that path.
-          </p>
-          <p class="sr-fade-up">
-            For many students, the barrier is not ability. It is the cost of education, limited exposure to STEM careers, lack of mentorship, and the absence of professional networks that can help them imagine and prepare for a different future.
-          </p>
-          <p class="sr-fade-up">
-            The foundation was created to help close that gap. Our work focuses on supporting students not only with financial assistance, but also with guidance, encouragement, and real world exposure that helps them build confidence and direction.
-          </p>
-          <p class="sr-fade-up">
-            We believe that when students are given access to opportunity, they can become engineers, scientists, researchers, entrepreneurs, educators, and problem solvers who strengthen their communities and contribute to global progress.
-          </p>
         </div>
       </div>
     </section>
@@ -179,53 +161,73 @@
     </section>
 
     <!-- Founder&rsquo;s Journey -->
-    <section class="bg-orange-50/40 py-20">
-      <div class="mx-auto grid max-w-7xl items-start gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <div>
-          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Founder&rsquo;s Journey</p>
-          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+    <section class="border-y border-orange-100 bg-white py-16 md:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <header class="sr-fade-up max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Founder&rsquo;s Journey</p>
+          <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             A foundation shaped by education, engineering, and service
           </h2>
-          <div class="sr-fade-up mt-8 w-full max-w-xs overflow-hidden rounded-3xl ring-1 ring-orange-100 shadow-lg sm:max-w-sm md:max-w-md">
-            <img
-              src="images/muwanika.jpg"
-              alt="Dr. Muwanika Jdiobe, founder of Jdiobe STEM Foundation"
-              class="aspect-[4/5] w-full object-cover object-top"
-              width="448"
-              height="560"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div class="sr-fade-up mt-6 flex max-w-md flex-wrap gap-2">
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
-              <i data-feather="award" class="h-3.5 w-3.5 shrink-0 text-orange-700"></i>
-              Ph.D., Aerospace Engineering
-            </span>
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
-              <i data-feather="briefcase" class="h-3.5 w-3.5 shrink-0 text-orange-700"></i>
-              The Boeing Company
-            </span>
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-gray-800 shadow-sm sm:text-sm">
-              <i data-feather="book-open" class="h-3.5 w-3.5 shrink-0 text-orange-700"></i>
-              Oklahoma State University
-            </span>
-          </div>
-        </div>
+        </header>
 
-        <div class="space-y-6 text-base leading-7 text-gray-600">
-          <p class="sr-fade-up">
-            Jdiobe STEM Foundation was founded by Dr. Muwanika Jdiobe, an aerospace engineer, educator, and researcher committed to expanding access to STEM education globally.
-          </p>
-          <p class="sr-fade-up">
-            His background in engineering and academia shaped the foundation&rsquo;s belief that education should connect knowledge with real world opportunity. Through his own academic and professional journey, Dr. Jdiobe recognized how mentorship, exposure, and support can change what a student believes is possible.
-          </p>
-          <p class="sr-fade-up">
-            The foundation reflects that conviction. It is designed to help students access education, develop confidence, connect with mentors, and pursue STEM pathways that can transform their futures.
-          </p>
-          <p class="sr-fade-up">
-            Dr. Jdiobe&rsquo;s journey from the classrooms of Uganda to earning a Ph.D. in Mechanical and Aerospace Engineering in the United States inspired a vision to give back. What began as personal outreach grew into a cross-border nonprofit bridging continents, resources, and ideas for the next generation of STEM leaders.
-          </p>
+        <div class="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
+          <!-- Portrait & credentials -->
+          <aside class="sr-fade-up lg:col-span-4 lg:sticky lg:top-28">
+            <figure class="overflow-hidden border border-orange-100 bg-orange-50 shadow-sm">
+              <img
+                src="images/muwanika.jpg"
+                alt="Dr. Muwanika Jdiobe, founder of Jdiobe STEM Foundation"
+                class="aspect-[4/5] w-full object-cover object-top"
+                width="448"
+                height="560"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="border-t border-orange-100 bg-white px-5 py-4">
+                <p class="text-lg font-bold text-gray-900">Dr. Muwanika Jdiobe</p>
+                <p class="mt-0.5 text-sm font-medium text-orange-700">Founder &amp; CEO</p>
+              </figcaption>
+            </figure>
+
+            <ul class="mt-5 space-y-2 border border-orange-100 bg-orange-50/60 p-4" aria-label="Founder credentials">
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="award" class="h-4 w-4"></i>
+                </span>
+                <span>Ph.D., Aerospace Engineering</span>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="briefcase" class="h-4 w-4"></i>
+                </span>
+                <span>The Boeing Company</span>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-700">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="book-open" class="h-4 w-4"></i>
+                </span>
+                <span>Oklahoma State University</span>
+              </li>
+            </ul>
+          </aside>
+
+          <!-- Narrative -->
+          <div class="lg:col-span-8">
+            <div class="space-y-5 text-base leading-7 text-gray-600 sm:text-[1.05rem] sm:leading-8">
+              <p class="sr-fade-up text-justify">
+                Jdiobe STEM Foundation was founded by Dr. Muwanika Jdiobe, an aerospace engineer, educator, and researcher committed to expanding access to STEM education globally.
+              </p>
+              <p class="sr-fade-up text-justify">
+                His background in engineering and academia shaped the foundation&rsquo;s belief that education should connect knowledge with real world opportunity. Through his own academic and professional journey, Dr. Jdiobe recognized how mentorship, exposure, and support can change what a student believes is possible.
+              </p>
+              <p class="sr-fade-up text-justify">
+                The foundation reflects that conviction. It is designed to help students access education, develop confidence, connect with mentors, and pursue STEM pathways that can transform their futures.
+              </p>
+              <p class="sr-fade-up text-justify">
+                Dr. Jdiobe&rsquo;s journey from the classrooms of Uganda to earning a Ph.D. in Mechanical and Aerospace Engineering in the United States inspired a vision to give back. What began as personal outreach grew into a cross-border nonprofit bridging continents, resources, and ideas for the next generation of STEM leaders.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -282,35 +284,78 @@
     </section>
 
     <!-- Where We Work -->
-    <section class="py-20">
-      <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-        <div>
-          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Where We Work</p>
-          <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+    <section class="border-y border-orange-100 bg-orange-50/50 py-16 md:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <header class="sr-fade-up max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Where We Work</p>
+          <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             Rooted in Uganda, connected to global opportunity
           </h2>
-          <div class="sr-fade-up mt-8 overflow-hidden rounded-3xl ring-1 ring-orange-100 shadow-md">
-            <img
-              src="images/hero-students-community.png"
-              alt="Students in Uganda participating in a STEM community program"
-              class="aspect-[16/10] w-full object-cover object-top"
-              width="800"
-              height="500"
-              loading="lazy"
-              decoding="async"
-            />
+        </header>
+
+        <div class="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
+          <!-- Narrative -->
+          <div class="order-2 lg:order-1 lg:col-span-7">
+            <div class="space-y-5 text-base leading-7 text-gray-600 sm:text-[1.05rem] sm:leading-8">
+              <p class="sr-fade-up text-justify">
+                Jdiobe STEM Foundation focuses on supporting underserved students in Uganda while building partnerships that can extend opportunities across borders.
+              </p>
+              <p class="sr-fade-up text-justify">
+                Our goal is to connect local talent with the resources, mentorship, and learning experiences needed to participate in a global STEM future.
+              </p>
+              <p class="sr-fade-up text-justify">
+                With its unique cross-border structure, registered in the United States and operating in Uganda, the Foundation bridges continents, resources, and ideas. Our work continues to grow through partnerships with schools, universities, and communities united by the belief that brilliance exists everywhere, but opportunity must be built.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="space-y-6 text-base leading-7 text-gray-600">
-          <p class="sr-fade-up">
-            Jdiobe STEM Foundation focuses on supporting underserved students in Uganda while building partnerships that can extend opportunities across borders.
-          </p>
-          <p class="sr-fade-up">
-            Our goal is to connect local talent with the resources, mentorship, and learning experiences needed to participate in a global STEM future.
-          </p>
-          <p class="sr-fade-up">
-            With its unique cross-border structure, registered in the United States and operating in Uganda, the Foundation bridges continents, resources, and ideas. Our work continues to grow through partnerships with schools, universities, and communities united by the belief that brilliance exists everywhere, but opportunity must be built.
-          </p>
+
+          <!-- Image & regions -->
+          <aside class="order-1 lg:order-2 lg:col-span-5 lg:sticky lg:top-28">
+            <figure class="sr-fade-up overflow-hidden border border-orange-100 bg-white shadow-sm">
+              <img
+                src="images/185A1601-scaled.jpg"
+                alt="Students in Uganda participating in a STEM community program"
+                class="aspect-[16/10] w-full object-cover object-top"
+                width="800"
+                height="500"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="border-t border-orange-100 px-5 py-3.5 text-sm font-medium text-gray-700">
+                Students in Uganda at a foundation program
+              </figcaption>
+            </figure>
+
+            <ul class="sr-fade-up mt-5 space-y-2 border border-orange-100 bg-white p-4" aria-label="Areas of operation">
+              <li class="flex items-start gap-3 text-sm text-gray-700">
+                <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="map-pin" class="h-4 w-4"></i>
+                </span>
+                <span>
+                  <span class="block font-semibold text-gray-900">Uganda</span>
+                  <span class="mt-0.5 block leading-relaxed text-gray-600">Primary area of impact&mdash;scholarships, mentorship, and STEM outreach.</span>
+                </span>
+              </li>
+              <li class="flex items-start gap-3 text-sm text-gray-700">
+                <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="globe" class="h-4 w-4"></i>
+                </span>
+                <span>
+                  <span class="block font-semibold text-gray-900">Global partnerships</span>
+                  <span class="mt-0.5 block leading-relaxed text-gray-600">Schools, universities, and collaborators extending student opportunity.</span>
+                </span>
+              </li>
+              <li class="flex items-start gap-3 text-sm text-gray-700">
+                <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+                  <i data-feather="home" class="h-4 w-4"></i>
+                </span>
+                <span>
+                  <span class="block font-semibold text-gray-900">United States</span>
+                  <span class="mt-0.5 block leading-relaxed text-gray-600">Registered nonprofit; Oklahoma City office for administration and fundraising.</span>
+                </span>
+              </li>
+            </ul>
+          </aside>
         </div>
       </div>
     </section>
@@ -359,9 +404,9 @@
 
         <div class="sr-stagger grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
           <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-orange-100 bg-orange-50 shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-950/10">
-            <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
-              <img src="images/muwanika.jpg" alt="Muwanika Jdiobe, PhD" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
-              <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
+            <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+              <img src="images/team/jdiobepic.webp" alt="Muwanika Jdiobe, PhD" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
+              <div class="absolute inset-x-0 bottom-0 h-24 bg-black/40"></div>
               <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-700 shadow-sm backdrop-blur-sm">
                 <i data-feather="award" class="h-3.5 w-3.5 text-orange-700"></i>
                 Executive
@@ -393,9 +438,9 @@
           </article>
 
           <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-orange-100 bg-orange-50 shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-950/10">
-            <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+            <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
               <img src="images/team/prof.jpeg" alt="Nelson O. Ochan" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
-              <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 h-24 bg-black/40"></div>
               <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-700 shadow-sm backdrop-blur-sm">
                 <i data-feather="cpu" class="h-3.5 w-3.5 text-orange-700"></i>
                 Technology
@@ -427,9 +472,9 @@
           </article>
 
           <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-orange-100 bg-orange-50 shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-950/10">
-            <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50">
+            <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
               <img src="images/team/nicholas.jpg" alt="Nicholas Ssebalamu" class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" loading="lazy" decoding="async" />
-              <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 via-black/15 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 h-24 bg-black/40"></div>
               <div class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-lg bg-white/95 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-orange-700 shadow-sm backdrop-blur-sm">
                 <i data-feather="clipboard" class="h-3.5 w-3.5 text-orange-700"></i>
                 Programs

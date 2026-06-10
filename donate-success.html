@@ -16,17 +16,19 @@
 <body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <section class="relative bg-orange-700 py-20 text-white">
-    <div class="mx-auto max-w-2xl px-4 text-center">
-      <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white/20 ring-2 ring-white/40">
-        <i data-feather="check-circle" class="h-9 w-9"></i>
+  <section class="page-hero">
+    <div class="page-hero__overlay" aria-hidden="true"></div>
+    <div class="page-hero__inner mx-auto max-w-2xl text-center">
+      <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded bg-white/20 ring-1 ring-white/40">
+        <i data-feather="check-circle" class="h-7 w-7"></i>
       </div>
-      <h1 class="text-4xl font-extrabold tracking-tight md:text-5xl">Thank you</h1>
-      <p id="donate-success-body" class="mt-4 text-lg text-white/95">
-        Your payment was submitted successfully. Stripe will email you a receipt. We are grateful for your support of STEM education.
+      <p class="page-hero__eyebrow">Donation received</p>
+      <h1>Thank you</h1>
+      <p id="donate-success-body" class="page-hero__lede mx-auto">
+        Your payment was submitted successfully. Stripe will email you a receipt.
       </p>
-      <a href="index.html" class="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-orange-700 shadow transition hover:bg-orange-50">
-        <i data-feather="home" class="h-5 w-5"></i>
+      <a href="index.html" class="mt-6 inline-flex items-center gap-2 rounded bg-white px-6 py-2.5 text-sm font-semibold text-orange-700 shadow transition hover:bg-orange-50">
+        <i data-feather="home" class="h-4 w-4"></i>
         Back to home
       </a>
     </div>
@@ -35,7 +37,7 @@
   <div id="footer"></div>
   <script src="main.js"></script>
   <script>
-    if (window.feather) feather.replace();
+    if (window.feather) feather.replace({ 'stroke-width': 2.5 });
 
     (function () {
       var params = new URLSearchParams(window.location.search);

@@ -8,108 +8,108 @@ html {
 }
 
 html body {
-  font-size: 1.3206rem;
-  line-height: 1.585;
+  font-size: 1.2rem;
+  line-height: 1.55;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
 }
 
 body .text-xs {
-  font-size: 1.0805rem;
-  line-height: 1.441rem;
+  font-size: 0.98rem;
+  line-height: 1.4rem;
 }
 
 body .text-sm {
-  font-size: 1.2605rem;
-  line-height: 1.729rem;
+  font-size: 1.14rem;
+  line-height: 1.65rem;
 }
 
 body .text-base {
-  font-size: 1.3806rem;
-  line-height: 1.921rem;
+  font-size: 1.25rem;
+  line-height: 1.8rem;
 }
 
 body .text-lg {
-  font-size: 1.5607rem;
-  line-height: 2.041rem;
+  font-size: 1.42rem;
+  line-height: 1.9rem;
 }
 
 /* Footer (#footer): smaller than main content */
 #footer .text-xs {
-  font-size: 0.9725rem;
-  line-height: 1.3rem;
+  font-size: 0.9rem;
+  line-height: 1.25rem;
 }
 
 #footer .text-sm {
-  font-size: 1.134rem;
-  line-height: 1.556rem;
+  font-size: 1.05rem;
+  line-height: 1.45rem;
 }
 
 #footer .text-xl {
-  font-size: 1.35rem;
-  line-height: 1.75rem;
+  font-size: 1.25rem;
+  line-height: 1.65rem;
 }
 
 .text-xl {
-  font-size: 1.5rem;
-  line-height: 1.95rem;
+  font-size: 1.35rem;
+  line-height: 1.8rem;
 }
 
 .text-2xl {
-  font-size: 1.75rem;
-  line-height: 2.125rem;
+  font-size: 1.6rem;
+  line-height: 1.95rem;
 }
 
 .text-3xl {
-  font-size: 2.1875rem;
-  line-height: 2.375rem;
+  font-size: 2rem;
+  line-height: 2.2rem;
 }
 
 .text-4xl {
-  font-size: 2.5rem;
-  line-height: 2.625rem;
+  font-size: 2.25rem;
+  line-height: 2.4rem;
 }
 
 .text-5xl {
-  font-size: 3.25rem;
-  line-height: 1;
+  font-size: 2.9rem;
+  line-height: 1.05;
 }
 
 @media (min-width: 640px) {
   .sm\:text-4xl {
-    font-size: 2.5rem;
-    line-height: 2.625rem;
+    font-size: 2.25rem;
+    line-height: 2.4rem;
   }
 
   .sm\:text-5xl {
-    font-size: 3.25rem;
-    line-height: 1;
+    font-size: 2.9rem;
+    line-height: 1.05;
   }
 }
 
 @media (min-width: 768px) {
   .md\:text-xl {
-    font-size: 1.5rem;
-    line-height: 1.95rem;
+    font-size: 1.35rem;
+    line-height: 1.8rem;
   }
 
   .md\:text-2xl {
-    font-size: 1.75rem;
-    line-height: 2.125rem;
+    font-size: 1.6rem;
+    line-height: 1.95rem;
   }
 
   .md\:text-3xl {
-    font-size: 2.1875rem;
-    line-height: 2.375rem;
+    font-size: 2rem;
+    line-height: 2.2rem;
   }
 
   .md\:text-4xl {
-    font-size: 2.5rem;
-    line-height: 2.625rem;
+    font-size: 2.25rem;
+    line-height: 2.4rem;
   }
 
   .md\:text-5xl {
-    font-size: 3.25rem;
-    line-height: 1;
+    font-size: 2.9rem;
+    line-height: 1.05;
   }
 }
