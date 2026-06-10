@@ -41,7 +41,7 @@
           </p>
           <div class="hero-title-in delay-3 mt-7 flex flex-wrap gap-4">
             <a
-              href="donate.html"
+              href="/donate"
               class="rounded-2xl bg-white px-6 py-3 font-semibold text-orange-700 shadow-sm transition hover:bg-orange-50"
               >Sponsor a Student</a
             >
@@ -243,7 +243,7 @@
                   them toward audacious goals in science and engineering.
                 </p>
                 <a
-                  href="programs.html"
+                  href="/programs"
                   class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-orange-700 transition hover:bg-orange-50"
                 >
                   Explore programs <i data-feather="arrow-right" class="h-4 w-4"></i>
@@ -264,87 +264,111 @@
         </div>
       </section>
 
-      <section id="programs" class="py-20">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="max-w-3xl">
-            <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">What We Do</p>
-            <h2 class="sr-fade-up mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+      <section id="programs" class="border-y border-orange-100 bg-white py-16 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div class="lg:grid lg:grid-cols-12 lg:items-start lg:gap-10">
+          <header class="sr-fade-up lg:col-span-7 lg:pt-2">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">What We Do</p>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
               Programs designed to remove barriers and create opportunity
             </h2>
-          </div>
-          <div class="sr-fade-up mt-10 grid gap-6 lg:grid-cols-2">
-            <figure class="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-orange-100">
-              <img
-                src="images/teachers.jpeg"
-                alt="Students presenting STEM projects at an exhibition, including electronics and solar experiments"
-                class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                width="1200"
-                height="900"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption class="border-t border-orange-100 px-5 py-4 text-sm leading-snug text-gray-600">
-                <span class="font-semibold text-orange-700">Fairs &amp; showcases</span> — learners
-                present research, circuits, and sustainable design to peers and mentors.
+            <p class="mt-4 text-base leading-relaxed text-stone-600">
+              Scholarships, hands-on learning, mentorship, and research pathways for students in Uganda and beyond.
+            </p>
+          </header>
+
+          <div
+            class="sr-fade-up mt-10 grid grid-cols-2 gap-4 sm:mx-auto sm:max-w-md lg:col-span-5 lg:col-start-8 lg:mx-0 lg:mt-0 lg:max-w-none lg:items-start"
+            aria-label="Program highlights in photos"
+          >
+            <figure class="flex flex-col">
+              <div class="aspect-[4/3] overflow-hidden border border-orange-100 bg-stone-50 shadow-sm">
+                <img
+                  src="images/hero-science-fair-projects.png"
+                  alt="Students presenting STEM projects at an exhibition, including electronics and solar experiments"
+                  class="h-full w-full object-cover object-center"
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="mt-2 flex flex-1 flex-col">
+                <p class="text-xs font-semibold uppercase tracking-wide text-orange-700">Fairs &amp; showcases</p>
+                <p class="mt-1 text-xs leading-relaxed text-stone-600">
+                  Research, circuits, and sustainable design on display.
+                </p>
               </figcaption>
             </figure>
-            <figure class="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-orange-100">
-              <img
-                src="images/robot.jpeg"
-                alt="Homemade motorized vehicle built from recycled materials on a workshop table"
-                class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                width="1200"
-                height="900"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption class="border-t border-orange-100 px-5 py-4 text-sm leading-snug text-gray-600">
-                <span class="font-semibold text-orange-700">Hands-on builds</span> — engineering,
-                mechanics, and creativity from everyday materials.
+            <figure class="flex flex-col">
+              <div class="aspect-[4/3] overflow-hidden border border-orange-100 bg-stone-50 shadow-sm">
+                <img
+                  src="images/hero-diy-stem-car.png"
+                  alt="Homemade motorized vehicle built from recycled materials on a workshop table"
+                  class="h-full w-full object-cover object-center"
+                  width="1920"
+                  height="1080"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="mt-2 flex flex-1 flex-col">
+                <p class="text-xs font-semibold uppercase tracking-wide text-orange-700">Hands-on builds</p>
+                <p class="mt-1 text-xs leading-relaxed text-stone-600">
+                  Engineering and creativity from everyday materials.
+                </p>
               </figcaption>
             </figure>
           </div>
-          <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm">
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-700">
+          </div>
+
+          <div class="sr-stagger mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
                 <i data-feather="award" class="h-5 w-5"></i>
-              </div>
-              <h3 class="text-xl font-semibold text-orange-700">Scholarships</h3>
-              <p class="mt-3 text-sm leading-6 text-gray-600">
-                We provide financial support to students pursuing STEM education, including tuition,
-                learning materials, and travel needs.
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-stone-900">Scholarships</h3>
+              <p class="mt-2 text-sm leading-relaxed text-stone-600">
+                Financial support for tuition, materials, and travel so cost never blocks a STEM future.
               </p>
             </div>
-            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm">
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-700">
+            <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
                 <i data-feather="book-open" class="h-5 w-5"></i>
-              </div>
-              <h3 class="text-xl font-semibold text-orange-700">STEM Education &amp; Training</h3>
-              <p class="mt-3 text-sm leading-6 text-gray-600">
-                We create hands on learning experiences that expose students to practical STEM
-                skills and real world applications.
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-stone-900">STEM education</h3>
+              <p class="mt-2 text-sm leading-relaxed text-stone-600">
+                Practical workshops and training that connect classroom learning to real-world skills.
               </p>
             </div>
-            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm">
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-700">
+            <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
                 <i data-feather="users" class="h-5 w-5"></i>
-              </div>
-              <h3 class="text-xl font-semibold text-orange-700">Mentorship &amp; Career Development</h3>
-              <p class="mt-3 text-sm leading-6 text-gray-600">
-                We connect students with educators, professionals, and guidance that helps shape
-                academic and career pathways.
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-stone-900">Mentorship</h3>
+              <p class="mt-2 text-sm leading-relaxed text-stone-600">
+                Guidance from educators and professionals to shape academic and career pathways.
               </p>
             </div>
-            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm">
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-700">
+            <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
                 <i data-feather="cpu" class="h-5 w-5"></i>
-              </div>
-              <h3 class="text-xl font-semibold text-orange-700">Innovation &amp; Research</h3>
-              <p class="mt-3 text-sm leading-6 text-gray-600">
-                We support projects that address real challenges in education, technology,
-                engineering, and environmental sustainability.
+              </span>
+              <h3 class="mt-4 text-lg font-semibold text-stone-900">Innovation</h3>
+              <p class="mt-2 text-sm leading-relaxed text-stone-600">
+                Student-led projects in technology, engineering, and environmental sustainability.
               </p>
             </div>
+          </div>
+
+          <div class="sr-fade-up mt-10 text-center">
+            <a
+              href="/programs"
+              class="inline-flex items-center gap-2 bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-800"
+            >
+              View all programs
+              <i data-feather="arrow-right" class="h-4 w-4"></i>
+            </a>
           </div>
         </div>
       </section>
@@ -456,7 +480,7 @@
               opportunities for high-potential students.
             </p>
             <a
-              href="news.html"
+              href="/news"
               class="mt-8 inline-flex items-center gap-2 rounded-2xl bg-orange-700 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-800"
               ><i data-feather="arrow-right" class="h-4 w-4"></i>Read Full Story</a
             >

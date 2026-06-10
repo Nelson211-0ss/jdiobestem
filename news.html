@@ -13,12 +13,11 @@
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
 </head>
-<body class="bg-gray-50 text-gray-800" style="font-family: 'EB Garamond', serif;">
+<body class="min-h-screen bg-stone-50 text-stone-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <!-- Hero Section -->
-  <section class="page-hero mb-8">
-    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80" alt="" class="page-hero__bg" />
+  <section class="page-hero mb-0">
+    <img src="images/hero-science-fair-projects.png" alt="" class="page-hero__bg" width="1600" height="900" />
     <div class="page-hero__overlay" aria-hidden="true"></div>
     <div class="page-hero__inner">
       <p class="page-hero__eyebrow">Latest Updates</p>
@@ -27,28 +26,88 @@
     </div>
   </section>
 
-  <!-- Story: Moses Nambiro travel scholarship -->
-  <article id="nambiro-scholarship" class="py-12 md:py-16 bg-white scroll-mt-24">
-    <div class="max-w-3xl mx-auto px-4">
-      <figure class="mb-10 rounded-2xl bg-gray-100 shadow-inner overflow-hidden flex items-center justify-center p-4 sm:p-6 md:p-8">
-        <img src="images/moses%20nambiro.png" alt="Moses Nambiro" width="1200" height="1600" class="w-full max-w-lg h-auto max-h-[min(78vh,880px)] object-contain object-center" />
-      </figure>
-      <p class="text-sm font-semibold text-orange-700 mb-2">April 6, 2026</p>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-orange-700 mb-8 leading-tight">Jdiobe STEM Foundation Awards Travel Scholarship to Future Aeronautical Engineer</h2>
-      <div class="space-y-5 text-lg text-gray-700 leading-relaxed">
-        <p>The Jdiobe STEM Foundation is proud to announce the award of a $1,000 travel scholarship to Moses Nambiro, a student from Uganda who has been admitted and awarded a scholarship to pursue a Bachelor of Science in Aeronautical Engineering.</p>
-        <p>While Nambiro successfully secured admission and academic funding, additional financial support was required to cover travel expenses. Through this scholarship, the Jdiobe STEM Foundation is supporting his airfare from Uganda to Alegría, enabling him to begin his academic journey.</p>
-        <p>This award reflects the Foundation’s mission to remove barriers and expand access to STEM education for talented individuals globally. By addressing critical gaps such as travel costs, the Foundation ensures that opportunity is not limited by circumstance.</p>
-        <blockquote class="border-l-4 border-orange-700 pl-5 py-1 my-8 text-gray-800 italic">
-          “We believe that talent is universal, but opportunity is not. Supporting students like Nambiro is central to our mission of empowering the next generation of engineers and innovators.”
-          <cite class="not-italic block mt-3 text-base text-gray-600">— Dr. Muwanika Jdiobe</cite>
-        </blockquote>
-        <p>The Jdiobe STEM Foundation congratulates Moses Nambiro on this achievement and looks forward to his future contributions to the field of aeronautical engineering.</p>
-      </div>
+  <main class="py-12 md:py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <!-- Featured story -->
+      <article id="nambiro-scholarship" class="scroll-mt-24 border border-stone-200 bg-white">
+        <header class="border-b border-stone-100 px-6 py-6 md:px-8 md:py-7">
+          <div class="flex flex-wrap items-center gap-3 text-sm">
+            <span class="inline-flex items-center gap-1.5 bg-orange-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+              <i data-feather="award" class="h-3.5 w-3.5"></i>
+              Scholarship
+            </span>
+            <time datetime="2026-04-06" class="text-stone-500">April 6, 2026</time>
+          </div>
+          <h2 class="mt-4 text-2xl font-bold leading-snug text-stone-900 md:text-[1.75rem]">
+            Jdiobe STEM Foundation awards travel scholarship to future aeronautical engineer
+          </h2>
+          <p class="mt-3 text-base leading-relaxed text-stone-600">
+            Moses Nambiro receives $1,000 toward travel from Uganda to begin his degree in Aeronautical Engineering.
+          </p>
+        </header>
+
+        <figure class="border-b border-stone-100 bg-stone-100/80 px-4 py-6 md:px-8 md:py-8">
+          <img
+            src="images/moses%20nambiro.png"
+            alt="Moses Nambiro, travel scholarship recipient"
+            width="1200"
+            height="1600"
+            class="mx-auto w-full max-w-md object-contain"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption class="mt-4 text-center text-sm text-stone-500">
+            Moses Nambiro, recipient of the Jdiobe STEM Foundation travel scholarship
+          </figcaption>
+        </figure>
+
+        <div class="space-y-5 px-6 py-8 text-base leading-7 text-stone-700 md:px-8 md:py-10 md:text-[1.05rem] md:leading-8">
+          <p class="text-justify">
+            The Jdiobe STEM Foundation is proud to announce the award of a $1,000 travel scholarship to Moses Nambiro, a student from Uganda who has been admitted and awarded a scholarship to pursue a Bachelor of Science in Aeronautical Engineering.
+          </p>
+          <p class="text-justify">
+            While Nambiro successfully secured admission and academic funding, additional financial support was required to cover travel expenses. Through this scholarship, the Jdiobe STEM Foundation is supporting his airfare from Uganda to Alegría, enabling him to begin his academic journey.
+          </p>
+          <p class="text-justify">
+            This award reflects the Foundation&rsquo;s mission to remove barriers and expand access to STEM education for talented individuals globally. By addressing critical gaps such as travel costs, the Foundation ensures that opportunity is not limited by circumstance.
+          </p>
+
+          <blockquote class="border-l-4 border-orange-700 bg-orange-50/60 px-5 py-4 text-stone-800">
+            <p class="text-justify italic leading-relaxed">
+              &ldquo;We believe that talent is universal, but opportunity is not. Supporting students like Nambiro is central to our mission of empowering the next generation of engineers and innovators.&rdquo;
+            </p>
+            <cite class="mt-3 block text-sm font-semibold not-italic text-orange-800">
+              &mdash; Dr. Muwanika Jdiobe
+            </cite>
+          </blockquote>
+
+          <p class="text-justify">
+            The Jdiobe STEM Foundation congratulates Moses Nambiro on this achievement and looks forward to his future contributions to the field of aeronautical engineering.
+          </p>
+        </div>
+
+        <footer class="flex flex-wrap items-center justify-between gap-4 border-t border-stone-100 bg-stone-50/80 px-6 py-5 md:px-8">
+          <a href="/programs" class="inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-800">
+            <i data-feather="layers" class="h-4 w-4"></i>
+            Explore our programs
+          </a>
+          <a href="/donate" class="inline-flex items-center gap-2 bg-orange-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-800">
+            <i data-feather="heart" class="h-4 w-4"></i>
+            Support students
+          </a>
+        </footer>
+      </article>
+
+      <p class="sr-fade-up mt-10 text-center text-sm text-stone-500">
+        More stories and updates will be published here as our programs grow.
+      </p>
     </div>
-  </article>
+  </main>
 
   <div id="footer"></div>
   <script src="main.js"></script>
+  <script>
+    if (window.feather) feather.replace({ 'stroke-width': 2.5 });
+  </script>
 </body>
-</html> 
+</html>
