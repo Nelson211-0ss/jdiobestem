@@ -1,3 +1,6 @@
+/* Body text uses Open Sans; headings keep the serif (EB Garamond). */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
 /*
  * Content font sizes: selectors use `body .text-*` so they win over Tailwind CDN
  * utilities (injected after this file in the cascade).
@@ -12,6 +15,19 @@ html body {
   line-height: 1.55;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
+}
+
+/*
+ * Font families. Each page sets a serif `font-family` inline on <body>; the
+ * `!important` here overrides that so body copy is sans-serif, while headings
+ * (including any with their own inline serif) stay on the serif.
+ */
+html body {
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'EB Garamond', Georgia, serif !important;
 }
 
 body .text-xs {
