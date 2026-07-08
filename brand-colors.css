@@ -34,19 +34,34 @@ svg.feather {
   fill: none;
 }
 
-/* Compact sub-page heroes (all pages except home) */
+/*
+ * Transparent header that merges into the hero, turning solid brand orange once
+ * the page scrolls (main.js toggles .is-scrolled). Text stays white throughout.
+ */
+.site-nav.is-scrolled {
+  background-color: var(--brand-orange);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.12);
+}
+
+/*
+ * Compact sub-page heroes (all pages except home). The negative top margin pulls
+ * the hero up behind the fixed header (cancelling the 6rem body offset) and the
+ * matching extra top padding keeps the hero content clear of the header, so the
+ * header and hero read as one continuous block.
+ */
 .page-hero {
   position: relative;
   overflow: hidden;
   background-color: var(--brand-orange);
   color: #fff;
-  padding-top: 2.75rem;
+  margin-top: -6rem;
+  padding-top: calc(2.75rem + 6rem);
   padding-bottom: 2.75rem;
 }
 
 @media (min-width: 768px) {
   .page-hero {
-    padding-top: 3.25rem;
+    padding-top: calc(3.25rem + 6rem);
     padding-bottom: 3.25rem;
   }
 }

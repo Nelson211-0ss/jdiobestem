@@ -240,6 +240,15 @@ window.addEventListener('DOMContentLoaded', function() {
         mobileMenu.classList.toggle('hidden');
       });
     }
+    // Transparent-over-hero header that turns solid brand orange on scroll.
+    const siteNav = document.getElementById('site-nav');
+    if (siteNav) {
+      const onNavScroll = function () {
+        siteNav.classList.toggle('is-scrolled', window.scrollY > 24);
+      };
+      onNavScroll();
+      window.addEventListener('scroll', onNavScroll, { passive: true });
+    }
   });
   loadFragment('footer', 'footer.html', function() {
     initSocialIcons();
