@@ -55,18 +55,18 @@ body .text-lg {
 
 /* Footer (#footer): slightly smaller than main content */
 #footer .text-xs {
-  font-size: 0.7rem;
-  line-height: 0.95rem;
+  font-size: 0.8rem;
+  line-height: 1.05rem;
 }
 
 #footer .text-sm {
-  font-size: 0.78rem;
-  line-height: 1.15rem;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
 }
 
 #footer .text-xl {
-  font-size: 1.05rem;
-  line-height: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.65rem;
 }
 
 .text-xl {
