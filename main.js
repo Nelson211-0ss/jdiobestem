@@ -232,23 +232,24 @@ window.addEventListener('DOMContentLoaded', function() {
   loadFragment('header', 'header.html', function() {
     initSocialIcons();
     replaceFeatherIcons();
-    // Mobile menu toggle
+    // Transparent-over-hero header that turns solid brand orange on scroll.
+    const siteNav = document.getElementById('site-nav');
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
+    const syncNavSolid = function () {
+      if (!siteNav) return;
+      const menuOpen = mobileMenu && !mobileMenu.classList.contains('hidden');
+      siteNav.classList.toggle('is-scrolled', menuOpen || window.scrollY > 24);
+    };
+    // Mobile menu toggle — keep the bar solid while the menu is open.
     if (menuBtn && mobileMenu) {
       menuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
+        syncNavSolid();
       });
     }
-    // Transparent-over-hero header that turns solid brand orange on scroll.
-    const siteNav = document.getElementById('site-nav');
-    if (siteNav) {
-      const onNavScroll = function () {
-        siteNav.classList.toggle('is-scrolled', window.scrollY > 24);
-      };
-      onNavScroll();
-      window.addEventListener('scroll', onNavScroll, { passive: true });
-    }
+    syncNavSolid();
+    window.addEventListener('scroll', syncNavSolid, { passive: true });
   });
   loadFragment('footer', 'footer.html', function() {
     initSocialIcons();

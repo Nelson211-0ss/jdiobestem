@@ -9,6 +9,7 @@
 
 html {
   scroll-padding-top: 6rem;
+  overflow-x: hidden;
 }
 
 html body {
@@ -17,6 +18,9 @@ html body {
   letter-spacing: -0.011em;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
+  /* Prevent stray horizontal scroll / content cut-off on small screens */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /*
@@ -38,19 +42,21 @@ body .text-xs {
   line-height: 0.95rem;
 }
 
+/* Body copy — one consistent size for all non-heading text (sm == base). */
 body .text-sm {
-  font-size: 0.8125rem;
-  line-height: 1.2rem;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
 }
 
 body .text-base {
   font-size: 0.9375rem;
-  line-height: 1.45rem;
+  line-height: 1.5rem;
 }
 
+/* text-lg is reserved for small card titles (headings), so it stays larger. */
 body .text-lg {
   font-size: 1.0625rem;
-  line-height: 1.65rem;
+  line-height: 1.6rem;
 }
 
 /* Footer (#footer): slightly smaller than main content */
