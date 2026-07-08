@@ -13,66 +13,265 @@
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
 </head>
-<body style="font-family: 'EB Garamond', serif;">
+<body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
 
-  <!-- Hero Section -->
-  <section class="page-hero mb-8">
-    <img src="images/teachers.jpeg" alt="" class="page-hero__bg" />
-    <div class="page-hero__overlay" aria-hidden="true"></div>
-    <div class="page-hero__inner">
-      <p class="page-hero__eyebrow">Program</p>
-      <h1>Youth STEM School Program</h1>
-      <p class="page-hero__lede">Empowering youth to innovate, research, and excel through hands-on STEM training and mentorship.</p>
+  <nav class="border-b border-orange-100/80 bg-white/95 backdrop-blur-sm" aria-label="Breadcrumb">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 gap-y-1 px-4 py-3 text-sm">
+      <a href="/" class="font-medium text-orange-700 hover:text-orange-700">Home</a>
+      <span class="text-slate-300" aria-hidden="true">/</span>
+      <a href="/programs" class="font-medium text-orange-700 hover:text-orange-700">Programs</a>
+      <span class="text-slate-300" aria-hidden="true">/</span>
+      <span class="text-slate-600">Youth STEM School Program</span>
     </div>
-  </section>
+  </nav>
 
-  <!-- Program Overview Section -->
-  <section class="py-12 bg-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-orange-700 mb-6">Program Overview</h2>
-      <p class="text-lg text-gray-700 mb-4">Our Youth STEM school program is focused on inspiring and empowering youth to engage and innovate in STEM. Specifically, our program provides students with the training, resources, and mentorship required to build competence and skills to pursue STEM careers, conduct independent research projects, innovations and foster a deep interest in STEM fields.</p>
-      <p class="text-lg text-gray-700">Our innovative approach integrates practical hands-on skilling in various STEM fields such as ICT, mobile Apps development, software development, robotics, UAV technology aerospace and coding with soft skills training such as communication, leadership, financial literacy and analytical thinking. This comprehensive approach ensures students develop both technical expertise and essential professional skills.</p>
-    </div>
-  </section>
-
-  <!-- Benefits/Features Cards -->
-  <section class="py-8">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl font-bold text-center text-orange-700 mb-8">Program Benefits</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl shadow p-6 text-center flex flex-col items-center">
-          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=400&q=80" alt="Workshops" class="w-40 h-40 object-cover rounded-lg mb-3">
-          <i data-feather="activity" class="w-10 h-10 text-orange-700 mb-3"></i>
-          <h3 class="font-semibold mb-2">Hands-on Workshops</h3>
-          <p class="text-gray-700">Students participate in interactive STEM activities and experiments.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6 text-center flex flex-col items-center">
-          <img src="images/about-3-scaled.jpg" alt="Mentorship" class="w-40 h-40 object-cover rounded-lg mb-3">
-          <i data-feather="users" class="w-10 h-10 text-orange-700 mb-3"></i>
-          <h3 class="font-semibold mb-2">Mentorship</h3>
-          <p class="text-gray-700">Guidance from STEM professionals and university students.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6 text-center flex flex-col items-center">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Competitions" class="w-40 h-40 object-cover rounded-lg mb-3">
-          <i data-feather="award" class="w-10 h-10 text-orange-700 mb-3"></i>
-          <h3 class="font-semibold mb-2">Competitions & Awards</h3>
-          <p class="text-gray-700">Opportunities to showcase projects and win recognition.</p>
+  <main>
+    <!-- Hero -->
+    <header class="page-hero">
+      <img src="images/hero-diy-stem-car.png" alt="" class="page-hero__bg" width="1600" height="900" />
+      <div class="page-hero__overlay" aria-hidden="true"></div>
+      <div class="page-hero__inner">
+        <p class="page-hero__eyebrow">Youth STEM School Program</p>
+        <h1>Inspiring young minds, building future innovators</h1>
+        <p class="page-hero__lede">Hands-on STEM experiences that introduce primary and middle school students to science, technology, engineering, and mathematics through fun, engaging, and interactive learning.</p>
+        <div class="mt-7 flex flex-wrap gap-4">
+          <a href="/contact" class="rounded-2xl bg-white px-6 py-3 font-semibold text-orange-700 shadow-sm transition hover:bg-orange-50">Bring STEM to Your School</a>
+          <a href="/volunteers" class="rounded-2xl border border-orange-200/70 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10">Become a Volunteer</a>
         </div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- Call to Action -->
-  <section class="py-12">
-    <div class="max-w-2xl mx-auto px-4 text-center">
-      <h2 class="text-2xl font-bold text-orange-700 mb-4">Get Involved</h2>
-      <p class="text-gray-700 mb-6">Are you a student, teacher, or parent interested in bringing the Youth STEM School Program to your school? Contact us to learn more or partner with us!</p>
-      <a href="/contact" class="inline-block bg-orange-700 text-white px-8 py-3 rounded-full font-semibold shadow hover:bg-orange-800 transition">Contact Us</a>
-    </div>
-  </section>
+    <!-- Why this program matters -->
+    <section class="py-16 md:py-24">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-8">
+        <div class="sr-fade-up overflow-hidden rounded-3xl ring-1 ring-orange-100">
+          <img src="images/catapilar.jpeg" alt="Students building and experimenting in a STEM workshop" class="aspect-[4/3] w-full object-cover lg:min-h-[380px]" width="1000" height="750" loading="lazy" decoding="async" />
+        </div>
+        <div>
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="smile" class="h-4 w-4"></i> Why This Program Matters</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Every child is born curious</h2>
+          <div class="mt-6 space-y-5 text-base leading-7 text-gray-600 md:text-lg md:leading-8">
+            <p class="sr-fade-up">Early exposure to STEM helps students develop confidence, creativity, teamwork, and problem-solving skills that prepare them for success in school and future careers.</p>
+            <p class="sr-fade-up">Our interactive workshops transform classrooms into innovation labs where students learn by exploring, building, experimenting, and discovering — while introducing them to careers they may never have imagined.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Program highlights -->
+    <section class="border-y border-orange-100 bg-orange-50 py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="star" class="h-4 w-4"></i> Program Highlights</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Learning that sticks</h2>
+        </div>
+        <div class="sr-stagger mt-12 grid gap-6 md:grid-cols-3">
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="tool" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 text-lg font-bold text-gray-900">Hands-On Learning</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">Students take part in exciting experiments and engineering challenges that make STEM fun and engaging.</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="users" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 text-lg font-bold text-gray-900">STEM Mentors</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">Volunteers, engineers, scientists, and university students inspire young learners through mentorship and interactive activities.</p>
+          </div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="trending-up" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 text-lg font-bold text-gray-900">Future-Ready Skills</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-600">Students build creativity, communication, teamwork, leadership, and critical thinking that extend beyond the classroom.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What students experience -->
+    <section class="py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="activity" class="h-4 w-4"></i> Program Activities</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">What students experience</h2>
+        </div>
+        <div class="sr-stagger mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-7 shadow-sm ring-1 ring-orange-100/80"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="thermometer" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Science Experiments</h3><p class="mt-3 text-sm leading-6 text-gray-600">Interactive experiments that make science exciting.</p></div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-7 shadow-sm ring-1 ring-orange-100/80"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="cpu" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Robotics</h3><p class="mt-3 text-sm leading-6 text-gray-600">Build and program simple robots.</p></div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-7 shadow-sm ring-1 ring-orange-100/80"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="code" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Coding</h3><p class="mt-3 text-sm leading-6 text-gray-600">Learn programming through games and challenges.</p></div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-7 shadow-sm ring-1 ring-orange-100/80"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="send" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Drone Demonstrations</h3><p class="mt-3 text-sm leading-6 text-gray-600">Experience the future of aviation and technology.</p></div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-7 shadow-sm ring-1 ring-orange-100/80"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="settings" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Engineering Challenges</h3><p class="mt-3 text-sm leading-6 text-gray-600">Design, build, test, and improve creative solutions.</p></div>
+          <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-7 shadow-sm ring-1 ring-orange-100/80"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="target" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">STEM Games</h3><p class="mt-3 text-sm leading-6 text-gray-600">Collaborative competitions that strengthen teamwork and problem solving.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEM learning areas -->
+    <section class="border-y border-orange-100 bg-orange-50 py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="book-open" class="h-4 w-4"></i> STEM Learning Areas</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Four pillars of discovery</h2>
+        </div>
+        <div class="sr-stagger mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="sr-fade-up rounded-3xl bg-white p-7 shadow-sm ring-1 ring-orange-100"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white"><i data-feather="thermometer" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Science</h3><ul class="mt-3 space-y-1.5 text-sm text-gray-600"><li>Experiments</li><li>Biology</li><li>Chemistry</li><li>Physics</li></ul></article>
+          <article class="sr-fade-up rounded-3xl bg-white p-7 shadow-sm ring-1 ring-orange-100"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white"><i data-feather="monitor" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Technology</h3><ul class="mt-3 space-y-1.5 text-sm text-gray-600"><li>Digital Literacy</li><li>Computers</li><li>Coding</li><li>Internet Safety</li></ul></article>
+          <article class="sr-fade-up rounded-3xl bg-white p-7 shadow-sm ring-1 ring-orange-100"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white"><i data-feather="tool" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Engineering</h3><ul class="mt-3 space-y-1.5 text-sm text-gray-600"><li>Design Challenges</li><li>Bridge Building</li><li>Model Construction</li><li>Simple Machines</li></ul></article>
+          <article class="sr-fade-up rounded-3xl bg-white p-7 shadow-sm ring-1 ring-orange-100"><span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white"><i data-feather="divide" class="h-6 w-6"></i></span><h3 class="mt-5 text-lg font-bold text-gray-900">Mathematics</h3><ul class="mt-3 space-y-1.5 text-sm text-gray-600"><li>Logic</li><li>Geometry</li><li>Problem Solving</li><li>Applied Mathematics</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- A day with Jdiobe STEM -->
+    <section class="py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="clock" class="h-4 w-4"></i> A Typical STEM Day</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">A day with Jdiobe STEM</h2>
+        </div>
+        <ol class="sr-stagger mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">01</p><div class="mt-3 flex items-center gap-3"><i data-feather="sun" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Welcome &amp; Icebreaker</h3></div></li>
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">02</p><div class="mt-3 flex items-center gap-3"><i data-feather="cast" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Interactive Presentation</h3></div></li>
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">03</p><div class="mt-3 flex items-center gap-3"><i data-feather="tool" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Hands-On Workshops</h3></div></li>
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">04</p><div class="mt-3 flex items-center gap-3"><i data-feather="settings" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Engineering Challenge</h3></div></li>
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">05</p><div class="mt-3 flex items-center gap-3"><i data-feather="coffee" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Lunch Break</h3></div></li>
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">06</p><div class="mt-3 flex items-center gap-3"><i data-feather="target" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Team Competition</h3></div></li>
+          <li class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-6 shadow-sm ring-1 ring-orange-100/80"><p class="text-sm font-bold text-orange-400">07</p><div class="mt-3 flex items-center gap-3"><i data-feather="award" class="h-5 w-5 text-orange-700"></i><h3 class="text-base font-semibold">Awards &amp; Certificates</h3></div></li>
+          <li class="sr-fade-up flex items-center justify-center rounded-3xl bg-orange-700 p-6 text-center text-white"><div class="flex items-center gap-3"><i data-feather="camera" class="h-5 w-5"></i><p class="font-semibold">Group Photo</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- What students take away -->
+    <section class="border-y border-orange-100 bg-orange-50 py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="gift" class="h-4 w-4"></i> What Students Take Away</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Skills for life</h2>
+        </div>
+        <div class="sr-stagger mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Curiosity</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Confidence</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Creativity</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Leadership</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Teamwork</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Communication</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Critical Thinking</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Problem Solving</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-orange-100"><i data-feather="check-circle" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">STEM Career Awareness</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEM career exploration -->
+    <section class="py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="compass" class="h-4 w-4"></i> STEM Career Exploration</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">What can you become?</h2>
+          <p class="sr-fade-up mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">Helping children connect today's activities with tomorrow's careers.</p>
+        </div>
+        <div class="sr-stagger mt-12 grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="navigation" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Aerospace Engineer</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="activity" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Medical Doctor</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="code" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Software Developer</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="thermometer" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Scientist</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="cpu" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Robotics Engineer</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="zap" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Electrical Engineer</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="home" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Civil Engineer</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="wind" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Environmental Scientist</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="star" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Space Scientist</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="bar-chart-2" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Data Scientist</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="send" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Drone Pilot</span></div>
+          <div class="sr-fade-up flex items-center gap-3 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm ring-1 ring-orange-100/80"><i data-feather="settings" class="h-5 w-5 text-orange-700"></i><span class="text-sm font-semibold text-gray-800">Mechanical Engineer</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="border-y border-orange-100 bg-orange-50 py-16 md:py-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="image" class="h-4 w-4"></i> Photo Gallery</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">See STEM in action</h2>
+        </div>
+        <div class="sr-stagger mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
+          <img src="images/robot.jpeg" alt="Students building robots" class="h-40 w-full rounded-2xl object-cover ring-1 ring-orange-100 sm:h-52" width="500" height="330" loading="lazy" decoding="async" />
+          <img src="images/catapilar.jpeg" alt="Science experiments" class="h-40 w-full rounded-2xl object-cover ring-1 ring-orange-100 sm:h-52" width="500" height="330" loading="lazy" decoding="async" />
+          <img src="images/inspect.jpeg" alt="Students inspecting a build" class="h-40 w-full rounded-2xl object-cover ring-1 ring-orange-100 sm:h-52" width="500" height="330" loading="lazy" decoding="async" />
+          <img src="images/plane.jpg" alt="Aviation and drone demonstration" class="h-40 w-full rounded-2xl object-cover ring-1 ring-orange-100 sm:h-52" width="500" height="330" loading="lazy" decoding="async" />
+          <img src="images/teachers.jpeg" alt="Classroom STEM activities" class="h-40 w-full rounded-2xl object-cover ring-1 ring-orange-100 sm:h-52" width="500" height="330" loading="lazy" decoding="async" />
+          <img src="images/1718038140753.jpeg" alt="Volunteers mentoring students" class="h-40 w-full rounded-2xl object-cover object-top ring-1 ring-orange-100 sm:h-52" width="500" height="330" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Program impact (counters) -->
+    <section id="impact" class="bg-orange-700 py-16 text-white md:py-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-200"><i data-feather="bar-chart-2" class="h-4 w-4"></i> Program Impact</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Creating opportunities through STEM</h2>
+        </div>
+        <dl class="sr-stagger mt-12 grid grid-cols-2 gap-6 text-center md:grid-cols-3 lg:grid-cols-5">
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15"><dt class="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="2500" data-suffix="+">0+</dt><dd class="mt-2 text-sm text-orange-100">Students Inspired</dd></div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15"><dt class="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="40" data-suffix="+">0+</dt><dd class="mt-2 text-sm text-orange-100">Schools Engaged</dd></div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15"><dt class="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="150" data-suffix="+">0+</dt><dd class="mt-2 text-sm text-orange-100">STEM Activities</dd></div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15"><dt class="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="100" data-suffix="+">0+</dt><dd class="mt-2 text-sm text-orange-100">Volunteers</dd></div>
+          <div class="sr-fade-up rounded-3xl bg-white/10 p-6 ring-1 ring-white/15"><dt class="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="15" data-suffix="+">0+</dt><dd class="mt-2 text-sm text-orange-100">Districts Reached</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 md:py-24">
+      <div class="mx-auto max-w-6xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="message-circle" class="h-4 w-4"></i> Testimonials</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">In their words</h2>
+        </div>
+        <div class="sr-stagger mt-12 grid gap-6 md:grid-cols-2">
+          <figure class="sr-fade-up rounded-3xl border border-orange-100 bg-orange-50 p-8 ring-1 ring-orange-100"><i data-feather="star" class="h-6 w-6 text-orange-700"></i><blockquote class="mt-4 text-lg leading-8 text-gray-800">"Before this program I had never touched a robot. Now I want to become an engineer."</blockquote><figcaption class="mt-4 text-sm font-semibold text-orange-700">Secondary School Student</figcaption></figure>
+          <figure class="sr-fade-up rounded-3xl border border-orange-100 bg-orange-50 p-8 ring-1 ring-orange-100"><i data-feather="star" class="h-6 w-6 text-orange-700"></i><blockquote class="mt-4 text-lg leading-8 text-gray-800">"Our students became much more excited about science after participating."</blockquote><figcaption class="mt-4 text-sm font-semibold text-orange-700">School Head Teacher</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEM pathway -->
+    <section class="border-y border-orange-100 bg-orange-50 py-16 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><i data-feather="git-branch" class="h-4 w-4"></i> Our STEM Pathway</p>
+          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">This is just the beginning</h2>
+          <p class="sr-fade-up mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">We support students from their first exposure to STEM all the way to university and professional careers.</p>
+        </div>
+        <ol class="sr-stagger mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-6">
+          <li class="sr-fade-up flex flex-col items-center rounded-3xl bg-orange-700 p-5 text-center text-white"><span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/20 ring-1 ring-white/25"><i data-feather="smile" class="h-5 w-5"></i></span><p class="mt-3 text-sm font-semibold">Youth STEM School</p></li>
+          <li class="sr-fade-up flex flex-col items-center rounded-3xl bg-white p-5 text-center ring-1 ring-orange-100"><span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="book-open" class="h-5 w-5"></i></span><p class="mt-3 text-sm font-semibold text-gray-900">Secondary Research</p></li>
+          <li class="sr-fade-up flex flex-col items-center rounded-3xl bg-white p-5 text-center ring-1 ring-orange-100"><span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="award" class="h-5 w-5"></i></span><p class="mt-3 text-sm font-semibold text-gray-900">Scholarships</p></li>
+          <li class="sr-fade-up flex flex-col items-center rounded-3xl bg-white p-5 text-center ring-1 ring-orange-100"><span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="search" class="h-5 w-5"></i></span><p class="mt-3 text-sm font-semibold text-gray-900">University Research</p></li>
+          <li class="sr-fade-up flex flex-col items-center rounded-3xl bg-white p-5 text-center ring-1 ring-orange-100"><span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="briefcase" class="h-5 w-5"></i></span><p class="mt-3 text-sm font-semibold text-gray-900">Internships &amp; Mentorship</p></li>
+          <li class="sr-fade-up flex flex-col items-center rounded-3xl bg-white p-5 text-center ring-1 ring-orange-100"><span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-50 text-orange-700 ring-1 ring-orange-100"><i data-feather="trending-up" class="h-5 w-5"></i></span><p class="mt-3 text-sm font-semibold text-gray-900">Careers &amp; Leadership</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-orange-700 py-20 text-white">
+      <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+        <h2 class="sr-fade-up text-3xl font-bold tracking-tight sm:text-4xl">Ready to inspire the next generation?</h2>
+        <p class="sr-fade-up mx-auto mt-5 max-w-2xl text-base leading-7 text-orange-100 md:text-lg">
+          The Jdiobe STEM Foundation partners with schools to deliver exciting STEM experiences that spark curiosity and prepare students for the future.
+        </p>
+        <div class="sr-fade-up mt-8 flex flex-wrap justify-center gap-4">
+          <a href="/contact" class="rounded-2xl bg-white px-6 py-3 font-semibold text-orange-700 shadow-sm transition hover:bg-orange-50">Request a School Visit</a>
+          <a href="/volunteers" class="rounded-2xl border border-white/40 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10">Become a Volunteer</a>
+          <a href="/donate" class="rounded-2xl border border-white/40 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10">Support the Program</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <div id="footer"></div>
   <script src="main.js"></script>
 </body>
-</html> 
+</html>
