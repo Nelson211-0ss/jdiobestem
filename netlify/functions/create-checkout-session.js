@@ -52,6 +52,24 @@ exports.handler = async function (event) {
     };
   }
 
+  const donorName = typeof body.donorName === 'string' ? body.donorName.trim().slice(0, 150) : '';
+  const donorEmail = typeof body.donorEmail === 'string' ? body.donorEmail.trim().slice(0, 254) : '';
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!donorName) {
+    return {
+      statusCode: 400,
+      headers: jsonHeaders,
+      body: JSON.stringify({ error: 'Please provide your name.' }),
+    };
+  }
+  if (!EMAIL_RE.test(donorEmail)) {
+    return {
+      statusCode: 400,
+      headers: jsonHeaders,
+      body: JSON.stringify({ error: 'Please provide a valid email address.' }),
+    };
+  }
+
   const siteUrl = resolveSiteUrl(event);
 
   if (isMockCheckoutEnabled()) {
@@ -66,7 +84,7 @@ exports.handler = async function (event) {
   }
 
   try {
-    const session = await createCheckoutSession({ amountCents, siteUrl });
+    const session = await createCheckoutSession({ amountCents, siteUrl, donorName, donorEmail });
     return {
       statusCode: 200,
       headers: jsonHeaders,

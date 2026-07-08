@@ -40,7 +40,14 @@ channel is independent and off until its env vars are set.
 
 **Email (Resend)** — set `RESEND_API_KEY`, `DONATION_NOTIFY_EMAIL` (recipient),
 and `DONATION_FROM_EMAIL` (a sender on a domain you've verified in Resend). You
-get one email per completed donation.
+get one email per completed donation, and the **donor** gets a branded
+thank-you email (uses `RESEND_API_KEY` + `DONATION_FROM_EMAIL`, sent to the
+address they entered).
+
+**Donor receipt** — the donor's email is passed to Stripe as `receipt_email`,
+so Stripe emails them its official payment receipt. Enable **Dashboard →
+Settings → Customer emails → "Successful payments"** for receipts to send (in
+test mode this must be on to see them).
 
 **Google Sheet** — set `GOOGLE_SHEET_WEBHOOK_URL` to a deployed Apps Script web
 app. In your sheet: **Extensions → Apps Script**, paste the script below, then

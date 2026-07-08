@@ -47,6 +47,16 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Amount must be between $1.00 and $1,000,000.' });
   }
 
+  const donorName = typeof body.donorName === 'string' ? body.donorName.trim().slice(0, 150) : '';
+  const donorEmail = typeof body.donorEmail === 'string' ? body.donorEmail.trim().slice(0, 254) : '';
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!donorName) {
+    return res.status(400).json({ error: 'Please provide your name.' });
+  }
+  if (!EMAIL_RE.test(donorEmail)) {
+    return res.status(400).json({ error: 'Please provide a valid email address.' });
+  }
+
   const siteUrl = resolveSiteUrl(req);
 
   if (isMockCheckoutEnabled()) {
@@ -57,7 +67,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const session = await createCheckoutSession({ amountCents, siteUrl });
+    const session = await createCheckoutSession({ amountCents, siteUrl, donorName, donorEmail });
     return res.status(200).json({ url: session.url });
   } catch (err) {
     console.error(err);
