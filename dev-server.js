@@ -41,8 +41,9 @@ if (!process.env.PUBLIC_SITE_URL) {
   process.env.PUBLIC_SITE_URL = `http://127.0.0.1:${PORT}`;
 }
 
-// Reuse the same serverless checkout handler used in production (Vercel-style signature).
+// Reuse the same serverless handlers used in production (Vercel-style signature).
 const checkoutHandler = require('./api/create-checkout-session');
+const webhookHandler = require('./api/stripe-webhook');
 
 // Adapt a Node http (req, res) pair to the Express/Vercel-style API the handler expects,
 // reading the request body first, then delegating.
@@ -71,12 +72,41 @@ function handleCheckoutApi(req, res) {
   });
 }
 
+// The webhook handler reads the raw request stream itself (for Stripe signature
+// verification), so unlike the checkout route we must NOT pre-consume the body —
+// just attach the Express/Vercel-style res helpers and delegate.
+function handleWebhookApi(req, res) {
+  res.status = function (code) {
+    res.statusCode = code;
+    return res;
+  };
+  res.json = function (obj) {
+    if (!res.headersSent) res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(obj));
+    return res;
+  };
+  Promise.resolve(webhookHandler(req, res)).catch((err) => {
+    console.error(err);
+    if (!res.headersSent) {
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+    }
+    res.end(JSON.stringify({ error: 'Internal server error' }));
+  });
+}
+
 const server = http.createServer((req, res) => {
   let pathname = url.parse(req.url).pathname;
 
   // Route the checkout API to the shared serverless handler.
   if (pathname === '/api/create-checkout-session') {
     handleCheckoutApi(req, res);
+    return;
+  }
+
+  // Route the Stripe webhook to the shared serverless handler.
+  if (pathname === '/api/stripe-webhook') {
+    handleWebhookApi(req, res);
     return;
   }
   
@@ -146,6 +176,7 @@ server.listen(PORT, () => {
   console.log(`Server running at http://127.0.0.1:${PORT}/`);
   console.log(`Clean URLs enabled - visit http://127.0.0.1:${PORT}/contact`);
   console.log(`Donate API:        POST http://127.0.0.1:${PORT}/api/create-checkout-session`);
+  console.log(`Webhook API:       POST http://127.0.0.1:${PORT}/api/stripe-webhook`);
   const hasKey = !!process.env.STRIPE_SECRET_KEY;
   const placeholder = process.env.STRIPE_SECRET_KEY === 'sk_test_your_secret_key';
   const mock =

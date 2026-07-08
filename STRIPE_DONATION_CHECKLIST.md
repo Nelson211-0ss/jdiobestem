@@ -1,6 +1,6 @@
 # Stripe donation setup — checklist
 
-**Implemented in this repo:** **Stripe Checkout (custom amount)** — `netlify/functions/create-checkout-session.js` + `netlify.toml` (primary), optional `api/create-checkout-session.js` for other hosts, shared `lib/stripeCheckoutSession.js`. See **`README.md`** for env vars and deploy.
+**Implemented in this repo:** **Stripe Checkout (custom amount)** + **webhook** — `api/create-checkout-session.js` & `api/stripe-webhook.js` (Vercel), mirrored in `netlify/functions/`, shared logic in `lib/stripeCheckoutSession.js` & `lib/stripeWebhook.js`. Each completed donation is recorded via `recordDonation()` in `lib/stripeWebhook.js`. See **`README.md`** for env vars and deploy. **Remaining:** add `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` + `PUBLIC_SITE_URL` to Vercel, create the live webhook endpoint, and go live.
 
 Use the list below in order. Check items off as you complete them.
 
@@ -57,10 +57,11 @@ Pick **one** primary path (you can add the other later):
 
 ## 6. Webhooks (recommended for production)
 
-- [ ] In **Developers → Webhooks**, add an endpoint URL (requires a server or serverless function).
-- [ ] Subscribe to at least: `checkout.session.completed` (Checkout) or events that match your flow.
-- [ ] Use the **webhook signing secret** to verify requests; do not trust the client alone.
-- [ ] Optionally: log donations in a spreadsheet, CRM, or database from webhook handler.
+- [x] Endpoint implemented: `POST /api/stripe-webhook` (`api/stripe-webhook.js` + `lib/stripeWebhook.js`).
+- [x] Signature verification with `STRIPE_WEBHOOK_SECRET` (client is never trusted alone).
+- [x] Handles `checkout.session.completed`; records paid donations via `recordDonation()`.
+- [ ] In **Developers → Webhooks**, add the endpoint URL `https://your-domain/api/stripe-webhook`, subscribe to `checkout.session.completed`, and copy its signing secret into `STRIPE_WEBHOOK_SECRET`.
+- [ ] Optional: extend `recordDonation()` to email you / append to a sheet / write to a DB (currently logs a `[donation]` line to function logs).
 
 ---
 

@@ -13,6 +13,68 @@ Static HTML/CSS/JS with optional **Stripe Checkout** for donations via **Netlify
 
 > Alternative: `npx netlify dev` also works and additionally exercises the Netlify rewrite in `netlify.toml`, but requires the Netlify CLI.
 
+### Webhook (records each donation)
+
+When a payment completes, Stripe calls `POST /api/stripe-webhook`. The handler
+verifies the Stripe signature and hands the donation to `recordDonation()` in
+`lib/stripeWebhook.js`, which currently logs one `[donation] {…}` line to the
+function logs (donors also get Stripe's own email receipt). Extend
+`recordDonation()` to email yourself, append to a sheet, or write to a database.
+
+Set up:
+
+1. In **Stripe Dashboard → Developers → Webhooks → Add endpoint**, use
+   `https://your-domain/api/stripe-webhook` and subscribe to
+   **`checkout.session.completed`**. Copy the endpoint's **Signing secret**
+   (`whsec_…`).
+2. Add **`STRIPE_WEBHOOK_SECRET`** to your host's environment variables
+   (alongside `STRIPE_SECRET_KEY`).
+3. Test locally with the [Stripe CLI](https://stripe.com/docs/stripe-cli):
+   `stripe listen --forward-to localhost:3000/api/stripe-webhook` — it prints a
+   `whsec_…` to put in `.env`, then `stripe trigger checkout.session.completed`.
+
+### Donation notifications (optional)
+
+`recordDonation()` always logs and, if configured, also notifies you. Each
+channel is independent and off until its env vars are set.
+
+**Email (Resend)** — set `RESEND_API_KEY`, `DONATION_NOTIFY_EMAIL` (recipient),
+and `DONATION_FROM_EMAIL` (a sender on a domain you've verified in Resend). You
+get one email per completed donation.
+
+**Google Sheet** — set `GOOGLE_SHEET_WEBHOOK_URL` to a deployed Apps Script web
+app. In your sheet: **Extensions → Apps Script**, paste the script below, then
+**Deploy → New deployment → Web app**, execute as *Me*, access *Anyone*, and
+copy the `/exec` URL:
+
+```javascript
+function doPost(e) {
+  var d = JSON.parse(e.postData.contents);
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['When', 'Amount', 'Currency', 'Name', 'Email', 'Session', 'PaymentIntent']);
+  }
+  sheet.appendRow([d.createdAt, d.amount, d.currency, d.name, d.email, d.sessionId, d.paymentIntent]);
+  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+Notifications are best-effort: if one fails it's logged (`[donation:email]` /
+`[donation:sheet]`) but the webhook still returns 200 so Stripe doesn't retry.
+
+### Deploy on Vercel
+
+1. Import the repo in Vercel. `api/create-checkout-session.js` and
+   `api/stripe-webhook.js` are auto-detected as serverless functions at
+   `/api/*`; the static pages use `vercel.json` rewrites.
+2. In **Project → Settings → Environment Variables** (Production), set
+   **`STRIPE_SECRET_KEY`** (`sk_live_…`), **`STRIPE_WEBHOOK_SECRET`** (`whsec_…`
+   from the live webhook endpoint), and **`PUBLIC_SITE_URL`** (your canonical
+   origin, no trailing slash). Production **rejects `sk_test_…`** keys.
+3. Deploy, then add the live webhook endpoint (step 1 above) pointing at the
+   deployed `/api/stripe-webhook`.
+
 ### Production (go-live)
 
 Before pointing donors at the live site:
@@ -36,6 +98,8 @@ Real Stripe Checkout needs the internet. For **UI-only** testing:
 
 - `donate.html` — amount picker; redirects to Stripe Checkout.
 - `donate-success.html` — post-payment thank-you page.
-- `netlify/functions/create-checkout-session.js` — checkout session API (`netlify.toml` rewrites `/api/create-checkout-session` here).
-- `api/create-checkout-session.js` — same handler shape for other hosts that expect an `api/` file; not required for Netlify.
+- `api/create-checkout-session.js` — checkout session API (Vercel serverless function at `/api/create-checkout-session`).
+- `api/stripe-webhook.js` — Stripe webhook receiver (`/api/stripe-webhook`).
+- `netlify/functions/*.js` — same two handlers for Netlify (`netlify.toml` rewrites the `/api/*` paths here).
 - `lib/stripeCheckoutSession.js` — shared Stripe session creation.
+- `lib/stripeWebhook.js` — shared webhook verification + `recordDonation()` hook.
