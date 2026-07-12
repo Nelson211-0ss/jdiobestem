@@ -48,7 +48,7 @@
           </p>
         </div>
 
-        <ol class="sr-stagger mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-4 lg:grid-cols-5">
+        <ol class="sr-stagger mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-4 lg:grid-cols-4">
           <li class="sr-fade-up relative flex flex-col items-center rounded-3xl bg-orange-50 p-6 text-center ring-1 ring-orange-100">
             <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="eye" class="h-6 w-6"></i></span>
             <p class="mt-4 text-xs font-bold uppercase tracking-widest text-orange-700">Inspire</p>
@@ -69,11 +69,6 @@
             <p class="mt-4 text-xs font-bold uppercase tracking-widest text-orange-700">Support</p>
             <p class="mt-1 text-sm font-semibold text-gray-900">STEM Scholarships</p>
           </li>
-          <li class="sr-fade-up relative flex flex-col items-center rounded-3xl bg-orange-700 p-6 text-center text-white ring-1 ring-orange-600/50">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20 ring-1 ring-white/25" aria-hidden="true"><i data-feather="briefcase" class="h-6 w-6"></i></span>
-            <p class="mt-4 text-xs font-bold uppercase tracking-widest text-orange-100">Launch</p>
-            <p class="mt-1 text-sm font-semibold text-white">University, Research &amp; Careers</p>
-          </li>
         </ol>
       </div>
     </section>
@@ -91,99 +86,139 @@
           </h2>
         </div>
 
-        <div class="sr-stagger mt-12 grid gap-6 lg:grid-cols-2">
+        <div class="sr-stagger mt-12 grid gap-8 lg:grid-cols-2">
           <!-- Youth STEM -->
-          <article class="sr-fade-up flex flex-col rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
-            <div class="flex items-center gap-4">
-              <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="users" class="h-7 w-7"></i></span>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Youth STEM School Program</h3>
-                <p class="text-sm font-semibold text-orange-700">Inspiring curiosity at an early age</p>
-              </div>
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img
+                src="images/hero-diy-stem-car.png"
+                alt="Student-built STEM car project"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white shadow-lg ring-1 ring-white/20" aria-hidden="true"><i data-feather="users" class="h-6 w-6"></i></span>
             </div>
-            <p class="mt-5 text-base leading-7 text-gray-600">
-              Interactive STEM workshops introducing primary and middle school students to science, technology, engineering, and mathematics through engaging, hands-on learning experiences.
-            </p>
-            <ul class="mt-5 flex flex-wrap gap-2">
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Science Experiments</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Robotics</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Coding</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Engineering Challenges</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Career Exploration</li>
-            </ul>
-            <a href="/youth-stem" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
-              Explore Program <i data-feather="arrow-right" class="h-4 w-4"></i>
-            </a>
+            <div class="flex flex-1 flex-col p-8">
+              <h3 class="text-xl font-bold text-gray-900">Youth STEM School Program</h3>
+              <p class="mt-1 text-sm font-semibold text-orange-700">Inspiring curiosity at an early age</p>
+              <p class="mt-4 text-base leading-7 text-gray-600">
+                Interactive STEM workshops introducing primary and middle school students to science, technology, engineering, and mathematics through engaging, hands-on learning experiences.
+              </p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Science Experiments</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Robotics</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Coding</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Engineering Challenges</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Career Exploration</li>
+              </ul>
+              <a href="/youth-stem" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
+                Explore Program <i data-feather="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
           </article>
 
           <!-- Community Outreach -->
-          <article class="sr-fade-up flex flex-col rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
-            <div class="flex items-center gap-4">
-              <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="globe" class="h-7 w-7"></i></span>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Community STEM Outreach</h3>
-                <p class="text-sm font-semibold text-orange-700">Expanding opportunities beyond the classroom</p>
-              </div>
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img
+                src="images/teachers.jpeg"
+                alt="Community STEM outreach workshop"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white shadow-lg ring-1 ring-white/20" aria-hidden="true"><i data-feather="globe" class="h-6 w-6"></i></span>
             </div>
-            <p class="mt-5 text-base leading-7 text-gray-600">
-              We partner with schools, communities, libraries, and organizations to deliver STEM workshops, science demonstrations, career talks, and innovation events.
-            </p>
-            <ul class="mt-5 flex flex-wrap gap-2">
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Community Workshops</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">STEM Festivals</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Drone Demonstrations</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Volunteer Programs</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Technology Training</li>
-            </ul>
-            <a href="/community-outreach" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
-              Explore Program <i data-feather="arrow-right" class="h-4 w-4"></i>
-            </a>
+            <div class="flex flex-1 flex-col p-8">
+              <h3 class="text-xl font-bold text-gray-900">Community STEM Outreach</h3>
+              <p class="mt-1 text-sm font-semibold text-orange-700">Expanding opportunities beyond the classroom</p>
+              <p class="mt-4 text-base leading-7 text-gray-600">
+                We partner with schools, communities, libraries, and organizations to deliver STEM workshops, science demonstrations, career talks, and innovation events.
+              </p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Community Workshops</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">STEM Festivals</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Drone Demonstrations</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Volunteer Programs</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Technology Training</li>
+              </ul>
+              <a href="/community-outreach" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
+                Explore Program <i data-feather="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
           </article>
 
           <!-- Secondary Research -->
-          <article class="sr-fade-up flex flex-col rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
-            <div class="flex items-center gap-4">
-              <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="book-open" class="h-7 w-7"></i></span>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Secondary School Research Program</h3>
-                <p class="text-sm font-semibold text-orange-700">Preparing tomorrow's researchers and innovators</p>
-              </div>
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img
+                src="images/robot.jpeg"
+                alt="Secondary school research and robotics"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white shadow-lg ring-1 ring-white/20" aria-hidden="true"><i data-feather="book-open" class="h-6 w-6"></i></span>
             </div>
-            <p class="mt-5 text-base leading-7 text-gray-600">
-              Students conduct authentic research projects under the guidance of mentors while developing critical thinking, innovation, and scientific communication skills.
-            </p>
-            <ul class="mt-5 flex flex-wrap gap-2">
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Faculty Mentorship</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Research Projects</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Innovation Challenges</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Research Symposium</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Publication Opportunities</li>
-            </ul>
-            <a href="/secondary-research" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
-              Explore Program <i data-feather="arrow-right" class="h-4 w-4"></i>
-            </a>
+            <div class="flex flex-1 flex-col p-8">
+              <h3 class="text-xl font-bold text-gray-900">Secondary School Research Program</h3>
+              <p class="mt-1 text-sm font-semibold text-orange-700">Preparing tomorrow's researchers and innovators</p>
+              <p class="mt-4 text-base leading-7 text-gray-600">
+                Students conduct authentic research projects under the guidance of mentors while developing critical thinking, innovation, and scientific communication skills.
+              </p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Faculty Mentorship</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Research Projects</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Innovation Challenges</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Research Symposium</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Publication Opportunities</li>
+              </ul>
+              <a href="/secondary-research" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
+                Explore Program <i data-feather="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
           </article>
 
           <!-- Scholarships -->
-          <article class="sr-fade-up flex flex-col rounded-3xl border border-orange-100 bg-white p-8 shadow-sm ring-1 ring-orange-100/80">
-            <div class="flex items-center gap-4">
-              <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-700 text-white" aria-hidden="true"><i data-feather="award" class="h-7 w-7"></i></span>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">STEM Scholarship Program</h3>
-                <p class="text-sm font-semibold text-orange-700">Supporting future STEM leaders</p>
-              </div>
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-orange-100/80 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img
+                src="images/scholarship-students.jpg"
+                alt="STEM scholarship recipients"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-700 text-white shadow-lg ring-1 ring-white/20" aria-hidden="true"><i data-feather="award" class="h-6 w-6"></i></span>
             </div>
-            <p class="mt-5 text-base leading-7 text-gray-600">
-              Scholarships that reduce financial barriers while providing mentorship, leadership development, and professional growth opportunities.
-            </p>
-            <ul class="mt-5 flex flex-wrap gap-2">
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Dr. Ron &amp; Cara Beer Scholarship</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Regina Henry Scholarship</li>
-              <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Future Named Scholarships</li>
-            </ul>
-            <a href="/scholarship" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
-              Explore Program <i data-feather="arrow-right" class="h-4 w-4"></i>
-            </a>
+            <div class="flex flex-1 flex-col p-8">
+              <h3 class="text-xl font-bold text-gray-900">STEM Scholarship Program</h3>
+              <p class="mt-1 text-sm font-semibold text-orange-700">Supporting future STEM leaders</p>
+              <p class="mt-4 text-base leading-7 text-gray-600">
+                Scholarships that reduce financial barriers while providing mentorship, leadership development, and professional growth opportunities.
+              </p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Dr. Ron &amp; Cara Beer Scholarship</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Regina Henry Scholarship</li>
+                <li class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-800 ring-1 ring-orange-100">Jdiobe STEM Scholarship</li>
+              </ul>
+              <a href="/scholarship" class="mt-6 inline-flex items-center gap-2 self-start text-sm font-semibold text-orange-700 hover:text-orange-800">
+                Explore Program <i data-feather="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"></i>
+              </a>
+            </div>
           </article>
         </div>
       </div>
@@ -272,48 +307,6 @@
             <dd class="mt-2 text-sm text-orange-100">Districts Served</dd>
           </div>
         </dl>
-      </div>
-    </section>
-
-    <!-- Success stories -->
-    <section class="bg-white py-16 md:py-24">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-            <i data-feather="star" class="h-4 w-4"></i>
-            Success Stories
-          </p>
-          <h2 class="sr-fade-up mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">Journeys that started here</h2>
-        </div>
-        <div class="sr-stagger mt-12 grid gap-6 lg:grid-cols-3">
-          <article class="sr-fade-up overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-sm ring-1 ring-orange-100/80">
-            <img src="images/IMG_8893.jpg" alt="Scholarship recipient" class="aspect-[16/10] w-full object-cover" width="600" height="375" loading="lazy" decoding="async" />
-            <div class="p-6">
-              <p class="text-xs font-bold uppercase tracking-widest text-orange-700">Scholarship Recipient</p>
-              <h3 class="mt-2 text-lg font-bold text-gray-900">From financial barrier to university</h3>
-              <p class="mt-2 text-sm leading-6 text-gray-600">A scholarship recipient now pursuing a STEM degree with mentorship and leadership support.</p>
-              <a href="/impact" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 hover:text-orange-800">Read Story <i data-feather="arrow-right" class="h-4 w-4"></i></a>
-            </div>
-          </article>
-          <article class="sr-fade-up overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-sm ring-1 ring-orange-100/80">
-            <img src="images/robot.jpeg" alt="Student research project" class="aspect-[16/10] w-full object-cover" width="600" height="375" loading="lazy" decoding="async" />
-            <div class="p-6">
-              <p class="text-xs font-bold uppercase tracking-widest text-orange-700">Student Research</p>
-              <h3 class="mt-2 text-lg font-bold text-gray-900">An award-winning research project</h3>
-              <p class="mt-2 text-sm leading-6 text-gray-600">A secondary school researcher recognized at the Jdiobe STEM Research Symposium.</p>
-              <a href="/impact" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 hover:text-orange-800">Read Story <i data-feather="arrow-right" class="h-4 w-4"></i></a>
-            </div>
-          </article>
-          <article class="sr-fade-up overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-sm ring-1 ring-orange-100/80">
-            <img src="images/teachers.jpeg" alt="Community outreach" class="aspect-[16/10] w-full object-cover" width="600" height="375" loading="lazy" decoding="async" />
-            <div class="p-6">
-              <p class="text-xs font-bold uppercase tracking-widest text-orange-700">Community Outreach</p>
-              <h3 class="mt-2 text-lg font-bold text-gray-900">A school transformed by STEM</h3>
-              <p class="mt-2 text-sm leading-6 text-gray-600">An outreach partnership that sparked new curiosity and confidence across a school.</p>
-              <a href="/impact" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-orange-700 hover:text-orange-800">Read Story <i data-feather="arrow-right" class="h-4 w-4"></i></a>
-            </div>
-          </article>
-        </div>
       </div>
     </section>
 

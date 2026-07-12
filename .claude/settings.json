@@ -17,7 +17,16 @@
       "Skill(run:*)",
       "Bash(command -v python3 npx chromium-cli)",
       "Bash(cat /tmp/devserver.log 2>/dev/null | head -20)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1400,1000 --wait-for-timeout=1200 'http://localhost:3000/index.html#' __TRACKED_VAR__/.playwright-preview-partners.png)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npm init *)",
+      "Bash(node preview.js)",
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/index.html --max-time 5)",
+      "Bash(curl -s http://localhost:3000/index.html --max-time 5 -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://cdn.tailwindcss.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://unpkg.com/feather-icons)"
     ]
   }
 }
