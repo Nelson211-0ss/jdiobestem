@@ -26,7 +26,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/index.html --max-time 5)",
       "Bash(curl -s http://localhost:3000/index.html --max-time 5 -o /dev/null -w \"%{http_code}\\\\n\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://cdn.tailwindcss.com)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://unpkg.com/feather-icons)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://unpkg.com/feather-icons)",
+      "Bash(node preview2.js)",
+      "Bash(rm -f \"C:\\\\Users\\\\muwan\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-muwan-Desktop-jdiobestem\\\\e1826451-71ef-435a-b5ab-34d29f1da26a\\\\scratchpad\"/*.png)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\muwan\\AppData\\Local\\Temp\\claude\\c--Users-muwan-Desktop-jdiobestem\\e1826451-71ef-435a-b5ab-34d29f1da26a\\scratchpad"
     ]
   }
 }
