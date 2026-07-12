@@ -12,7 +12,12 @@
       "Bash(curl -s -o /dev/null -w \"index: %{http_code}\\\\n\" http://localhost:3000/)",
       "Bash(curl -s http://localhost:3000/brand-colors.css)",
       "Bash(mv \"./images/scholarships students/IMG_8893.JPG\" \"./images/IMG_8893.jpg\")",
-      "Bash(rm \"./images/1.jpeg\")"
+      "Bash(rm \"./images/1.jpeg\")",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(command -v python3 npx chromium-cli)",
+      "Bash(cat /tmp/devserver.log 2>/dev/null | head -20)",
+      "Read(//tmp/**)"
     ]
   }
 }

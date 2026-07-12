@@ -119,6 +119,35 @@
   will-change: auto;
 }
 
+/* Partners logo strip: continuous scrolling marquee */
+.partners-marquee {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.partners-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-width: 100%;
+  animation: partners-scroll 22s linear infinite;
+}
+
+.partners-marquee:hover .partners-track {
+  animation-play-state: paused;
+}
+
+@keyframes partners-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sr-fade-up,
   .sr-fade-left,
@@ -137,6 +166,18 @@
 
   .hero-parallax-bg {
     transform: none !important;
+  }
+
+  .partners-track {
+    animation: none !important;
+  }
+
+  .partners-marquee {
+    overflow-x: auto;
+  }
+
+  .partners-marquee .partners-track[aria-hidden='true'] {
+    display: none;
   }
 
   .hero-slide {
