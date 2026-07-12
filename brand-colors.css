@@ -27,6 +27,11 @@
   border-radius: var(--radius-button) !important;
 }
 
+/* Circular avatar photos (e.g. success story headshots) — exempt from the sharper-corner override above */
+.avatar-circle {
+  border-radius: 9999px;
+}
+
 /* Solid feather icons — consistent weight and color */
 svg.feather {
   stroke: currentColor;
