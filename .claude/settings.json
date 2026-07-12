@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(node dev-server.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:3000/images/jdiobe logo.png\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:3000/images/jdiobe%20logo.png\")",
+      "Bash(git mv *)",
+      "Bash(mv \"images/jdiobe logo.png\" \"images/jdiobe-logo.png\")",
+      "Bash(curl -s -o /dev/null -w \"index: %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/brand-colors.css)",
+      "Bash(mv \"./images/scholarships students/IMG_8893.JPG\" \"./images/IMG_8893.jpg\")",
+      "Bash(rm \"./images/1.jpeg\")"
+    ]
+  }
+}
