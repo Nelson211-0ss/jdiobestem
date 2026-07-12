@@ -115,7 +115,11 @@ const server = http.createServer((req, res) => {
   if (queryIndex !== -1) {
     pathname = pathname.substring(0, queryIndex);
   }
-  
+
+  // Decode percent-encoded characters (e.g. %20 for spaces) so filenames
+  // with special characters resolve to the actual file on disk.
+  pathname = decodeURIComponent(pathname);
+
   // Serve the root as index.html
   if (pathname === '/') {
     pathname = '/index.html';
