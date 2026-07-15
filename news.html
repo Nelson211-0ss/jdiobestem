@@ -12,6 +12,26 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
+  <style>
+    /* Static headline column: pinned on the left so only the feed on the right scrolls. */
+    .news-headline {
+      position: static;
+    }
+
+    @media (min-width: 1024px) {
+      .news-headline {
+        position: sticky;
+        top: 6rem;
+        align-self: start;
+      }
+    }
+
+    .news-post + .news-post {
+      border-top: 1px solid #e7e5e4; /* stone-200 */
+      margin-top: 3rem;
+      padding-top: 3rem;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-stone-50 text-stone-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
   <div id="header"></div>
@@ -26,213 +46,143 @@
     </div>
   </section>
 
-  <main class="py-12 md:py-16">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.6fr] lg:items-start">
-        <aside class="order-first space-y-4 rounded-3xl border border-stone-200 bg-white p-6 shadow-sm md:p-7 lg:sticky lg:top-24 lg:order-1">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xl font-semibold text-stone-900">Latest Headlines</h3>
-            <span class="text-sm font-medium text-orange-700">News</span>
-          </div>
+  <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-16">
+    <div class="grid gap-x-12 gap-y-10 lg:grid-cols-[18rem_1fr]">
 
-          <div class="space-y-3">
-            <a href="#nambiro-scholarship" class="block rounded-2xl border border-stone-200 bg-stone-50 p-4 transition hover:border-orange-300 hover:bg-orange-50/70">
-              <p class="text-sm font-semibold text-stone-900">Travel scholarship opens doors for future aeronautical engineer</p>
-              <p class="mt-2 text-sm text-stone-600">Moses Nambiro receives support to begin his academic journey abroad.</p>
-            </a>
+      <header class="news-headline">
+        <p class="text-xs font-semibold uppercase tracking-widest text-orange-700">On this page</p>
+        <h2 class="mt-2 text-2xl font-bold leading-tight text-stone-900">Latest stories</h2>
+        <p class="mt-3 max-w-xs text-base leading-7 text-stone-600">
+          Newest updates appear first as our programs grow.
+        </p>
+        <div class="mt-6 hidden h-px w-12 bg-orange-700 lg:block"></div>
+      </header>
 
-            <a href="#mbabazi-liz-lourine-scholarship" class="block rounded-2xl border border-stone-200 bg-stone-50 p-4 transition hover:border-orange-300 hover:bg-orange-50/70">
-              <p class="text-sm font-semibold text-stone-900">New scholarship support for Mbabazi Liz Lourine</p>
-              <p class="mt-2 text-sm text-stone-600">A new opportunity in BAF - Biology, Agriculture, Food and Nutrition / SubICT.</p>
-            </a>
-          </div>
+      <div class="min-w-0">
 
-          <div class="rounded-2xl border border-orange-100 bg-orange-50/70 p-4">
-            <p class="text-sm font-semibold text-orange-800">Stay connected</p>
-            <p class="mt-2 text-sm leading-6 text-stone-600">Follow our journey as more students receive support and opportunities to thrive.</p>
-          </div>
-        </aside>
+    <article id="mbabazi-liz-lourine-scholarship" class="news-post scroll-mt-24">
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <span class="font-semibold uppercase tracking-wide text-orange-700">Scholarship</span>
+        <span class="h-1 w-1 rounded-full bg-stone-300"></span>
+        <time datetime="2026-07-13" class="text-stone-500">July 13, 2026</time>
+        <span class="h-1 w-1 rounded-full bg-stone-300"></span>
+        <span class="text-stone-500">4 min read</span>
+      </div>
+      <h2 class="mt-3 text-2xl font-bold leading-snug text-stone-900 md:text-3xl">
+        New scholarship support for Mbabazi Liz Lourine at Holy Cross Lake View SSS
+      </h2>
+      <p class="mt-3 text-lg leading-8 text-stone-600">
+        For Liz Lourine, this new support means more than financial help; it opens a path to confidence, opportunity, and growth in science-led learning through the Dr. Ron and Cara Beer STEM Scholarship.
+      </p>
 
-        <div class="space-y-8 lg:order-2">
-          <div class="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm md:p-8">
-            <div class="flex flex-wrap items-center gap-3 text-sm">
-              <span class="inline-flex items-center gap-1.5 bg-orange-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-                <i data-feather="radio" class="h-3.5 w-3.5"></i>
-                Featured Story
-              </span>
-              <time datetime="2026-04-06" class="text-stone-500">April 6, 2026</time>
-            </div>
-            <h2 class="mt-4 text-3xl font-bold leading-tight text-stone-900">
-              Jdiobe STEM Foundation awards travel scholarship to future aeronautical engineer
-            </h2>
-            <p class="mt-4 text-lg leading-8 text-stone-600">
-              A student from Uganda is now one step closer to his dream of becoming an aeronautical engineer, thanks to a travel scholarship that removed a key financial barrier.
-            </p>
-            <div class="mt-6 overflow-hidden rounded-2xl border border-stone-200 bg-stone-100">
-              <img
-                src="images/moses-nambiro.png"
-                alt="Moses Nambiro, travel scholarship recipient"
-                class="h-56 w-full object-cover md:h-64"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-            <div class="mt-6 flex flex-wrap items-center gap-4 text-sm text-stone-500">
-              <span>By Jdiobe STEM Foundation</span>
-              <span class="h-1 w-1 rounded-full bg-stone-300"></span>
-              <span>5 min read</span>
-            </div>
-            <a href="#nambiro-scholarship" class="mt-6 inline-flex items-center gap-2 rounded-full bg-orange-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-800">
-              <i data-feather="book-open" class="h-4 w-4"></i>
-              Read More
-            </a>
-          </div>
+      <figure class="mt-6">
+        <img
+          src="images/scholarships students/IMG_9416 - Copy.JPG"
+          alt="Mbabazi Liz Lourine during a scholarship-related school activity"
+          width="1200"
+          height="1600"
+          class="mx-auto max-h-[26rem] w-full max-w-sm rounded-lg object-contain"
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption class="mt-3 text-center text-sm text-stone-500">
+          Mbabazi Liz Lourine, scholarship recipient at Holy Cross Lake View SSS
+        </figcaption>
+      </figure>
 
-          <article id="nambiro-scholarship" class="scroll-mt-24 hidden border border-stone-200 bg-white">
-        <header class="border-b border-stone-100 px-6 py-6 md:px-8 md:py-7">
-          <div class="flex flex-wrap items-center gap-3 text-sm">
-            <span class="inline-flex items-center gap-1.5 bg-orange-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-              <i data-feather="award" class="h-3.5 w-3.5"></i>
-              Scholarship
-            </span>
-            <time datetime="2026-04-06" class="text-stone-500">April 6, 2026</time>
-          </div>
-          <h2 class="mt-4 text-2xl font-bold leading-snug text-stone-900 md:text-[1.75rem]">
-            Jdiobe STEM Foundation awards travel scholarship to future aeronautical engineer
-          </h2>
-          <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-stone-500">
-            <span>By Jdiobe STEM Foundation</span>
-            <span class="h-1 w-1 rounded-full bg-stone-300"></span>
-            <span>5 min read</span>
-          </div>
-          <p class="mt-4 text-lg leading-8 text-stone-600">
-            At a time when travel costs can stand between talent and opportunity, our foundation stepped in to help a promising student begin a life-changing academic journey.
-          </p>
-        </header>
-
-        <figure class="border-b border-stone-100 bg-stone-100/80 px-4 py-6 md:px-8 md:py-8">
-          <img
-            src="images/moses-nambiro.png"
-            alt="Moses Nambiro, travel scholarship recipient"
-            width="1200"
-            height="1600"
-            class="mx-auto w-full max-w-sm object-contain"
-            loading="eager"
-            decoding="async"
-          />
-          <figcaption class="mt-4 text-center text-sm text-stone-500">
-            Moses Nambiro, recipient of the Jdiobe STEM Foundation travel scholarship
-          </figcaption>
-        </figure>
-
-        <div class="space-y-5 px-6 py-8 text-base leading-7 text-stone-700 md:px-8 md:py-10 md:text-[1.05rem] md:leading-8">
-          <div class="rounded-2xl border border-stone-200 bg-stone-50 p-5">
-            <h3 class="text-lg font-semibold text-stone-900">Why this matters</h3>
-            <p class="mt-2 text-justify">
-              The Jdiobe STEM Foundation is proud to announce the award of a $1,000 travel scholarship to Moses Nambiro, a student from Uganda who has been admitted and awarded a scholarship to pursue a Bachelor of Science in Aeronautical Engineering. This support helps remove a major obstacle that often stands between gifted students and world-class education.
-            </p>
-          </div>
-          <p class="text-justify">
-            While Nambiro successfully secured admission and academic funding, additional financial support was required to cover travel expenses. Through this scholarship, the Jdiobe STEM Foundation is supporting his airfare from Uganda to Alegría, enabling him to begin his academic journey with greater confidence and less financial strain.
-          </p>
-          <p class="text-justify">
-            This award reflects the Foundation&rsquo;s mission to remove barriers and expand access to STEM education for talented individuals globally. By addressing critical gaps such as travel costs, the Foundation ensures that opportunity is not limited by circumstance and that young people can pursue ambitious futures in science and engineering.
-          </p>
-
-          <blockquote class="border-l-4 border-orange-700 bg-orange-50/60 px-5 py-4 text-stone-800">
-            <p class="text-justify italic leading-relaxed">
-              &ldquo;We believe that talent is universal, but opportunity is not. Supporting students like Nambiro is central to our mission of empowering the next generation of engineers and innovators.&rdquo;
-            </p>
-            <cite class="mt-3 block text-sm font-semibold not-italic text-orange-800">
-              &mdash; Dr. Muwanika Jdiobe
-            </cite>
-          </blockquote>
-
-          <p class="text-justify">
-            The Jdiobe STEM Foundation congratulates Moses Nambiro on this achievement and looks forward to his future contributions to the field of aeronautical engineering.
-          </p>
-        </div>
-
-        <footer class="flex flex-wrap items-center justify-between gap-4 border-t border-stone-100 bg-stone-50/80 px-6 py-5 md:px-8">
-          <a href="/programs" class="inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-800">
-            <i data-feather="layers" class="h-4 w-4"></i>
-            Explore our programs
-          </a>
-          <a href="/donate" class="inline-flex items-center gap-2 bg-orange-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-800">
-            <i data-feather="heart" class="h-4 w-4"></i>
-            Support students
-          </a>
-        </footer>
-      </article>
-
-          <article id="mbabazi-liz-lourine-scholarship" class="scroll-mt-24 border border-stone-200 bg-white">
-        <header class="border-b border-stone-100 px-6 py-6 md:px-8 md:py-7">
-          <div class="flex flex-wrap items-center gap-3 text-sm">
-            <span class="inline-flex items-center gap-1.5 bg-orange-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-              <i data-feather="award" class="h-3.5 w-3.5"></i>
-              Scholarship
-            </span>
-            <time datetime="2026-07-13" class="text-stone-500">July 13, 2026</time>
-          </div>
-          <h2 class="mt-4 text-2xl font-bold leading-snug text-stone-900 md:text-[1.75rem]">
-            New scholarship support for Mbabazi Liz Lourine at Holy Cross Lake View SSS
-          </h2>
-          <div class="mt-4 flex flex-wrap items-center gap-4 text-sm text-stone-500">
-            <span>By Jdiobe STEM Foundation</span>
-            <span class="h-1 w-1 rounded-full bg-stone-300"></span>
-            <span>4 min read</span>
-          </div>
-          <p class="mt-4 text-lg leading-8 text-stone-600">
-            For Liz Lourine, this new support means more than financial help; it opens a path to confidence, opportunity, and growth in science-led learning through the Dr. Ron and Cara Beer STEM Scholarship.
-          </p>
-        </header>
-
-        <figure class="border-b border-stone-100 bg-stone-100/80 px-4 py-6 md:px-8 md:py-8">
-          <img
-            src="images/scholarships students/IMG_9416 - Copy.JPG"
-            alt="Mbabazi Liz Lourine during a scholarship-related school activity"
-            width="1200"
-            height="1600"
-            class="mx-auto w-full max-w-sm object-contain"
-            loading="eager"
-            decoding="async"
-          />
-          <figcaption class="mt-4 text-center text-sm text-stone-500">
-            Mbabazi Liz Lourine, scholarship recipient at Holy Cross Lake View SSS
-          </figcaption>
-        </figure>
-
-        <div class="space-y-5 px-6 py-8 text-base leading-7 text-stone-700 md:px-8 md:py-10 md:text-[1.05rem] md:leading-8">
-          <div class="rounded-2xl border border-stone-200 bg-stone-50 p-5">
-            <h3 class="text-lg font-semibold text-stone-900">What this support means</h3>
-            <p class="mt-2 text-justify">
-              The Jdiobe STEM Foundation is pleased to share a new scholarship support story for Mbabazi Liz Lourine, a student at Holy Cross Lake View SSS in Jinja. She has been awarded a scholarship through JdiobeSTEM Foundation under the Dr. Ron and Cara Beer STEM Scholarship, supporting her studies in BAF - Biology, Agriculture, Food and Nutrition / SubICT, a course that strengthens practical knowledge and future opportunities in science and applied learning.
-            </p>
-          </div>
-          <p class="text-justify">
-            This new support reflects our continued commitment to helping young people access quality education, build confidence, and grow their potential through STEM-related learning and academic encouragement. It is a reminder that practical support, when paired with opportunity, can transform a student’s future.
-          </p>
-        </div>
-
-        <footer class="flex flex-wrap items-center justify-between gap-4 border-t border-stone-100 bg-stone-50/80 px-6 py-5 md:px-8">
-          <a href="/scholarship" class="inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-800">
-            <i data-feather="book-open" class="h-4 w-4"></i>
-            View scholarship programs
-          </a>
-          <a href="/donate" class="inline-flex items-center gap-2 bg-orange-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-800">
-            <i data-feather="heart" class="h-4 w-4"></i>
-            Support students
-          </a>
-        </footer>
-      </article>
-
-        </div>
-
+      <div class="mt-8 space-y-5 text-base leading-7 text-stone-700 md:text-[1.05rem] md:leading-8">
+        <p class="text-justify">
+          The Jdiobe STEM Foundation is pleased to share a new scholarship support story for Mbabazi Liz Lourine, a student at Holy Cross Lake View SSS in Jinja. She has been awarded a scholarship through JdiobeSTEM Foundation under the Dr. Ron and Cara Beer STEM Scholarship, supporting her studies in BAF - Biology, Agriculture, Food and Nutrition / SubICT, a course that strengthens practical knowledge and future opportunities in science and applied learning.
+        </p>
+        <p class="text-justify">
+          This new support reflects our continued commitment to helping young people access quality education, build confidence, and grow their potential through STEM-related learning and academic encouragement. It is a reminder that practical support, when paired with opportunity, can transform a student&rsquo;s future.
+        </p>
       </div>
 
-      <p class="sr-fade-up mt-10 text-center text-sm text-stone-500">
-        More stories and updates will be published here as our programs grow.
+      <div class="mt-8 flex flex-wrap items-center gap-6 text-sm font-semibold">
+        <a href="/scholarship" class="inline-flex items-center gap-2 text-orange-700 transition hover:text-orange-800">
+          <i data-feather="book-open" class="h-4 w-4"></i>
+          View scholarship programs
+        </a>
+        <a href="/donate" class="inline-flex items-center gap-2 text-orange-700 transition hover:text-orange-800">
+          <i data-feather="heart" class="h-4 w-4"></i>
+          Support students
+        </a>
+      </div>
+    </article>
+
+    <article id="nambiro-scholarship" class="news-post scroll-mt-24">
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <span class="font-semibold uppercase tracking-wide text-orange-700">Scholarship</span>
+        <span class="h-1 w-1 rounded-full bg-stone-300"></span>
+        <time datetime="2026-04-06" class="text-stone-500">April 6, 2026</time>
+        <span class="h-1 w-1 rounded-full bg-stone-300"></span>
+        <span class="text-stone-500">5 min read</span>
+      </div>
+      <h2 class="mt-3 text-2xl font-bold leading-snug text-stone-900 md:text-3xl">
+        Jdiobe STEM Foundation awards travel scholarship to future aeronautical engineer
+      </h2>
+      <p class="mt-3 text-lg leading-8 text-stone-600">
+        At a time when travel costs can stand between talent and opportunity, our foundation stepped in to help a promising student begin a life-changing academic journey.
       </p>
+
+      <figure class="mt-6">
+        <img
+          src="images/moses-nambiro.png"
+          alt="Moses Nambiro, travel scholarship recipient"
+          width="1200"
+          height="1600"
+          class="mx-auto max-h-[26rem] w-full max-w-sm rounded-lg object-contain"
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption class="mt-3 text-center text-sm text-stone-500">
+          Moses Nambiro, recipient of the Jdiobe STEM Foundation travel scholarship
+        </figcaption>
+      </figure>
+
+      <div class="mt-8 space-y-5 text-base leading-7 text-stone-700 md:text-[1.05rem] md:leading-8">
+        <p class="text-justify">
+          The Jdiobe STEM Foundation is proud to announce the award of a $1,000 travel scholarship to Moses Nambiro, a student from Uganda who has been admitted and awarded a scholarship to pursue a Bachelor of Science in Aeronautical Engineering. This support helps remove a major obstacle that often stands between gifted students and world-class education.
+        </p>
+        <p class="text-justify">
+          While Nambiro successfully secured admission and academic funding, additional financial support was required to cover travel expenses. Through this scholarship, the Jdiobe STEM Foundation is supporting his airfare from Uganda to Alegr&iacute;a, enabling him to begin his academic journey with greater confidence and less financial strain.
+        </p>
+        <p class="text-justify">
+          This award reflects the Foundation&rsquo;s mission to remove barriers and expand access to STEM education for talented individuals globally. By addressing critical gaps such as travel costs, the Foundation ensures that opportunity is not limited by circumstance and that young people can pursue ambitious futures in science and engineering.
+        </p>
+
+        <blockquote class="border-l-4 border-orange-700 bg-orange-50/60 px-5 py-4 text-stone-800">
+          <p class="text-justify italic leading-relaxed">
+            &ldquo;We believe that talent is universal, but opportunity is not. Supporting students like Nambiro is central to our mission of empowering the next generation of engineers and innovators.&rdquo;
+          </p>
+          <cite class="mt-3 block text-sm font-semibold not-italic text-orange-800">
+            &mdash; Dr. Muwanika Jdiobe
+          </cite>
+        </blockquote>
+
+        <p class="text-justify">
+          The Jdiobe STEM Foundation congratulates Moses Nambiro on this achievement and looks forward to his future contributions to the field of aeronautical engineering.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center gap-6 text-sm font-semibold">
+        <a href="/programs" class="inline-flex items-center gap-2 text-orange-700 transition hover:text-orange-800">
+          <i data-feather="layers" class="h-4 w-4"></i>
+          Explore our programs
+        </a>
+        <a href="/donate" class="inline-flex items-center gap-2 text-orange-700 transition hover:text-orange-800">
+          <i data-feather="heart" class="h-4 w-4"></i>
+          Support students
+        </a>
+      </div>
+    </article>
+
+    <p class="sr-fade-up mt-14 border-t border-stone-200 pt-8 text-center text-sm text-stone-500">
+      More stories and updates will be published here as our programs grow.
+    </p>
+
+      </div>
     </div>
   </main>
 
