@@ -103,6 +103,23 @@
   }
 }
 
+/* Hero: decorative shape pattern drifts continuously in the background */
+.hero-bg-scroll {
+  background-repeat: repeat-x;
+  background-position: 0 center;
+  background-size: 1000px 100%;
+  animation: heroBgScroll 60s linear infinite;
+}
+
+@keyframes heroBgScroll {
+  from {
+    background-position: 0 center;
+  }
+  to {
+    background-position: -1000px center;
+  }
+}
+
 /* Hero: solid wash overlay (no gradients) */
 .hero-parallax::after {
   content: '';
@@ -117,6 +134,27 @@
 .hero-parallax-bg {
   transform: none;
   will-change: auto;
+}
+
+/* Hero: scroll-down cue */
+.hero-scroll-cue {
+  opacity: 0;
+  animation: heroLineIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.9s;
+}
+
+.hero-scroll-cue-icon {
+  animation: heroScrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes heroScrollBounce {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 0.4rem, 0);
+  }
 }
 
 /* Partners logo strip: continuous scrolling marquee */
@@ -166,6 +204,19 @@
 
   .hero-parallax-bg {
     transform: none !important;
+  }
+
+  .hero-bg-scroll {
+    animation: none !important;
+  }
+
+  .hero-scroll-cue {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-scroll-cue-icon {
+    animation: none !important;
   }
 
   .partners-track {
