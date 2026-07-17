@@ -37,8 +37,8 @@ function loadFragment(id, file, callback) {
     });
 }
 
-// Animated Counters Logic (Our Impact section — data-target, optional data-suffix / data-prefix)
-function animateCounter(counter, target, duration = 2000) {
+// Animated Counters Logic (any [data-target] with class="counter" — optional data-suffix / data-prefix)
+function animateCounter(counter, target, duration = 1400) {
   const suffix = counter.getAttribute('data-suffix') || '';
   const prefix = counter.getAttribute('data-prefix') || '';
   let start = 0;
@@ -57,46 +57,41 @@ function animateCounter(counter, target, duration = 2000) {
 }
 
 function initImpactCounters() {
-  const section = document.getElementById('impact');
-  if (!section) return;
-
-  const counters = section.querySelectorAll('.counter');
+  const counters = document.querySelectorAll('.counter');
   if (!counters.length) return;
 
-  function setFinalValues() {
-    counters.forEach(function (counter) {
-      const target = parseInt(counter.getAttribute('data-target'), 10);
-      if (Number.isNaN(target)) return;
-      const suffix = counter.getAttribute('data-suffix') || '';
-      const prefix = counter.getAttribute('data-prefix') || '';
-      counter.textContent = prefix + target.toLocaleString() + suffix;
-    });
+  function setFinalValue(counter) {
+    const target = parseInt(counter.getAttribute('data-target'), 10);
+    if (Number.isNaN(target)) return;
+    const suffix = counter.getAttribute('data-suffix') || '';
+    const prefix = counter.getAttribute('data-prefix') || '';
+    counter.textContent = prefix + target.toLocaleString() + suffix;
   }
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    setFinalValues();
+    counters.forEach(setFinalValue);
     return;
   }
 
-  let started = false;
+  // Each counter animates independently the moment it scrolls into view.
   var observer = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting || started) return;
-        started = true;
-        counters.forEach(function (counter) {
-          const target = parseInt(counter.getAttribute('data-target'), 10);
-          if (!Number.isNaN(target)) {
-            animateCounter(counter, target);
-          }
-        });
-        observer.disconnect();
+        if (!entry.isIntersecting) return;
+        const counter = entry.target;
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        if (!Number.isNaN(target)) {
+          animateCounter(counter, target);
+        }
+        observer.unobserve(counter);
       });
     },
-    { threshold: 0.25, rootMargin: '0px 0px -10% 0px' }
+    { threshold: 0.4, rootMargin: '0px 0px -10% 0px' }
   );
 
-  observer.observe(section);
+  counters.forEach(function (counter) {
+    observer.observe(counter);
+  });
 }
 
 function initScrollReveal() {

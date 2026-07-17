@@ -6,8 +6,8 @@
   opacity: 0;
   will-change: opacity, transform;
   transition:
-    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sr-fade-up {
@@ -46,54 +46,54 @@
 .sr-stagger > .sr-fade-left:nth-child(2),
 .sr-stagger > .sr-fade-right:nth-child(2),
 .sr-stagger > .sr-zoom:nth-child(2) {
-  transition-delay: 70ms;
+  transition-delay: 50ms;
 }
 
 .sr-stagger > .sr-fade-up:nth-child(3),
 .sr-stagger > .sr-fade-left:nth-child(3),
 .sr-stagger > .sr-fade-right:nth-child(3),
 .sr-stagger > .sr-zoom:nth-child(3) {
-  transition-delay: 140ms;
+  transition-delay: 100ms;
 }
 
 .sr-stagger > .sr-fade-up:nth-child(4),
 .sr-stagger > .sr-fade-left:nth-child(4),
 .sr-stagger > .sr-fade-right:nth-child(4),
 .sr-stagger > .sr-zoom:nth-child(4) {
-  transition-delay: 210ms;
+  transition-delay: 150ms;
 }
 
 .sr-stagger > .sr-fade-up:nth-child(5),
 .sr-stagger > .sr-fade-left:nth-child(5),
 .sr-stagger > .sr-fade-right:nth-child(5),
 .sr-stagger > .sr-zoom:nth-child(5) {
-  transition-delay: 280ms;
+  transition-delay: 200ms;
 }
 
 .sr-stagger > .sr-fade-up:nth-child(6),
 .sr-stagger > .sr-fade-left:nth-child(6),
 .sr-stagger > .sr-fade-right:nth-child(6),
 .sr-stagger > .sr-zoom:nth-child(6) {
-  transition-delay: 350ms;
+  transition-delay: 250ms;
 }
 
 /* Hero: subtle zoom on load (no scroll required for first paint story) */
 .hero-title-in {
   opacity: 0;
   transform: translate3d(0, 1.5rem, 0);
-  animation: heroLineIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: heroLineIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .hero-title-in.delay-1 {
-  animation-delay: 0.12s;
+  animation-delay: 0.08s;
 }
 
 .hero-title-in.delay-2 {
-  animation-delay: 0.24s;
+  animation-delay: 0.16s;
 }
 
 .hero-title-in.delay-3 {
-  animation-delay: 0.36s;
+  animation-delay: 0.24s;
 }
 
 @keyframes heroLineIn {
@@ -108,7 +108,7 @@
   background-repeat: repeat-x;
   background-position: 0 center;
   background-size: 1000px 100%;
-  animation: heroBgScroll 60s linear infinite;
+  animation: heroBgScroll 42s linear infinite;
 }
 
 @keyframes heroBgScroll {
@@ -117,6 +117,43 @@
   }
   to {
     background-position: -1000px center;
+  }
+}
+
+/* Impact stat cards: lift + icon pop on hover */
+.impact-stat-card {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease;
+}
+
+.impact-stat-card:hover {
+  transform: translate3d(0, -0.25rem, 0);
+  border-color: rgb(194 65 12 / 0.35);
+  box-shadow: 0 12px 24px -12px rgb(194 65 12 / 0.25);
+}
+
+.impact-stat-card span {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.impact-stat-card:hover span:first-child {
+  transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-stat-card,
+  .impact-stat-card span {
+    transition: none !important;
+  }
+
+  .impact-stat-card:hover {
+    transform: none !important;
+  }
+
+  .impact-stat-card:hover span:first-child {
+    transform: none !important;
   }
 }
 
@@ -139,8 +176,8 @@
 /* Hero: scroll-down cue */
 .hero-scroll-cue {
   opacity: 0;
-  animation: heroLineIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: 0.9s;
+  animation: heroLineIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.65s;
 }
 
 .hero-scroll-cue-icon {
@@ -170,7 +207,7 @@
   flex-shrink: 0;
   align-items: center;
   min-width: 100%;
-  animation: partners-scroll 22s linear infinite;
+  animation: partners-scroll 16s linear infinite;
 }
 
 .partners-marquee:hover .partners-track {
