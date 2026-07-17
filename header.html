@@ -1,5 +1,5 @@
 <nav id="site-nav" class="site-nav fixed inset-x-0 top-0 z-50 w-full transition-colors duration-300">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+  <div class="relative z-50 max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
     <div class="flex items-center gap-3">
       <img src="images/jdiobe-logo.png" alt="Jdiobe STEM Foundation Logo" class="h-16 w-auto" />
       <div class="text-2xl font-bold text-orange-700"></div>
@@ -15,18 +15,24 @@
       <a href="/donate" class="nav-link ml-2 bg-white text-orange-700 px-5 py-2 rounded-full font-semibold shadow hover:bg-orange-100 transition"><i data-feather="heart"></i><span>Donate</span></a>
     </div>
     <div class="md:hidden">
-      <button id="menu-btn" class="text-2xl text-white focus:outline-none">&#9776;</button>
+      <button id="menu-btn" class="hamburger-btn relative z-50 flex h-10 w-10 items-center justify-center focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="hamburger-line hamburger-line-1"></span>
+        <span class="hamburger-line hamburger-line-2"></span>
+        <span class="hamburger-line hamburger-line-3"></span>
+      </button>
     </div>
   </div>
-  <div id="mobile-menu" class="md:hidden hidden bg-orange-700 px-5 pb-5 pt-1 shadow-xl">
-    <a href="/" class="nav-link-mobile border-b border-white/10 py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="home"></i><span>Home</span></a>
-    <a href="/about" class="nav-link-mobile border-b border-white/10 py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="info"></i><span>About Us</span></a>
-    <a href="/programs" class="nav-link-mobile border-b border-white/10 py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="layers"></i><span>Programs</span></a>
-    <a href="/impact" class="nav-link-mobile border-b border-white/10 py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="bar-chart-2"></i><span>Impact</span></a>
-    <a href="/news" class="nav-link-mobile border-b border-white/10 py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="file-text"></i><span>News</span></a>
-    <a href="/volunteers" class="nav-link-mobile border-b border-white/10 py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="user-plus"></i><span>Volunteers</span></a>
-    <a href="/contact" class="nav-link-mobile py-3.5 text-base text-white transition hover:text-orange-200"><i data-feather="mail"></i><span>Contact</span></a>
-    <a href="/donate" class="nav-link-mobile mt-4 justify-center gap-2 bg-white text-orange-700 px-5 py-3 rounded-full font-semibold shadow hover:bg-orange-100 transition"><i data-feather="heart"></i><span>Donate</span></a>
+  <div id="mobile-menu" class="mobile-menu md:hidden fixed inset-0 z-40 flex flex-col overflow-y-auto bg-orange-700 px-6 pb-8 pt-24">
+    <div class="flex flex-1 flex-col justify-center gap-1">
+      <a href="/" class="nav-link-mobile border-b border-white/10 py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="home"></i><span>Home</span></a>
+      <a href="/about" class="nav-link-mobile border-b border-white/10 py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="info"></i><span>About Us</span></a>
+      <a href="/programs" class="nav-link-mobile border-b border-white/10 py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="layers"></i><span>Programs</span></a>
+      <a href="/impact" class="nav-link-mobile border-b border-white/10 py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="bar-chart-2"></i><span>Impact</span></a>
+      <a href="/news" class="nav-link-mobile border-b border-white/10 py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="file-text"></i><span>News</span></a>
+      <a href="/volunteers" class="nav-link-mobile border-b border-white/10 py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="user-plus"></i><span>Volunteers</span></a>
+      <a href="/contact" class="nav-link-mobile py-4 text-lg text-white transition hover:text-orange-200"><i data-feather="mail"></i><span>Contact</span></a>
+      <a href="/donate" class="nav-link-mobile mt-6 justify-center gap-2 bg-white text-orange-700 px-5 py-3.5 rounded-full font-semibold shadow hover:bg-orange-100 transition"><i data-feather="heart"></i><span>Donate</span></a>
+    </div>
   </div>
   <script>
     // Mobile Programs Dropdown

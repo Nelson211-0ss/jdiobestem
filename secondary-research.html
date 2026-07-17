@@ -14,6 +14,11 @@
   <link rel="stylesheet" href="brand-colors.css" />
 </head>
 <body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
+  <div id="preloader" class="preloader" role="status" aria-label="Loading">
+    <span class="preloader-spinner">
+      <img src="images/partners/preloader/preloader%20icon.png" alt="" class="preloader-icon" width="42" height="42" />
+    </span>
+  </div>
   <div id="header"></div>
   <main>
     <!-- Hero -->
@@ -235,7 +240,7 @@
     <!-- Facilities + Symposium -->
     <section class="border-y border-orange-100 bg-orange-50 py-16 md:py-24">
       <div class="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:px-8">
-        <div>
+        <div class="text-center md:text-left">
           <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
             <i data-feather="home" class="h-4 w-4"></i>
             Research Facilities
@@ -250,7 +255,7 @@
             <li class="sr-fade-up flex items-center gap-3 rounded-2xl bg-white p-4 ring-1 ring-orange-100"><i data-feather="map-pin" class="h-5 w-5 shrink-0 text-orange-700"></i><span class="text-sm font-medium text-gray-800">Field research sites</span></li>
           </ul>
         </div>
-        <div>
+        <div class="text-center md:text-left">
           <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
             <i data-feather="award" class="h-4 w-4"></i>
             Annual Research Symposium

@@ -216,6 +216,17 @@ function initHeroSlider() {
   }
 }
 
+// Preloader — stays up until the page has fully loaded (images etc.) and
+// the header/footer fragments have been injected, then fades out.
+function hidePreloader() {
+  var preloader = document.getElementById('preloader');
+  if (!preloader) return;
+  preloader.classList.add('is-hidden');
+  setTimeout(function () {
+    if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+  }, 450);
+}
+
 // Load header and footer, then initialize features
 window.addEventListener('DOMContentLoaded', function() {
   initScrollReveal();
@@ -224,23 +235,50 @@ window.addEventListener('DOMContentLoaded', function() {
   initSocialIcons();
   replaceFeatherIcons();
 
+  var fragmentsPending = 2;
+  var pageLoaded = document.readyState === 'complete';
+  function maybeHidePreloader() {
+    if (fragmentsPending > 0 || !pageLoaded) return;
+    hidePreloader();
+  }
+  if (!pageLoaded) {
+    window.addEventListener('load', function () {
+      pageLoaded = true;
+      maybeHidePreloader();
+    });
+  }
+
   loadFragment('header', 'header.html', function() {
     initSocialIcons();
     replaceFeatherIcons();
+    fragmentsPending--;
+    maybeHidePreloader();
     // Transparent-over-hero header that turns solid brand orange on scroll.
     const siteNav = document.getElementById('site-nav');
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const syncNavSolid = function () {
       if (!siteNav) return;
-      const menuOpen = mobileMenu && !mobileMenu.classList.contains('hidden');
+      const menuOpen = mobileMenu && mobileMenu.classList.contains('is-open');
       siteNav.classList.toggle('is-scrolled', menuOpen || window.scrollY > 24);
     };
-    // Mobile menu toggle — keep the bar solid while the menu is open.
+    // Mobile menu toggle — full-screen overlay, locks body scroll while open.
+    const setMenuOpen = function (open) {
+      if (!menuBtn || !mobileMenu) return;
+      mobileMenu.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('overflow-hidden', open);
+      syncNavSolid();
+    };
     if (menuBtn && mobileMenu) {
       menuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        syncNavSolid();
+        setMenuOpen(!mobileMenu.classList.contains('is-open'));
+      });
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', () => setMenuOpen(false));
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setMenuOpen(false);
       });
     }
     syncNavSolid();
@@ -249,6 +287,8 @@ window.addEventListener('DOMContentLoaded', function() {
   loadFragment('footer', 'footer.html', function() {
     initSocialIcons();
     replaceFeatherIcons();
+    fragmentsPending--;
+    maybeHidePreloader();
     // FAQ accordion toggle (for FAQs page)
     document.querySelectorAll('.faq-toggle').forEach(btn => {
       btn.addEventListener('click', function() {
