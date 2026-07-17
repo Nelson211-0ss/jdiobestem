@@ -131,6 +131,27 @@ svg.feather {
   }
 }
 
+/* Subtle dot-grid texture for plain white sections */
+.bg-dot-pattern {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-dot-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Ccircle cx='11' cy='11' r='1.4' fill='%23c2410c' fill-opacity='0.08'/%3E%3C/svg%3E");
+}
+
+.bg-dot-pattern > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Header nav icons */
 .nav-link {
   display: inline-flex;
