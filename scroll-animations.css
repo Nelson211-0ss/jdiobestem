@@ -107,7 +107,7 @@
 .hero-bg-scroll {
   background-repeat: repeat-x;
   background-position: 0 center;
-  background-size: 1000px 100%;
+  background-size: 1700px 100%;
   animation: heroBgScroll 42s linear infinite;
 }
 
@@ -116,7 +116,7 @@
     background-position: 0 center;
   }
   to {
-    background-position: -1000px center;
+    background-position: -1700px center;
   }
 }
 
