@@ -44,6 +44,7 @@ if (!process.env.PUBLIC_SITE_URL) {
 // Reuse the same serverless handlers used in production (Vercel-style signature).
 const checkoutHandler = require('./api/create-checkout-session');
 const webhookHandler = require('./api/stripe-webhook');
+const volunteerHandler = require('./api/volunteer');
 
 // Adapt a Node http (req, res) pair to the Express/Vercel-style API the handler expects,
 // reading the request body first, then delegating.
@@ -107,6 +108,25 @@ const server = http.createServer((req, res) => {
   // Route the Stripe webhook to the shared serverless handler.
   if (pathname === '/api/stripe-webhook') {
     handleWebhookApi(req, res);
+    return;
+  }
+
+  // Volunteer application email. Reads its own body, so just attach res helpers.
+  if (pathname === '/api/volunteer') {
+    res.status = function (code) { res.statusCode = code; return res; };
+    res.json = function (obj) {
+      if (!res.headersSent) res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(obj));
+      return res;
+    };
+    Promise.resolve(volunteerHandler(req, res)).catch((err) => {
+      console.error(err);
+      if (!res.headersSent) {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+      }
+      res.end(JSON.stringify({ error: 'Internal server error' }));
+    });
     return;
   }
   

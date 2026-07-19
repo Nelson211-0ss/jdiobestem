@@ -217,20 +217,32 @@
           </div>
 
           <div class="sr-fade-up mt-12 grid gap-x-10 gap-y-8 border-t border-orange-200/70 pt-10 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-              <p class="text-xl font-bold text-orange-700">Access</p>
+            <div class="group">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/80 transition duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:ring-orange-500" aria-hidden="true">
+                <i data-feather="key" class="h-5 w-5"></i>
+              </span>
+              <p class="mt-4 text-xl font-bold text-orange-700">Access</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Scholarships, kits, and learning spaces for those who need them most.</p>
             </div>
-            <div>
-              <p class="text-xl font-bold text-orange-700">Mentorship</p>
+            <div class="group">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/80 transition duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:ring-orange-500" aria-hidden="true">
+                <i data-feather="users" class="h-5 w-5"></i>
+              </span>
+              <p class="mt-4 text-xl font-bold text-orange-700">Mentorship</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Educators and professionals walking alongside each cohort.</p>
             </div>
-            <div>
-              <p class="text-xl font-bold text-orange-700">Build</p>
+            <div class="group">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/80 transition duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:ring-orange-500" aria-hidden="true">
+                <i data-feather="tool" class="h-5 w-5"></i>
+              </span>
+              <p class="mt-4 text-xl font-bold text-orange-700">Build</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Hands-on projects from robotics to research and community builds.</p>
             </div>
-            <div>
-              <p class="text-xl font-bold text-orange-700">Lead</p>
+            <div class="group">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-100 text-orange-700 ring-1 ring-orange-200/80 transition duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:ring-orange-500" aria-hidden="true">
+                <i data-feather="trending-up" class="h-5 w-5"></i>
+              </span>
+              <p class="mt-4 text-xl font-bold text-orange-700">Lead</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Pathways into advanced study, careers, and community impact.</p>
             </div>
           </div>
@@ -626,36 +638,49 @@
         </div>
       </section>
 
-      <section class="bg-orange-50 py-20">
-        <div
-          class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-8"
-        >
-          <div class="sr-fade-up w-full overflow-hidden rounded-2xl lg:order-2">
+      <!-- Founder's Vision — statement-led. The portrait drops to an attribution
+           avatar so the vision itself carries the section, not the photograph. -->
+      <section class="relative overflow-hidden bg-orange-50 py-20 md:py-28">
+        <div class="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-orange-200/30 blur-3xl" aria-hidden="true"></div>
+
+        <div class="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <p class="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
+            <i data-feather="star" class="h-4 w-4"></i>
+            Founder&rsquo;s Vision
+          </p>
+
+          <blockquote class="sr-fade-up mt-7">
+            <p class="text-xl font-bold leading-snug tracking-tight text-gray-900 sm:text-2xl lg:text-[1.75rem] lg:leading-snug">
+              Our goal is not only to support students, but to empower them to become
+              <span class="text-orange-700">leaders and problem solvers</span> in their
+              communities and beyond.
+            </p>
+          </blockquote>
+
+          <p class="sr-fade-up mx-auto mt-6 max-w-2xl text-base leading-7 text-gray-600">
+            Jdiobe STEM Foundation was founded on the belief that talent is everywhere, but
+            opportunity is not. Led by Dr. Muwanika Jdiobe, an aerospace engineer and educator,
+            the foundation works to bridge the gap between potential and access through education,
+            mentorship, and innovation.
+          </p>
+
+          <figure class="sr-fade-up mt-12 flex items-center justify-center gap-4 border-t border-orange-200/70 pt-10">
             <img
               src="images/muwanika.jpg"
               alt="Dr. Muwanika Jdiobe"
-              class="block h-auto w-full"
+              class="h-16 w-16 shrink-0 rounded-full object-cover object-top ring-2 ring-white"
+              width="128"
+              height="128"
+              loading="lazy"
+              decoding="async"
             />
-          </div>
-          <div class="sr-fade-up text-center md:text-left lg:order-1">
-            <p class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-              <i data-feather="star" class="h-4 w-4"></i>
-              Founder&rsquo;s Vision
-            </p>
-            <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Building access, confidence, and future leaders through STEM
-            </h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">
-              Jdiobe STEM Foundation was founded on the belief that talent is everywhere, but
-              opportunity is not. Led by Dr. Muwanika Jdiobe, an aerospace engineer and educator,
-              the foundation works to bridge the gap between potential and access through education,
-              mentorship, and innovation.
-            </p>
-            <p class="mt-4 text-lg leading-8 text-gray-600">
-              Our goal is not only to support students, but to empower them to become leaders and
-              problem solvers in their communities and beyond.
-            </p>
-          </div>
+            <figcaption class="text-left">
+              <p class="font-bold leading-tight text-gray-900">Dr. Muwanika Jdiobe</p>
+              <p class="mt-0.5 text-sm leading-tight text-orange-700">
+                Founder &amp; Executive Director &middot; Aerospace Engineer &amp; Educator
+              </p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -731,24 +756,39 @@
         </div>
       </section>
 
-      <section class="bg-dot-pattern py-20">
+      <!-- Closing CTA. Photographic background with a dark scrim so the copy
+           stays legible over any part of the image. -->
+      <section class="relative isolate overflow-hidden py-24 md:py-32">
+        <img
+          src="images/185A1601-scaled.jpg"
+          alt=""
+          aria-hidden="true"
+          class="absolute inset-0 -z-10 h-full w-full object-cover object-center"
+          width="1920"
+          height="1080"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0 -z-10 bg-slate-950/70" aria-hidden="true"></div>
+        <div class="absolute inset-0 -z-10 bg-gradient-to-t from-orange-950/60 via-transparent to-slate-950/40" aria-hidden="true"></div>
+
         <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
-          <h2 class="sr-fade-up text-3xl font-bold tracking-tight sm:text-5xl">
+          <h2 class="sr-fade-up text-3xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
             Every student deserves the opportunity to learn, innovate, and succeed
           </h2>
-          <p class="sr-fade-up mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-600">
+          <p class="sr-fade-up mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/85">
             Join us in building the next generation of STEM leaders through scholarships,
             mentorship, and practical opportunity.
           </p>
-          <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <div class="mt-9 flex flex-wrap justify-center gap-4">
             <a
               href="/donate"
-              class="sr-fade-up rounded-2xl bg-orange-500 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-600"
+              class="sr-fade-up rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white shadow-lg shadow-orange-950/30 transition hover:bg-orange-600"
               >Donate Today</a
             >
             <a
               href="#get-involved"
-              class="sr-fade-up rounded-2xl border border-orange-300 px-6 py-3 font-semibold text-orange-700 transition hover:bg-orange-50"
+              class="sr-fade-up rounded-xl border-2 border-white/70 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-orange-700"
               >Get Involved</a
             >
           </div>

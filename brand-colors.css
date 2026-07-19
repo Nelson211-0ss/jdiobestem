@@ -558,25 +558,38 @@ svg.feather {
 }
 
 .mega-link {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.6rem 0.75rem;
-  margin-left: -0.75rem;
-  border-radius: 0.6rem;
+  padding: 0.55rem 0;
   font-size: 0.95rem;
   font-weight: 600;
   color: rgb(255 255 255 / 0.88);
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease;
+  transition: color 0.25s ease;
+}
+
+/* Hover indicator is a rule that wipes in from the left, not a filled bar */
+.mega-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.15rem;
+  height: 1.5px;
+  background-color: #fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mega-link:hover {
-  background-color: rgb(255 255 255 / 0.12);
   color: #fff;
-  transform: translateX(3px);
+}
+
+.mega-link:hover::after,
+.mega-link:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .mega-ico {

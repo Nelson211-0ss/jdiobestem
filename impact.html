@@ -129,52 +129,75 @@
       </div>
     </section>
 
-    <!-- Impact Story -->
-    <section class="bg-orange-50/40 py-20">
-      <div class="mx-auto grid max-w-7xl items-start gap-14 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-        <div>
-          <p class="sr-fade-up text-center md:text-left text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Impact Story</p>
-          <h2 class="sr-fade-up mt-4 text-center md:text-left text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+    <!-- Impact Story — headline leads the section, images sit in a staggered
+         pair, and the quote is pulled out full width as the closing beat. -->
+    <section class="relative overflow-hidden bg-orange-50/40 py-20 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <header class="sr-fade-up max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Impact Story</p>
+          <h2 class="mt-3 text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">
             Behind every number is a student with potential.
           </h2>
-          <div class="sr-fade-up mt-8 space-y-3">
+        </header>
+
+        <div class="mt-14 grid gap-12 border-t border-orange-200/70 pt-14 lg:grid-cols-12 lg:gap-16">
+          <!-- Staggered image pair — the offset column is what stops this
+               reading as a plain grid. -->
+          <div class="sr-fade-up grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-6">
             <div class="overflow-hidden rounded-2xl">
               <img
-                src="images/wall.jpeg"
-                alt="Students presenting STEM projects at a science fair"
-                class="aspect-[5/4] w-full object-cover"
-                width="800"
-                height="640"
+                src="images/catapilar.jpeg"
+                alt="Students standing behind cardboard model vehicles and an automatic rubbish collector project at a school science fair"
+                class="aspect-[4/3] w-full object-cover"
+                width="2048"
+                height="1365"
                 loading="lazy"
                 decoding="async"
               />
             </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
-                <img src="images/inspect.jpeg" alt="Students inspecting a STEM build" class="aspect-square w-full object-cover" width="400" height="400" loading="lazy" decoding="async" />
+            <div class="space-y-3 sm:space-y-4 lg:pt-10">
+              <div class="overflow-hidden rounded-2xl">
+                <img
+                  src="images/1713891129693.jpeg"
+                  alt="Students in school uniforms photographed with a school chaplain and a staff member"
+                  class="aspect-[4/3] w-full object-cover"
+                  width="2048" height="1365" loading="lazy" decoding="async"
+                />
               </div>
-              <div class="overflow-hidden rounded-2xl ring-1 ring-orange-100 shadow-sm">
-                <img src="images/about-3-scaled.jpg" alt="Students engaged in collaborative learning" class="aspect-square w-full object-cover" width="400" height="400" loading="lazy" decoding="async" />
+              <div class="overflow-hidden rounded-2xl">
+                <img
+                  src="images/about-3-scaled.jpg"
+                  alt="Students engaged in collaborative learning"
+                  class="aspect-[4/3] w-full object-cover"
+                  width="2560" height="1707" loading="lazy" decoding="async"
+                />
               </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="space-y-6 text-base leading-8 text-gray-600">
+              <p class="sr-fade-up">
+                One of the foundation&rsquo;s early priorities has been helping students pursue STEM pathways that may otherwise feel out of reach because of financial barriers, limited exposure, or lack of guidance.
+              </p>
+              <p class="sr-fade-up">
+                Through scholarship support and mentorship, students receive more than financial assistance. They receive encouragement, direction, and a reminder that their goals are possible.
+              </p>
+              <p class="sr-fade-up">
+                For students pursuing fields such as engineering, science, and technology, this support can make the difference between pausing a dream and continuing toward a career with long term impact.
+              </p>
             </div>
           </div>
         </div>
 
-        <div class="space-y-6 text-base leading-7 text-gray-600">
-          <p class="sr-fade-up">
-            One of the foundation&rsquo;s early priorities has been helping students pursue STEM pathways that may otherwise feel out of reach because of financial barriers, limited exposure, or lack of guidance.
-          </p>
-          <p class="sr-fade-up">
-            Through scholarship support and mentorship, students receive more than financial assistance. They receive encouragement, direction, and a reminder that their goals are possible.
-          </p>
-          <p class="sr-fade-up">
-            For students pursuing fields such as engineering, science, and technology, this support can make the difference between pausing a dream and continuing toward a career with long term impact.
-          </p>
-          <blockquote class="sr-fade-up relative border-l-4 border-orange-400 py-2 pl-6 text-lg font-semibold leading-7 text-gray-900">
-            <i data-feather="message-circle" class="absolute left-5 top-6 h-6 w-6 text-orange-700" aria-hidden="true"></i>
+        <!-- Quote pulled full width as the closing beat rather than tucked at
+             the end of the text column. -->
+        <figure class="sr-fade-up mt-16 border-t border-orange-200/70 pt-12 text-center">
+          <i data-feather="message-circle" class="mx-auto h-8 w-8 text-orange-500" aria-hidden="true"></i>
+          <blockquote class="mx-auto mt-6 max-w-4xl text-2xl font-bold leading-snug tracking-tight text-gray-900 sm:text-3xl sm:leading-snug">
             &ldquo;We are not just supporting students. We are helping build future engineers, scientists, and innovators.&rdquo;
           </blockquote>
-        </div>
+        </figure>
       </div>
     </section>
 
