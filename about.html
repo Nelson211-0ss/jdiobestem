@@ -310,79 +310,98 @@
       </div>
     </section>
 
-    <!-- Where We Work -->
-    <section class="border-y border-orange-100 bg-orange-50/50 py-12 md:py-14">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <header class="sr-fade-up max-w-3xl text-center md:text-left">
+    <!-- Where We Work — place-led. The locations are the subject, so they are
+         the layout rather than a sidebar list, and the two that have their own
+         pages link straight through. -->
+    <section class="relative overflow-hidden border-y border-orange-100 bg-orange-50/50 py-12 md:py-16">
+      <div class="mx-auto max-w-6xl px-6 lg:px-8">
+        <header class="sr-fade-up max-w-3xl">
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Where We Work</p>
-          <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Rooted in Uganda, connected to global opportunity
           </h2>
         </header>
 
-        <div class="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
-          <!-- Narrative -->
-          <div class="order-2 lg:order-1 lg:col-span-7">
-            <div class="space-y-5 text-base leading-7 text-gray-600 sm:text-[1.05rem] sm:leading-8">
-              <p class="sr-fade-up text-justify">
-                Jdiobe STEM Foundation focuses on supporting underserved students in Uganda while building partnerships that can extend opportunities across borders.
-              </p>
-              <p class="sr-fade-up text-justify">
-                Our goal is to connect local talent with the resources, mentorship, and learning experiences needed to participate in a global STEM future.
-              </p>
-              <p class="sr-fade-up text-justify">
-                With its unique cross-border structure, registered in the United States and operating in Uganda, the Foundation bridges continents, resources, and ideas. Our work continues to grow through partnerships with schools, universities, and communities united by the belief that brilliance exists everywhere, but opportunity must be built.
-              </p>
-            </div>
+        <div class="mt-6 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          <div class="lg:col-span-7">
+            <p class="sr-fade-up text-lg leading-relaxed text-gray-700">
+              With its unique cross-border structure &mdash;
+              <span class="font-semibold text-orange-700">registered in the United States and operating in Uganda</span>
+              &mdash; the Foundation bridges continents, resources, and ideas.
+            </p>
+            <p class="sr-fade-up mt-4 text-base leading-8 text-gray-600">
+              Our goal is to connect local talent with the resources, mentorship, and learning
+              experiences needed to participate in a global STEM future. Our work continues to grow
+              through partnerships with schools, universities, and communities united by the belief
+              that brilliance exists everywhere, but opportunity must be built.
+            </p>
           </div>
 
-          <!-- Image & regions -->
-          <aside class="order-1 lg:order-2 lg:col-span-5 lg:sticky lg:top-28">
-            <figure class="sr-fade-up overflow-hidden border border-orange-100 bg-white shadow-sm">
-              <img
-                src="images/185A1601-scaled.jpg"
-                alt="Students in Uganda participating in a STEM community program"
-                class="aspect-[16/10] w-full object-cover object-top"
-                width="800"
-                height="500"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption class="border-t border-orange-100 px-5 py-3.5 text-sm font-medium text-gray-700">
-                Students in Uganda at a foundation program
-              </figcaption>
-            </figure>
+          <figure class="sr-fade-up overflow-hidden rounded-lg lg:col-span-5">
+            <img
+              src="images/185A1601-scaled.jpg"
+              alt="Students in Uganda participating in a STEM community program"
+              class="aspect-[4/3] w-full object-cover object-top"
+              width="2560"
+              height="1707"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
 
-            <ul class="sr-fade-up mt-5 space-y-2 border border-orange-100 bg-white p-4" aria-label="Areas of operation">
-              <li class="flex items-start gap-3 text-sm text-gray-700">
-                <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="map-pin" class="h-4 w-4"></i>
-                </span>
-                <span>
-                  <span class="block font-semibold text-gray-900">Uganda</span>
-                  <span class="mt-0.5 block leading-relaxed text-gray-600">Primary area of impact&mdash;scholarships, mentorship, and STEM outreach.</span>
-                </span>
-              </li>
-              <li class="flex items-start gap-3 text-sm text-gray-700">
-                <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="globe" class="h-4 w-4"></i>
-                </span>
-                <span>
-                  <span class="block font-semibold text-gray-900">Global partnerships</span>
-                  <span class="mt-0.5 block leading-relaxed text-gray-600">Schools, universities, and collaborators extending student opportunity.</span>
-                </span>
-              </li>
-              <li class="flex items-start gap-3 text-sm text-gray-700">
-                <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="home" class="h-4 w-4"></i>
-                </span>
-                <span>
-                  <span class="block font-semibold text-gray-900">United States</span>
-                  <span class="mt-0.5 block leading-relaxed text-gray-600">Registered nonprofit; Oklahoma City office for administration and fundraising.</span>
-                </span>
-              </li>
-            </ul>
-          </aside>
+        <!-- Locations. Uganda and South Sudan link to their own pages; the other
+             two are structural rather than programme locations. -->
+        <div class="mt-10 border-t border-orange-200/70 pt-9">
+          <p class="sr-fade-up text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400">Areas of operation</p>
+
+          <div class="sr-stagger mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <a href="/uganda" class="sr-fade-up group flex flex-col rounded-lg border border-orange-200 bg-white p-5 transition hover:-translate-y-1 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-900/10">
+              <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true">
+                <i data-feather="map-pin" class="h-5 w-5"></i>
+              </span>
+              <span class="mt-4 font-bold text-gray-900">Uganda</span>
+              <span class="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
+                Primary area of impact &mdash; scholarships, mentorship, and STEM outreach.
+              </span>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-700">
+                View programs <i data-feather="arrow-right" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"></i>
+              </span>
+            </a>
+
+            <a href="/south-sudan" class="sr-fade-up group flex flex-col rounded-lg border border-orange-200 bg-white p-5 transition hover:-translate-y-1 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-900/10">
+              <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true">
+                <i data-feather="map-pin" class="h-5 w-5"></i>
+              </span>
+              <span class="mt-4 font-bold text-gray-900">South Sudan</span>
+              <span class="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
+                Teacher training, access to equipment, and mentorship pathways.
+              </span>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-orange-700">
+                View programs <i data-feather="arrow-right" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"></i>
+              </span>
+            </a>
+
+            <div class="sr-fade-up flex flex-col rounded-lg border border-orange-200/70 bg-white/60 p-5">
+              <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-orange-700 ring-1 ring-orange-200" aria-hidden="true">
+                <i data-feather="home" class="h-5 w-5"></i>
+              </span>
+              <span class="mt-4 font-bold text-gray-900">United States</span>
+              <span class="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
+                Registered nonprofit; Oklahoma City office for administration and fundraising.
+              </span>
+            </div>
+
+            <div class="sr-fade-up flex flex-col rounded-lg border border-orange-200/70 bg-white/60 p-5">
+              <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-orange-700 ring-1 ring-orange-200" aria-hidden="true">
+                <i data-feather="globe" class="h-5 w-5"></i>
+              </span>
+              <span class="mt-4 font-bold text-gray-900">Global partnerships</span>
+              <span class="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
+                Schools, universities, and collaborators extending student opportunity.
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
