@@ -46,7 +46,7 @@
   </section>
 
   <!-- Donation form -->
-  <section class="bg-dot-pattern py-14 pb-24 bg-white">
+  <section class="bg-dot-pattern py-14 pb-16 bg-white">
     <div class="max-w-md mx-auto px-4">
       <div class="mb-8 text-center">
         <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-100" aria-hidden="true">
@@ -57,7 +57,7 @@
       </div>
 
       <form id="donation-form" class="space-y-6">
-          <div id="donate-mock-banner" class="hidden rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="status">
+          <div id="donate-mock-banner" class="hidden rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="status">
             <strong class="font-semibold">Local practice mode.</strong> No card charge. Remove <code class="rounded bg-amber-100/80 px-1 text-xs">?mock_checkout=1</code> and <code class="rounded bg-amber-100/80 px-1 text-xs">localStorage jdiobe_donate_mock</code> to test real Stripe checkout. (Only available on <code class="rounded bg-amber-100/80 px-1 text-xs">localhost</code>.)
           </div>
 
@@ -71,7 +71,7 @@
               <div class="relative">
                 <i data-feather="user" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"></i>
                 <input id="donor-name" name="donor-name" type="text" autocomplete="name" placeholder="Your full name" required
-                  class="w-full rounded-xl bg-slate-100 py-3 pl-10 pr-3 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/40" />
+                  class="w-full rounded-lg bg-slate-100 py-3 pl-10 pr-3 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/40" />
               </div>
             </div>
 
@@ -83,7 +83,7 @@
               <div class="relative">
                 <i data-feather="mail" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"></i>
                 <input id="donor-email" name="donor-email" type="email" autocomplete="email" inputmode="email" placeholder="Your email address" required
-                  class="w-full rounded-xl bg-slate-100 py-3 pl-10 pr-3 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/40" />
+                  class="w-full rounded-lg bg-slate-100 py-3 pl-10 pr-3 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/40" />
               </div>
               <p class="mt-1.5 text-xs text-slate-500">We'll email your receipt here — never shared.</p>
             </div>
@@ -97,10 +97,10 @@
               Choose amount
             </p>
             <div class="flex flex-wrap gap-2">
-              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="25">$25</button>
-              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="50">$50</button>
-              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="100">$100</button>
-              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-xl bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="250">$250</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-lg bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="25">$25</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-lg bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="50">$50</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-lg bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="100">$100</button>
+              <button type="button" class="donate-amount-btn min-w-[4.25rem] flex-1 rounded-lg bg-slate-100 px-4 py-3 text-center text-base font-semibold text-slate-800 transition hover:bg-orange-100 sm:flex-initial" data-amount="250">$250</button>
             </div>
           </div>
 
@@ -111,12 +111,12 @@
             </label>
             <div class="relative">
               <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 font-bold text-orange-700">$</span>
-              <input id="custom-amount" name="custom-amount" type="number" min="1" step="1" inputmode="decimal" placeholder="0" autocomplete="transaction-amount" class="w-full rounded-xl bg-slate-100 py-3 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/40" />
+              <input id="custom-amount" name="custom-amount" type="number" min="1" step="1" inputmode="decimal" placeholder="0" autocomplete="transaction-amount" class="w-full rounded-lg bg-slate-100 py-3 pl-9 pr-3 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-400/40" />
             </div>
             <p class="mt-1.5 text-xs text-slate-500">Minimum $1 · decimals allowed</p>
           </div>
 
-          <div class="flex items-center justify-between rounded-2xl bg-orange-50 px-4 py-4">
+          <div class="flex items-center justify-between rounded-lg bg-orange-50 px-4 py-4">
             <span class="flex items-center gap-2 text-sm font-semibold text-slate-700">
               <i data-feather="tag" class="h-5 w-5 text-orange-700"></i>
               Total
@@ -124,7 +124,7 @@
             <span id="donation-total" class="text-2xl font-bold tabular-nums text-orange-700">$0</span>
           </div>
 
-          <p id="donate-error" class="hidden rounded-xl bg-red-50 px-3 py-2.5 text-sm text-red-800" role="alert"></p>
+          <p id="donate-error" class="hidden rounded-lg bg-red-50 px-3 py-2.5 text-sm text-red-800" role="alert"></p>
 
           <button type="submit" id="donate-submit" class="flex w-full items-center justify-center gap-2 rounded bg-orange-500 py-3.5 text-base font-semibold text-white shadow-lg shadow-orange-700/30 transition hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70">
             <i data-feather="heart" class="h-5 w-5"></i>

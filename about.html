@@ -34,79 +34,97 @@
   </section>
 
   <main>
-    <!-- Our Story -->
-    <section class="bg-dot-pattern border-b border-orange-100 bg-white py-16 md:py-20">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <header class="sr-fade-up max-w-3xl text-center md:text-left">
+    <!-- Our Story — the copy is a problem/response argument, so it is set that
+         way: a lead statement, a full-bleed image band, then the barrier and our
+         response side by side, closing on the belief that follows from both. -->
+    <section class="relative overflow-hidden border-b border-orange-100 bg-white py-12 md:py-16">
+      <div class="mx-auto max-w-6xl px-6 lg:px-8">
+        <header class="sr-fade-up max-w-3xl">
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Story</p>
-          <h2 class="mt-3 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Why we began
           </h2>
         </header>
 
-        <div class="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
-          <!-- Image & focus areas -->
-          <aside class="sr-fade-up lg:col-span-4 lg:sticky lg:top-28">
-            <figure class="overflow-hidden border border-orange-100 bg-orange-50 shadow-sm">
-              <img
-                src="images/catapilar.jpeg"
-                alt="Students engaged in hands-on STEM learning"
-                class="aspect-[4/3] w-full object-cover"
-                width="600"
-                height="450"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption class="border-t border-orange-100 bg-white px-5 py-3.5 text-sm font-medium text-gray-700">
-                Hands-on STEM learning in action
-              </figcaption>
-            </figure>
+        <!-- Lead statement paired with the photo so the image stays modest and
+             the two read as one opening block. -->
+        <div class="mt-5 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          <p class="sr-fade-up text-lg leading-relaxed text-gray-700 sm:text-xl sm:leading-relaxed lg:col-span-7">
+            Jdiobe STEM Foundation was established to address a simple but urgent reality: many
+            talented students in underserved communities have the ability to succeed in science,
+            technology, engineering, and mathematics, but
+            <span class="font-semibold text-orange-700">lack the resources and support</span>
+            needed to pursue that path.
+          </p>
 
-            <ul class="mt-5 space-y-2 border border-orange-100 bg-orange-50/60 p-4" aria-label="STEM focus areas">
-              <li class="flex items-center gap-3 text-sm text-gray-700">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="cpu" class="h-4 w-4"></i>
-                </span>
-                <span>Robotics</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-gray-700">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="navigation" class="h-4 w-4"></i>
-                </span>
-                <span>Aerospace</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-gray-700">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="droplet" class="h-4 w-4"></i>
-                </span>
-                <span>Water monitoring</span>
-              </li>
-              <li class="flex items-center gap-3 text-sm text-gray-700">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
-                  <i data-feather="sun" class="h-4 w-4"></i>
-                </span>
-                <span>Environmental engineering</span>
-              </li>
-            </ul>
-          </aside>
+          <figure class="sr-fade-up overflow-hidden rounded-lg lg:col-span-5">
+            <img
+              src="images/1718038140753.jpeg"
+              alt="A student in school uniform wiring a servo and breadboard project at a classroom desk"
+              class="aspect-[4/3] w-full object-cover object-center"
+              width="1200"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
 
-          <!-- Narrative -->
-          <div class="lg:col-span-8">
-            <div class="space-y-5 text-base leading-7 text-gray-600 sm:text-[1.05rem] sm:leading-8">
-              <p class="sr-fade-up text-justify">
-                Jdiobe STEM Foundation was established to address a simple but urgent reality: many talented students in underserved communities have the ability to succeed in science, technology, engineering, and mathematics, but lack the resources and support needed to pursue that path.
-              </p>
-              <p class="sr-fade-up text-justify">
-                For many students, the barrier is not ability. It is the cost of education, limited exposure to STEM careers, lack of mentorship, and the absence of professional networks that can help them imagine and prepare for a different future.
-              </p>
-              <p class="sr-fade-up text-justify">
-                The foundation was created to help close that gap. Our work focuses on supporting students not only with financial assistance, but also with guidance, encouragement, and real world exposure that helps them build confidence and direction.
-              </p>
-              <p class="sr-fade-up text-justify">
-                We believe that when students are given access to opportunity, they can become engineers, scientists, researchers, entrepreneurs, educators, and problem solvers who strengthen their communities and contribute to global progress.
-              </p>
+        <!-- The barrier / our response -->
+        <div class="mt-10 grid gap-10 border-t border-orange-200/70 pt-9 lg:grid-cols-2 lg:gap-0 lg:divide-x lg:divide-orange-200/70">
+          <div class="sr-fade-up lg:pr-14">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-stone-100 text-stone-500 ring-1 ring-stone-200" aria-hidden="true">
+                <i data-feather="alert-circle" class="h-5 w-5"></i>
+              </span>
+              <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-stone-500">The barrier</h3>
             </div>
+            <p class="mt-5 text-base leading-8 text-gray-600">
+              For many students, the barrier is not ability. It is the cost of education, limited
+              exposure to STEM careers, lack of mentorship, and the absence of professional
+              networks that can help them imagine and prepare for a different future.
+            </p>
           </div>
+
+          <div class="sr-fade-up lg:pl-14">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-700 ring-1 ring-orange-200" aria-hidden="true">
+                <i data-feather="arrow-right-circle" class="h-5 w-5"></i>
+              </span>
+              <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-orange-700">Our response</h3>
+            </div>
+            <p class="mt-5 text-base leading-8 text-gray-600">
+              The foundation was created to help close that gap. Our work focuses on supporting
+              students not only with financial assistance, but also with guidance, encouragement,
+              and real world exposure that helps them build confidence and direction.
+            </p>
+          </div>
+        </div>
+
+        <!-- Closing belief -->
+        <p class="sr-fade-up mt-10 max-w-4xl border-l-4 border-orange-400 py-1 pl-6 text-lg font-semibold leading-8 text-gray-900 sm:text-xl sm:leading-9">
+          We believe that when students are given access to opportunity, they can become engineers,
+          scientists, researchers, entrepreneurs, educators, and problem solvers who strengthen
+          their communities and contribute to global progress.
+        </p>
+
+        <!-- Focus areas as inline pills rather than a boxed list -->
+        <div class="sr-fade-up mt-9 border-t border-orange-200/70 pt-8">
+          <p class="text-[0.65rem] font-bold uppercase tracking-[0.15em] text-gray-400">Where we focus</p>
+          <ul class="mt-4 flex flex-wrap gap-2.5" aria-label="STEM focus areas">
+            <li class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700">
+              <i data-feather="cpu" class="h-4 w-4" aria-hidden="true"></i>Robotics
+            </li>
+            <li class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700">
+              <i data-feather="navigation" class="h-4 w-4" aria-hidden="true"></i>Aerospace
+            </li>
+            <li class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700">
+              <i data-feather="droplet" class="h-4 w-4" aria-hidden="true"></i>Water monitoring
+            </li>
+            <li class="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700">
+              <i data-feather="sun" class="h-4 w-4" aria-hidden="true"></i>Environmental engineering
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -114,7 +132,7 @@
     <!-- Mission & Vision — the section itself carries the brand surface, so the
          two statements sit unboxed and are separated by a rule rather than by
          panels floating on a tinted background. -->
-    <section class="surface-brand relative overflow-hidden py-20 md:py-28">
+    <section class="surface-brand relative overflow-hidden py-14 md:py-18">
       <div class="pointer-events-none absolute -right-40 -top-20 h-96 w-96 rounded-full bg-white/10 blur-3xl" aria-hidden="true"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-white/[0.07] blur-3xl" aria-hidden="true"></div>
 
@@ -124,10 +142,10 @@
           <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Mission &amp; Vision</h2>
         </div>
 
-        <div class="mt-14 grid gap-12 border-t border-white/25 pt-12 lg:grid-cols-2 lg:gap-0 lg:divide-x lg:divide-white/25">
+        <div class="mt-10 grid gap-9 border-t border-white/25 pt-9 lg:grid-cols-2 lg:gap-0 lg:divide-x lg:divide-white/25">
           <div class="sr-fade-up lg:pr-16">
             <div class="flex items-center gap-3">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25" aria-hidden="true">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15 ring-1 ring-white/25" aria-hidden="true">
                 <i data-feather="target" class="h-5 w-5 text-white"></i>
               </span>
               <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-orange-100">Mission</h3>
@@ -141,7 +159,7 @@
 
           <div class="sr-fade-up lg:pl-16">
             <div class="flex items-center gap-3">
-              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25" aria-hidden="true">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15 ring-1 ring-white/25" aria-hidden="true">
                 <i data-feather="eye" class="h-5 w-5 text-white"></i>
               </span>
               <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-orange-100">Vision</h3>
@@ -159,7 +177,7 @@
     <!-- Founder&rsquo;s Journey — narrative rail. The story is four distinct
          chapters, so it is numbered and threaded on a vertical line rather than
          set as one block of prose beside a portrait. -->
-    <section class="relative overflow-hidden border-y border-orange-100 bg-white py-16 md:py-24">
+    <section class="relative overflow-hidden border-y border-orange-100 bg-white py-12 md:py-16">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <header class="sr-fade-up max-w-3xl">
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Founder&rsquo;s Journey</p>
@@ -168,10 +186,10 @@
           </h2>
         </header>
 
-        <div class="mt-14 grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        <div class="mt-10 grid items-start gap-9 lg:grid-cols-12 lg:gap-16">
           <!-- Portrait rail -->
           <aside class="sr-fade-up lg:col-span-4 lg:sticky lg:top-28">
-            <div class="overflow-hidden rounded-2xl">
+            <div class="overflow-hidden rounded-lg">
               <img
                 src="images/muwanika.jpg"
                 alt="Dr. Muwanika Jdiobe, founder of Jdiobe STEM Foundation"
@@ -242,7 +260,7 @@
     </section>
 
     <!-- Our Values -->
-    <section class="bg-orange-50 py-20">
+    <section class="bg-orange-50 py-14">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl text-center md:text-left">
           <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Values</p>
@@ -251,9 +269,9 @@
           </h2>
         </div>
 
-        <div class="sr-stagger mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <div class="sr-fade-up rounded-2xl surface-brand p-6 ring-1 ring-white/15">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+        <div class="sr-stagger mt-9 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div class="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
               <i data-feather="unlock" class="h-5 w-5 text-white"></i>
             </div>
             <h3 class="text-lg font-semibold text-white">Access</h3>
@@ -261,8 +279,8 @@
               We believe capable students should not be limited by financial barriers, geography, or lack of exposure.
             </p>
           </div>
-          <div class="sr-fade-up rounded-2xl surface-brand p-6 ring-1 ring-white/15">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+          <div class="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
               <i data-feather="users" class="h-5 w-5 text-white"></i>
             </div>
             <h3 class="text-lg font-semibold text-white">Mentorship</h3>
@@ -270,8 +288,8 @@
               We believe guidance from educators, professionals, and role models can change the direction of a student&rsquo;s life.
             </p>
           </div>
-          <div class="sr-fade-up rounded-2xl surface-brand p-6 ring-1 ring-white/15">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+          <div class="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
               <i data-feather="zap" class="h-5 w-5 text-white"></i>
             </div>
             <h3 class="text-lg font-semibold text-white">Innovation</h3>
@@ -279,8 +297,8 @@
               We encourage students to use STEM knowledge to solve real problems in their communities and beyond.
             </p>
           </div>
-          <div class="sr-fade-up rounded-2xl surface-brand p-6 ring-1 ring-white/15">
-            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 ring-1 ring-white/25" aria-hidden="true">
+          <div class="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
+            <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
               <i data-feather="heart" class="h-5 w-5 text-white"></i>
             </div>
             <h3 class="text-lg font-semibold text-white">Service</h3>
@@ -293,7 +311,7 @@
     </section>
 
     <!-- Where We Work -->
-    <section class="border-y border-orange-100 bg-orange-50/50 py-16 md:py-20">
+    <section class="border-y border-orange-100 bg-orange-50/50 py-12 md:py-14">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <header class="sr-fade-up max-w-3xl text-center md:text-left">
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Where We Work</p>
@@ -370,7 +388,7 @@
     </section>
 
     <!-- Moving Forward CTA -->
-    <section class="surface-brand py-20 ">
+    <section class="surface-brand py-14 ">
       <div class="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
         <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">Moving Forward</p>
         <h2 class="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-4xl">
@@ -399,7 +417,7 @@
     </section>
 
     <!-- Team Members -->
-    <section class="relative overflow-hidden bg-orange-50 py-16 md:py-24">
+    <section class="relative overflow-hidden bg-orange-50 py-12 md:py-16">
       <div class="pointer-events-none absolute inset-0 bg-orange-50/50" aria-hidden="true"></div>
       <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="sr-stagger mx-auto mb-14 max-w-2xl text-center md:mb-16">
@@ -412,7 +430,7 @@
         </div>
 
         <div class="sr-stagger grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-5">
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
             <div class="aspect-square w-full overflow-hidden bg-stone-100">
               <img
                 src="images/muwanika.jpg"
@@ -447,7 +465,7 @@
             </div>
           </article>
 
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
             <div class="aspect-square w-full overflow-hidden bg-stone-100">
               <img
                 src="images/team/Madam-Sheilah.jpg"
@@ -482,7 +500,7 @@
             </div>
           </article>
 
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
             <div class="aspect-square w-full overflow-hidden bg-stone-100">
               <img
                 src="images/team/prof.jpeg"
@@ -517,7 +535,7 @@
             </div>
           </article>
 
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
             <div class="aspect-square w-full overflow-hidden bg-stone-100">
               <img
                 src="images/team/nicholas.jpg"
@@ -552,7 +570,7 @@
             </div>
           </article>
 
-          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
+          <article class="sr-fade-up group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-orange-900/10">
             <div class="aspect-square w-full overflow-hidden bg-stone-100">
               <img
                 src="images/team/joshua.JPG"
@@ -591,7 +609,7 @@
     </section>
 
     <!-- Mentors -->
-    <section class="relative overflow-hidden border-t border-orange-100 bg-orange-50/40 py-16 md:py-24">
+    <section class="relative overflow-hidden border-t border-orange-100 bg-orange-50/40 py-12 md:py-16">
       <div class="pointer-events-none absolute -right-32 top-1/4 h-80 w-80 rounded-full bg-orange-200/25 blur-3xl" aria-hidden="true"></div>
 
       <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -617,8 +635,8 @@
           the right. To add more mentors, repeat this <article> — the border-t on
           each subsequent one separates them without needing boxes.
         -->
-        <article class="sr-fade-up mt-14 grid items-center gap-10 border-t border-orange-200/70 pt-14 lg:grid-cols-12 lg:gap-16">
-          <div class="group overflow-hidden rounded-2xl lg:col-span-4 lg:max-w-sm">
+        <article class="sr-fade-up mt-10 grid items-center gap-10 border-t border-orange-200/70 pt-10 lg:grid-cols-12 lg:gap-16">
+          <div class="group overflow-hidden rounded-lg lg:col-span-4 lg:max-w-sm">
             <img
               src="images/mentors/rose-auma.jpg"
               alt="Rose Auma, Senior Civil Engineer and mentor at Jdiobe STEM Foundation"
@@ -676,7 +694,7 @@
     </section>
 
     <!-- Volunteer -->
-    <section class="relative bg-orange-50 py-16">
+    <section class="relative bg-orange-50 py-12">
       <img src="images/wall.jpeg" alt="" class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30 select-none" style="z-index:1;" aria-hidden="true" />
       <div class="absolute inset-0 bg-orange-50/90" style="z-index:2;" aria-hidden="true"></div>
       <div class="relative mx-auto max-w-4xl px-4 text-center" style="z-index:3;">
