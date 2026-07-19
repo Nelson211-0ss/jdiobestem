@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/about", "destination": "/about.html" },
     { "source": "/aerospace-institute", "destination": "/aerospace-institute.html" },
@@ -10,8 +12,11 @@
     { "source": "/impact", "destination": "/impact.html" },
     { "source": "/news", "destination": "/news.html" },
     { "source": "/programs", "destination": "/programs.html" },
+    { "source": "/regina-henry-scholarship", "destination": "/regina-henry-scholarship.html" },
     { "source": "/scholarship", "destination": "/scholarship.html" },
     { "source": "/secondary-research", "destination": "/secondary-research.html" },
+    { "source": "/south-sudan", "destination": "/south-sudan.html" },
+    { "source": "/uganda", "destination": "/uganda.html" },
     { "source": "/volunteers", "destination": "/volunteers.html" },
     { "source": "/youth-stem", "destination": "/youth-stem.html" }
   ]
