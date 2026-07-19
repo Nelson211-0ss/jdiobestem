@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="scroll-animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
+    <script src="theme.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
@@ -24,7 +25,7 @@
     .contact-field::placeholder { color: #a8a29e; }
     .contact-field:focus {
       outline: none;
-      border-color: #ea580c;
+      border-color: #993700;
       box-shadow: 0 0 0 3px rgb(234 88 12 / 0.12);
     }
     .contact-info-row {
@@ -45,7 +46,7 @@
   </div>
   <div id="header"></div>
 
-  <section class="page-hero mb-0">
+  <section class="page-hero mb-0 surface-brand">
     <img src="images/hero-students-community.png" alt="" class="page-hero__bg object-top" width="1600" height="900" />
     <div class="page-hero__overlay" aria-hidden="true"></div>
     <div class="page-hero__inner">
@@ -67,29 +68,29 @@
 
             <div class="mt-5">
               <a href="mailto:info@jdiobestem.org" class="contact-info-row group">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-700 text-white">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white">
                   <i data-feather="mail" class="h-4 w-4"></i>
                 </span>
                 <span>
-                  <span class="block text-xs font-semibold uppercase tracking-wide text-stone-400">Email</span>
+                  <span class="block text-xs font-semibold uppercase tracking-wide text-stone-500">Email</span>
                   <span class="mt-0.5 block text-sm font-medium text-orange-700 group-hover:underline">info@jdiobestem.org</span>
                 </span>
               </a>
               <a href="tel:+14054374755" class="contact-info-row group">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-700 text-white">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white">
                   <i data-feather="phone" class="h-4 w-4"></i>
                 </span>
                 <span>
-                  <span class="block text-xs font-semibold uppercase tracking-wide text-stone-400">Phone</span>
+                  <span class="block text-xs font-semibold uppercase tracking-wide text-stone-500">Phone</span>
                   <span class="mt-0.5 block text-sm font-medium text-orange-700 group-hover:underline">+1 (405) 437-4755</span>
                 </span>
               </a>
               <div class="contact-info-row">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-700 text-white">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white">
                   <i data-feather="map-pin" class="h-4 w-4"></i>
                 </span>
                 <span>
-                  <span class="block text-xs font-semibold uppercase tracking-wide text-stone-400">U.S. office</span>
+                  <span class="block text-xs font-semibold uppercase tracking-wide text-stone-500">U.S. office</span>
                   <span class="mt-0.5 block text-sm leading-relaxed text-stone-600">
                     9905 S Pennsylvania Ave, Ste A<br />
                     Oklahoma City, OK 73159, USA
@@ -109,7 +110,7 @@
             </a>
           </div>
 
-          <div class="sr-fade-up border border-stone-200 bg-orange-700 p-6 text-white md:p-7">
+          <div class="sr-fade-up border border-stone-200 surface-brand p-6 md:p-7">
             <div class="flex items-start gap-3">
               <i data-feather="globe" class="mt-0.5 h-5 w-5 shrink-0 text-orange-200"></i>
               <div>
@@ -126,7 +127,7 @@
               <i data-feather="user-plus" class="h-4 w-4"></i>
               Volunteer
             </a>
-            <a href="/donate" class="inline-flex flex-1 items-center justify-center gap-2 bg-orange-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-800 min-w-[10rem]">
+            <a href="/donate" class="inline-flex flex-1 items-center justify-center gap-2 bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600 min-w-[10rem]">
               <i data-feather="heart" class="h-4 w-4"></i>
               Donate
             </a>
@@ -175,7 +176,7 @@
 
               <button
                 type="submit"
-                class="inline-flex w-full items-center justify-center gap-2 bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 sm:w-auto"
+                class="inline-flex w-full items-center justify-center gap-2 bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 sm:w-auto"
               >
                 <i data-feather="send" class="h-4 w-4"></i>
                 Send message

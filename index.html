@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="scroll-animations.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="theme.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="typography.css" />
     <link rel="stylesheet" href="brand-colors.css" />
@@ -29,13 +30,12 @@
     <div id="header"></div>
 
     <!-- Hero Section -->
-    <section class="hero-parallax relative -mt-24 flex min-h-screen items-center overflow-hidden text-white" style="background-color: #c2410c;">
+    <section class="hero-parallax surface-brand relative -mt-24 flex min-h-screen items-center overflow-hidden">
       <div
         class="hero-bg-scroll absolute inset-0 z-0 pointer-events-none opacity-30"
-        style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 600%22%3E%3Crect width=%221000%22 height=%22600%22 fill=%22%23c2410c%22/%3E%3Cpath d=%22M128 255c18-42 34-71 63-95 29-24 60-32 92-24 33 9 64 31 80 61 15 26 18 57 7 84-10 25-31 44-54 53-18 7-37 10-56 8-29-2-57-12-79-30-22-17-39-39-53-57Z%22 fill=%22%23f59e0b%22 fill-opacity=%220.55%22 stroke=%22%23fff7ed%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M274 172c20-24 43-39 72-44 29-5 61 2 83 21 23 19 36 45 39 75 4 37-8 72-31 98-15 18-34 31-57 34-35 4-72-10-93-38-21-28-27-67-19-103 3-12 3-25 6-43Z%22 fill=%22%23fb923c%22 fill-opacity=%220.5%22 stroke=%22%23fff7ed%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M408 155c25-21 54-30 84-27 36 4 77 24 95 55 16 27 19 61 10 91-9 30-29 55-55 71-23 14-48 18-73 17-28-2-55-12-76-31-24-22-37-53-40-83-2-25 5-52 20-73 7-10 17-16 35-20Z%22 fill=%22%23fb923c%22 fill-opacity=%220.55%22 stroke=%22%23fff7ed%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M613 202c19-24 43-40 72-47 29-6 62-3 87 14 25 17 42 43 47 74 5 29-3 61-21 84-18 23-45 39-73 44-35 6-71-4-97-28-28-25-44-59-44-94 0-15 2-27 29-47Z%22 fill=%22%23f59e0b%22 fill-opacity=%220.55%22 stroke=%22%23fff7ed%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M739 339c17-16 37-24 58-24 24 0 47 9 63 25 18 18 26 42 22 67-4 24-18 46-39 59-17 11-37 17-58 15-24-2-46-12-62-29-17-17-27-39-28-62 0-18 6-36 16-51 6-8 14-11 28-0Z%22 fill=%22%23fb923c%22 fill-opacity=%220.45%22 stroke=%22%23fff7ed%22 stroke-width=%228%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M205 410c31 10 60 13 90 9 26-3 52-12 74-29 17-13 31-31 39-50 8-18 9-39 5-58%22 fill=%22none%22 stroke=%22%23fff7ed%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M466 408c18 10 36 15 56 15 19 0 38-5 56-14%22 fill=%22none%22 stroke=%22%23fff7ed%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M778 409c18 11 39 17 60 16 22-1 42-8 57-23%22 fill=%22none%22 stroke=%22%23fff7ed%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%22418%22 cy=%22275%22 r=%2210%22 fill=%22%23fff7ed%22 fill-opacity=%220.75%22/%3E%3Ccircle cx=%22618%22 cy=%22253%22 r=%228%22 fill=%22%23fff7ed%22 fill-opacity=%220.75%22/%3E%3C/svg%3E');"
+        style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 600%22%3E%3Crect width=%221000%22 height=%22600%22 fill=%22%23FE5C00%22/%3E%3Cpath d=%22M128 255c18-42 34-71 63-95 29-24 60-32 92-24 33 9 64 31 80 61 15 26 18 57 7 84-10 25-31 44-54 53-18 7-37 10-56 8-29-2-57-12-79-30-22-17-39-39-53-57Z%22 fill=%22%23FFFFFF%22 fill-opacity=%220.55%22 stroke=%22%23FFFFFF%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M274 172c20-24 43-39 72-44 29-5 61 2 83 21 23 19 36 45 39 75 4 37-8 72-31 98-15 18-34 31-57 34-35 4-72-10-93-38-21-28-27-67-19-103 3-12 3-25 6-43Z%22 fill=%22%23FFFFFF%22 fill-opacity=%220.16%22 stroke=%22%23FFFFFF%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M408 155c25-21 54-30 84-27 36 4 77 24 95 55 16 27 19 61 10 91-9 30-29 55-55 71-23 14-48 18-73 17-28-2-55-12-76-31-24-22-37-53-40-83-2-25 5-52 20-73 7-10 17-16 35-20Z%22 fill=%22%23FFFFFF%22 fill-opacity=%220.18%22 stroke=%22%23FFFFFF%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M613 202c19-24 43-40 72-47 29-6 62-3 87 14 25 17 42 43 47 74 5 29-3 61-21 84-18 23-45 39-73 44-35 6-71-4-97-28-28-25-44-59-44-94 0-15 2-27 29-47Z%22 fill=%22%23FFFFFF%22 fill-opacity=%220.55%22 stroke=%22%23FFFFFF%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M739 339c17-16 37-24 58-24 24 0 47 9 63 25 18 18 26 42 22 67-4 24-18 46-39 59-17 11-37 17-58 15-24-2-46-12-62-29-17-17-27-39-28-62 0-18 6-36 16-51 6-8 14-11 28-0Z%22 fill=%22%23FFFFFF%22 fill-opacity=%220.14%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M205 410c31 10 60 13 90 9 26-3 52-12 74-29 17-13 31-31 39-50 8-18 9-39 5-58%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M466 408c18 10 36 15 56 15 19 0 38-5 56-14%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M778 409c18 11 39 17 60 16 22-1 42-8 57-23%22 fill=%22none%22 stroke=%22%23FFFFFF%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%22418%22 cy=%22275%22 r=%2210%22 fill=%22%23FFFFFF%22 fill-opacity=%220.75%22/%3E%3Ccircle cx=%22618%22 cy=%22253%22 r=%228%22 fill=%22%23FFFFFF%22 fill-opacity=%220.75%22/%3E%3C/svg%3E');"
       ></div>
-      <div class="absolute inset-0 z-0 pointer-events-none bg-orange-700/60"></div>
-      <div class="absolute inset-0 z-0 pointer-events-none bg-orange-700/80"></div>
+      <div class="absolute inset-0 z-0 pointer-events-none bg-orange-500/75"></div>
 
       <div
         class="relative z-20 mx-auto grid w-full max-w-7xl items-center gap-10 px-6 pt-28 pb-14 sm:py-14 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-20"
@@ -44,19 +44,19 @@
           <h1 class="hero-title-in text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-[3.5rem]">
             Empowering the Next Generation of STEM Leaders in Africa
           </h1>
-          <p class="hero-title-in delay-2 mt-5 max-w-xl text-lg leading-8 text-white/90">
+          <p class="hero-title-in delay-2 mt-5 max-w-xl text-lg leading-8 on-brand-muted">
             The Jdiobe STEM Foundation provides underserved students in Uganda with access to
             education, scholarships, mentorship, and real world STEM opportunities.
           </p>
           <div class="hero-title-in delay-3 mt-7 flex flex-wrap gap-4">
             <a
               href="/donate"
-              class="rounded-2xl bg-white px-6 py-3 font-semibold text-orange-700 shadow-sm transition hover:bg-orange-50"
+              class="on-dark rounded-2xl bg-gray-900 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-gray-800"
               >Sponsor a Student</a
             >
             <a
               href="#contact"
-              class="rounded-2xl border border-orange-200/70 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+              class="rounded-2xl border-2 border-white/80 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-orange-700"
               >Partner With Us</a
             >
           </div>
@@ -122,7 +122,7 @@
                 </div>
               </div>
 
-              <div class="absolute inset-0 z-10 pointer-events-none bg-orange-700/20"></div>
+              <div class="absolute inset-0 z-10 pointer-events-none bg-orange-500/15"></div>
 
               <button
                 type="button"
@@ -149,7 +149,7 @@
 
       <a
         href="#about"
-        class="hero-scroll-cue absolute bottom-16 left-1/2 z-30 hidden -translate-x-1/2 flex-col items-center gap-1 text-xs font-medium uppercase tracking-wide text-white/80 transition hover:text-white sm:flex sm:bottom-20"
+        class="hero-scroll-cue absolute bottom-16 left-1/2 z-30 hidden -translate-x-1/2 flex-col items-center gap-1 text-xs font-medium uppercase tracking-wide text-white/85 transition hover:text-white sm:flex sm:bottom-20"
         aria-label="Scroll down to learn more"
       >
         <span>Scroll</span>
@@ -171,7 +171,7 @@
         ></button>
         <button
           type="button"
-          class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/35 shadow-sm transition-all hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full"
+          class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/40 shadow-sm transition-all hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full"
           data-index="1"
           aria-label="Slide 2"
           aria-selected="false"
@@ -179,7 +179,7 @@
         ></button>
         <button
           type="button"
-          class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/35 shadow-sm transition-all hover:bg-white/60 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full"
+          class="hero-slider-dot h-2.5 w-2.5 rounded-full bg-white/40 shadow-sm transition-all hover:bg-white/70 focus:outline-none focus:ring-2 focus:ring-white/70 sm:h-2 sm:w-8 sm:rounded-full"
           data-index="2"
           aria-label="Slide 3"
           aria-selected="false"
@@ -189,48 +189,6 @@
     </section>
 
     <main>
-      <!-- Impact Strip -->
-      <section class="bg-dot-pattern py-12">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div class="sr-stagger grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
-            <div class="impact-stat-card sr-fade-up rounded-2xl border border-orange-100 bg-white p-6 text-center shadow-sm">
-              <span class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-700">
-                <i data-feather="users" class="h-6 w-6"></i>
-              </span>
-              <p class="text-2xl font-bold tabular-nums text-orange-700">
-                <span class="counter" data-target="25" data-suffix="+">0</span>
-              </p>
-              <p class="mt-2 text-sm text-gray-600">Students Supported</p>
-            </div>
-            <div class="impact-stat-card sr-fade-up rounded-2xl border border-orange-100 bg-white p-6 text-center shadow-sm">
-              <span class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-700">
-                <i data-feather="award" class="h-6 w-6"></i>
-              </span>
-              <p class="text-2xl font-bold tabular-nums text-orange-700">
-                <span class="counter" data-target="3" data-suffix="+">0</span>
-              </p>
-              <p class="mt-2 text-sm text-gray-600">Scholarships Awarded</p>
-            </div>
-            <div class="impact-stat-card sr-fade-up rounded-2xl border border-orange-100 bg-white p-6 text-center shadow-sm">
-              <span class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-700">
-                <i data-feather="heart" class="h-6 w-6"></i>
-              </span>
-              <p class="text-2xl font-bold tabular-nums text-orange-700">
-                <span class="counter" data-target="2" data-suffix="+">0</span>
-              </p>
-              <p class="mt-2 text-sm text-gray-600">Active Mentorship Initiatives</p>
-            </div>
-            <div class="impact-stat-card sr-fade-up rounded-2xl border border-orange-100 bg-white p-6 text-center shadow-sm">
-              <span class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-700">
-                <i data-feather="map-pin" class="h-6 w-6"></i>
-              </span>
-              <p class="text-2xl font-bold text-orange-700">Uganda</p>
-              <p class="mt-2 text-sm text-gray-600">Primary Area of Operation</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section
         id="about"
         class="relative overflow-hidden bg-orange-50 py-20 md:py-28"
@@ -258,33 +216,21 @@
             </p>
           </div>
 
-          <div class="sr-fade-up mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            <div class="rounded-2xl border border-orange-100/80 bg-white/90 p-5 shadow-sm shadow-orange-900/5 backdrop-blur-sm">
-              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-700 text-white" aria-hidden="true">
-                <i data-feather="unlock" class="h-5 w-5"></i>
-              </span>
-              <p class="mt-4 text-2xl font-bold text-orange-700">Access</p>
+          <div class="sr-fade-up mt-12 grid gap-x-10 gap-y-8 border-t border-orange-200/70 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <p class="text-xl font-bold text-orange-700">Access</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Scholarships, kits, and learning spaces for those who need them most.</p>
             </div>
-            <div class="rounded-2xl border border-orange-100/80 bg-white/90 p-5 shadow-sm shadow-orange-900/5 backdrop-blur-sm">
-              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-700 text-white" aria-hidden="true">
-                <i data-feather="users" class="h-5 w-5"></i>
-              </span>
-              <p class="mt-4 text-2xl font-bold text-orange-700">Mentorship</p>
+            <div>
+              <p class="text-xl font-bold text-orange-700">Mentorship</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Educators and professionals walking alongside each cohort.</p>
             </div>
-            <div class="rounded-2xl border border-orange-100/80 bg-white/90 p-5 shadow-sm shadow-orange-900/5 backdrop-blur-sm">
-              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-700 text-white" aria-hidden="true">
-                <i data-feather="tool" class="h-5 w-5"></i>
-              </span>
-              <p class="mt-4 text-2xl font-bold text-orange-700">Build</p>
+            <div>
+              <p class="text-xl font-bold text-orange-700">Build</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Hands-on projects from robotics to research and community builds.</p>
             </div>
-            <div class="rounded-2xl border border-orange-100/80 bg-white/90 p-5 shadow-sm shadow-orange-900/5 backdrop-blur-sm">
-              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-700 text-white" aria-hidden="true">
-                <i data-feather="trending-up" class="h-5 w-5"></i>
-              </span>
-              <p class="mt-4 text-2xl font-bold text-orange-700">Lead</p>
+            <div>
+              <p class="text-xl font-bold text-orange-700">Lead</p>
               <p class="mt-2 text-sm leading-relaxed text-slate-600">Pathways into advanced study, careers, and community impact.</p>
             </div>
           </div>
@@ -301,35 +247,35 @@
                   loading="lazy"
                   decoding="async"
                 />
-                <div class="absolute inset-0 bg-orange-900/40"></div>
+                <div class="absolute inset-0 bg-gray-900/45"></div>
                 <p class="absolute bottom-5 left-5 right-5 text-lg font-semibold leading-snug text-white drop-shadow md:text-xl">
                   Real projects. Real skills. Real momentum for the next generation.
                 </p>
               </div>
             </div>
-            <div class="flex flex-col justify-between gap-6 lg:col-span-5">
-              <div class="rounded-3xl bg-orange-700 p-8 text-white shadow-lg shadow-orange-700/25">
+            <div class="lg:col-span-5">
+              <div class="flex h-full flex-col rounded-3xl surface-brand p-8 shadow-lg shadow-gray-900/25">
                 <p class="text-sm font-semibold uppercase tracking-wider text-white/85">Jdiobe STEM Foundation</p>
                 <p class="mt-4 text-lg leading-relaxed text-white/95">
                   We exist to turn potential into progress—through programs that meet students where they are and carry
                   them toward audacious goals in science and engineering.
                 </p>
+                <dl class="mt-8 space-y-5 border-t border-white/25 pt-6">
+                  <div>
+                    <dt class="font-semibold text-white">Uganda first</dt>
+                    <dd class="mt-1 text-sm leading-relaxed text-white/85">Rooted in local schools and communities, with regional and global partnerships.</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold text-white">STEM for all</dt>
+                    <dd class="mt-1 text-sm leading-relaxed text-white/85">Inclusive outreach, scholarships, and research pathways for underserved youth.</dd>
+                  </div>
+                </dl>
                 <a
                   href="/programs"
-                  class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-orange-700 transition hover:bg-orange-50"
+                  class="mt-8 inline-flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-orange-700 transition hover:bg-orange-50"
                 >
                   Explore programs <i data-feather="arrow-right" class="h-4 w-4"></i>
                 </a>
-              </div>
-              <div class="grid gap-4 sm:grid-cols-2">
-                <div class="rounded-2xl border border-orange-100 bg-white p-5 ring-1 ring-orange-50">
-                  <h3 class="font-semibold text-orange-700">Uganda first</h3>
-                  <p class="mt-2 text-sm leading-relaxed text-slate-600">Rooted in local schools and communities, with regional and global partnerships.</p>
-                </div>
-                <div class="rounded-2xl border border-orange-100 bg-white p-5 ring-1 ring-orange-50">
-                  <h3 class="font-semibold text-orange-700">STEM for all</h3>
-                  <p class="mt-2 text-sm leading-relaxed text-slate-600">Inclusive outreach, scholarships, and research pathways for underserved youth.</p>
-                </div>
               </div>
             </div>
           </div>
@@ -396,7 +342,7 @@
 
           <div class="sr-stagger mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
             <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
-              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                 <i data-feather="award" class="h-5 w-5"></i>
               </span>
               <h3 class="mt-4 text-lg font-semibold text-stone-900">Scholarships</h3>
@@ -405,7 +351,7 @@
               </p>
             </div>
             <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
-              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                 <i data-feather="book-open" class="h-5 w-5"></i>
               </span>
               <h3 class="mt-4 text-lg font-semibold text-stone-900">STEM education</h3>
@@ -414,7 +360,7 @@
               </p>
             </div>
             <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
-              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                 <i data-feather="users" class="h-5 w-5"></i>
               </span>
               <h3 class="mt-4 text-lg font-semibold text-stone-900">Mentorship</h3>
@@ -423,7 +369,7 @@
               </p>
             </div>
             <div class="sr-fade-up border border-orange-100 bg-orange-50/40 p-5">
-              <span class="flex h-10 w-10 items-center justify-center bg-orange-700 text-white" aria-hidden="true">
+              <span class="flex h-10 w-10 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                 <i data-feather="cpu" class="h-5 w-5"></i>
               </span>
               <h3 class="mt-4 text-lg font-semibold text-stone-900">Innovation</h3>
@@ -436,7 +382,7 @@
           <div class="sr-fade-up mt-10 text-center">
             <a
               href="/programs"
-              class="inline-flex items-center gap-2 bg-orange-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-800"
+              class="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-600"
             >
               View all programs
               <i data-feather="arrow-right" class="h-4 w-4"></i>
@@ -515,14 +461,14 @@
         </div>
       </section>
 
-      <section id="impact" class="bg-orange-700 py-20 text-white">
+      <section id="impact" class="surface-brand py-20 ">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="max-w-3xl text-center md:text-left">
-            <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Our Impact</p>
+            <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Our Impact</p>
             <h2 class="sr-fade-up mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
               Building measurable, lasting change
             </h2>
-            <p class="sr-fade-up mt-4 text-lg leading-8 text-orange-100">
+            <p class="sr-fade-up mt-4 text-lg leading-8 text-gray-300">
               Outcomes from scholarships, mentorship, and partnerships across our STEM programs.
             </p>
           </div>
@@ -565,29 +511,29 @@
             </div>
           </div>
           <div class="mt-12 grid grid-cols-2 gap-4 sm:gap-6 xl:grid-cols-4">
-            <div class="sr-fade-up rounded-3xl bg-white/15 p-5 sm:p-8 ring-1 ring-white/20">
-              <p class="text-3xl font-bold tabular-nums tracking-tight sm:text-4xl">
+            <div class="sr-fade-up rounded-3xl bg-white/5 p-5 sm:p-8 ring-1 ring-white/15">
+              <p class="text-3xl font-bold tabular-nums tracking-tight text-orange-500 sm:text-4xl">
                 <span class="counter" data-target="120" data-suffix="+">0</span>
               </p>
-              <p class="mt-3 text-sm leading-6 text-orange-100">Students Supported</p>
+              <p class="mt-3 text-sm leading-6 text-gray-300">Students Supported</p>
             </div>
-            <div class="sr-fade-up rounded-3xl bg-white/15 p-5 sm:p-8 ring-1 ring-white/20">
-              <p class="text-3xl font-bold tabular-nums tracking-tight sm:text-4xl">
+            <div class="sr-fade-up rounded-3xl bg-white/5 p-5 sm:p-8 ring-1 ring-white/15">
+              <p class="text-3xl font-bold tabular-nums tracking-tight text-orange-500 sm:text-4xl">
                 <span class="counter" data-target="25">0</span>
               </p>
-              <p class="mt-3 text-sm leading-6 text-orange-100">Scholarships Awarded</p>
+              <p class="mt-3 text-sm leading-6 text-gray-300">Scholarships Awarded</p>
             </div>
-            <div class="sr-fade-up rounded-3xl bg-white/15 p-5 sm:p-8 ring-1 ring-white/20">
-              <p class="text-3xl font-bold tabular-nums tracking-tight sm:text-4xl">
+            <div class="sr-fade-up rounded-3xl bg-white/5 p-5 sm:p-8 ring-1 ring-white/15">
+              <p class="text-3xl font-bold tabular-nums tracking-tight text-orange-500 sm:text-4xl">
                 <span class="counter" data-target="12">0</span>
               </p>
-              <p class="mt-3 text-sm leading-6 text-orange-100">Mentorship &amp; Training Programs</p>
+              <p class="mt-3 text-sm leading-6 text-gray-300">Mentorship &amp; Training Programs</p>
             </div>
-            <div class="sr-fade-up rounded-3xl bg-white/15 p-5 sm:p-8 ring-1 ring-white/20">
-              <p class="text-3xl font-bold tabular-nums tracking-tight sm:text-4xl">
+            <div class="sr-fade-up rounded-3xl bg-white/5 p-5 sm:p-8 ring-1 ring-white/15">
+              <p class="text-3xl font-bold tabular-nums tracking-tight text-orange-500 sm:text-4xl">
                 <span class="counter" data-target="8">0</span>
               </p>
-              <p class="mt-3 text-sm leading-6 text-orange-100">Education &amp; Industry Partnerships</p>
+              <p class="mt-3 text-sm leading-6 text-gray-300">Education &amp; Industry Partnerships</p>
             </div>
           </div>
         </div>
@@ -623,7 +569,7 @@
             </p>
             <a
               href="/news"
-              class="mt-8 inline-flex items-center gap-2 rounded-2xl bg-orange-700 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-800"
+              class="mt-8 inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-600"
               ><i data-feather="arrow-right" class="h-4 w-4"></i>Read Full Story</a
             >
           </div>
@@ -781,75 +727,66 @@
               You can help open doors for the next generation
             </h2>
           </div>
-          <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <div class="mt-12 grid gap-6 lg:grid-cols-2">
             <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-8 shadow-sm">
               <h3 class="text-2xl font-semibold text-orange-700">Sponsor a Student</h3>
               <p class="mt-4 text-base leading-7 text-gray-600">
-                Help cover the educational costs of a student pursuing a future in science,
+                Help cover tuition, materials, and travel for a student pursuing a future in science,
                 technology, engineering, or mathematics.
               </p>
               <a
                 href="/donate"
-                class="mt-8 inline-flex rounded-2xl bg-orange-700 px-5 py-3 font-semibold text-white transition hover:bg-orange-800"
+                class="mt-8 inline-flex rounded-2xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-600"
                 >Sponsor Now</a
               >
             </div>
             <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-8 shadow-sm">
               <h3 class="text-2xl font-semibold text-orange-700">Partner With Us</h3>
               <p class="mt-4 text-base leading-7 text-gray-600">
-                Collaborate with us to expand access, mentorship, scholarships, and opportunity for
-                underserved students.
+                Collaborate with us as a school, university, or organization to expand mentorship,
+                scholarships, and opportunity for underserved students.
               </p>
               <a
-                href="/donate"
-                class="mt-8 inline-flex rounded-2xl bg-orange-700 px-5 py-3 font-semibold text-white transition hover:bg-orange-800"
+                href="/contact"
+                class="mt-8 inline-flex rounded-2xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-600"
                 >Become a Partner</a
-              >
-            </div>
-            <div class="sr-fade-up rounded-3xl border border-orange-100 bg-white p-8 shadow-sm">
-              <h3 class="text-2xl font-semibold text-orange-700">Support Our Mission</h3>
-              <p class="mt-4 text-base leading-7 text-gray-600">
-                Contribute to programs that create lasting educational impact and open new doors for
-                young innovators.
-              </p>
-              <a
-                href="/donate"
-                class="mt-8 inline-flex rounded-2xl bg-orange-700 px-5 py-3 font-semibold text-white transition hover:bg-orange-800"
-                >Donate Now</a
               >
             </div>
           </div>
         </div>
       </section>
 
-      <section class="bg-orange-700 py-20 text-white">
+      <section class="surface-brand py-20 ">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="grid gap-12 lg:grid-cols-2">
             <div class="sr-fade-up text-center md:text-left">
-              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Looking Ahead</p>
+              <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Looking Ahead</p>
               <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
                 Expanding access through innovation, partnerships, and long term vision
               </h2>
-              <p class="mt-6 text-lg leading-8 text-orange-100">
-                We are expanding our work to include advanced STEM workshops, innovation
-                initiatives, environmental monitoring projects, and international academic
-                collaborations.
+              <p class="mt-6 text-lg leading-8 text-gray-300">
+                The next phase of our work broadens both what students can study and how far those
+                studies can take them.
               </p>
             </div>
-            <div class="grid grid-cols-2 gap-3 sm:gap-4">
-              <div class="sr-fade-up rounded-3xl bg-white/15 p-4 sm:p-6 ring-1 ring-white/20">
-                <p class="font-semibold">Advanced STEM workshops</p>
-              </div>
-              <div class="sr-fade-up rounded-3xl bg-white/15 p-4 sm:p-6 ring-1 ring-white/20">
-                <p class="font-semibold">Innovation initiatives</p>
-              </div>
-              <div class="sr-fade-up rounded-3xl bg-white/15 p-4 sm:p-6 ring-1 ring-white/20">
-                <p class="font-semibold">Environmental monitoring projects</p>
-              </div>
-              <div class="sr-fade-up rounded-3xl bg-white/15 p-4 sm:p-6 ring-1 ring-white/20">
-                <p class="font-semibold">International academic collaborations</p>
-              </div>
-            </div>
+            <ul class="sr-fade-up divide-y divide-white/20 self-center border-y border-white/20 lg:pl-4">
+              <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+                <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-500" aria-hidden="true"></i>
+                Advanced STEM workshops
+              </li>
+              <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+                <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-500" aria-hidden="true"></i>
+                Innovation initiatives
+              </li>
+              <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+                <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-500" aria-hidden="true"></i>
+                Environmental monitoring projects
+              </li>
+              <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+                <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-500" aria-hidden="true"></i>
+                International academic collaborations
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -865,12 +802,12 @@
           </p>
           <div class="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              href="#get-involved"
-              class="sr-fade-up rounded-2xl bg-orange-700 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-800"
+              href="/donate"
+              class="sr-fade-up rounded-2xl bg-orange-500 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-600"
               >Donate Today</a
             >
             <a
-              href="#contact"
+              href="#get-involved"
               class="sr-fade-up rounded-2xl border border-orange-300 px-6 py-3 font-semibold text-orange-700 transition hover:bg-orange-50"
               >Get Involved</a
             >

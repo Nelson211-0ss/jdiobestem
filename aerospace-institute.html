@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="scroll-animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
+    <script src="theme.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
@@ -21,17 +22,7 @@
   </div>
   <div id="header"></div>
 
-  <nav class="border-b border-orange-100/80 bg-white/95 backdrop-blur-sm" aria-label="Breadcrumb">
-    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 gap-y-1 px-4 py-3 text-sm">
-      <a href="/" class="font-medium text-orange-700 transition hover:text-orange-700">Home</a>
-      <span class="text-slate-300" aria-hidden="true">/</span>
-      <a href="/programs" class="font-medium text-orange-700 transition hover:text-orange-700">Programs</a>
-      <span class="text-slate-300" aria-hidden="true">/</span>
-      <span class="text-slate-600">Aerospace Institute</span>
-    </div>
-  </nav>
-
-  <header class="page-hero">
+  <header class="page-hero surface-brand">
     <img src="images/hero-students-community.png" alt="" class="page-hero__bg object-[center_20%]" width="1600" height="900" />
     <div class="page-hero__overlay" aria-hidden="true"></div>
     <div class="page-hero__inner">
@@ -40,6 +31,16 @@
       <p class="page-hero__lede">Specialized pathways in aerospace education, research, and innovation for aviation and space technology.</p>
     </div>
   </header>
+
+  <nav class="border-b border-orange-100/80 bg-white/95 backdrop-blur-sm" aria-label="Breadcrumb">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-2 gap-y-1 px-4 py-3 text-sm">
+      <a href="/" class="font-medium text-orange-700 transition hover:text-orange-700">Home</a>
+      <span class="text-slate-500" aria-hidden="true">/</span>
+      <a href="/programs" class="font-medium text-orange-700 transition hover:text-orange-700">Programs</a>
+      <span class="text-slate-500" aria-hidden="true">/</span>
+      <span class="text-slate-600">Aerospace Institute</span>
+    </div>
+  </nav>
 
   <main>
     <section class="bg-dot-pattern bg-white py-16 md:py-20">
@@ -117,7 +118,7 @@
       </div>
     </section>
 
-    <section class="bg-orange-700 py-16 text-white">
+    <section class="surface-brand py-16 ">
       <div class="mx-auto max-w-3xl px-4 text-center">
         <h2 class="text-2xl font-bold md:text-3xl">Join the institute</h2>
         <p class="mt-4 text-lg text-orange-100">

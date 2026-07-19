@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="scroll-animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
+    <script src="theme.js"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="stylesheet" href="typography.css" />
   <link rel="stylesheet" href="brand-colors.css" />
@@ -22,7 +23,10 @@
   <div id="header"></div>
 
   <main>
-    <section class="bg-orange-700 py-20 text-white">
+    <!-- Pulled up behind the fixed nav (cancelling the 6rem body offset) so the
+         transparent header sits on orange. Without this the nav's white links
+         land on the white page background and disappear. -->
+    <section class="surface-brand -mt-24 pb-20 pt-[9.5rem]">
       <div class="mx-auto max-w-6xl px-6 lg:px-8">
         <div class="max-w-3xl">
           <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Scholarship Spotlight</p>
