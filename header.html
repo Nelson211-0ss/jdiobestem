@@ -8,13 +8,21 @@
     </div>
     <div class="hidden md:flex space-x-6 lg:space-x-8 items-center">
       <a href="/" class="nav-link text-white hover:text-white/75"><i data-feather="home"></i><span>Home</span></a>
-      <a href="/about" class="nav-link text-white hover:text-white/75"><i data-feather="info"></i><span>About Us</span></a>
-      <a href="/programs" class="nav-link text-white hover:text-white/75"><i data-feather="layers"></i><span>Programs</span></a>
+
+      <button type="button" class="nav-link nav-mega-btn text-white hover:text-white/75" data-mega="about" aria-expanded="false" aria-haspopup="true">
+        <i data-feather="info"></i><span>About Us</span>
+        <i data-feather="chevron-down" class="nav-caret h-4 w-4"></i>
+      </button>
+
+      <button type="button" class="nav-link nav-mega-btn text-white hover:text-white/75" data-mega="programs" aria-expanded="false" aria-haspopup="true">
+        <i data-feather="layers"></i><span>Programs</span>
+        <i data-feather="chevron-down" class="nav-caret h-4 w-4"></i>
+      </button>
+
       <a href="/impact" class="nav-link text-white hover:text-white/75"><i data-feather="bar-chart-2"></i><span>Impact</span></a>
       <a href="/news" class="nav-link text-white hover:text-white/75"><i data-feather="file-text"></i><span>News</span></a>
-      <a href="/volunteers" class="nav-link text-white hover:text-white/75"><i data-feather="user-plus"></i><span>Volunteers</span></a>
       <a href="/contact" class="nav-link text-white hover:text-white/75"><i data-feather="mail"></i><span>Contact</span></a>
-      <a href="/donate" class="on-dark nav-link ml-2 bg-gray-900 text-white px-5 py-2 rounded-full font-semibold shadow hover:bg-gray-800 transition"><i data-feather="heart"></i><span>Donate</span></a>
+      <a href="/donate" class="nav-link ml-2 bg-white text-orange-600 px-5 py-2 rounded-full font-semibold shadow hover:bg-orange-50 transition"><i data-feather="heart"></i><span>Donate</span></a>
     </div>
     <div class="md:hidden">
       <button id="menu-btn" class="hamburger-btn relative z-50 flex h-10 w-10 items-center justify-center focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -24,49 +32,120 @@
       </button>
     </div>
   </div>
+
+  <!-- ===================== MEGA PANELS (desktop only) =====================
+       Full-bleed, same brand orange as the solid nav, anchored to the nav's
+       bottom edge with no gap or border — opening one also forces the nav
+       solid, so bar + panel read as a single continuous surface.
+  -->
+  <div class="mega-panel hidden md:block" data-mega-panel="about" role="region" aria-label="About menu">
+    <div class="mega-inner mx-auto grid max-w-7xl gap-10 px-6 py-10 lg:grid-cols-12 lg:gap-12 lg:px-8">
+      <div class="mega-col lg:col-span-3">
+        <p class="mega-heading">The Foundation</p>
+        <a href="/about" class="mega-link"><i data-feather="info" class="mega-ico"></i><span>About Us</span></a>
+        <a href="/impact" class="mega-link"><i data-feather="bar-chart-2" class="mega-ico"></i><span>Our Impact</span></a>
+        <a href="/news" class="mega-link"><i data-feather="file-text" class="mega-ico"></i><span>News &amp; Updates</span></a>
+      </div>
+
+      <div class="mega-col lg:col-span-3">
+        <p class="mega-heading">Get Involved</p>
+        <a href="/volunteers" class="mega-link"><i data-feather="user-plus" class="mega-ico"></i><span>Volunteers</span></a>
+        <a href="/contact" class="mega-link"><i data-feather="mail" class="mega-ico"></i><span>Contact Us</span></a>
+        <a href="/faqs" class="mega-link"><i data-feather="help-circle" class="mega-ico"></i><span>FAQs</span></a>
+      </div>
+
+      <div class="mega-col lg:col-span-6">
+        <a href="/donate" class="mega-feature group">
+          <img src="images/hero-students-community.png" alt="" class="mega-feature-img" loading="lazy" decoding="async" />
+          <span class="mega-feature-body">
+            <span class="mega-feature-eyebrow">Support our work</span>
+            <span class="mega-feature-title">Sponsor a student today</span>
+            <span class="mega-feature-text">Tuition, materials, and mentorship for students with the ambition but not the access.</span>
+            <span class="mega-feature-cta">Donate <i data-feather="arrow-right" class="h-4 w-4"></i></span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mega-panel hidden md:block" data-mega-panel="programs" role="region" aria-label="Programs menu">
+    <div class="mega-inner mx-auto grid max-w-7xl gap-10 px-6 py-10 lg:grid-cols-12 lg:gap-12 lg:px-8">
+      <div class="mega-col lg:col-span-3">
+        <p class="mega-heading">Our Programs</p>
+        <a href="/programs" class="mega-link"><i data-feather="grid" class="mega-ico"></i><span>All Programs</span></a>
+        <a href="/scholarship" class="mega-link"><i data-feather="award" class="mega-ico"></i><span>Scholarships</span></a>
+        <a href="/youth-stem" class="mega-link"><i data-feather="book-open" class="mega-ico"></i><span>Youth STEM</span></a>
+        <a href="/aerospace-institute" class="mega-link"><i data-feather="send" class="mega-ico"></i><span>Aerospace Institute</span></a>
+      </div>
+
+      <div class="mega-col lg:col-span-3">
+        <p class="mega-heading">Initiatives</p>
+        <a href="/community-outreach" class="mega-link"><i data-feather="users" class="mega-ico"></i><span>Community Outreach</span></a>
+        <a href="/secondary-research" class="mega-link"><i data-feather="search" class="mega-ico"></i><span>Secondary Research</span></a>
+        <a href="/regina-henry-scholarship" class="mega-link"><i data-feather="star" class="mega-ico"></i><span>Regina Henry Scholarship</span></a>
+      </div>
+
+      <div class="mega-col lg:col-span-6">
+        <p class="mega-heading">Areas of Operation</p>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <a href="/uganda" class="mega-place group">
+            <img src="images/hero-science-fair-projects.png" alt="" class="mega-place-img" loading="lazy" decoding="async" />
+            <span class="mega-place-body">
+              <span class="mega-place-title"><i data-feather="map-pin" class="h-4 w-4"></i>Uganda</span>
+              <span class="mega-place-text">Scholarships, hands-on STEM, and student-led innovation.</span>
+            </span>
+          </a>
+          <a href="/south-sudan" class="mega-place group">
+            <img src="images/185A1601-scaled.jpg" alt="" class="mega-place-img" loading="lazy" decoding="async" />
+            <span class="mega-place-body">
+              <span class="mega-place-title"><i data-feather="map-pin" class="h-4 w-4"></i>South Sudan</span>
+              <span class="mega-place-text">Teacher training, equipment access, and mentorship.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="mobile-menu" class="mobile-menu surface-brand md:hidden fixed inset-0 z-40 flex flex-col overflow-y-auto px-6 pb-8 pt-24">
     <div class="flex flex-1 flex-col justify-center gap-1">
       <a href="/" class="nav-link-mobile border-b border-white/20 py-4 text-lg text-white transition hover:text-white/75"><i data-feather="home"></i><span>Home</span></a>
-      <a href="/about" class="nav-link-mobile border-b border-white/20 py-4 text-lg text-white transition hover:text-white/75"><i data-feather="info"></i><span>About Us</span></a>
-      <a href="/programs" class="nav-link-mobile border-b border-white/20 py-4 text-lg text-white transition hover:text-white/75"><i data-feather="layers"></i><span>Programs</span></a>
+
+      <div class="mobile-acc border-b border-white/20">
+        <button type="button" class="mobile-acc-btn nav-link-mobile w-full py-4 text-lg text-white transition hover:text-white/75" aria-expanded="false">
+          <i data-feather="info"></i><span class="flex-1 text-left">About Us</span>
+          <i data-feather="chevron-down" class="mobile-acc-caret h-5 w-5 transition-transform"></i>
+        </button>
+        <div class="mobile-acc-panel hidden pb-3 pl-8">
+          <a href="/about" class="block py-2.5 text-base text-white/80 transition hover:text-white">About Us</a>
+          <a href="/impact" class="block py-2.5 text-base text-white/80 transition hover:text-white">Our Impact</a>
+          <a href="/news" class="block py-2.5 text-base text-white/80 transition hover:text-white">News &amp; Updates</a>
+          <a href="/volunteers" class="block py-2.5 text-base text-white/80 transition hover:text-white">Volunteers</a>
+          <a href="/faqs" class="block py-2.5 text-base text-white/80 transition hover:text-white">FAQs</a>
+        </div>
+      </div>
+
+      <div class="mobile-acc border-b border-white/20">
+        <button type="button" class="mobile-acc-btn nav-link-mobile w-full py-4 text-lg text-white transition hover:text-white/75" aria-expanded="false">
+          <i data-feather="layers"></i><span class="flex-1 text-left">Programs</span>
+          <i data-feather="chevron-down" class="mobile-acc-caret h-5 w-5 transition-transform"></i>
+        </button>
+        <div class="mobile-acc-panel hidden pb-3 pl-8">
+          <a href="/programs" class="block py-2.5 text-base text-white/80 transition hover:text-white">All Programs</a>
+          <a href="/scholarship" class="block py-2.5 text-base text-white/80 transition hover:text-white">Scholarships</a>
+          <a href="/youth-stem" class="block py-2.5 text-base text-white/80 transition hover:text-white">Youth STEM</a>
+          <a href="/aerospace-institute" class="block py-2.5 text-base text-white/80 transition hover:text-white">Aerospace Institute</a>
+          <a href="/community-outreach" class="block py-2.5 text-base text-white/80 transition hover:text-white">Community Outreach</a>
+          <p class="pb-1 pt-3 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-white/50">Areas of Operation</p>
+          <a href="/uganda" class="block py-2.5 text-base text-white/80 transition hover:text-white">Uganda</a>
+          <a href="/south-sudan" class="block py-2.5 text-base text-white/80 transition hover:text-white">South Sudan</a>
+        </div>
+      </div>
+
       <a href="/impact" class="nav-link-mobile border-b border-white/20 py-4 text-lg text-white transition hover:text-white/75"><i data-feather="bar-chart-2"></i><span>Impact</span></a>
       <a href="/news" class="nav-link-mobile border-b border-white/20 py-4 text-lg text-white transition hover:text-white/75"><i data-feather="file-text"></i><span>News</span></a>
-      <a href="/volunteers" class="nav-link-mobile border-b border-white/20 py-4 text-lg text-white transition hover:text-white/75"><i data-feather="user-plus"></i><span>Volunteers</span></a>
       <a href="/contact" class="nav-link-mobile py-4 text-lg text-white transition hover:text-white/75"><i data-feather="mail"></i><span>Contact</span></a>
-      <a href="/donate" class="on-dark nav-link-mobile mt-6 justify-center gap-2 bg-gray-900 text-white px-5 py-3.5 rounded-full font-semibold shadow hover:bg-gray-800 transition"><i data-feather="heart"></i><span>Donate</span></a>
+      <a href="/donate" class="nav-link-mobile mt-6 justify-center gap-2 bg-white text-orange-600 px-5 py-3.5 rounded-full font-semibold shadow hover:bg-orange-50 transition"><i data-feather="heart"></i><span>Donate</span></a>
     </div>
   </div>
-  <script>
-    // Mobile Programs Dropdown
-    document.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('mobile-programs-btn');
-      var menu = document.getElementById('mobile-programs-menu');
-      if(btn && menu) {
-        // Toggle on click
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          menu.classList.toggle('hidden');
-        });
-        // Toggle on Enter/Space
-        btn.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            menu.classList.toggle('hidden');
-          }
-        });
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-          if (!menu.classList.contains('hidden') && !menu.contains(e.target) && e.target !== btn) {
-            menu.classList.add('hidden');
-          }
-        });
-        // Close when a menu link is clicked
-        menu.querySelectorAll('a').forEach(function(link) {
-          link.addEventListener('click', function() {
-            menu.classList.add('hidden');
-          });
-        });
-      }
-    });
-  </script>
 </nav>

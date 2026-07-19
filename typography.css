@@ -1,5 +1,5 @@
-/* Body text uses Open Sans; headings keep the serif (EB Garamond). */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+/* Body text uses Libre Baskerville; headings keep the serif (EB Garamond). */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 /*
  * Content font sizes: selectors use `body .text-*` so they win over Tailwind CDN
@@ -14,7 +14,7 @@ html {
 
 html body {
   font-size: 0.9375rem;
-  line-height: 1.5;
+  line-height: 1.35;
   letter-spacing: -0.011em;
   /* Offset for fixed site header so content is not hidden under the bar */
   padding-top: 6rem;
@@ -25,11 +25,11 @@ html body {
 
 /*
  * Font families. Each page sets a serif `font-family` inline on <body>; the
- * `!important` here overrides that so body copy is sans-serif, while headings
- * (including any with their own inline serif) stay on the serif.
+ * `!important` here overrides that so body copy is Libre Baskerville, while
+ * headings (including any with their own inline serif) stay on EB Garamond.
  */
 html body {
-  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -39,24 +39,24 @@ h1, h2, h3, h4, h5, h6 {
 
 body .text-xs {
   font-size: 0.7rem;
-  line-height: 0.95rem;
+  line-height: 0.88rem;
 }
 
 /* Body copy — one consistent size for all non-heading text (sm == base). */
 body .text-sm {
   font-size: 0.9375rem;
-  line-height: 1.5rem;
+  line-height: 1.35rem;
 }
 
 body .text-base {
   font-size: 0.9375rem;
-  line-height: 1.5rem;
+  line-height: 1.35rem;
 }
 
 /* text-lg is reserved for small card titles (headings), so it stays larger. */
 body .text-lg {
   font-size: 1.0625rem;
-  line-height: 1.6rem;
+  line-height: 1.45rem;
 }
 
 /* Footer (#footer): slightly smaller than main content */
@@ -67,7 +67,7 @@ body .text-lg {
 
 #footer .text-sm {
   font-size: 0.9rem;
-  line-height: 1.3rem;
+  line-height: 1.18rem;
 }
 
 #footer .text-xl {

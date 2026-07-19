@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.png?v=3" type="image/png" sizes="256x256">
+  <link rel="apple-touch-icon" href="favicon.png?v=3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uganda - Jdiobe STEM Foundation</title>
+  <meta name="description" content="Jdiobe STEM Foundation programs in Uganda: scholarships, hands-on STEM education, mentorship, and student-led innovation.">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scroll-animations.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="theme.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="stylesheet" href="typography.css" />
+  <link rel="stylesheet" href="brand-colors.css" />
+</head>
+<body class="min-h-screen bg-white text-stone-900 antialiased" style="font-family: 'EB Garamond', Georgia, serif;">
+  <div id="preloader" class="preloader" role="status" aria-label="Loading">
+    <span class="preloader-spinner">
+      <img src="images/partners/preloader/preloader%20icon.png" alt="" class="preloader-icon" width="42" height="42" />
+    </span>
+  </div>
+  <div id="header"></div>
+
+  <main>
+    <!-- Pulled up behind the fixed nav (cancelling the 6rem body offset) so the
+         transparent header sits on orange. -->
+    <!-- Full-bleed photographic hero. The image sits above surface-brand's flat
+         colour; the gradient over it keeps the headline legible regardless of
+         what part of the photo lands behind the text. -->
+    <section class="surface-brand relative -mt-24 flex min-h-[78vh] items-center overflow-hidden pb-24 pt-[9.5rem]">
+      <img
+        src="images/hero-students-community.png"
+        alt="Students in school uniforms gathered together outdoors in Uganda, one holding a model airplane"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        width="1920" height="1080" loading="eager" decoding="sync" fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-orange-700/95 via-orange-600/85 to-orange-500/60" aria-hidden="true"></div>
+
+      <div class="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <p class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">
+            <i data-feather="map-pin" class="h-4 w-4"></i>
+            Areas of Operation
+          </p>
+          <h1 class="mt-4 text-4xl font-bold leading-tight tracking-tight drop-shadow-sm sm:text-5xl lg:text-[3.5rem]">
+            Uganda
+          </h1>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-white/90">
+            Uganda is where the Jdiobe STEM Foundation began. We work directly with schools,
+            teachers, and communities to remove the practical barriers that keep capable students
+            out of science and engineering.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="/donate" class="rounded-2xl bg-white px-6 py-3 font-semibold text-orange-600 shadow-lg transition hover:bg-orange-50">
+              Sponsor a Student
+            </a>
+            <a href="/programs" class="rounded-2xl border-2 border-white/80 px-6 py-3 font-semibold text-white transition hover:bg-white hover:text-orange-700">
+              All Programs
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      Stats band straddling the hero / next-section boundary. Pulled up with a
+      negative margin so it overlaps the hero's bottom padding.
+
+      NUMBERS: these are the foundation-wide figures published on the homepage.
+      Confirm they are correct *for Uganda specifically* before publishing, or
+      replace with country-level counts.
+    -->
+    <div class="relative z-20 -mt-20 px-6 lg:px-8">
+      <div class="mx-auto max-w-6xl rounded-2xl border border-stone-200 bg-white p-8 shadow-xl shadow-stone-900/10 sm:p-10">
+        <dl class="grid grid-cols-2 gap-y-10 lg:grid-cols-4 lg:gap-y-0 lg:divide-x lg:divide-stone-200">
+          <div class="lg:px-8 lg:first:pl-0">
+            <dt class="text-4xl font-bold tabular-nums tracking-tight text-orange-600 sm:text-5xl">
+              <span class="counter" data-target="120" data-suffix="+">0</span>
+            </dt>
+            <dd class="mt-2 text-sm leading-6 text-stone-600">Students Supported</dd>
+          </div>
+          <div class="lg:px-8">
+            <dt class="text-4xl font-bold tabular-nums tracking-tight text-orange-600 sm:text-5xl">
+              <span class="counter" data-target="25">0</span>
+            </dt>
+            <dd class="mt-2 text-sm leading-6 text-stone-600">Scholarships Awarded</dd>
+          </div>
+          <div class="lg:px-8">
+            <dt class="text-4xl font-bold tabular-nums tracking-tight text-orange-600 sm:text-5xl">
+              <span class="counter" data-target="12">0</span>
+            </dt>
+            <dd class="mt-2 text-sm leading-6 text-stone-600">Mentorship &amp; Training Programs</dd>
+          </div>
+          <div class="lg:px-8 lg:last:pr-0">
+            <dt class="text-4xl font-bold tabular-nums tracking-tight text-orange-600 sm:text-5xl">
+              <span class="counter" data-target="8">0</span>
+            </dt>
+            <dd class="mt-2 text-sm leading-6 text-stone-600">Education &amp; Industry Partnerships</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Focus areas — unboxed, divider-led -->
+    <section class="bg-orange-50 pb-20 pt-28 md:pb-24 md:pt-32">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">On the ground</p>
+          <h2 class="sr-fade-up mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+            What our work in Uganda looks like
+          </h2>
+        </div>
+
+        <div class="sr-fade-up mt-12 grid gap-x-10 gap-y-8 border-t border-orange-200/70 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <p class="text-xl font-bold text-orange-700">Scholarships</p>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">
+              Tuition, materials, and travel support so cost is never the reason a student stops.
+            </p>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-orange-700">Classroom &amp; lab</p>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">
+              Practical workshops that connect the syllabus to real tools and real problems.
+            </p>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-orange-700">Mentorship</p>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">
+              Local educators and STEM professionals walking with each cohort through the year.
+            </p>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-orange-700">Innovation</p>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">
+              Student-led builds in robotics, assistive technology, and sustainable design.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programme 1 — editorial band, image left -->
+    <section class="py-20 md:py-24">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+        <div class="sr-fade-up overflow-hidden rounded-2xl">
+          <img
+            src="images/hero-science-fair-projects.png"
+            alt="Students presenting science fair projects including solar wiring and microcontrollers"
+            class="h-[400px] w-full object-cover"
+            width="1920" height="1080" loading="lazy" decoding="async"
+          />
+        </div>
+        <div class="sr-fade-up">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+            Hands-on STEM education
+          </h2>
+          <p class="mt-6 text-lg leading-8 text-stone-600">
+            Workshops and school partnerships that put equipment in students' hands. Learners move
+            from theory to circuits, sensors, and structures they build and test themselves.
+          </p>
+          <ul class="mt-8 space-y-3 border-t border-stone-200 pt-6">
+            <li class="flex items-start gap-3 text-base text-stone-700">
+              <i data-feather="check" class="mt-1 h-4 w-4 shrink-0 text-orange-500"></i>
+              School-based practical sessions and science fairs
+            </li>
+            <li class="flex items-start gap-3 text-base text-stone-700">
+              <i data-feather="check" class="mt-1 h-4 w-4 shrink-0 text-orange-500"></i>
+              Teacher training and shared teaching materials
+            </li>
+            <li class="flex items-start gap-3 text-base text-stone-700">
+              <i data-feather="check" class="mt-1 h-4 w-4 shrink-0 text-orange-500"></i>
+              Project kits built from accessible, local materials
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programme 2 — editorial band, image right (alternating rhythm) -->
+    <section class="bg-stone-50 py-20 md:py-24">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+        <div class="sr-fade-up overflow-hidden rounded-2xl lg:order-2">
+          <img
+            src="images/robot.jpeg"
+            alt="A student-built robot on a workbench during a robotics session"
+            class="h-[400px] w-full object-cover"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <div class="sr-fade-up lg:order-1">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+            Student-led innovation
+          </h2>
+          <p class="mt-6 text-lg leading-8 text-stone-600">
+            Teams identify a problem in their own community and build toward it — assistive devices,
+            robotics, translation tools, environmental monitoring. The brief is always local.
+          </p>
+          <a href="/programs" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-500 px-5 py-3 font-semibold text-white transition hover:bg-orange-600">
+            Explore the projects <i data-feather="arrow-right" class="h-4 w-4"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Priorities -->
+    <section class="surface-brand py-20 md:py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div class="sr-fade-up">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">Looking ahead</p>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Where we are focusing next in Uganda
+            </h2>
+            <p class="mt-6 text-lg leading-8 on-brand-muted">
+              Deepening what already works, and extending it to more schools and districts.
+            </p>
+          </div>
+          <ul class="sr-fade-up divide-y divide-white/20 self-center border-y border-white/20 lg:pl-4">
+            <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+              <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-200" aria-hidden="true"></i>
+              More partner schools per district
+            </li>
+            <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+              <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-200" aria-hidden="true"></i>
+              Expanded scholarship intake
+            </li>
+            <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+              <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-200" aria-hidden="true"></i>
+              Teacher training and shared curriculum
+            </li>
+            <li class="flex items-center gap-4 py-4 text-lg font-semibold">
+              <i data-feather="arrow-right" class="h-5 w-5 shrink-0 text-orange-200" aria-hidden="true"></i>
+              University and industry pathways
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-dot-pattern py-20">
+      <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
+        <h2 class="sr-fade-up text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
+          Support a student in Uganda
+        </h2>
+        <p class="sr-fade-up mx-auto mt-6 max-w-2xl text-lg leading-8 text-stone-600">
+          Your support goes directly into scholarships, equipment, and mentorship for students
+          who already have the ambition.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="/donate" class="sr-fade-up rounded-xl bg-orange-500 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-orange-600">
+            Donate Today
+          </a>
+          <a href="/contact" class="sr-fade-up rounded-xl border border-orange-300 px-6 py-3 font-semibold text-orange-700 transition hover:bg-orange-50">
+            Partner With Us
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="main.js"></script>
+</body>
+</html>

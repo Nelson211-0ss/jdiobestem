@@ -227,6 +227,99 @@ function hidePreloader() {
   }, 450);
 }
 
+// Mega menu (desktop) and accordions (mobile). Must run after the header
+// fragment is injected — inline <script> in a fragment never executes via innerHTML.
+function initNavDropdowns() {
+  const nav = document.getElementById('site-nav');
+  const btns = document.querySelectorAll('.nav-mega-btn');
+  const panels = document.querySelectorAll('.mega-panel');
+  let closeTimer = null;
+  let openKey = null;
+
+  function cancelClose() {
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+  }
+
+  function closeMega() {
+    cancelClose();
+    openKey = null;
+    panels.forEach(function (p) { p.classList.remove('is-open'); });
+    btns.forEach(function (b) {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-expanded', 'false');
+    });
+    if (nav) nav.classList.remove('is-mega-open');
+  }
+
+  function openMega(key) {
+    cancelClose();
+    if (openKey === key) return;
+    openKey = key;
+    panels.forEach(function (p) {
+      p.classList.toggle('is-open', p.getAttribute('data-mega-panel') === key);
+    });
+    btns.forEach(function (b) {
+      const on = b.getAttribute('data-mega') === key;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-expanded', String(on));
+    });
+    // Solid nav while open so bar + panel share one continuous surface
+    if (nav) nav.classList.add('is-mega-open');
+  }
+
+  // Small grace period so the pointer can travel from the trigger into the
+  // panel (they are not adjacent in the DOM) without the menu snapping shut.
+  function scheduleClose() {
+    cancelClose();
+    closeTimer = setTimeout(closeMega, 180);
+  }
+
+  btns.forEach(function (btn) {
+    const key = btn.getAttribute('data-mega');
+    btn.addEventListener('mouseenter', function () { openMega(key); });
+    btn.addEventListener('mouseleave', scheduleClose);
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (openKey === key) closeMega();
+      else openMega(key);
+    });
+    btn.addEventListener('focus', function () { openMega(key); });
+  });
+
+  panels.forEach(function (panel) {
+    panel.addEventListener('mouseenter', cancelClose);
+    panel.addEventListener('mouseleave', scheduleClose);
+  });
+
+  // Close on outside click, Escape, tab-out, and scroll
+  document.addEventListener('click', function (e) {
+    if (nav && !nav.contains(e.target)) closeMega();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMega();
+  });
+  document.addEventListener('focusin', function (e) {
+    if (openKey && nav && !nav.contains(e.target)) closeMega();
+  });
+  window.addEventListener('scroll', function () {
+    if (openKey) closeMega();
+  }, { passive: true });
+
+  // Mobile accordions
+  document.querySelectorAll('.mobile-acc').forEach(function (acc) {
+    const btn = acc.querySelector('.mobile-acc-btn');
+    const panel = acc.querySelector('.mobile-acc-panel');
+    const caret = acc.querySelector('.mobile-acc-caret');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      const isOpen = !panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      if (caret) caret.style.transform = isOpen ? '' : 'rotate(180deg)';
+    });
+  });
+}
+
 // Load header and footer, then initialize features
 window.addEventListener('DOMContentLoaded', function() {
   initScrollReveal();
@@ -251,6 +344,7 @@ window.addEventListener('DOMContentLoaded', function() {
   loadFragment('header', 'header.html', function() {
     initSocialIcons();
     replaceFeatherIcons();
+    initNavDropdowns();
     fragmentsPending--;
     maybeHidePreloader();
     // Transparent-over-hero header that turns solid brand orange on scroll.

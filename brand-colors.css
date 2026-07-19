@@ -464,3 +464,250 @@ svg.feather {
     transition: none !important;
   }
 }
+
+
+/* ===========================================================================
+ * MEGA MENU
+ * The panel is a full-bleed sibling of the nav bar, anchored to the nav's
+ * bottom edge. It uses the same --brand-orange as the solid nav and opening it
+ * forces the nav solid (.is-mega-open), so the bar and the panel read as one
+ * continuous surface with no seam between them.
+ * ======================================================================== */
+
+.nav-mega-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.nav-mega-btn .nav-caret {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-mega-btn.is-active .nav-caret {
+  transform: rotate(180deg);
+}
+
+/* Nav goes solid while a panel is open so there is no colour step at the seam */
+.site-nav.is-mega-open {
+  background-color: var(--brand-orange);
+  box-shadow: none;
+}
+
+.mega-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 40;
+  background-color: var(--brand-orange);
+  overflow: hidden;
+  /* Collapsed state */
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  /* Closing: size eases shut, fade is quicker, visibility waits for the end */
+  transition:
+    max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.22s ease,
+    visibility 0s linear 0.4s;
+}
+
+.mega-panel.is-open {
+  max-height: 32rem;
+  opacity: 1;
+  visibility: visible;
+  box-shadow: 0 24px 45px -18px rgb(20 21 26 / 0.45);
+  /* Opening: slightly longer ease-out-expo, no visibility delay */
+  transition:
+    max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease,
+    visibility 0s;
+}
+
+/* Columns drift up into place, staggered, for a softer reveal than a hard cut */
+.mega-col {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-panel.is-open .mega-col {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mega-panel.is-open .mega-col:nth-child(1) { transition-delay: 0.06s; }
+.mega-panel.is-open .mega-col:nth-child(2) { transition-delay: 0.12s; }
+.mega-panel.is-open .mega-col:nth-child(3) { transition-delay: 0.18s; }
+
+.mega-heading {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.55);
+  margin-bottom: 0.85rem;
+}
+
+.mega-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.75rem;
+  margin-left: -0.75rem;
+  border-radius: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.88);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.mega-link:hover {
+  background-color: rgb(255 255 255 / 0.12);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.mega-ico {
+  height: 1rem;
+  width: 1rem;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Featured promo tile */
+.mega-feature {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.1rem;
+  border-radius: 0.9rem;
+  background-color: rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-feature:hover {
+  background-color: rgb(255 255 255 / 0.16);
+  border-color: rgb(255 255 255 / 0.35);
+  transform: translateY(-2px);
+}
+
+.mega-feature-img {
+  height: 7.5rem;
+  width: 10rem;
+  flex-shrink: 0;
+  border-radius: 0.6rem;
+  object-fit: cover;
+}
+
+.mega-feature-body { display: flex; flex-direction: column; }
+
+.mega-feature-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.mega-feature-title {
+  margin-top: 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.mega-feature-text {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgb(255 255 255 / 0.8);
+}
+
+.mega-feature-cta {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.mega-feature:hover .mega-feature-cta { gap: 0.65rem; }
+.mega-feature-cta { transition: gap 0.25s ease; }
+
+/* Area-of-operation tiles */
+.mega-place {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-place:hover {
+  background-color: rgb(255 255 255 / 0.16);
+  border-color: rgb(255 255 255 / 0.35);
+  transform: translateY(-2px);
+}
+
+.mega-place-img {
+  height: 5.5rem;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-place:hover .mega-place-img { transform: scale(1.05); }
+
+.mega-place-body { display: block; padding: 0.85rem 1rem 1rem; }
+
+.mega-place-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.mega-place-text {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgb(255 255 255 / 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega-panel,
+  .mega-panel.is-open,
+  .mega-col,
+  .mega-link,
+  .mega-feature,
+  .mega-place,
+  .mega-place-img,
+  .nav-mega-btn .nav-caret {
+    transition: none !important;
+  }
+  .mega-panel.is-open .mega-col { transition-delay: 0s !important; }
+}
