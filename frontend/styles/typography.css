@@ -1,0 +1,246 @@
+/*
+ * Type scale — Vistol Sans throughout, loaded by next/font in app/layout.tsx
+ * and exposed as --font-vistol.
+ *
+ * The shape is taken from the reference sites: display headings set very heavy
+ * (700–800) with leading pulled in tight (~1.0–1.1) and tracking slightly
+ * negative, against body copy that stays modest in size with generous leading.
+ * The contrast between the two is what makes the page feel designed rather than
+ * just large.
+ *
+ * The `body .text-*` selectors outrank single-class Tailwind utilities, so these
+ * sizes hold wherever the markup uses the matching utility.
+ */
+
+html {
+  scroll-padding-top: 6.5rem;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+html body {
+  font-family: var(--font-vistol), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  letter-spacing: -0.006em;
+  font-weight: 400;
+  /* Clears the fixed header. */
+  padding-top: 5.5rem;
+  overflow-x: hidden;
+  max-width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 768px) {
+  html body {
+    padding-top: 6rem;
+  }
+}
+
+/* ---------------------------------------------------------------- headings */
+
+/*
+ * Headings run on Overpass, body copy on Vistol. The list below is the full
+ * definition of "a heading" on this site: the six elements, plus the classed
+ * titles and pull quotes that are headings typographically but are not h tags
+ * (a card title inside a link, a stage title in an ordered list, and so on).
+ * Eyebrows and kickers are deliberately absent — they are labels, and they
+ * stay on Vistol so they read as a different voice from the heading they
+ * introduce.
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title,
+.feature-title,
+.stage-title,
+.news-item-title,
+.team-name,
+.mega-feature-title,
+.mega-place-title,
+.magazine-back-title,
+.magazine-quote blockquote,
+.testimonial-quote {
+  font-family: var(--font-overpass);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--charcoal);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+}
+
+/*
+ * Display sizes. Each clamps between a comfortable phone size and the full
+ * desktop size, so headings scale continuously instead of stepping at
+ * breakpoints — the single biggest lever on how the site reads on mobile.
+ */
+body h1,
+body .text-6xl,
+body .text-5xl {
+  font-size: clamp(2.25rem, 1.35rem + 3.9vw, 4.25rem);
+  line-height: 1.03;
+  letter-spacing: -0.032em;
+}
+
+body h2,
+body .text-4xl {
+  font-size: clamp(1.875rem, 1.25rem + 2.5vw, 3rem);
+  line-height: 1.07;
+  letter-spacing: -0.028em;
+}
+
+body h3,
+body .text-3xl {
+  font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+}
+
+body .text-2xl {
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+body .text-xl {
+  font-size: 1.1875rem;
+  line-height: 1.4;
+  letter-spacing: -0.016em;
+}
+
+/* Utilities carrying a responsive prefix need the same treatment, otherwise the
+   clamped base above wins at every width and the breakpoint step never lands. */
+@media (min-width: 640px) {
+  body .sm\:text-5xl,
+  body .sm\:text-6xl {
+    font-size: clamp(2.75rem, 1.35rem + 3.9vw, 4.25rem);
+    line-height: 1.03;
+    letter-spacing: -0.032em;
+  }
+  body .sm\:text-4xl {
+    font-size: clamp(2.125rem, 1.25rem + 2.5vw, 3rem);
+    line-height: 1.07;
+    letter-spacing: -0.028em;
+  }
+}
+
+@media (min-width: 768px) {
+  body .md\:text-5xl {
+    font-size: clamp(2.75rem, 1.35rem + 3.9vw, 4.25rem);
+    line-height: 1.03;
+    letter-spacing: -0.032em;
+  }
+  body .md\:text-4xl {
+    font-size: clamp(2.125rem, 1.25rem + 2.5vw, 3rem);
+    line-height: 1.07;
+    letter-spacing: -0.028em;
+  }
+  body .md\:text-3xl {
+    font-size: clamp(1.5rem, 1.1rem + 1.1vw, 1.875rem);
+  }
+  body .md\:text-2xl {
+    font-size: clamp(1.3125rem, 1.1rem + 0.6vw, 1.5rem);
+  }
+  body .md\:text-xl {
+    font-size: 1.1875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body .lg\:text-6xl,
+  body .lg\:text-7xl {
+    font-size: clamp(3.25rem, 1.35rem + 3.9vw, 4.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.034em;
+  }
+}
+
+/* ------------------------------------------------------------- body copy */
+
+body .text-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+}
+
+body .text-base {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  letter-spacing: -0.006em;
+}
+
+body .text-sm {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  letter-spacing: -0.004em;
+}
+
+body .text-xs {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  letter-spacing: 0.002em;
+}
+
+/* Lede paragraphs: the sentence under a display heading. */
+body .lede {
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--ink-muted);
+  max-width: 40rem;
+}
+
+/* Small caps eyebrow above a heading — the reference sites both use one. */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange-text);
+}
+
+/* Footer text steps down one notch from body copy. */
+#footer .text-sm {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+#footer .text-xs {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+#footer .text-xl {
+  font-size: 1.1875rem;
+  line-height: 1.35;
+}
+
+/* Keep long words (URLs, emails) from forcing a horizontal scrollbar on phones. */
+p,
+li,
+dd,
+dt,
+figcaption {
+  overflow-wrap: break-word;
+}

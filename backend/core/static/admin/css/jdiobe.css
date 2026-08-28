@@ -1,0 +1,79 @@
+/*
+ * Dashboard theming.
+ *
+ * Django's admin is already a good tool; this only restates its colour
+ * variables in the Foundation's palette so the subdomain reads as part of the
+ * same site. No layout is overridden — that is what breaks on Django upgrades.
+ *
+ * Charcoal #3A3B47, orange #FE5C00, cream #FFF1E0. Actions on orange use
+ * charcoal text: white on this orange is 3.11:1 and fails AA, charcoal is
+ * 5.31:1 and passes.
+ */
+
+:root,
+html[data-theme="light"] {
+  --primary: #3a3b47;
+  --secondary: #3a3b47;
+  --accent: #fe5c00;
+
+  --header-bg: #3a3b47;
+  --header-color: #ffffff;
+  --header-branding-color: #fe5c00;
+  --header-link-color: #ffffff;
+
+  --breadcrumbs-bg: #fff1e0;
+  --breadcrumbs-fg: #3a3b47;
+  --breadcrumbs-link-fg: #c2410c;
+
+  --link-fg: #c2410c;
+  --link-hover-color: #fe5c00;
+  --link-selected-fg: #fe5c00;
+
+  --body-bg: #ffffff;
+  --body-fg: #3a3b47;
+  --body-quiet-color: #6b6a73;
+
+  --button-bg: #3a3b47;
+  --button-fg: #ffffff;
+  --button-hover-bg: #1c1d23;
+  --default-button-bg: #fe5c00;
+  --default-button-hover-bg: #e05100;
+  --close-button-bg: #6b6a73;
+
+  --selected-bg: #fff1e0;
+  --selected-row: #fff1e0;
+  --darkened-bg: #fbe6cf;
+
+  --object-tools-bg: #3a3b47;
+  --object-tools-fg: #ffffff;
+  --object-tools-hover-bg: #fe5c00;
+}
+
+/* The default action button is orange, so its label has to be charcoal. */
+.button.default,
+input[type="submit"].default,
+.submit-row input[type="submit"].default {
+  color: #1c1d23;
+  font-weight: 700;
+}
+
+#branding h1,
+#branding h1 a:link,
+#branding h1 a:visited {
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+#branding h1 .brand-accent {
+  color: #fe5c00;
+}
+
+/* Status pills in the changelist, so triage state is readable at a glance. */
+.field-status_badge span {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}

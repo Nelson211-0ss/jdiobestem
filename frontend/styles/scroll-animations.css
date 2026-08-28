@@ -1,0 +1,234 @@
+/* Scroll-triggered reveals. Shares the mega menu's ease-out-expo curve
+ * (0.16, 1, 0.3, 1) so motion reads the same everywhere on the site: quick to
+ * start, long soft settle. */
+.sr-fade-up,
+.sr-fade-left,
+.sr-fade-right,
+.sr-zoom {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sr-fade-up {
+  transform: translate3d(0, 2rem, 0);
+}
+
+.sr-fade-left {
+  transform: translate3d(-2rem, 0, 0);
+}
+
+.sr-fade-right {
+  transform: translate3d(2rem, 0, 0);
+}
+
+.sr-zoom {
+  transform: translate3d(0, 1.25rem, 0) scale(0.96);
+}
+
+.sr-fade-up.sr-in,
+.sr-fade-left.sr-in,
+.sr-fade-right.sr-in,
+.sr-zoom.sr-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Staggered children (grids / card rows) */
+.sr-stagger > .sr-fade-up:nth-child(1),
+.sr-stagger > .sr-fade-left:nth-child(1),
+.sr-stagger > .sr-fade-right:nth-child(1),
+.sr-stagger > .sr-zoom:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.sr-stagger > .sr-fade-up:nth-child(2),
+.sr-stagger > .sr-fade-left:nth-child(2),
+.sr-stagger > .sr-fade-right:nth-child(2),
+.sr-stagger > .sr-zoom:nth-child(2) {
+  transition-delay: 70ms;
+}
+
+.sr-stagger > .sr-fade-up:nth-child(3),
+.sr-stagger > .sr-fade-left:nth-child(3),
+.sr-stagger > .sr-fade-right:nth-child(3),
+.sr-stagger > .sr-zoom:nth-child(3) {
+  transition-delay: 140ms;
+}
+
+.sr-stagger > .sr-fade-up:nth-child(4),
+.sr-stagger > .sr-fade-left:nth-child(4),
+.sr-stagger > .sr-fade-right:nth-child(4),
+.sr-stagger > .sr-zoom:nth-child(4) {
+  transition-delay: 210ms;
+}
+
+.sr-stagger > .sr-fade-up:nth-child(5),
+.sr-stagger > .sr-fade-left:nth-child(5),
+.sr-stagger > .sr-fade-right:nth-child(5),
+.sr-stagger > .sr-zoom:nth-child(5) {
+  transition-delay: 280ms;
+}
+
+.sr-stagger > .sr-fade-up:nth-child(6),
+.sr-stagger > .sr-fade-left:nth-child(6),
+.sr-stagger > .sr-fade-right:nth-child(6),
+.sr-stagger > .sr-zoom:nth-child(6) {
+  transition-delay: 350ms;
+}
+
+/* Hero: subtle zoom on load (no scroll required for first paint story) */
+.hero-title-in {
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0);
+  animation: heroLineIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-title-in.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.hero-title-in.delay-2 {
+  animation-delay: 0.16s;
+}
+
+.hero-title-in.delay-3 {
+  animation-delay: 0.24s;
+}
+
+@keyframes heroLineIn {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Hero: decorative shape pattern drifts continuously in the background */
+.hero-bg-scroll {
+  background-repeat: repeat-x;
+  background-position: 0 center;
+  background-size: 1700px 100%;
+  animation: heroBgScroll 42s linear infinite;
+}
+
+@keyframes heroBgScroll {
+  from {
+    background-position: 0 center;
+  }
+  to {
+    background-position: -1700px center;
+  }
+}
+
+/* Impact stat cards: lift + icon pop on hover */
+.impact-stat-card {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.impact-stat-card:hover {
+  transform: translate3d(0, -0.25rem, 0);
+  box-shadow: 0 12px 24px -12px rgb(58 59 71 / 0.22);
+}
+
+.impact-stat-card span {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.impact-stat-card:hover span:first-child {
+  transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-stat-card,
+  .impact-stat-card span {
+    transition: none !important;
+  }
+
+  .impact-stat-card:hover {
+    transform: none !important;
+  }
+
+  .impact-stat-card:hover span:first-child {
+    transform: none !important;
+  }
+}
+
+/* Hero: solid wash overlay (no gradients) */
+.hero-parallax::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Hero image container moves with the card (no independent parallax shift) */
+.hero-parallax-bg {
+  transform: none;
+  will-change: auto;
+}
+
+/* Hero: scroll-down cue */
+.hero-scroll-cue {
+  opacity: 0;
+  animation: heroLineIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.65s;
+}
+
+.hero-scroll-cue-icon {
+  animation: heroScrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes heroScrollBounce {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 0.4rem, 0);
+  }
+}
+
+/* Partners logo strip: continuous scrolling marquee */
+@media (prefers-reduced-motion: reduce) {
+  .sr-fade-up,
+  .sr-fade-left,
+  .sr-fade-right,
+  .sr-zoom {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-title-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-parallax-bg {
+    transform: none !important;
+  }
+
+  .hero-bg-scroll {
+    animation: none !important;
+  }
+
+  .hero-scroll-cue {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-scroll-cue-icon {
+    animation: none !important;
+  }
+
+  .hero-slide {
+    transition: none !important;
+  }
+}

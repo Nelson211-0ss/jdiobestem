@@ -1,0 +1,120 @@
+{
+  "_note": "Partial export taken during the migration build, through the interactive monday.com connection. Run `import_from_monday` with MONDAY_API_TOKEN set to pull all 74 boards at full fidelity.",
+  "boards": [
+    {
+      "id": "5100996345",
+      "name": "Events",
+      "description": "Events hosted or attended by JdiobeSTEM (STEM fairs, donor events, community outreach days, graduations) across all regions.",
+      "items_count": 3,
+      "groups": [{"id": "topics", "title": "Group Title", "color": "#037f4c"}],
+      "columns": [
+        {"id": "name", "title": "Name", "type": "name", "settings_str": "{}"},
+        {"id": "color_mm5k5rws", "title": "Country", "type": "status", "settings_str": "{\"labels\":{\"101\":\"United States\",\"102\":\"Uganda\",\"103\":\"South Sudan\"},\"labels_positions_v2\":{\"101\":0,\"102\":1,\"103\":2}}"},
+        {"id": "date_mm5k4f0n", "title": "Event Date", "type": "date", "settings_str": "{}"},
+        {"id": "text_mm5kpv7g", "title": "Venue", "type": "text", "settings_str": "{}"},
+        {"id": "color_mm5kdmx2", "title": "Status", "type": "status", "settings_str": "{\"labels\":{\"101\":\"Planning\",\"102\":\"Confirmed\",\"103\":\"Completed\",\"104\":\"Cancelled\"},\"labels_positions_v2\":{\"101\":0,\"102\":1,\"103\":2,\"104\":3}}"},
+        {"id": "multiple_person_mm5k5md7", "title": "Organizer", "type": "people", "settings_str": "{}"}
+      ],
+      "items": [
+        {"id": "3112635037", "name": "Annual Uganda Youth STEM Fair", "updated_at": "2026-07-25T04:34:35Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "color_mm5k5rws", "type": "status", "text": "Uganda", "value": "{\"index\":102}"},
+          {"id": "date_mm5k4f0n", "type": "date", "text": "2026-09-20", "value": "{\"date\":\"2026-09-20\"}"},
+          {"id": "text_mm5kpv7g", "type": "text", "text": "Kampala STEM Hub", "value": "\"Kampala STEM Hub\""},
+          {"id": "color_mm5kdmx2", "type": "status", "text": "Planning", "value": "{\"index\":101}"}]},
+        {"id": "3112614229", "name": "South Sudan Community Outreach Day", "updated_at": "2026-07-25T04:34:35Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "color_mm5k5rws", "type": "status", "text": "South Sudan", "value": "{\"index\":103}"},
+          {"id": "date_mm5k4f0n", "type": "date", "text": "2026-10-05", "value": "{\"date\":\"2026-10-05\"}"},
+          {"id": "text_mm5kpv7g", "type": "text", "text": "Juba Community Center", "value": "\"Juba Community Center\""},
+          {"id": "color_mm5kdmx2", "type": "status", "text": "Planning", "value": "{\"index\":101}"}]},
+        {"id": "3112614187", "name": "Donor Appreciation Webinar", "updated_at": "2026-07-25T04:34:35Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "color_mm5k5rws", "type": "status", "text": "United States", "value": "{\"index\":101}"},
+          {"id": "date_mm5k4f0n", "type": "date", "text": "2026-11-14", "value": "{\"date\":\"2026-11-14\"}"},
+          {"id": "text_mm5kpv7g", "type": "text", "text": "Virtual", "value": "\"Virtual\""},
+          {"id": "color_mm5kdmx2", "type": "status", "text": "Confirmed", "value": "{\"index\":102}"}]}
+      ]
+    },
+    {
+      "id": "5100931572",
+      "name": "Grants Pipeline",
+      "description": "Manage the grant pipeline from opportunity through to payment date.",
+      "items_count": 4,
+      "groups": [{"id": "topics", "title": "Active Grants", "color": "#579bfc"}, {"id": "group_title", "title": "Grants Submitted", "color": "#a25ddc"}],
+      "columns": [
+        {"id": "name", "title": "Name", "type": "name", "settings_str": "{}"},
+        {"id": "status", "title": "Status", "type": "status", "settings_str": "{\"labels\":{\"0\":\"Working on it\",\"1\":\"Awarded\",\"2\":\"Declined\",\"3\":\"New\",\"4\":\"Submitted\"},\"labels_positions_v2\":{\"3\":0,\"0\":1,\"4\":2,\"1\":3,\"2\":4}}"},
+        {"id": "person", "title": "Owner", "type": "people", "settings_str": "{}"},
+        {"id": "date4", "title": "Due Date", "type": "date", "settings_str": "{}"},
+        {"id": "numbers", "title": "Grant Amount", "type": "numbers", "settings_str": "{\"unit\":{\"symbol\":\"$\",\"direction\":\"left\"}}"},
+        {"id": "color_mm5p7p49", "title": "Currency", "type": "status", "settings_str": "{\"labels\":{\"0\":\"USD\",\"1\":\"UGX\",\"2\":\"SSP\"}}"}
+      ],
+      "items": [
+        {"id": "3109357323", "name": "Grant Name 1", "updated_at": "2026-07-23T21:28:02Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "status", "type": "status", "text": "New", "value": "{\"index\":3}"},
+          {"id": "date4", "type": "date", "text": "2023-09-14", "value": "{\"date\":\"2023-09-14\"}"},
+          {"id": "numbers", "type": "numbers", "text": "35000", "value": "\"35000\""}]},
+        {"id": "3109357324", "name": "Grant Name 2", "updated_at": "2026-07-23T21:28:02Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "status", "type": "status", "text": "Working on it", "value": "{\"index\":0}"},
+          {"id": "date4", "type": "date", "text": "2023-08-25", "value": "{\"date\":\"2023-08-25\"}"},
+          {"id": "numbers", "type": "numbers", "text": "10000", "value": "\"10000\""}]},
+        {"id": "3109357326", "name": "Grant Name 3", "updated_at": "2026-07-23T21:28:03Z", "group": {"id": "group_title"}, "column_values": [
+          {"id": "status", "type": "status", "text": "Awarded", "value": "{\"index\":1}"},
+          {"id": "date4", "type": "date", "text": "2023-06-14", "value": "{\"date\":\"2023-06-14\"}"},
+          {"id": "numbers", "type": "numbers", "text": "50000", "value": "\"50000\""}]},
+        {"id": "3109357325", "name": "Grant Name 4", "updated_at": "2026-07-23T21:28:03Z", "group": {"id": "group_title"}, "column_values": [
+          {"id": "status", "type": "status", "text": "Awarded", "value": "{\"index\":1}"},
+          {"id": "date4", "type": "date", "text": "2023-07-11", "value": "{\"date\":\"2023-07-11\"}"},
+          {"id": "numbers", "type": "numbers", "text": "25000", "value": "\"25000\""}]}
+      ]
+    },
+    {
+      "id": "5100929697",
+      "name": "Schools",
+      "description": "Schools including location, type, enrollment, head teacher, establishment date, and status.",
+      "items_count": 5,
+      "groups": [{"id": "topics", "title": "Active Schools", "color": "#037f4c"}, {"id": "group_mm5hqenh", "title": "Archived Schools", "color": "#00c875"}],
+      "columns": [
+        {"id": "name", "title": "Name", "type": "name", "settings_str": "{}"},
+        {"id": "text_mm5h1tk", "title": "Town / Village", "type": "text", "settings_str": "{}"},
+        {"id": "color_mm5hf9wb", "title": "Status", "type": "status", "settings_str": "{\"labels\":{\"0\":\"Operating\",\"1\":\"Renovation\",\"2\":\"Closed\",\"17\":\"Planned\"},\"labels_positions_v2\":{\"0\":0,\"1\":1,\"2\":2,\"17\":5}}"},
+        {"id": "date_mm5hj896", "title": "Established", "type": "date", "settings_str": "{}"},
+        {"id": "numeric_mm5hba0y", "title": "Enrollment", "type": "numbers", "settings_str": "{\"unit\":{\"symbol\":\"custom\",\"custom_unit\":\" students\",\"direction\":\"right\"}}"},
+        {"id": "dropdown_mm5h24n", "title": "School Type", "type": "dropdown", "settings_str": "{\"labels\":[{\"id\":1,\"name\":\"Government-aided\"},{\"id\":2,\"name\":\"Private\"},{\"id\":3,\"name\":\"Community / PTA-founded\"},{\"id\":4,\"name\":\"Faith-based\"},{\"id\":5,\"name\":\"International\"}]}"},
+        {"id": "color_mm5qzsrv", "title": "Country", "type": "status", "settings_str": "{\"labels\":{\"0\":\"Uganda\",\"1\":\"South Sudan\"},\"labels_positions_v2\":{\"0\":0,\"1\":1}}"},
+        {"id": "color_mm5qy1wj", "title": "Region", "type": "status", "settings_str": "{\"labels\":{\"0\":\"Central\",\"1\":\"Eastern\",\"2\":\"Northern\",\"3\":\"Western\",\"4\":\"West Nile\",\"6\":\"Bahr el Ghazal\",\"7\":\"Equatoria\",\"9\":\"Upper Nile\"},\"labels_positions_v2\":{\"0\":0,\"1\":1,\"2\":2,\"3\":3,\"4\":4,\"6\":5,\"7\":6,\"9\":7}}"},
+        {"id": "text_mm5qp5bv", "title": "District", "type": "text", "settings_str": "{}"},
+        {"id": "text_mm5qzb0p", "title": "Sub-county / Payam", "type": "text", "settings_str": "{}"},
+        {"id": "text_mm5qpx15", "title": "Head Teacher", "type": "text", "settings_str": "{}"},
+        {"id": "phone_mm5qfg8n", "title": "Head Teacher Phone", "type": "phone", "settings_str": "{}"},
+        {"id": "text_mm5q8h5c", "title": "EMIS / Centre Number", "type": "text", "settings_str": "{}"}
+      ],
+      "items": [
+        {"id": "3109203430", "name": "Greenwood High School", "updated_at": "2026-07-23T20:14:13Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "text_mm5h1tk", "type": "text", "text": "Springfield", "value": "\"Springfield\""},
+          {"id": "color_mm5hf9wb", "type": "status", "text": "Operating", "value": "{\"index\":0}"},
+          {"id": "date_mm5hj896", "type": "date", "text": "1998-09-15", "value": "{\"date\":\"1998-09-15\"}"},
+          {"id": "numeric_mm5hba0y", "type": "numbers", "text": "850", "value": "\"850\""}]},
+        {"id": "3109237500", "name": "Lakeview Academy", "updated_at": "2026-07-23T20:14:13Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "text_mm5h1tk", "type": "text", "text": "Rivertown", "value": "\"Rivertown\""},
+          {"id": "color_mm5hf9wb", "type": "status", "text": "Operating", "value": "{\"index\":0}"},
+          {"id": "date_mm5hj896", "type": "date", "text": "2010-03-22", "value": "{\"date\":\"2010-03-22\"}"},
+          {"id": "numeric_mm5hba0y", "type": "numbers", "text": "430", "value": "\"430\""}]},
+        {"id": "3109218687", "name": "Pine Ridge Charter School", "updated_at": "2026-07-23T20:14:25Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "text_mm5h1tk", "type": "text", "text": "Hill Valley", "value": "\"Hill Valley\""},
+          {"id": "color_mm5hf9wb", "type": "status", "text": "Renovation", "value": "{\"index\":1}"},
+          {"id": "date_mm5hj896", "type": "date", "text": "2015-06-10", "value": "{\"date\":\"2015-06-10\"}"},
+          {"id": "numeric_mm5hba0y", "type": "numbers", "text": "620", "value": "\"620\""},
+          {"id": "dropdown_mm5h24n", "type": "dropdown", "text": "Community / PTA-founded", "value": "{\"ids\":[3]}"}]},
+        {"id": "3109256852", "name": "Future Horizon Academy", "updated_at": "2026-07-23T20:14:13Z", "group": {"id": "topics"}, "column_values": [
+          {"id": "text_mm5h1tk", "type": "text", "text": "New City", "value": "\"New City\""},
+          {"id": "color_mm5hf9wb", "type": "status", "text": "Planned", "value": "{\"index\":17}"},
+          {"id": "date_mm5hj896", "type": "date", "text": "2027-08-22", "value": "{\"date\":\"2027-08-22\"}"},
+          {"id": "numeric_mm5hba0y", "type": "numbers", "text": "0", "value": "\"0\""}]},
+        {"id": "3109257003", "name": "Oldtown School", "updated_at": "2026-07-23T20:14:13Z", "group": {"id": "group_mm5hqenh"}, "column_values": [
+          {"id": "text_mm5h1tk", "type": "text", "text": "Oldtown", "value": "\"Oldtown\""},
+          {"id": "color_mm5hf9wb", "type": "status", "text": "Closed", "value": "{\"index\":2}"},
+          {"id": "date_mm5hj896", "type": "date", "text": "1975-05-20", "value": "{\"date\":\"1975-05-20\"}"},
+          {"id": "numeric_mm5hba0y", "type": "numbers", "text": "500", "value": "\"500\""}]}
+      ]
+    }
+  ]
+}

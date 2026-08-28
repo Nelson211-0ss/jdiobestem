@@ -1,0 +1,312 @@
+import Link from 'next/link';
+import Icon from '@/components/Icon';
+import MagazineLogo from '@/components/MagazineLogo';
+import NewsletterForm from '@/components/NewsletterForm';
+import type { SiteIssue as Issue } from '@/lib/site-content';
+
+const isPublished = (i: Issue) => i.status === 'published';
+
+/**
+ * STEM Bridge Magazine.
+ *
+ * The page renders from the issues the CMS returns rather than naming any one
+ * of them, so it keeps working as issues accumulate: the newest leads the hero,
+ * the rest fall into the archive, and the copy switches between "read it" and
+ * "it's coming" from each issue's own status.
+ *
+ * Everything stated about an issue comes from its artwork — masthead, issue
+ * line, cover stories, back-cover epigraph. Nothing here invents a schedule or
+ * an article list that does not exist.
+ */
+
+function IssueCover({ issue, className = '' }: { issue: Issue; className?: string }) {
+  const img = (
+    <img
+      src={issue.cover}
+      alt={issue.coverAlt}
+      width={1226}
+      height={1600}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+
+  // With no file there is nothing to link to, so the cover is just an image.
+  if (!issue.file) return <div className={className}>{img}</div>;
+
+  const what = isPublished(issue) ? `Download ${issue.name}` : `${issue.name} — cover`;
+  return (
+    <a
+      href={issue.file.href}
+      download={issue.file.filename}
+      className={className}
+      aria-label={`${what} (PDF, ${issue.file.size})`}
+    >
+      {img}
+    </a>
+  );
+}
+
+export default function MagazineContent({ issues }: { issues: Issue[] }) {
+  const [featured, ...archive] = issues;
+  if (!featured) {
+    return (
+      <main>
+        <section className="section-tight">
+          <div className="container-page text-center">
+            <h1>STEM Bridge Magazine</h1>
+            <p className="mt-4 text-lg text-charcoal-600">No issues published yet.</p>
+          </div>
+        </section>
+      </main>
+    );
+  }
+  const live = isPublished(featured);
+  const file = featured.file;
+
+  return (
+    <>
+      <main>
+        {/* Masthead over the featured issue's artwork. */}
+        <section className="magazine-hero on-dark-surface">
+          {featured.wrap ? (
+            <img
+              src={featured.wrap}
+              alt=""
+              aria-hidden="true"
+              className="magazine-hero-bg"
+              width={1800}
+              height={1138}
+              loading="eager"
+              decoding="async"
+            />
+          ) : null}
+          <div className="magazine-hero-scrim" aria-hidden="true" />
+
+          <div className="container-page relative z-10">
+            <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+              <div>
+                <MagazineLogo className="magazine-masthead" />
+
+                <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-extrabold uppercase tracking-[0.16em] text-orange-400">
+                  <span>{live ? 'Featured issue' : 'Upcoming issue'}</span>
+                  <span aria-hidden="true">&middot;</span>
+                  <span className="text-white/70">{featured.label}</span>
+                  <span aria-hidden="true">&middot;</span>
+                  <span className="text-white/70">Free to read</span>
+                </p>
+
+                <p className="mt-6 max-w-xl text-lg leading-8 text-white/85">{featured.summary}</p>
+
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                  {file ? (
+                    <a href={file.href} download={file.filename} className="btn-primary">
+                      <Icon name="download" />
+                      {live ? 'Download the issue' : 'Download the cover'}
+                    </a>
+                  ) : null}
+                  <a href="#alerts" className="btn-ghost">
+                    {live ? 'Get the next one' : 'Tell me when it is out'}
+                  </a>
+                </div>
+
+                {file ? (
+                  <p className="mt-4 text-sm text-white/60">
+                    PDF &middot; {file.size} &middot; {file.contains.toLowerCase()}
+                    {live ? null : ' — the issue itself is in production'}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="justify-self-center lg:justify-self-end">
+                <IssueCover issue={featured} className="magazine-cover" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Contents of the featured issue */}
+        {featured.stories.length ? (
+          <section className="section-tight">
+            <div className="container-page">
+              <div className="section-head">
+                <p className="eyebrow">In this issue</p>
+                <h2>What {featured.name} covers</h2>
+                <p className="lede">The stories carried on the cover of {featured.name}.</p>
+              </div>
+
+              <div className="grid-cards-2">
+                {featured.stories.map((story) => (
+                  <article key={story.title} className="card-plain">
+                    <p className="eyebrow">Cover story</p>
+                    <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-charcoal-900">
+                      {story.title}
+                    </h3>
+                    <p className="mt-3 text-charcoal-600">{story.blurb}</p>
+                  </article>
+                ))}
+              </div>
+
+              {featured.epigraph ? (
+                <figure className="magazine-quote">
+                  <blockquote>{featured.epigraph.quote}</blockquote>
+                  <figcaption>
+                    {featured.epigraph.attribution} &middot; {featured.epigraph.source}
+                  </figcaption>
+                </figure>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
+
+        {/* Read / download */}
+        {file ? (
+          <section className="section-tight">
+            <div className="container-page">
+              <div className="panel-dark">
+                <div className="split">
+                  {featured.wrap ? (
+                    <div className="magazine-spread">
+                      <img
+                        src={featured.wrap}
+                        alt={featured.wrapAlt ?? ''}
+                        width={1800}
+                        height={1138}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  ) : null}
+
+                  <div>
+                    <p className="eyebrow">Read it</p>
+                    <h2 className="mt-3">
+                      {live ? `Download ${featured.name}` : `Download the ${featured.label} cover`}
+                    </h2>
+                    <p className="mt-5 text-lg leading-8 text-white/80">
+                      {live
+                        ? 'A free PDF — read it on any device, print it for a classroom, or pass it on to a student who needs to see what is possible.'
+                        : 'The cover is available now as a free PDF. The issue itself is still in production — sign up below and we will send it the moment it is ready.'}
+                    </p>
+
+                    <dl className="magazine-meta">
+                      <div>
+                        <dt>Format</dt>
+                        <dd>PDF</dd>
+                      </div>
+                      <div>
+                        <dt>Size</dt>
+                        <dd>{file.size}</dd>
+                      </div>
+                      <div>
+                        <dt>Contains</dt>
+                        <dd>{file.contains}</dd>
+                      </div>
+                    </dl>
+
+                    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                      <a href={file.href} download={file.filename} className="btn-primary">
+                        <Icon name="download" />
+                        Download PDF
+                      </a>
+                      <a
+                        href={file.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-ghost"
+                      >
+                        <Icon name="external-link" />
+                        Open in browser
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {/* Archive — appears on its own once there is a second issue. */}
+        {archive.length ? (
+          <section className="section-tight" id="archive">
+            <div className="container-page">
+              <div className="section-head">
+                <p className="eyebrow">Archive</p>
+                <h2>Past issues</h2>
+                <p className="lede">Every issue stays free to read and download.</p>
+              </div>
+
+              <div className="magazine-archive">
+                {archive.map((issue) => (
+                  <article key={issue.id} className="magazine-back-issue">
+                    <IssueCover issue={issue} className="magazine-back-cover" />
+                    <p className="magazine-back-label">{issue.label}</p>
+                    <h3 className="magazine-back-title">
+                      {issue.stories[0]?.title ?? issue.name}
+                    </h3>
+                    {issue.file ? (
+                      <a
+                        href={issue.file.href}
+                        download={issue.file.filename}
+                        className="link-cta mt-3"
+                      >
+                        Download
+                        <Icon name="download" />
+                      </a>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {/* Alerts + contribute */}
+        <section id="alerts" className="section-tight">
+          <div className="container-page">
+            <div className="grid-cards-2">
+              <div className="card-plain">
+                <p className="eyebrow">Stay posted</p>
+                <h2 className="mt-3">
+                  {live ? 'Know when the next issue lands' : 'Know when the issue lands'}
+                </h2>
+                <p className="mt-4 text-charcoal-600">
+                  {issues.length > 1
+                    ? 'New issues are published as the work is ready rather than to a fixed calendar. Leave your email and we will tell you the moment the next one is out — nothing else.'
+                    : 'This is the first issue and there is no fixed publication date yet. Leave your email and we will tell you the moment it is ready — nothing else.'}
+                </p>
+                <NewsletterForm
+                  source="magazine"
+                  id="magazine-alert-email"
+                  tone="light"
+                  label="Your email"
+                  cta="Notify me"
+                  doneMessage="Done — we'll email you the moment the next issue is out."
+                />
+              </div>
+
+              <div className="card-plain">
+                <p className="eyebrow">Contribute</p>
+                <h2 className="mt-3">Write for the magazine</h2>
+                <p className="mt-4 text-charcoal-600">
+                  The magazine exists to publish the students in our programs &mdash; what they
+                  built, what broke, and what they learned fixing it. If you are a student, mentor,
+                  or teacher with a story like that, we want to read it.
+                </p>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <Link href="/contact" className="btn-primary">
+                    Pitch a story
+                    <Icon name="arrow-right" />
+                  </Link>
+                  <Link href="/programs" className="btn-ghost">
+                    See the programs
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}

@@ -1,4 +1,26 @@
 node_modules/
+.next/
+frontend/out/
 .env
-.env.local
-.vercel
+.env*.local
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Python backend ---
+backend/.env
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.py[cod]
+backend/staticfiles/
+backend/media/
+backend/db.sqlite3
+
+# Deployment secrets and TLS material — these live on the host, never in git.
+.env.prod
+deploy/nginx/certs/
+deploy/acme/
+deploy/letsencrypt/
+*.pem
+*.key

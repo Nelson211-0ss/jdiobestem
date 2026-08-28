@@ -1,0 +1,3300 @@
+/*
+ * ============================================================================
+ * Jdiobe STEM Foundation — design system
+ * ============================================================================
+ *
+ * Five colours: cream, charcoal, orange, white, black.
+ *
+ * The layout language borrows from two references:
+ *  - a cream page carrying white cards, fully-rounded orange pill buttons, heavy
+ *    uppercase section headings, and full-bleed orange CTA panels;
+ *  - very large display headings with tight leading, generous section rhythm,
+ *    asymmetric hero composition, and a hand-drawn underline on a key word.
+ *
+ * Structure below: tokens → base → surfaces → buttons → cards → sections →
+ * decoration → navigation → hero → forms → utility.
+ *
+ * Tailwind's layers load after this file, so plain utilities win over anything
+ * here at equal specificity. Component classes therefore either use a
+ * two-class/descendant selector or accept being a default the markup can
+ * override — both are deliberate.
+ */
+
+:root {
+  /* --- the five ------------------------------------------------------- */
+  --cream: #fff1e0;
+  --charcoal: #3a3b47;
+  --brand-orange: #fe5c00;
+  --white: #ffffff;
+  --black: #000000;
+
+  /* --- working tints (all derived from the five) ----------------------- */
+  --cream-soft: #fffbf6;
+  --cream-deep: #fbe6cf;
+  --cream-line: #f3d6b8;
+
+  --charcoal-900: #1c1d23;
+  --charcoal-800: #2b2c35;
+  --charcoal-600: #4e4f5a;
+  --charcoal-500: #65656f;
+  --charcoal-300: #bbb7b5;
+  --charcoal-200: #dad6d1;
+  --charcoal-100: #edeae6;
+
+  --brand-orange-hover: #e04f00;
+  --brand-orange-text: #c2410c; /* 4.85 on cream — smallest passing orange text */
+  --brand-orange-soft: #ffe4d1;
+  --brand-orange-300: #ffa26e; /* the soft accent tint the feature icons use */
+  --brand-orange-wash: #fff4ec;
+
+  /* --- semantic roles -------------------------------------------------- */
+  --page: var(--white);
+  --surface: var(--white);
+  --ink: var(--charcoal);
+  --ink-strong: var(--charcoal);
+  --ink-muted: var(--charcoal-500);
+  --line: var(--charcoal-200);
+  --line-soft: var(--cream-line);
+
+  /*
+   * Ink on an orange fill.
+   *
+   * White on #FE5C00 is 3.11:1 — it clears AA for large text but fails for body
+   * copy and for button labels, which is most of what actually sits on orange.
+   * Charcoal on the same fill is 5.31:1 and passes everywhere, so orange
+   * surfaces take charcoal ink throughout. This is also what the project's
+   * original colour spec called for ("filled buttons use charcoal text").
+   */
+  --on-brand: #1c1d23;
+  --on-brand-muted: rgb(28 29 35 / 0.9);
+
+  /* Ink on charcoal. */
+  --on-dark: #ffffff;
+  --on-dark-muted: rgb(255 255 255 / 0.72);
+
+  /* --- shape ------------------------------------------------------------ */
+  --r-pill: 999px;
+  --r-card: 1.5rem;
+  --r-panel: 2rem;
+  --r-media: 1.25rem;
+
+  /* --- rhythm ----------------------------------------------------------- */
+  --section-y: clamp(3.5rem, 2.2rem + 5.2vw, 7rem);
+  --gutter: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
+  --content: 75rem;
+
+  /* --- lift ------------------------------------------------------------- */
+  --shadow-card: 0 2px 4px -2px rgb(58 59 71 / 0.06), 0 12px 28px -12px rgb(58 59 71 / 0.14);
+  --shadow-card-hover: 0 4px 8px -4px rgb(58 59 71 / 0.08), 0 24px 48px -16px rgb(58 59 71 / 0.2);
+  --shadow-panel: 0 32px 64px -24px rgb(58 59 71 / 0.22);
+}
+
+/* ============================================================ base */
+
+body {
+  background-color: var(--page);
+  color: var(--ink);
+}
+
+/*
+ * Cream is the homepage's ground. Every other page runs on white and spends
+ * cream only where a band needs to warm up — the site reads lighter, and the
+ * white cards that carry most of the content stop competing with the page.
+ * `.hero-home` marks the homepage; no other page renders it.
+ */
+body:has(.hero-home) {
+  --page: var(--cream);
+}
+
+::selection {
+  background: var(--brand-orange);
+  color: #fff;
+}
+
+:where(a, button, [role='button'], input, select, textarea):focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Images should never be able to push the page wider than the viewport. */
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+strong,
+b {
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+/* Inline links inside body copy — orange, underlined on hover only. */
+.prose-body a:not([class]),
+p a:not([class]) {
+  color: var(--brand-orange-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--brand-orange-soft);
+  transition: text-decoration-color 0.15s ease;
+}
+
+.prose-body a:not([class]):hover,
+p a:not([class]):hover {
+  text-decoration-color: var(--brand-orange);
+}
+
+/* ============================================================ surfaces */
+
+/*
+ * .surface-brand — a block filled with brand orange. Everything inside it flips
+ * to on-brand ink. The descendant rules below exist because the markup carries
+ * Tailwind colour utilities that were written for a white page; on an orange
+ * fill they would be invisible or illegible, so they are neutralised here.
+ */
+.surface-brand {
+  background-color: var(--brand-orange);
+  color: var(--on-brand);
+}
+
+.surface-brand h1,
+.panel-brand h1,
+.surface-brand h2,
+.panel-brand h2,
+.surface-brand h3,
+.panel-brand h3,
+.surface-brand h4,
+.panel-brand h4,
+.surface-brand dt,
+.panel-brand dt,
+.surface-brand strong,
+.panel-brand strong {
+  color: var(--on-brand);
+}
+
+/* Utilities that hard-code white ink would drop back to 3.11:1 on the fill. */
+.surface-brand .text-white,
+.panel-brand .text-white,
+.surface-brand [class*='text-white/'],
+.panel-brand [class*='text-white/'],
+.surface-brand [class*='text-orange-1'],
+.panel-brand [class*='text-orange-1'],
+.surface-brand [class*='text-orange-2'],
+.panel-brand [class*='text-orange-2'] {
+  color: var(--on-brand-muted);
+}
+
+.surface-brand p,
+.panel-brand p,
+.surface-brand li,
+.panel-brand li,
+.surface-brand dd,
+.panel-brand dd,
+.surface-brand span,
+.panel-brand span {
+  color: inherit;
+}
+
+.surface-brand .on-brand-muted,
+.panel-brand .on-brand-muted,
+.surface-brand .text-white\/80,
+.panel-brand .text-white\/80,
+.surface-brand .text-white\/85,
+.panel-brand .text-white\/85,
+.surface-brand .text-white\/90,
+.panel-brand .text-white\/90 {
+  color: var(--on-brand-muted);
+}
+
+.surface-brand svg.feather,
+.panel-brand svg.feather {
+  color: currentColor;
+}
+
+/* Orange-family utilities are unreadable on an orange fill — force them white. */
+.surface-brand [class*='text-orange-1'],
+.panel-brand [class*='text-orange-1'],
+.surface-brand [class*='text-orange-2'],
+.panel-brand [class*='text-orange-2'],
+.surface-brand [class*='text-orange-3'],
+.panel-brand [class*='text-orange-3'],
+.surface-brand [class*='text-orange-4'],
+.panel-brand [class*='text-orange-4'],
+.surface-brand [class*='text-orange-5'],
+.panel-brand [class*='text-orange-5'],
+.surface-brand [class*='text-gray-3'],
+.panel-brand [class*='text-gray-3'],
+.surface-brand [class*='text-gray-4'],
+.panel-brand [class*='text-gray-4'] {
+  color: var(--on-brand-muted);
+}
+
+/* .surface-dark — charcoal band, used by the footer and dark CTA strips. */
+.surface-dark {
+  background-color: var(--charcoal-900);
+  color: var(--on-dark);
+}
+
+.surface-dark h1,
+.panel-dark h1,
+.surface-dark h2,
+.panel-dark h2,
+.surface-dark h3,
+.panel-dark h3,
+.surface-dark h4,
+.panel-dark h4 {
+  color: var(--on-dark);
+}
+
+/* .surface-cream / .surface-white — the two page bands. */
+.surface-cream {
+  background-color: var(--cream);
+}
+
+.surface-white {
+  background-color: var(--white);
+}
+
+/* ============================================================ buttons */
+
+/*
+ * One pill shape, four fills. Every call to action on the site should be one of
+ * these; the size is set by padding, not by a modifier, so they stay legible on
+ * a phone without a separate mobile rule.
+ */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-ghost,
+.btn-on-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--r-pill);
+  padding: 0.8125rem 1.625rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  white-space: nowrap;
+  border: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.btn svg,
+.btn-primary svg,
+.btn-secondary svg,
+.btn-ghost svg,
+.btn-on-brand svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+}
+
+/* Orange fill, white label — the primary action. */
+.btn-primary {
+  background-color: var(--brand-orange);
+  color: var(--charcoal-900);
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-orange-hover);
+  color: #000;
+}
+
+/* Charcoal fill — secondary weight, and the safe choice on an orange-adjacent
+   background where an orange button would disappear. */
+.btn-secondary {
+  background-color: var(--charcoal);
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: var(--charcoal-900);
+}
+
+/* Secondary action. Filled with a charcoal tint rather than outlined — the site
+   draws no borders, and a button with neither fill nor outline is just text. */
+.btn-ghost {
+  background-color: rgb(58 59 71 / 0.08);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  background-color: rgb(58 59 71 / 0.14);
+}
+
+/*
+ * Surface-aware pair. The same two classes appear on cream sections and on
+ * orange/charcoal/photographic ones, so rather than auditing every call site
+ * they resolve by context: on a light surface they are an orange fill and a
+ * charcoal outline; inside a dark surface they invert to white.
+ *
+ * `.on-dark-surface` is the opt-in hook for a photographic hero, which has no
+ * flat background colour of its own to key off.
+ */
+.btn-on-brand {
+  background-color: var(--brand-orange);
+  color: var(--charcoal-900);
+}
+
+.btn-on-brand:hover {
+  background-color: var(--brand-orange-hover);
+  color: #000;
+}
+
+.btn-outline-on-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--r-pill);
+  padding: 0.8125rem 1.625rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  border: 0;
+  color: var(--ink);
+  background-color: rgb(58 59 71 / 0.08);
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.btn-outline-on-brand:hover {
+  background-color: rgb(58 59 71 / 0.14);
+}
+
+.btn-outline-on-brand svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+}
+
+/* --- inside a dark or brand-filled surface ---------------------------- */
+
+.surface-brand .btn-on-brand,
+.panel-brand .btn-on-brand,
+.surface-dark .btn-on-brand,
+.panel-dark .btn-on-brand,
+.on-dark-surface .btn-on-brand,
+.surface-brand .btn-primary,
+.panel-brand .btn-primary,
+.surface-dark .btn-primary,
+.panel-dark .btn-primary,
+.on-dark-surface .btn-primary {
+  background-color: var(--charcoal-900);
+  color: #fff;
+}
+
+.surface-dark .btn-on-brand,
+.panel-dark .btn-on-brand,
+.on-dark-surface .btn-on-brand,
+.surface-dark .btn-primary,
+.panel-dark .btn-primary,
+.on-dark-surface .btn-primary {
+  background-color: var(--brand-orange);
+  color: var(--charcoal-900);
+}
+
+.surface-brand .btn-on-brand:hover,
+.panel-brand .btn-on-brand:hover,
+.surface-brand .btn-primary:hover,
+.panel-brand .btn-primary:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.surface-dark .btn-on-brand:hover,
+.panel-dark .btn-on-brand:hover,
+.on-dark-surface .btn-on-brand:hover,
+.surface-dark .btn-primary:hover,
+.panel-dark .btn-primary:hover,
+.on-dark-surface .btn-primary:hover {
+  background-color: var(--brand-orange-hover);
+  color: #000;
+}
+
+.surface-dark .btn-outline-on-brand,
+.panel-dark .btn-outline-on-brand,
+.on-dark-surface .btn-outline-on-brand,
+.surface-dark .btn-ghost,
+.panel-dark .btn-ghost,
+.on-dark-surface .btn-ghost {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.18);
+}
+
+.surface-brand .btn-outline-on-brand,
+.panel-brand .btn-outline-on-brand,
+.surface-brand .btn-ghost,
+.panel-brand .btn-ghost {
+  color: var(--on-brand);
+  background-color: rgb(28 29 35 / 0.14);
+}
+
+.surface-brand .btn-outline-on-brand:hover,
+.panel-brand .btn-outline-on-brand:hover,
+.surface-brand .btn-ghost:hover,
+.panel-brand .btn-ghost:hover {
+  background-color: rgb(28 29 35 / 0.22);
+  color: var(--charcoal-900);
+}
+
+.surface-brand .btn-outline-on-brand:hover,
+.panel-brand .btn-outline-on-brand:hover,
+.surface-dark .btn-outline-on-brand:hover,
+.panel-dark .btn-outline-on-brand:hover,
+.on-dark-surface .btn-outline-on-brand:hover,
+/* A charcoal button inside a dark surface would vanish; make it the white one. */
+.surface-dark .btn-secondary,
+.on-dark-surface .btn-secondary {
+  background-color: #fff;
+  color: var(--charcoal);
+}
+
+/* A text link that behaves like a CTA: label, arrow, orange underline on hover. */
+.link-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  color: var(--brand-orange-text);
+  letter-spacing: -0.01em;
+}
+
+.link-cta svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform 0.18s ease;
+}
+
+.link-cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ============================================================ cards */
+
+/*
+ * White card on the cream page. Image flush at the top, padded body, action at
+ * the bottom. The whole card lifts on hover when it is a link.
+ */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  height: 100%;
+  transition:
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+a.card:hover,
+.card-hover:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.card-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--cream-deep);
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .card-media img {
+  transform: scale(1.04);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1.5rem;
+  flex: 1 1 auto;
+}
+
+@media (min-width: 768px) {
+  .card-body {
+    padding: 1.75rem;
+  }
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink-strong);
+}
+
+.card-text {
+  color: var(--ink-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Pushes the card's action to the bottom edge so a row of cards aligns. */
+.card-action {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+/* A card with no image — heavier padding, optional icon plate at the top. */
+.card-plain {
+  background-color: var(--white);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  padding: 1.75rem;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .card-plain {
+    padding: 2rem;
+  }
+}
+
+/* Circular icon plate. */
+.icon-plate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--r-pill);
+  background-color: var(--brand-orange-wash);
+  color: var(--brand-orange);
+  flex: none;
+}
+
+.icon-plate svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.surface-dark .icon-plate,
+.panel-dark .icon-plate {
+  background-color: rgb(255 255 255 / 0.16);
+  color: #fff;
+}
+
+.surface-brand .icon-plate,
+.panel-brand .icon-plate {
+  background-color: rgb(28 29 35 / 0.12);
+  color: var(--on-brand);
+}
+
+/* ============================================================ sections */
+
+.section {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+.section-tight {
+  padding-top: calc(var(--section-y) * 0.62);
+  padding-bottom: calc(var(--section-y) * 0.62);
+}
+
+.container-page {
+  width: 100%;
+  max-width: var(--content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Centred section intro: eyebrow, heading, lede. */
+.section-head {
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: clamp(2rem, 1.4rem + 2.4vw, 3.5rem);
+}
+
+.section-head > * + * {
+  margin-top: 0.875rem;
+}
+
+.section-head .lede {
+  margin-inline: auto;
+}
+
+/* Heavy uppercase display heading — the reference sites' section header. */
+.display-caps {
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Card grids. `auto-fit` means these reflow on any screen without breakpoints. */
+.grid-cards {
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.grid-cards-2 {
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+}
+
+/* Two-column split: media on one side, copy on the other. Stacks under 900px. */
+.split {
+  display: grid;
+  gap: clamp(2rem, 1.4rem + 2.6vw, 4rem);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .split-reverse > :first-child {
+    order: 2;
+  }
+}
+
+/* Media block with one squared corner — a small signature that keeps large
+   rounded images from looking like generic stock blocks. */
+.media-shape {
+  border-radius: var(--r-panel) var(--r-panel) var(--r-panel) 0;
+  overflow: hidden;
+  background-color: var(--cream-deep);
+}
+
+.media-shape img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================ panels */
+
+/*
+ * Full-bleed orange CTA panel with a large radius — the site's loudest module.
+ * Used once per page at most.
+ */
+.panel-brand {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-panel);
+  background-color: var(--brand-orange);
+  color: var(--on-brand);
+  padding: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  box-shadow: var(--shadow-panel);
+}
+
+.panel-dark {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-panel);
+  background-color: var(--charcoal-900);
+  color: var(--on-dark);
+  padding: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+}
+
+.panel-cream {
+  border-radius: var(--r-panel);
+  background-color: var(--cream);
+  padding: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+}
+
+/* ============================================================ decoration */
+
+/*
+ * Hand-drawn underline under a key word in a heading. The stroke is an inline
+ * SVG so it scales with the text and needs no asset.
+ */
+.underline-sketch {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.underline-sketch::after {
+  content: '';
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: -0.22em;
+  height: 0.24em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 22' preserveAspectRatio='none'%3E%3Cpath d='M3 15c48-8 104-12 160-11 44 1 92 5 134 13' fill='none' stroke='%23FE5C00' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+.surface-dark .underline-sketch::after,
+.panel-dark .underline-sketch::after,
+.on-dark-surface .underline-sketch::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 22' preserveAspectRatio='none'%3E%3Cpath d='M3 15c48-8 104-12 160-11 44 1 92 5 134 13' fill='none' stroke='%23FFFFFF' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Checkerboard band — a divider between sections. */
+.pattern-band {
+  height: 2.25rem;
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(45deg, var(--brand-orange) 25%, transparent 25%, transparent 75%, var(--brand-orange) 75%),
+    linear-gradient(45deg, var(--brand-orange) 25%, transparent 25%, transparent 75%, var(--brand-orange) 75%);
+  background-size: 2.25rem 2.25rem;
+  background-position:
+    0 0,
+    1.125rem 1.125rem;
+}
+
+/* A short orange rule used to open a left-aligned section. */
+.rule-brand::before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 4px;
+  border-radius: 999px;
+  background-color: var(--brand-orange);
+  margin-bottom: 1.25rem;
+}
+
+/* Logo marquee for the partner wall. */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+  width: max-content;
+  animation: marquee-scroll 38s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================ navigation */
+
+/*
+ * The bar is opaque from the start — a translucent header over a light page
+ * has nothing to contrast against. White everywhere except the homepage, which
+ * runs on cream. It gains a shadow once the page scrolls.
+ */
+.site-nav {
+  background-color: var(--white);
+}
+
+/* Scrolled state is a shadow only — the site draws no rules anywhere. */
+.site-nav.is-scrolled {
+  background-color: var(--white);
+  box-shadow: 0 10px 26px -22px rgb(58 59 71 / 0.5);
+}
+
+/* The homepage bar sits on the cream ground, so it is cream too. */
+body:has(.hero-home) .site-nav,
+body:has(.hero-home) .site-nav.is-scrolled {
+  background-color: var(--cream);
+}
+
+/* With a panel open, bar and panel are one continuous white surface. */
+.site-nav.is-mega-open,
+body:has(.hero-home) .site-nav.is-mega-open {
+  background-color: var(--white);
+  box-shadow: none;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  padding: 0.4rem 0;
+  transition: color 0.16s ease;
+}
+
+.nav-link:hover {
+  color: var(--brand-orange);
+}
+
+.nav-link svg.feather {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.75;
+}
+
+.nav-mega-btn {
+  background: none;
+  border: 0;
+}
+
+.nav-mega-btn .nav-caret {
+  width: 0.85rem;
+  height: 0.85rem;
+  transition: transform 0.18s ease;
+  opacity: 0.7;
+}
+
+.nav-mega-btn.is-active {
+  color: var(--brand-orange);
+}
+
+.nav-mega-btn.is-active .nav-caret {
+  transform: rotate(180deg);
+}
+
+.nav-link-mobile {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.nav-link-mobile svg.feather {
+  width: 1.15rem;
+  height: 1.15rem;
+  opacity: 0.7;
+}
+
+/* --- mega panel ------------------------------------------------------- */
+
+.mega-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 40;
+  background-color: var(--white);
+  box-shadow: 0 28px 48px -28px rgb(58 59 71 / 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s;
+}
+
+.mega-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mega-col {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+.mega-panel.is-open .mega-col {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mega-panel.is-open .mega-col:nth-child(1) {
+  transition-delay: 0.04s;
+}
+.mega-panel.is-open .mega-col:nth-child(2) {
+  transition-delay: 0.09s;
+}
+.mega-panel.is-open .mega-col:nth-child(3) {
+  transition-delay: 0.14s;
+}
+
+.mega-heading {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-orange-text);
+  margin-bottom: 0.9rem;
+}
+
+.mega-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.55rem 0.7rem;
+  margin-left: -0.7rem;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.mega-link:hover {
+  background-color: var(--cream);
+  color: var(--brand-orange-text);
+}
+
+/*
+ * A square box, not width-only sizing: an SVG with a viewBox letterboxes inside
+ * its box rather than distorting, so a square keeps every icon at the same
+ * optical size regardless of its own aspect ratio. Width-only left the short
+ * ones (community outreach) looking half the size of the tall ones
+ * (scholarships). They carry their own two-tone fills, re-tintable through the
+ * --mega-ico-* variables.
+ */
+.mega-ico {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  --mega-ico-ink: var(--charcoal);
+  --mega-ico-accent: var(--brand-orange);
+  --mega-ico-paper: var(--white);
+}
+
+.mega-link:hover .mega-ico {
+  --mega-ico-ink: var(--brand-orange-text);
+}
+
+/* Featured promo inside a mega panel. */
+.mega-feature {
+  display: block;
+  border-radius: var(--r-media);
+  overflow: hidden;
+  background-color: var(--cream);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mega-feature:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.mega-feature-img {
+  width: 100%;
+  height: 9rem;
+  object-fit: cover;
+}
+
+.mega-feature-body {
+  display: block;
+  padding: 1.1rem 1.25rem 1.35rem;
+}
+
+.mega-feature-eyebrow {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange-text);
+}
+
+.mega-feature-title {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--ink-strong);
+}
+
+.mega-feature-text {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.mega-feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--brand-orange-text);
+}
+
+.mega-feature:hover .mega-feature-cta svg {
+  transform: translateX(3px);
+}
+
+.mega-feature-cta svg {
+  transition: transform 0.18s ease;
+}
+
+/* Region tiles inside a mega panel. */
+.mega-place {
+  display: block;
+  border-radius: var(--r-media);
+  overflow: hidden;
+  background-color: var(--cream);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mega-place:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.mega-place-img {
+  width: 100%;
+  height: 6.5rem;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.mega-place:hover .mega-place-img {
+  transform: scale(1.05);
+}
+
+.mega-place-body {
+  display: block;
+  padding: 0.85rem 1rem 1.05rem;
+}
+
+.mega-place-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.mega-place-title svg {
+  color: var(--brand-orange);
+}
+
+.mega-place-text {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+/* --- mobile menu ------------------------------------------------------ */
+
+.mobile-menu {
+  background-color: var(--white);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-1rem);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    visibility 0.28s;
+}
+
+body:has(.hero-home) .mobile-menu {
+  background-color: var(--cream);
+}
+
+.mobile-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-menu .nav-link-mobile {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.mobile-menu.is-open .nav-link-mobile {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu.is-open .nav-link-mobile:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(2) {
+  transition-delay: 0.09s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(3) {
+  transition-delay: 0.13s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(4) {
+  transition-delay: 0.17s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(5) {
+  transition-delay: 0.21s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(6) {
+  transition-delay: 0.25s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(7) {
+  transition-delay: 0.29s;
+}
+.mobile-menu.is-open .nav-link-mobile:nth-child(8) {
+  transition-delay: 0.33s;
+}
+
+/* --- hamburger -------------------------------------------------------- */
+
+.hamburger-line {
+  position: absolute;
+  display: block;
+  height: 2px;
+  width: 1.375rem;
+  border-radius: 999px;
+  background-color: var(--ink);
+  transition:
+    transform 0.28s ease,
+    opacity 0.2s ease;
+}
+
+.hamburger-line-1 {
+  transform: translateY(-0.4rem);
+}
+
+.hamburger-line-3 {
+  transform: translateY(0.4rem);
+}
+
+.hamburger-btn[aria-expanded='true'] .hamburger-line-1 {
+  transform: translateY(0) rotate(45deg);
+}
+
+.hamburger-btn[aria-expanded='true'] .hamburger-line-2 {
+  opacity: 0;
+}
+
+.hamburger-btn[aria-expanded='true'] .hamburger-line-3 {
+  transform: translateY(0) rotate(-45deg);
+}
+
+/* ============================================================ page hero */
+
+/*
+ * Inner-page hero. White rather than a full orange slab: the orange now belongs
+ * to the buttons and accents, and the header bar overlaps the hero, so the two
+ * have to be the same ground or the masthead reads as a separate band.
+ */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--white);
+  color: var(--ink);
+  margin-top: -5.5rem;
+  padding-top: calc(clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem) + 5.5rem);
+  padding-bottom: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
+}
+
+@media (min-width: 768px) {
+  .page-hero {
+    margin-top: -6rem;
+    padding-top: calc(clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem) + 6rem);
+  }
+}
+
+/* A photo behind the hero is held far back so the heading stays readable. */
+.page-hero__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.14;
+  filter: saturate(0.75);
+  user-select: none;
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.72) 0%, rgb(255 255 255 / 0.94) 100%);
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 10;
+  margin-inline: auto;
+  max-width: var(--content);
+  padding-inline: var(--gutter);
+}
+
+.page-hero__eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange-text);
+}
+
+.page-hero h1 {
+  margin-top: 0.65rem;
+  max-width: 20ch;
+  color: var(--ink-strong);
+}
+
+.page-hero__lede {
+  margin-top: 1rem;
+  max-width: 40rem;
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* Where a hero is still explicitly orange, restore on-brand ink. */
+.page-hero.surface-brand {
+  background-color: var(--brand-orange);
+  color: var(--on-brand);
+}
+
+.page-hero.surface-brand .page-hero__overlay {
+  background: linear-gradient(180deg, rgb(254 92 0 / 0.72) 0%, rgb(254 92 0 / 0.9) 100%);
+}
+
+.page-hero.surface-brand .page-hero__bg {
+  opacity: 0.22;
+}
+
+.page-hero.surface-brand h1 {
+  color: var(--on-brand);
+}
+
+.page-hero.surface-brand .page-hero__eyebrow,
+.page-hero.surface-brand .page-hero__lede {
+  color: var(--on-brand-muted);
+}
+
+/* ============================================================ forms */
+
+/*
+ * Fields are filled, not outlined — the site draws no borders anywhere, so an
+ * input reads as an input by being a recessed tinted well. Focus is an orange
+ * ring drawn with box-shadow, which needs no border to sit on.
+ */
+.field,
+.contact-field,
+.volunteer-field,
+.newsletter-field {
+  width: 100%;
+  border: 0;
+  border-radius: 0.875rem;
+  background-color: var(--cream);
+  padding: 0.8125rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--ink);
+  transition:
+    background-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.field::placeholder,
+.contact-field::placeholder,
+.volunteer-field::placeholder,
+.newsletter-field::placeholder {
+  color: var(--charcoal-400, #8b8a92);
+}
+
+.field:focus,
+.contact-field:focus,
+.volunteer-field:focus,
+.newsletter-field:focus {
+  outline: none;
+  background-color: var(--white);
+  box-shadow: 0 0 0 3px var(--brand-orange);
+}
+
+/* A cream well would vanish on the cream page, so fields sitting directly on it
+   (rather than inside a white card) take the white fill instead. */
+.surface-cream .field,
+.page-hero .field {
+  background-color: var(--white);
+}
+
+/* Footer newsletter: a light well on the charcoal band. */
+.newsletter-field {
+  background-color: rgb(255 255 255 / 0.12);
+  color: #fff;
+}
+
+.newsletter-field::placeholder {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.newsletter-field:focus {
+  background-color: rgb(255 255 255 / 0.18);
+  box-shadow: 0 0 0 3px var(--brand-orange);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+/* On orange or a dark photo the well is a light translucent fill, and focus is a
+   white ring — an orange ring on orange would not register. */
+.surface-brand .field,
+.panel-brand .field,
+.surface-brand .contact-field,
+.panel-brand .contact-field,
+.surface-brand .volunteer-field,
+.panel-brand .volunteer-field,
+.on-dark-surface .field,
+.on-dark-surface .contact-field,
+.on-dark-surface .volunteer-field {
+  background-color: rgb(255 255 255 / 0.92);
+  color: var(--ink);
+}
+
+.surface-brand .field:focus,
+.panel-brand .field:focus,
+.surface-brand .contact-field:focus,
+.panel-brand .contact-field:focus,
+.surface-brand .volunteer-field:focus,
+.panel-brand .volunteer-field:focus,
+.on-dark-surface .field:focus,
+.on-dark-surface .contact-field:focus,
+.on-dark-surface .volunteer-field:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+/* ============================================================ preloader */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  transition: opacity 0.45s ease;
+}
+
+body:has(.hero-home) .preloader {
+  background-color: var(--cream);
+}
+
+.preloader.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-spinner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.preloader-spinner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 3px solid var(--brand-orange-soft);
+  border-top-color: var(--brand-orange);
+  animation: preloader-spin 0.85s linear infinite;
+}
+
+.preloader-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+@keyframes preloader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================ utility */
+
+/* Stat figure — big orange number over a small charcoal label. */
+.stat-figure {
+  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--brand-orange);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  margin-top: 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.surface-dark .stat-figure,
+.panel-dark .stat-figure {
+  color: #fff;
+}
+
+.surface-brand .stat-figure,
+.panel-brand .stat-figure {
+  color: var(--on-brand);
+}
+
+.surface-brand .stat-label,
+.panel-brand .stat-label,
+.surface-dark .stat-label,
+.panel-dark .stat-label {
+  color: var(--on-brand-muted);
+}
+
+/* Small pill label. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--r-pill);
+  background-color: var(--brand-orange-wash);
+  color: var(--brand-orange-text);
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.surface-dark .chip,
+.panel-dark .chip {
+  background-color: rgb(255 255 255 / 0.16);
+  color: #fff;
+}
+
+.surface-brand .chip,
+.panel-brand .chip {
+  background-color: rgb(28 29 35 / 0.12);
+  color: var(--on-brand);
+}
+
+/* Hairline divider that matches the warm palette. */
+.divider {
+  height: 1px;
+  background-color: var(--line-soft);
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .preloader-spinner::before {
+    animation: none !important;
+  }
+
+  .card,
+  .card-media img,
+  .mega-feature,
+  .mega-place,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost,
+  .btn-on-brand {
+    transition: none !important;
+  }
+}
+
+/* ============================================================ home hero */
+
+.hero-home {
+  /* The bar is fixed and the body already pads for it; the hero only needs its
+     own breathing room on top of that. */
+  padding-top: clamp(0.5rem, 0.2rem + 1.2vw, 1.5rem);
+}
+
+/* Soft orange wash behind the media column. Purely decorative, and sized in vw
+   so it never introduces a horizontal scrollbar. */
+.hero-blob {
+  position: absolute;
+  top: -22vw;
+  right: -18vw;
+  width: 68vw;
+  height: 68vw;
+  max-width: 900px;
+  max-height: 900px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgb(254 92 0 / 0.13), rgb(254 92 0 / 0) 62%);
+  pointer-events: none;
+}
+
+/* Carousel frame: one squared corner, the rest generously rounded. */
+.hero-media {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-panel) var(--r-panel) var(--r-panel) 0;
+  background-color: var(--cream-deep);
+  box-shadow: var(--shadow-panel);
+}
+
+@media (min-width: 1024px) {
+  .hero-media {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background-color: rgb(255 255 255 / 0.92);
+  color: var(--charcoal);
+  box-shadow: 0 6px 18px -8px rgb(58 59 71 / 0.6);
+  transition:
+    background-color 0.16s ease,
+    transform 0.16s ease;
+}
+
+.hero-arrow:hover {
+  background-color: #fff;
+  transform: translateY(-50%) scale(1.06);
+}
+
+.hero-arrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Slider dots: a short bar for the active slide, a dot for the rest. */
+.hero-slider-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background-color: var(--charcoal-300);
+  transition:
+    width 0.24s ease,
+    background-color 0.24s ease;
+}
+
+.hero-slider-dot.is-active {
+  width: 1.75rem;
+  background-color: var(--brand-orange);
+}
+
+/*
+ * Photographic hero: no flat background colour to key off, so it opts in to
+ * dark-surface ink with a class. Shares every rule with .surface-dark.
+ */
+.on-dark-surface {
+  color: var(--on-dark);
+}
+
+.on-dark-surface p,
+.on-dark-surface li,
+.on-dark-surface dd,
+.on-dark-surface span {
+  color: inherit;
+}
+
+/* Body copy over a photograph needs a touch more weight than over a flat fill. */
+.on-dark-surface .lede,
+.on-dark-surface p {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.on-dark-surface h1,
+.on-dark-surface h2,
+.on-dark-surface h3,
+.on-dark-surface h4,
+.on-dark-surface dt,
+.on-dark-surface strong {
+  color: #fff;
+}
+
+.on-dark-surface .eyebrow,
+.surface-dark .eyebrow,
+.panel-dark .eyebrow {
+  color: var(--brand-orange-400, #ff7c33);
+}
+
+.surface-brand .eyebrow,
+.panel-brand .eyebrow {
+  color: var(--on-brand-muted);
+}
+
+.on-dark-surface .icon-plate {
+  background-color: rgb(255 255 255 / 0.14);
+  color: #fff;
+}
+
+.on-dark-surface .stat-figure {
+  color: #fff;
+}
+
+.on-dark-surface .stat-label,
+.on-dark-surface .lede {
+  color: var(--on-dark-muted);
+}
+
+.on-dark-surface .chip {
+  background-color: rgb(255 255 255 / 0.16);
+  color: #fff;
+}
+
+.on-dark-surface .link-cta,
+.surface-dark .link-cta,
+.panel-dark .link-cta {
+  color: var(--brand-orange-400, #ff7c33);
+}
+
+/* ============================================================ section seams */
+
+/*
+ * Sections are separated by shadow, not by a rule.
+ *
+ * The shadow is cast *upward* deliberately: a downward shadow from an earlier
+ * sibling would be painted before the next section's background and disappear
+ * underneath it. Casting up means each section shades the one above it, which
+ * paints in the right order with no z-index juggling.
+ *
+ * `+ section` keeps the seam off the first section on a page, where there is
+ * nothing above it but the header.
+ */
+main > section + section,
+main > header + section,
+main > section + header {
+  box-shadow: 0 -22px 34px -30px rgb(58 59 71 / 0.22);
+}
+
+/*
+ * Sections that declare no ground of their own alternate onto cream. White is
+ * the page now, so an unbroken run of transparent sections would leave the
+ * shadow-only white cards sitting on their own colour with nothing to read
+ * against. Anything that sets its own background — a utility, a surface — is
+ * left alone, and adjacent siblings always land on opposite parity, so the
+ * alternation holds however many coloured sections sit between them.
+ */
+main > section:nth-of-type(even):not([class*='bg-']):not([class*='surface-']):not([class*='hero']) {
+  background-color: var(--cream);
+}
+
+/* No seam directly under the home hero — it ends on its own change of
+   background colour, and a shadow there reads as a rule under the masthead.
+   Inner-page heroes are white like the section below them, so they keep it. */
+main > section:first-child + section {
+  box-shadow: none;
+}
+
+/*
+ * Row seams inside a section — the places that used to carry a hairline. A very
+ * soft shadow on the following row reads as a division without drawing a line.
+ */
+.seam-rows > * + * {
+  box-shadow: 0 -18px 28px -26px rgb(58 59 71 / 0.2);
+}
+
+/* Full-width bands lift off the cream page rather than butting against it. */
+.surface-white,
+main > section.bg-white {
+  box-shadow: 0 -22px 36px -30px rgb(58 59 71 / 0.2);
+}
+
+/* ============================================================ team */
+
+/*
+ * Profile cards. Each is a cream tile holding one arch of brand orange with a
+ * cut-out portrait standing in it, then the name, the role, and a row of links.
+ *
+ * The arch and the shared crop do the work: the source photos were shot at
+ * different times against different walls, so cutting the subject out and
+ * standing everyone in the same orange arch is what makes them read as one
+ * group rather than a set of unrelated headshots. It also means the only
+ * saturated colour on the card is the arch — name, role, and links stay in ink,
+ * which is what keeps a grid of six from vibrating.
+ *
+ * Portraits MUST be transparent cut-outs (webp/png with alpha). An opaque photo
+ * covers the orange and the card loses the only thing holding the set together.
+ */
+.team-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-card);
+  background-color: var(--cream);
+  padding: 0.875rem;
+  height: 100%;
+  transition:
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.team-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+}
+
+.team-portrait {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--brand-orange);
+  /* Arch: fully round at the top, barely eased at the base. */
+  border-radius: 999px 999px 0.625rem 0.625rem;
+  aspect-ratio: 20 / 21;
+}
+
+.team-portrait img,
+.team-dialog-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /*
+   * `contain`, not `cover`: these are cut-outs, so cropping the sides lops off
+   * a shoulder against a hard vertical edge and the illusion of a person
+   * standing in the arch collapses. Contain keeps the silhouette whole and
+   * bottom-anchors it to the floor of the arch; the per-person scale below
+   * then evens out how the source photos were framed.
+   */
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: center bottom;
+}
+
+.team-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1rem 0.5rem 0.5rem;
+}
+
+.team-name {
+  font-size: 1.1875rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+  color: var(--ink-strong);
+}
+
+.team-role {
+  margin-top: 0.3rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+/*
+ * Footer row: the bio trigger sits left, the links right, and `margin-top: auto`
+ * pins it to the bottom so the row lines up across cards whose roles wrap onto
+ * a different number of lines.
+ */
+.team-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.team-bio-btn {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--brand-orange-text);
+  cursor: pointer;
+  text-underline-offset: 3px;
+}
+
+.team-bio-btn:hover {
+  text-decoration: underline;
+}
+
+.team-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.375rem;
+  color: var(--charcoal-800);
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.team-link:hover {
+  background-color: var(--brand-orange);
+  color: var(--charcoal-900);
+}
+
+/* The links crowd the right edge; the group keeps them a thumb apart. */
+.team-link-group {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-right: -0.25rem;
+}
+
+/*
+ * Three across at desktop, matching the reference. `auto-fit` below that lets
+ * the row fall to two and then one without a breakpoint for each.
+ */
+.team-grid {
+  display: grid;
+  gap: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  max-width: 60rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 64rem) {
+  .team-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* A single-card panel would otherwise stretch one portrait across the row. */
+.team-grid:has(> :only-child) {
+  grid-template-columns: minmax(0, 20rem);
+  justify-content: center;
+}
+
+/* --- bio dialog --------------------------------------------------------- */
+
+/*
+ * `<dialog>` rather than a hand-rolled overlay: focus trapping, Esc to close,
+ * and inertness of the page behind it are all free, and the full bio would
+ * otherwise have to expand in place and shove the rest of the grid down.
+ */
+.team-dialog {
+  width: min(34rem, calc(100vw - 2rem));
+  border: 0;
+  border-radius: var(--r-card);
+  background-color: var(--cream);
+  padding: 0;
+  color: var(--ink);
+  box-shadow: var(--shadow-panel);
+}
+
+.team-dialog::backdrop {
+  background-color: rgb(28 29 35 / 0.55);
+}
+
+.team-dialog-inner {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem;
+}
+
+.team-dialog-portrait {
+  flex: none;
+  width: 7.5rem;
+  align-self: flex-start;
+  overflow: hidden;
+  background-color: var(--brand-orange);
+  border-radius: 999px 999px 0.625rem 0.625rem;
+  aspect-ratio: 20 / 21;
+}
+
+.team-dialog-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background-color: rgb(58 59 71 / 0.08);
+  color: var(--ink-strong);
+  cursor: pointer;
+}
+
+.team-dialog-close:hover {
+  background-color: rgb(58 59 71 / 0.16);
+}
+
+@media (max-width: 30rem) {
+  .team-dialog-inner {
+    flex-direction: column;
+  }
+  .team-dialog-portrait {
+    width: 6rem;
+  }
+}
+
+/* --- segmented filter --------------------------------------------------- */
+
+.team-tabs {
+  display: flex;
+  gap: 0.25rem;
+  width: fit-content;
+  margin: 0 auto clamp(2rem, 1.5rem + 1.6vw, 3rem);
+  padding: 0.3rem;
+  border-radius: var(--r-pill);
+  background-color: var(--charcoal);
+}
+
+.team-tab {
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgb(255 255 255 / 0.75);
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.team-tab:hover {
+  color: #fff;
+}
+
+.team-tab.is-active {
+  background-color: var(--white);
+  color: var(--ink-strong);
+}
+
+/* --- founder feature ---------------------------------------------------- */
+
+.founder-portrait {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px 999px var(--r-panel) var(--r-panel);
+  background-color: var(--brand-orange);
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .founder-portrait {
+    margin-inline: 0;
+  }
+}
+
+.founder-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 12%;
+}
+
+/* ============================================================ news */
+
+/*
+ * Featured story: a photograph run full-bleed under the headline. The scrim is
+ * weighted to the left where the copy sits, so the image stays a photograph
+ * rather than a flat wash.
+ */
+.news-feature {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(24rem, 18rem + 22vw, 36rem);
+  margin-top: -5.5rem;
+  padding-top: calc(5.5rem + clamp(2.5rem, 1.5rem + 4vw, 5rem));
+  padding-bottom: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  background-color: var(--charcoal-900);
+}
+
+@media (min-width: 768px) {
+  .news-feature {
+    margin-top: -6rem;
+    padding-top: calc(6rem + clamp(2.5rem, 1.5rem + 4vw, 5rem));
+  }
+}
+
+.news-feature-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.news-feature-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to right, rgb(16 17 22 / 0.92) 0%, rgb(16 17 22 / 0.72) 55%, rgb(16 17 22 / 0.4) 100%),
+    linear-gradient(to top, rgb(16 17 22 / 0.65) 0%, rgb(16 17 22 / 0) 55%);
+}
+
+/* --- index grid ---------------------------------------------------------- */
+
+.news-grid {
+  display: grid;
+  gap: clamp(2rem, 1.4rem + 2.4vw, 3.5rem) clamp(1.5rem, 1rem + 2vw, 3rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+/* auto-fit collapses the empty tracks, so a lone story would stretch the full
+   width of the page. Hold it to one column's worth and centre it. */
+.news-grid:has(> :only-child) {
+  grid-template-columns: minmax(0, 34rem);
+  justify-content: center;
+}
+
+.news-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.news-item-media {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--r-media);
+  background-color: var(--cream-deep);
+  /* Story photography here is portrait-orientation; a 16:10 crop slices heads
+     in half, so the tile is squarer and biased toward the top of the frame. */
+  aspect-ratio: 4 / 3;
+}
+
+.news-item-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.news-item-media:hover img {
+  transform: scale(1.04);
+}
+
+.news-item-meta {
+  margin-top: 1.15rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.news-item-title {
+  margin-top: 0.4rem;
+  font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+}
+
+.news-item-title a {
+  color: var(--ink-strong);
+  transition: color 0.16s ease;
+}
+
+.news-item-title a:hover {
+  color: var(--brand-orange-text);
+}
+
+.news-item-excerpt {
+  margin-top: 0.65rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  /* Keep every card's text block the same depth so the grid stays even. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- article ------------------------------------------------------------- */
+
+.news-article-figure {
+  margin-inline: auto;
+  max-width: 44rem;
+}
+
+.news-article-figure img {
+  display: block;
+  /* Story photography is portrait; capping the height rather than the width
+     keeps a tall image from dominating the article. */
+  max-height: 30rem;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: var(--r-panel);
+}
+
+.news-article-figure figcaption {
+  margin-top: 0.9rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+.news-article-body {
+  margin-inline: auto;
+  margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+  max-width: 44rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+.news-article-body > * + * {
+  margin-top: 1.4rem;
+}
+
+.news-article-body blockquote {
+  font-size: 1.125rem;
+}
+
+/* ============================================================ partners */
+
+.partner-marquee {
+  overflow: hidden;
+  /* Fade the ends so logos enter and leave rather than being chopped off. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.partner-track {
+  display: flex;
+  width: max-content;
+  animation: partner-scroll 34s linear infinite;
+}
+
+.partner-marquee:hover .partner-track,
+.partner-marquee:focus-within .partner-track {
+  animation-play-state: paused;
+}
+
+.partner-run {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 2rem + 4vw, 6rem);
+  padding-inline: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+@keyframes partner-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/*
+ * Monochrome charcoal. A flat `brightness(0)` silhouette would be cleaner still,
+ * but one of these logos is a detailed crest that collapses into an unreadable
+ * blob that way — grayscale plus a darkening curve holds its internal detail
+ * while still reading as one charcoal set.
+ */
+.partner-logo {
+  height: calc(clamp(2.5rem, 2rem + 1.6vw, 3.5rem) * var(--logo-scale, 1));
+  width: auto;
+  max-width: 14rem;
+  object-fit: contain;
+  flex: none;
+  filter: grayscale(1) brightness(0.55) contrast(1.25);
+  opacity: 0.85;
+  transition:
+    filter 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.partner-logo:hover {
+  filter: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-track {
+    animation: none;
+    /* With no motion the strip must still show the full set from the start. */
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .partner-run:last-child {
+    display: none;
+  }
+
+  .partner-run {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(2rem, 1.5rem + 2vw, 4rem);
+  }
+}
+
+/* ============================================================ testimonials */
+
+.testimonial-viewport {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.testimonial-viewport:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 6px;
+  border-radius: var(--r-panel);
+}
+
+.testimonial-rail {
+  /* How much of the rail one card occupies. The remainder is what the
+     neighbouring cards peek through on either side. */
+  --card-w: 72%;
+  overflow: hidden;
+  flex: 1 1 auto;
+  padding-block: 0.75rem;
+}
+
+@media (max-width: 1023px) {
+  .testimonial-rail {
+    --card-w: 84%;
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonial-rail {
+    --card-w: 92%;
+  }
+}
+
+.testimonial-track {
+  display: flex;
+  /* Track matches the rail so the transform percentages below are in rail units;
+     the cards overflow it and the rail clips them. */
+  width: 100%;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.testimonial-card {
+  flex: 0 0 var(--card-w);
+  min-width: 0;
+  /* Padding rather than margin, so --card-w stays the true step distance. */
+  padding-inline: clamp(0.5rem, 0.3rem + 0.8vw, 1rem);
+  /* Neighbours sit back so the active card is unambiguous. */
+  opacity: 0.45;
+  transform: scale(0.94);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.testimonial-card.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* The visible card face. Separate from .testimonial-card so the outer box can
+   own the flex sizing and the scale transform without its padding affecting the
+   step distance. */
+.testimonial-surface {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  padding: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+  border-radius: var(--r-panel);
+  background-color: var(--white);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.45s ease;
+}
+
+.testimonial-card.is-active .testimonial-surface {
+  box-shadow: var(--shadow-panel);
+}
+
+.testimonial-mark {
+  width: 2rem;
+  height: 2rem;
+  color: var(--brand-orange);
+}
+
+.testimonial-quote {
+  margin-top: 1.25rem;
+  font-size: clamp(1.125rem, 1rem + 0.9vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--ink-strong);
+  text-wrap: pretty;
+}
+
+.testimonial-name {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.testimonial-context {
+  margin-top: 0.15rem;
+  font-size: 0.9375rem;
+  color: var(--ink-muted);
+}
+
+.testimonial-arrow {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background-color: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    opacity 0.16s ease;
+}
+
+.testimonial-arrow:hover:not(:disabled) {
+  background-color: var(--brand-orange);
+  color: var(--charcoal-900);
+}
+
+.testimonial-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.testimonial-arrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* On a phone the arrows would eat the card's width; the dots and swipe carry it. */
+@media (max-width: 767px) {
+  .testimonial-arrow {
+    display: none;
+  }
+}
+
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.testimonial-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background-color: var(--charcoal-300);
+  transition:
+    width 0.24s ease,
+    background-color 0.24s ease;
+}
+
+.testimonial-dot.is-active {
+  width: 1.75rem;
+  background-color: var(--brand-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-track,
+  .testimonial-card {
+    transition: none !important;
+  }
+}
+
+/* ============================================================ feature items */
+
+/*
+ * Centred icon-over-text feature, used for the "why it matters" and "what we do"
+ * rows. The illustration leads at a size that lets it actually be read as a
+ * picture rather than a bullet, sitting in a soft orange tint of the accent so a
+ * row of them holds together without competing with the headings.
+ */
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-icon {
+  /* Height-only sizing: these marks have very different aspect ratios and a
+     square box would squash the wide ones.
+     Sized for a three-up row — at four-up these were proportionate, but with
+     wider columns the same figures read as undersized in the space. */
+  height: clamp(3.75rem, 3rem + 3vw, 5.5rem);
+  width: auto;
+  max-width: 100%;
+  color: var(--brand-orange-300, #ffa26e);
+  transition: color 0.25s ease;
+}
+
+.feature-item:hover .feature-icon {
+  color: var(--brand-orange);
+}
+
+.feature-title {
+  margin-top: 1.75rem;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+  color: var(--ink-strong);
+}
+
+.feature-text {
+  margin-top: 0.75rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  /* Holds the measure short so a wide column does not stretch two lines into
+     one very long one. */
+  max-width: 24rem;
+}
+
+/* On a dark or brand surface the tint has to lift, not sit back. */
+.surface-brand .feature-icon,
+.panel-brand .feature-icon,
+.surface-dark .feature-icon,
+.panel-dark .feature-icon,
+.on-dark-surface .feature-icon {
+  color: rgb(255 255 255 / 0.85);
+}
+
+.surface-dark .feature-title,
+.panel-dark .feature-title,
+.on-dark-surface .feature-title {
+  color: #fff;
+}
+
+/* ============================================================ magazine */
+
+.magazine-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: -5.5rem;
+  padding-top: calc(5.5rem + clamp(3rem, 2rem + 4vw, 5.5rem));
+  padding-bottom: clamp(3rem, 2rem + 4vw, 5.5rem);
+  background-color: var(--charcoal-950);
+}
+
+@media (min-width: 768px) {
+  .magazine-hero {
+    margin-top: -6rem;
+    padding-top: calc(6rem + clamp(3rem, 2rem + 4vw, 5.5rem));
+  }
+}
+
+/* The cover art doubles as the hero backdrop, blurred and held well back so the
+   masthead reads and the real cover beside it stays the sharp one. */
+.magazine-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(18px) saturate(0.9);
+  transform: scale(1.08);
+}
+
+.magazine-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to right, rgb(11 14 17 / 0.94) 0%, rgb(11 14 17 / 0.82) 55%, rgb(11 14 17 / 0.7) 100%);
+}
+
+/* Masthead: a wide 530x78.6 wordmark, so width-led sizing with a cap. */
+.magazine-masthead {
+  width: min(100%, 26rem);
+  height: auto;
+  color: #fff;
+}
+
+.magazine-cover {
+  display: block;
+  width: min(100%, 20rem);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  /* A magazine sits on a surface; the lift and slight tilt say "object", not
+     "screenshot". */
+  box-shadow:
+    0 2px 6px -2px rgb(0 0 0 / 0.4),
+    0 30px 60px -20px rgb(0 0 0 / 0.65);
+  transform: rotate(-1.5deg);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.magazine-cover:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow:
+    0 2px 6px -2px rgb(0 0 0 / 0.4),
+    0 40px 70px -20px rgb(0 0 0 / 0.7);
+}
+
+.magazine-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.magazine-spread {
+  border-radius: var(--r-media);
+  overflow: hidden;
+  box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.6);
+}
+
+.magazine-spread img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Epigraph from the back cover. */
+.magazine-quote {
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  text-align: center;
+}
+
+.magazine-quote blockquote {
+  margin-inline: auto;
+  max-width: 34rem;
+  font-size: clamp(1.375rem, 1.1rem + 1.4vw, 2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--ink-strong);
+  text-wrap: balance;
+}
+
+.magazine-quote figcaption {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--brand-orange-text);
+}
+
+/* Format / size / price row on the download panel. */
+.magazine-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.75rem, 1.4rem + 1.6vw, 3rem);
+  margin-top: 2rem;
+}
+
+.magazine-meta dt {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange-400, #ff7c33);
+}
+
+.magazine-meta dd {
+  margin-top: 0.3rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Archive of past issues. Only rendered once a second issue exists. */
+.magazine-archive {
+  display: grid;
+  gap: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+
+.magazine-back-issue {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.magazine-back-cover {
+  display: block;
+  width: 100%;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow:
+    0 1px 3px -1px rgb(58 59 71 / 0.3),
+    0 16px 30px -14px rgb(58 59 71 / 0.4);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.magazine-back-cover:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 1px 3px -1px rgb(58 59 71 / 0.3),
+    0 24px 40px -16px rgb(58 59 71 / 0.45);
+}
+
+.magazine-back-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.magazine-back-label {
+  margin-top: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange-text);
+}
+
+.magazine-back-title {
+  margin-top: 0.3rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+  color: var(--ink-strong);
+}
+
+/* --- news: stories without a photograph, and article galleries ---------- */
+
+/*
+ * Not every story has a photograph we took ourselves. Rather than reach for a
+ * stock image, the feature falls back to a flat charcoal band and the card to a
+ * category plate — both keep the layout intact and neither pretends to document
+ * something.
+ */
+.news-feature.is-plain {
+  min-height: 0;
+  background-color: var(--charcoal-900);
+}
+
+.news-item-media.is-plain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cream-200);
+  color: var(--brand-orange-text);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+
+.news-item-media.is-plain:hover {
+  background-color: var(--cream-300, #f3d6b8);
+}
+
+/* Further photographs below an article body. */
+.news-gallery {
+  margin-inline: auto;
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  max-width: 52rem;
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.news-gallery figure {
+  margin: 0;
+}
+
+.news-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-media);
+}
+
+.news-gallery figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+/* Headings inside an article body — the two long-form stories use them. */
+.news-article-body h2 {
+  margin-top: clamp(2.25rem, 1.8rem + 1.8vw, 3rem);
+  font-size: clamp(1.375rem, 1.15rem + 1vw, 1.75rem);
+  letter-spacing: -0.024em;
+}
+
+.news-article-body ul {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.news-article-body li + li {
+  margin-top: 0.6rem;
+}
+
+.news-article-body a {
+  color: var(--brand-orange-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* ============================================================ science fair */
+
+/* Numbered stage list — how a project moves to the national fair. */
+.stage-list {
+  counter-reset: stage;
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+.stage-item {
+  display: flex;
+  gap: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  align-items: flex-start;
+  background-color: var(--white);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+}
+
+.stage-number {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background-color: var(--brand-orange);
+  color: var(--charcoal-900);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.stage-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink-strong);
+}
+
+.stage-text {
+  margin-top: 0.4rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* Handbook cover on the download panel. */
+.handbook-cover {
+  max-width: 20rem;
+  margin-inline: auto;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow:
+    0 2px 6px -2px rgb(0 0 0 / 0.4),
+    0 26px 50px -18px rgb(0 0 0 / 0.6);
+}
+
+@media (min-width: 900px) {
+  .handbook-cover {
+    margin-inline: 0;
+  }
+}
+
+.handbook-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.download-list {
+  margin-top: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.download-list a {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--r-media);
+  background-color: rgb(255 255 255 / 0.08);
+  color: #fff;
+  transition: background-color 0.16s ease;
+}
+
+.download-list a:hover {
+  background-color: rgb(255 255 255 / 0.16);
+}
+
+.download-list svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+  color: var(--brand-orange-400, #ff7c33);
+}
+
+.download-list strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.download-list small {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.6);
+}
+
+/* --- proposal registration form ----------------------------------------- */
+
+.proposal-form {
+  background-color: var(--white);
+  border-radius: var(--r-panel);
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.5rem, 1.2rem + 1.6vw, 2.75rem);
+}
+
+.proposal-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.proposal-legend {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink-strong);
+}
+
+.proposal-legend-note {
+  margin-top: 0.35rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+
+.proposal-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.proposal-field.is-full {
+  grid-column: 1 / -1;
+}
+
+.proposal-optional {
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.proposal-hint {
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.proposal-checks {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.25rem;
+}
+
+.proposal-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.proposal-check input {
+  margin-top: 0.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: none;
+  accent-color: var(--brand-orange);
+}
+
+.proposal-declaration {
+  margin-top: 2rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--r-media);
+  background-color: var(--cream);
+}
+
+.proposal-status {
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--r-media);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.proposal-status.is-ok {
+  background-color: var(--green-50, #eff6ef);
+  color: var(--green-700, #224a28);
+}
+
+.proposal-status.is-error {
+  background-color: var(--red-50, #fdf0ec);
+  color: var(--red-600, #a02a20);
+}
+
+/* ============================================================ donate */
+
+/*
+ * Donation page. A split hero: the ask and the whole form in a column that
+ * lines up with the content gutter every other page uses, and the photograph
+ * bleeding to the right edge of the viewport for the section's full height.
+ *
+ * On a phone the two stack with the photograph first, so the page still opens
+ * on a face — but the section does not pull up under the header there, because
+ * a short image would lose most of its crop behind the bar.
+ */
+.donate-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--white);
+}
+
+.donate-hero__grid {
+  display: grid;
+  grid-template-areas:
+    'media'
+    'panel';
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.donate-hero__panel {
+  grid-area: panel;
+  padding-inline: var(--gutter);
+  padding-top: clamp(2.25rem, 1.6rem + 2.6vw, 3.25rem);
+  padding-bottom: clamp(3rem, 2rem + 4vw, 5rem);
+}
+
+/*
+ * The artwork is a cut-out with a transparent background, so it sits on the
+ * page itself — no panel, no wash, nothing behind it. Cropping a cut-out at
+ * the frame edge would read as a mistake, so nothing here uses
+ * object-fit: cover either; the group simply stands on the base of the column.
+ */
+.donate-hero__media {
+  grid-area: media;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.donate-hero__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 1100px) {
+  .donate-hero {
+    margin-top: -6rem;
+  }
+
+  .donate-hero__grid {
+    grid-template-areas: 'panel media';
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    align-items: stretch;
+  }
+
+  .donate-hero__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: max(var(--gutter), calc((100vw - var(--content)) / 2));
+    padding-right: clamp(2rem, 0.5rem + 3.5vw, 4rem);
+    padding-top: calc(6rem + clamp(2.5rem, 1.5rem + 3vw, 4rem));
+    padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  }
+
+  .donate-hero__media {
+    min-height: 40rem;
+    padding-top: 0;
+    /* Lifted off the base of the column so it sits opposite the form rather
+       than sinking into the bottom corner, and held off the right edge by the
+       same gutter the panel uses on the left — so the artwork stops where the
+       content column stops on every other page. */
+    align-items: center;
+    padding-right: max(var(--gutter), calc((100vw - var(--content)) / 2));
+    padding-bottom: clamp(2rem, 1rem + 4vw, 5rem);
+  }
+
+  /* Fitted rather than bled: the artwork carries its own stroke, and running
+     it past the column edges cut that stroke off down both sides. */
+  .donate-hero__media img {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+  }
+}
+
+/* The ask, above the form. */
+.donate-lede {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* --- amount chips ----------------------------------------------------- */
+
+/*
+ * Row of preset amounts plus a "more" chip that reveals the custom field. The
+ * reference lays these out as equal squares that read as one control; the
+ * selected one is marked by an orange ring rather than a fill, so the row keeps
+ * its rhythm when the choice changes.
+ */
+.amount-fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.amount-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(3.75rem, 1fr));
+  gap: 0.625rem;
+  max-width: 30rem;
+}
+
+.amount-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: var(--r-media);
+  background-color: var(--cream);
+  box-shadow: inset 0 0 0 2px transparent;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition:
+    box-shadow 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.amount-chip:hover {
+  color: var(--ink-strong);
+  background-color: var(--cream-deep, #f7e3cd);
+}
+
+.amount-chip.is-selected {
+  background-color: var(--white);
+  box-shadow: inset 0 0 0 2px var(--brand-orange);
+  color: var(--brand-orange-text);
+}
+
+.amount-chip:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 2px;
+}
+
+/* The "more" chip carries dots rather than a value. */
+.amount-chip-more {
+  gap: 0.25rem;
+  font-size: 1.5rem;
+  line-height: 0;
+  padding-bottom: 0.6rem;
+}
+
+/* --- form rows -------------------------------------------------------- */
+
+.donate-field-icon {
+  position: relative;
+}
+
+.donate-field-icon > svg {
+  pointer-events: none;
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--charcoal-400, #8b8a92);
+}
+
+.donate-field-icon .field {
+  padding-left: 2.6rem;
+}
+
+.donate-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: var(--r-media);
+  background-color: var(--cream);
+  padding: 0.9rem 1.15rem;
+}
+
+.donate-hint {
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+/* --- secondary actions under the button ------------------------------- */
+
+.donate-actions-wrap {
+  max-width: 36rem;
+}
+
+.donate-actions {
+  margin-top: 1.375rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.donate-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color 0.16s ease;
+}
+
+.donate-action:hover {
+  color: var(--brand-orange-text);
+}
+
+.donate-action svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+}
+
+.donate-action:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 3px;
+}
+
+.donate-more {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.donate-actions-status {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--green-700, #224a28);
+}

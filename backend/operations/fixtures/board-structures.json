@@ -1,0 +1,5088 @@
+{
+ "_note": "Board structures only \u2014 no records. Exported during the migration off monday.com. Status and dropdown label sets are absent from this export; run `import_from_monday --schema-only` with MONDAY_API_TOKEN set to fill them in.",
+ "boards": [
+  {
+   "id": "5101397087",
+   "name": "Build Vibe app",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    },
+    {
+     "id": "group_title",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Person",
+     "type": "person",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101190816",
+   "name": "Build Vibe app",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    },
+    {
+     "id": "group_title",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Person",
+     "type": "person",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101171468",
+   "name": "Build Vibe app",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    },
+    {
+     "id": "group_title",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Person",
+     "type": "person",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101170382",
+   "name": "Website Inquiries",
+   "description": "General enquiries submitted through the Contact form on jdiobestem.org.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email_mm5ptksm",
+     "title": "Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5psrzg",
+     "title": "Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5pze6q",
+     "title": "Organisation",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5prhj3",
+     "title": "Enquiry Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5pfz4k",
+     "title": "Message",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5psd8z",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5pzb5h",
+     "title": "Assigned To",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5p7ns0",
+     "title": "Received",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101170302",
+   "name": "Safeguarding Concerns",
+   "description": "Confidential log of safeguarding and child-protection concerns. Private board - restrict subscribers to designated safeguarding leads only.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Open Concerns"
+    },
+    {
+     "id": "group_mm5pmhek",
+     "title": "Closed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5p2rpd",
+     "title": "Action Taken",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5p74pd",
+     "title": "Date Closed",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5p8vns",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5pbafp",
+     "title": "Date Raised",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5ppryn",
+     "title": "Details",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5pj6aq",
+     "title": "Attachments",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5pbg7q",
+     "title": "Date of Incident",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5pkx2q",
+     "title": "Safeguarding Lead",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "boolean_mm5p92hg",
+     "title": "Referred to Authorities",
+     "type": "checkbox",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5pjdm0",
+     "title": "Reported By",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5p52wj",
+     "title": "Severity",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5p72na",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5pzxdn",
+     "title": "Concern Type",
+     "type": "status",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101169233",
+   "name": "Data Access and Privacy - Open Items",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "files",
+     "title": "Files",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101169225",
+   "name": "Monday Structure and Conventions",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "files",
+     "title": "Files",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101169067",
+   "name": "Gifts & Pledges",
+   "description": "Transactional record of every gift, pledge and in-kind donation. Source of truth for donor giving history; rolls up to Total Given on the Donors board.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "group_mm5pzwmn",
+     "title": "Received - Prior Years"
+    },
+    {
+     "id": "group_mm5pc6hn",
+     "title": "In-kind Donations"
+    },
+    {
+     "id": "topics",
+     "title": "Received - FY2026"
+    },
+    {
+     "id": "group_mm5pnw5c",
+     "title": "Pledges Outstanding"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5p1e93",
+     "title": "Amount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pcgz8",
+     "title": "Campaign",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5prmcd",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5p7r2n",
+     "title": "Designation",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5p4d10",
+     "title": "Donor",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5prwff",
+     "title": "Gift Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5p5qec",
+     "title": "Gift Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5p18t3",
+     "title": "Notes",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5p8a0m",
+     "title": "Payment Method",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5pfq37",
+     "title": "Receipt Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5peqvh",
+     "title": "Receipt Sent Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5pff48",
+     "title": "Recorded By",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5prman",
+     "title": "Amount (USD)",
+     "type": "numbers",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101165299",
+   "name": "Donors",
+   "description": "Master donor and prospect record for JdiobeSTEM. Linked to Donors' Activities for engagement history and to Grants Pipeline via Grant Providers.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "group_mm5pwdpn",
+     "title": "Lapsed / Re-engage"
+    },
+    {
+     "id": "group_mm5pm89t",
+     "title": "Institutional & Grant-making"
+    },
+    {
+     "id": "group_mm5pz7xs",
+     "title": "Recurring Donors"
+    },
+    {
+     "id": "topics",
+     "title": "Prospects & Leads"
+    },
+    {
+     "id": "group_mm5pymaq",
+     "title": "Major Donors"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5phkj9",
+     "title": "Stage",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "country_mm5pxqhf",
+     "title": "Country",
+     "type": "country",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5pk591",
+     "title": "Donor Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email_mm5p1jpj",
+     "title": "Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5pxhej",
+     "title": "Next Follow-up",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5p6ggp",
+     "title": "Notes",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5pd49m",
+     "title": "Relationship Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5pp4yt",
+     "title": "Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5ptznv",
+     "title": "Activities",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5pmxhd",
+     "title": "Program Interest",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pmepw",
+     "title": "Gifts",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "lookup_mm5pem",
+     "title": "Total Raised (rollup)",
+     "type": "mirror",
+     "settings_str": "{}"
+    },
+    {
+     "id": "lookup_mm5pt33",
+     "title": "Most Recent Gift (rollup)",
+     "type": "mirror",
+     "settings_str": "{}"
+    },
+    {
+     "id": "lookup_mm5p40ch",
+     "title": "Largest Gift (rollup)",
+     "type": "mirror",
+     "settings_str": "{}"
+    },
+    {
+     "id": "lookup_mm5p736v",
+     "title": "Gift Count (rollup)",
+     "type": "mirror",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5101057605",
+   "name": "Build Vibe app",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    },
+    {
+     "id": "group_title",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Person",
+     "type": "person",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997537",
+   "name": "Country Office Profiles",
+   "description": "Quick-reference profile of each JdiobeSTEM office: location, leadership, registration, and headcount.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5km76f",
+     "title": "Office Address",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5krb7c",
+     "title": "Office Lead",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kkeye",
+     "title": "Registration Number",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5k9ap",
+     "title": "Staff Headcount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kjrwh",
+     "title": "Established Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5k8wxv",
+     "title": "Contact Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997522",
+   "name": "Content & Media Calendar",
+   "description": "Social media posts, press coverage, and media appearances for JdiobeSTEM.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kmv1x",
+     "title": "Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5k89gc",
+     "title": "Platform / Outlet",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kj7ev",
+     "title": "Country / Focus",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kn0gd",
+     "title": "Publish Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k3vsr",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5kwhs1",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "link_mm5k522v",
+     "title": "Link",
+     "type": "link",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997496",
+   "name": "Vendors & Suppliers",
+   "description": "Vendors and suppliers JdiobeSTEM procures from \u2014 STEM equipment, office supplies, IT, vehicles/fuel, catering \u2014 across the USA, Uganda, and South Sudan.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5ks0my",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kjrck",
+     "title": "Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kxt83",
+     "title": "Contact Person",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5k89ed",
+     "title": "Contact Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5ks19j",
+     "title": "Payment Terms",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k69fp",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997379",
+   "name": "Insurance & Contracts",
+   "description": "Insurance policies (vehicle, property, staff medical, liability) and vendor/service contracts across JdiobeSTEM's USA, Uganda, and South Sudan operations.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k8sp2",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kvxp",
+     "title": "Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5k7gvc",
+     "title": "Provider / Vendor",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kfj28",
+     "title": "Policy / Contract Number",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kgpfe",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5k5cfq",
+     "title": "Expiry Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kbszz",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5k4ts6",
+     "title": "Document",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997378",
+   "name": "Volunteer Applications",
+   "description": "Intake pipeline for prospective volunteers before they're onboarded to the Volunteers board.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k3h24",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kfxgx",
+     "title": "Application Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kahby",
+     "title": "Role Applied For",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email_mm5km7sf",
+     "title": "Contact Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5ksxpj",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5kcdfq",
+     "title": "Reviewed By",
+     "type": "people",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997355",
+   "name": "Onboarding & Training",
+   "description": "New hire onboarding and staff training (orientation, safeguarding, policy training) tracking across JdiobeSTEM offices.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5khgzq",
+     "title": "Employee",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kbecg",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kfs3p",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kn6v4",
+     "title": "Training Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kvdva",
+     "title": "Onboarding Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5k6dh1",
+     "title": "Completion Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997328",
+   "name": "Performance Reviews",
+   "description": "Annual and periodic performance reviews for JdiobeSTEM staff.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5k8vvt",
+     "title": "Employee",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5krj8m",
+     "title": "Review Period",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5khzdk",
+     "title": "Review Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5kksep",
+     "title": "Reviewer",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kpq",
+     "title": "Rating",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kqf94",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5kjfd6",
+     "title": "Notes",
+     "type": "long_text",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997320",
+   "name": "Leave & Time-Off Requests",
+   "description": "Leave and time-off requests for JdiobeSTEM staff across all offices.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5kyrjv",
+     "title": "Employee",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kwd8d",
+     "title": "Leave Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kj0d7",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5ksaws",
+     "title": "End Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5k6k08",
+     "title": "Days Requested",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k1bws",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5k515s",
+     "title": "Approved By",
+     "type": "people",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100997256",
+   "name": "Beneficiaries / Students",
+   "description": "Master record of all students and beneficiaries served across the four JdiobeSTEM programmes \u2014 Research, Science Fair, Scholarships and Mentorship \u2014 in Uganda and South Sudan.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "group_mm5t1tq0",
+     "title": "Not Successful / Withdrawn"
+    },
+    {
+     "id": "group_mm5ta23v",
+     "title": "Alumni / Graduated"
+    },
+    {
+     "id": "group_mm5tmtm5",
+     "title": "Applicants"
+    },
+    {
+     "id": "topics",
+     "title": "Active Students"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kkqa8",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kxq08",
+     "title": "Programme(s) Enrolled",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kps4h",
+     "title": "Grade / Age",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k5ehp",
+     "title": "Gender",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kbn17",
+     "title": "Enrollment Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kc99",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5kx18z",
+     "title": "Guardian Contact",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5ppap4",
+     "title": "School",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5q7kmc",
+     "title": "Performance",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_textn11mirwn",
+     "title": "District",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_selectsa0kk1v",
+     "title": "Region",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_selectkkzhsju",
+     "title": "Disability Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5t454a",
+     "title": "Applying For",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5tp9r2",
+     "title": "Date Entered",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5tq69x",
+     "title": "Date of Birth",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5t4c0j",
+     "title": "Supporting Documents",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email_mm5t26zp",
+     "title": "Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5t87ds",
+     "title": "Entered By",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5ttphm",
+     "title": "Guardian Name",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5t75y7",
+     "title": "Intake Source",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5tqkzp",
+     "title": "Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5tz616",
+     "title": "Reviewer",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5tthzx",
+     "title": "Application Stage",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5tjrck",
+     "title": "Personal Statement",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5tz2q1",
+     "title": "Submitted On",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100996349",
+   "name": "Partner Institutions",
+   "description": "Universities, government ministries, and other institutional partners JdiobeSTEM collaborates with (curriculum partners, MOUs, host institutions) across the USA, Uganda, and South Sudan.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kk1gk",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kzbsh",
+     "title": "Institution Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5k3j81",
+     "title": "Primary Contact",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email_mm5kf1cm",
+     "title": "Contact Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5ksdep",
+     "title": "Partnership Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5kc0jt",
+     "title": "MOU Document",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100996345",
+   "name": "Events",
+   "description": "Events hosted or attended by JdiobeSTEM (STEM fairs, donor events, community outreach days, graduations) across all regions.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k5rws",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5k4f0n",
+     "title": "Event Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kpv7g",
+     "title": "Venue",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kdmx2",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5k5md7",
+     "title": "Organizer",
+     "type": "people",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100996318",
+   "name": "Campaigns",
+   "description": "Fundraising and awareness campaigns run by JdiobeSTEM (year-end appeals, giving days, awareness drives) across the USA, Uganda, and South Sudan.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kmp8s",
+     "title": "Campaign Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kgh2c",
+     "title": "Target Audience / Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5ky9r9",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5k2tjv",
+     "title": "End Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5kvedk",
+     "title": "Fundraising Goal (USD)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5kxcrb",
+     "title": "Amount Raised (USD)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5k35r4",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5ktxjc",
+     "title": "Campaign Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5p7r53",
+     "title": "link to Gifts & Pledges",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100996234",
+   "name": "Inventory & Supplies",
+   "description": "Consumable supplies and inventory (STEM lab materials, stationery, IT consumables, first aid, catering) stocked at JdiobeSTEM's Uganda and South Sudan offices.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kz8gk",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5kvabh",
+     "title": "Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5kg9gr",
+     "title": "Quantity On Hand",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5ke9zk",
+     "title": "Unit",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5kc73c",
+     "title": "Reorder Level",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5k1j5b",
+     "title": "Storage Location",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5kdkkh",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5kyp8z",
+     "title": "Supplier",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kzksa",
+     "title": "Last Restocked",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100980520",
+   "name": "Fixed Assets & Equipment",
+   "description": "Fixed assets and equipment (vehicles, IT equipment, STEM lab equipment, furniture) owned by JdiobeSTEM across its USA, Uganda, and South Sudan offices.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jgc7m",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5jd9yt",
+     "title": "Asset Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5jcd5d",
+     "title": "Asset Tag / Serial No.",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5jaxt0",
+     "title": "Location / Office",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5jp5pa",
+     "title": "Assigned To",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jjh3p",
+     "title": "Purchase Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5j4dse",
+     "title": "Purchase Value (USD)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jp335",
+     "title": "Condition",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jfzgc",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5kfkp2",
+     "title": "Warranty Expiry",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5kyj8s",
+     "title": "Notes",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5kfwq1",
+     "title": "Assigned Employee (Link)",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100980441",
+   "name": "Mentees",
+   "description": "Students/youth enrolled in the JdiobeSTEM mentoring program, paired with mentors, across Uganda and South Sudan.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5j18zw",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5jmctw",
+     "title": "School / Institution",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5jn0cb",
+     "title": "Grade / Age",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5jbq3k",
+     "title": "Assigned Mentor",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jzjb3",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jccnv",
+     "title": "Enrollment Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5jetmx",
+     "title": "Guardian Contact",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5kbdy8",
+     "title": "Linked Mentor",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5p5k3z",
+     "title": "Assigned Mentor",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pqct4",
+     "title": "link to Sessions",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100966521",
+   "name": "Policies & Risk Register",
+   "description": "Organizational policies (safeguarding, financial, HR, data protection, anti-corruption) and the enterprise risk register, tracked by review cycle and country applicability.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jbdev",
+     "title": "Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5j5xvx",
+     "title": "Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jb06k",
+     "title": "Applies To",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5jfm5j",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jff4t",
+     "title": "Severity",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5j6wkh",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5j4nh0",
+     "title": "Last Reviewed",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jq30b",
+     "title": "Next Review Due",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5j70rt",
+     "title": "Document",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100966500",
+   "name": "Board of Directors & Governance Meetings",
+   "description": "Board members, advisory committees, and governance meeting records (board meetings, AGMs, minutes, action items).",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5j9tqr",
+     "title": "Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5j9hqh",
+     "title": "Country / Chapter",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5j7zvn",
+     "title": "Role / Title",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jdzrf",
+     "title": "Date (Term Start / Meeting Date)",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jngk0",
+     "title": "Term End Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5jsjg1",
+     "title": "Attendees / Contact",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jw543",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5jjp9m",
+     "title": "Minutes / Document",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5jfse0",
+     "title": "Notes / Action Items",
+     "type": "long_text",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100966475",
+   "name": "Compliance Filings & Deadlines",
+   "description": "Recurring statutory filings and deadlines (annual returns, tax filings, audits, permit renewals, donor compliance reports) by country.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jqnj6",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5jjxdm",
+     "title": "Filing Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jh15c",
+     "title": "Frequency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jgs2w",
+     "title": "Due Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jjsre",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5js3r1",
+     "title": "Responsible",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5js9p",
+     "title": "Submitted Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5j7jee",
+     "title": "Notes",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5kfkrv",
+     "title": "Related Registration",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100966442",
+   "name": "Regulatory Registrations & Licenses",
+   "description": "All statutory registrations, certificates, and licenses that keep JdiobeSTEM legally operating in the USA, Uganda, and South Sudan (e.g. IRS 501(c)(3), Uganda NGO Bureau permit, South Sudan RRC registration).",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Group Title"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jgkzd",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5jgt17",
+     "title": "Registration Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5j6q0p",
+     "title": "Registration Number",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5jpkgp",
+     "title": "Issuing Authority",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jgx5j",
+     "title": "Date Issued",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5jghw0",
+     "title": "Expiry / Renewal Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5jb9x4",
+     "title": "Compliance Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5jane5",
+     "title": "Responsible Person",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5jqy5m",
+     "title": "Document",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text_mm5j3jtw",
+     "title": "Notes",
+     "type": "long_text",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100931575",
+   "name": "Subitems of Grants Pipeline",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Deadline",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "files",
+     "title": "Files",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100931573",
+   "name": "Grant Providers",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Grant Providers"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation",
+     "title": "Grants",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "link_mm5jej7b",
+     "title": "Website",
+     "type": "link",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text",
+     "title": "Contact",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone",
+     "title": "Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email",
+     "title": "Email",
+     "type": "email",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100931572",
+   "name": "Grants Pipeline",
+   "description": "Manage your team's grant pipeline from opportunity through to payment date. Easily collaborate and keep all grant related files centralized. Assign individuals to tasks, set timelines, track amounts, and stay ahead of every deadline.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Active Grants"
+    },
+    {
+     "id": "group_title",
+     "title": "Grants Submitted"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subitems",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Due Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numbers",
+     "title": "Grant Amount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "connect_boards",
+     "title": "Grant Provider",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5kf2s5",
+     "title": "Linked Budget Line",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5p7p49",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100931046",
+   "name": "Volunteer registration management",
+   "description": "Capture incoming volunteer info using a dedicated form, then connect collected data to a single board for easy consolidation of all volunteer data.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "New volunteers"
+    },
+    {
+     "id": "new_group",
+     "title": "Active volunteers"
+    },
+    {
+     "id": "new_group62981",
+     "title": "Past volunteers"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Volunteer manager",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email",
+     "title": "Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone",
+     "title": "Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "location",
+     "title": "Address",
+     "type": "location",
+     "settings_str": "{}"
+    },
+    {
+     "id": "link",
+     "title": "Linkedin",
+     "type": "link",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown",
+     "title": "Skills",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status_1",
+     "title": "Hours per week",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Volunteer start date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numbers",
+     "title": "Count",
+     "type": "numbers",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100930236",
+   "name": "Subitems of Accounting Dashboard",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100930234",
+   "name": "Accounting Dashboard",
+   "description": "A dashboard board for accounting overview and tracking key financial metrics and activities.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Current Period"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hj96t",
+     "title": "Responsible",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hfy0j",
+     "title": "Amount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5hcjct",
+     "title": "Attachment",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h12z8",
+     "title": "Report Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hm2m9",
+     "title": "Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h4xr6",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5htbq6",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100929699",
+   "name": "Subitems of Schools",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100929697",
+   "name": "Schools",
+   "description": "Board to manage schools including their location, type, enrollment, principal, establishment date, and status.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Active Schools"
+    },
+    {
+     "id": "group_mm5hqenh",
+     "title": "Archived Schools"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5h1tk",
+     "title": "Town / Village",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hf9wb",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hj896",
+     "title": "Established",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hba0y",
+     "title": "Enrollment",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5h24n",
+     "title": "School Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5h3gqf",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pkk56",
+     "title": "link to Beneficiaries / Students",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5qzsrv",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5qy1wj",
+     "title": "Region",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5qp5bv",
+     "title": "District",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5qzb0p",
+     "title": "Sub-county / Payam",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5qpx15",
+     "title": "Head Teacher",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phone_mm5qfg8n",
+     "title": "Head Teacher Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5q8h5c",
+     "title": "EMIS / Centre Number",
+     "type": "text",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100929077",
+   "name": "Subitems of Grant Proposals",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100929073",
+   "name": "Grant Proposals",
+   "description": "Board to manage proposals for grants including status, lead writer, deadline, budget, and related grant information.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Drafting"
+    },
+    {
+     "id": "group_mm5hae3d",
+     "title": "Under Review"
+    },
+    {
+     "id": "group_mm5hg5x5",
+     "title": "Submitted"
+    },
+    {
+     "id": "group_mm5hp1bt",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hmt5f",
+     "title": "Funder / Donor",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h7pz8",
+     "title": "Lead Writer",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hnhc3",
+     "title": "Deadline",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hd6w7",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hz748",
+     "title": "Budget Requested",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5h8hk8",
+     "title": "Related Grant",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5htm5z",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5jhskm",
+     "title": "Proposal Document",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "link_mm5jyzdw",
+     "title": "Document Link",
+     "type": "link",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928558",
+   "name": "Subitems of Youth STEM Program",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928553",
+   "name": "Youth STEM Program",
+   "description": "A board to manage and track activities, participants, and progress in a Youth STEM program.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Planned"
+    },
+    {
+     "id": "group_mm5h23s0",
+     "title": "Ongoing"
+    },
+    {
+     "id": "group_mm5h5aas",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hx6pv",
+     "title": "Coordinator",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hsn7k",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5h6909",
+     "title": "Venue / Host School",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h7s8a",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hngba",
+     "title": "Participant Count",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "timerange_mm5h64mb",
+     "title": "Start and End Dates",
+     "type": "timeline",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hm27g",
+     "title": "Program Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hctwb",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pb3vz",
+     "title": "link to Expenses",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pdn47",
+     "title": "link to Budget",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5qnbd8",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5qzb7f",
+     "title": "Region",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5q2142",
+     "title": "District",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5qn4d5",
+     "title": "Female Participants",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5qxwh1",
+     "title": "Male Participants",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5q6zgf",
+     "title": "Participants with Disability",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5qzkyj",
+     "title": "Sessions Delivered",
+     "type": "numbers",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928509",
+   "name": "Subitems of Community Outreach",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928502",
+   "name": "Community Outreach",
+   "description": "Manage and track community outreach initiatives, activities, and progress.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Planned"
+    },
+    {
+     "id": "group_mm5h56fa",
+     "title": "In Progress"
+    },
+    {
+     "id": "group_mm5h2d2g",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hax0v",
+     "title": "Beneficiaries",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hw3es",
+     "title": "Town / Village",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hyp3w",
+     "title": "Program Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h7zh4",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hq5jb",
+     "title": "Budget (local currency)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h3x7y",
+     "title": "Program Manager",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "timerange_mm5hg5th",
+     "title": "Program Timeline",
+     "type": "timeline",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hvxfq",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pgcmc",
+     "title": "link to Expenses",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5p9bxn",
+     "title": "link to Budget",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5q7970",
+     "title": "Country",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5q2ayt",
+     "title": "Region",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5q30kt",
+     "title": "District",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5qstd7",
+     "title": "Female Beneficiaries",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5q4qg1",
+     "title": "Male Beneficiaries",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5qjb40",
+     "title": "Beneficiaries with Disability",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5qqxdc",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928379",
+   "name": "Subitems of Applicants Management",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928376",
+   "name": "Applicants Management",
+   "description": "Board to manage applications and track applicant progress through various stages",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "New Applications"
+    },
+    {
+     "id": "group_mm5hnswh",
+     "title": "In Review"
+    },
+    {
+     "id": "group_mm5h8c7e",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hrez4",
+     "title": "Role Applied For",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5h4j1w",
+     "title": "Experience (years)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5hw1b4",
+     "title": "Resume",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5ht1pn",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hf6gz",
+     "title": "Application Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5he4cx",
+     "title": "Application Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h3bhg",
+     "title": "Assigned Recruiter",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hm6j4",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928322",
+   "name": "Subitems of Positions",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928320",
+   "name": "Positions",
+   "description": "A board to track open job positions and related applications within the organisation.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Open Positions"
+    },
+    {
+     "id": "group_mm5hrd60",
+     "title": "In Review"
+    },
+    {
+     "id": "group_mm5hmz5z",
+     "title": "Closed Positions"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hdxnd",
+     "title": "Department",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hbatg",
+     "title": "Location",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hb1gb",
+     "title": "Application Deadline",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hhazq",
+     "title": "Hiring Manager",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h51tt",
+     "title": "Urgency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hytc1",
+     "title": "Position Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5h5jmk",
+     "title": "Number of Applicants",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hvsvr",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928304",
+   "name": "Subitems of Employee Roles",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100928297",
+   "name": "Employee Roles",
+   "description": "Board to manage and classify roles of employees currently working in the organization.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Active Employees"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5h21y3",
+     "title": "Role",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hr9kj",
+     "title": "Department",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h8hny",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hbr8z",
+     "title": "Employment Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hbph9",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hx9ce",
+     "title": "Team Lead",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5ha40w",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927900",
+   "name": "Subitems of Salary Management",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927888",
+   "name": "Salary Management",
+   "description": "Board to manage employee salaries, payment dates, and related details.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Pending Payments"
+    },
+    {
+     "id": "group_mm5h3zth",
+     "title": "Paid"
+    },
+    {
+     "id": "group_mm5h95st",
+     "title": "Deferred"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5h5ht4",
+     "title": "Bonus",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hkxj8",
+     "title": "Department",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h44b1",
+     "title": "Employee",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hz9n6",
+     "title": "Payment Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hby6q",
+     "title": "Salary Amount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h1c2g",
+     "title": "Payment Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hqhvw",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927837",
+   "name": "Subitems of Employees",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927831",
+   "name": "Employees",
+   "description": "Manage and track employee information including roles, departments, managers, onboarding status, and contact details.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Active Employees"
+    },
+    {
+     "id": "group_mm5h374b",
+     "title": "On Leave"
+    },
+    {
+     "id": "group_mm5h7cpc",
+     "title": "Former Employees"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hkw9z",
+     "title": "Contact Email",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h6r61",
+     "title": "Manager",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hw1z",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h62yd",
+     "title": "Onboarding Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5h1x6e",
+     "title": "Role",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hcmfy",
+     "title": "Department",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hkf64",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927764",
+   "name": "Subitems of Sessions",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927756",
+   "name": "Sessions",
+   "description": "Board to manage and track sessions including scheduling, presenters, topics, and status.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Upcoming Sessions"
+    },
+    {
+     "id": "group_mm5hgccs",
+     "title": "Ongoing Sessions"
+    },
+    {
+     "id": "group_mm5hc8fe",
+     "title": "Completed Sessions"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5h49yk",
+     "title": "Topic",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hef77",
+     "title": "Duration",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hajtm",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h5dty",
+     "title": "Session Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h4961",
+     "title": "Presenter",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hzbj4",
+     "title": "Session Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hm6xp",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5ps6ct",
+     "title": "Mentee",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927739",
+   "name": "Subitems of Mentors",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927735",
+   "name": "Mentors",
+   "description": "Board to manage mentors, their expertise, availability, and contact information.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Active Mentors"
+    },
+    {
+     "id": "group_mm5hfaew",
+     "title": "Inactive Mentors"
+    },
+    {
+     "id": "group_mm5h27m8",
+     "title": "New Applicants"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hfv0p",
+     "title": "Active Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h84cn",
+     "title": "Availability End",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hvn6g",
+     "title": "Assigned Mentees",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5h25gc",
+     "title": "Expertise Area",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h1vy0",
+     "title": "Availability Start",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hpv03",
+     "title": "Contact Email",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5h34xa",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pykpz",
+     "title": "link to Mentees",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927670",
+   "name": "Subitems of Activities",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927668",
+   "name": "Activities",
+   "description": "Board to manage and track various activities including scheduling, responsibility, status, and related details.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Upcoming"
+    },
+    {
+     "id": "group_mm5hjc7r",
+     "title": "In Progress"
+    },
+    {
+     "id": "group_mm5hh33f",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h3wwp",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5h2t3w",
+     "title": "Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hk7sq",
+     "title": "Notes",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hbdmg",
+     "title": "Activity Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hdf62",
+     "title": "Assigned To",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hgtyh",
+     "title": "Duration",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h9nah",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5habh8",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927632",
+   "name": "Subitems of Volunteers",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927628",
+   "name": "Volunteers",
+   "description": "Board to manage volunteer activities, assignments, and schedules.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Available"
+    },
+    {
+     "id": "group_mm5hq68s",
+     "title": "Assigned"
+    },
+    {
+     "id": "group_mm5hhh9t",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hdr5m",
+     "title": "Volunteer Role",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5h7wps",
+     "title": "Hours Committed",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hd387",
+     "title": "Assigned To",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hz8gj",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hvsev",
+     "title": "Volunteer Name",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hw688",
+     "title": "Activity Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hcyjv",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927531",
+   "name": "Subitems of Project Proposals",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927526",
+   "name": "Project Proposals",
+   "description": "Board to track and manage incoming project proposals with status, responsible owners, budgets, and timelines.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "New Proposals"
+    },
+    {
+     "id": "group_mm5hwsen",
+     "title": "Under Review"
+    },
+    {
+     "id": "group_mm5h1nd3",
+     "title": "Approved"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5haywy",
+     "title": "Budget",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hsvxs",
+     "title": "Notes",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hcnz8",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hsajw",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h91xh",
+     "title": "Submission Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h918j",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hf4dr",
+     "title": "Deadline",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5h3c9g",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "form_view_cf9f6e91",
+     "title": "Form View",
+     "type": "link",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numberl3fpfs8m",
+     "title": "Your age",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_textywrnnlsb",
+     "title": "Your school",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_textdzniceb5",
+     "title": "Your class or year",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_textgxq86wj0",
+     "title": "Town and country",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "email2kne5cll",
+     "title": "Your email, if you have one",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phonepximhdcn",
+     "title": "A phone number we can reach you on",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_text4bw6j5xn",
+     "title": "Whose phone is that?",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_select6lfje8q",
+     "title": "Applying alone or as a group?",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textpkrglno8",
+     "title": "If a group, name everyone",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_textwhvc9hbz",
+     "title": "Project title",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "number7s53rndj",
+     "title": "How much money you are asking for",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_select9l1q429",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date5gwzfc9i",
+     "title": "Date you would start",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date26uruayo",
+     "title": "Date you would finish",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textyxx5a6jz",
+     "title": "Describe your project in one or two sentences",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textmgrrfpsd",
+     "title": "What problem are you trying to solve?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text9wfcsegm",
+     "title": "How do you know this problem is real?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text2g8e90ni",
+     "title": "Describe exactly what you will do",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textfaygl346",
+     "title": "Why is this the best way to solve it?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textt8bcaoy7",
+     "title": "Who benefits directly? Say their age and class",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numberq4u03gpf",
+     "title": "How many people benefit directly?",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text6rmrrotv",
+     "title": "How did you work out that number?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text8v20eaex",
+     "title": "Who else benefits, less directly?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textusul2uv5",
+     "title": "Objective 1, and the date it will be finished by",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text8cducrs9",
+     "title": "Objective 2, and the date it will be finished by",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textwyyw12it",
+     "title": "Objective 3, and the date it will be finished by",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_text3myjllyr",
+     "title": "Your plan, step by step",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textvkfrak39",
+     "title": "Your budget, one line per item",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "number008qvq1y",
+     "title": "Budget total",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "filei1zdgiq9",
+     "title": "Your budget as a file, if you have one",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textr1ungm7c",
+     "title": "Is anyone else giving money, materials, space or time?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_texti7vm7hna",
+     "title": "For each objective, what you will measure and how you will collect it",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_texts0pew9qw",
+     "title": "What might go wrong, and what you would do about it",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_select6q3pf9x",
+     "title": "Does your project involve pupils younger than you?",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_textnc51kphv",
+     "title": "Which adult from the institution will be present at every session?",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_select7hk6civ",
+     "title": "Has the institution agreed?",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "single_selectx0wv2ic",
+     "title": "Has the institution confirmed it will handle any parent or guardian permissions?",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textjrzw9zis",
+     "title": "What will you do about photographs and pupils' names?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "long_textankrf8ia",
+     "title": "What will still be there once the money is gone?",
+     "type": "long_text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_text9pgywri2",
+     "title": "Who will look after any equipment you buy?",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_texto3s00iwd",
+     "title": "Teacher's full name",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "short_text8i63f828",
+     "title": "Teacher's subject or role",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "emailndprp3rp",
+     "title": "Teacher's email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "phonefitgrdrq",
+     "title": "Teacher's phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multi_selectkebu54ek",
+     "title": "Read each line, then tick every one",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "signature61tdxb1n",
+     "title": "Your signature",
+     "type": "file",
+     "settings_str": "{}"
+    },
+    {
+     "id": "filey9yobagm",
+     "title": "Upload the signed school authorisation page",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927510",
+   "name": "Subitems of Projects",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927501",
+   "name": "Projects",
+   "description": "Board to manage various projects with timelines, owners, and status tracking.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Planned"
+    },
+    {
+     "id": "group_mm5h2se4",
+     "title": "In Progress"
+    },
+    {
+     "id": "group_mm5h6bj9",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "timerange_mm5hs2g",
+     "title": "Project Timeline",
+     "type": "timeline",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hppwd",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hf7ck",
+     "title": "Notes",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h62r7",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5heckp",
+     "title": "Programme Area",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hmej5",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hfsf4",
+     "title": "Budget (local currency)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hs4my",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pb3gk",
+     "title": "link to Expenses",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pt8pg",
+     "title": "link to Budget",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5q22sm",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5qq06f",
+     "title": "Budget (USD)",
+     "type": "numbers",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927454",
+   "name": "Subitems of Scholarships",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927443",
+   "name": "Scholarships",
+   "description": "Track and manage scholarship opportunities including application deadlines, amounts, status, and assigned reviewers.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Open for Applications"
+    },
+    {
+     "id": "group_mm5hha11",
+     "title": "In Review"
+    },
+    {
+     "id": "group_mm5h1vph",
+     "title": "Awarded / Closed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5h5eg8",
+     "title": "Scholarship Type",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hz6sj",
+     "title": "Amount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5h7d60",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hghx4",
+     "title": "Notes",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5h3r32",
+     "title": "Reviewer",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hb954",
+     "title": "Deadline",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hxc2x",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5phx1n",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5tabbr",
+     "title": "Applicants / Recipients",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927399",
+   "name": "Subitems of Budget",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927389",
+   "name": "Budget",
+   "description": "Board to manage and track budget related items and expenses.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Planned"
+    },
+    {
+     "id": "group_mm5hxa25",
+     "title": "In Progress"
+    },
+    {
+     "id": "group_mm5hrw30",
+     "title": "Completed"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5h6934",
+     "title": "Start Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hhea4",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hv9g1",
+     "title": "Amount (local currency)",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5h23ny",
+     "title": "Expense Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hhd8c",
+     "title": "End Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hmmcj",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hcm64",
+     "title": "Responsible",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hyph4",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pm83s",
+     "title": "Project / Program",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5pjfs3",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927249",
+   "name": "Subitems of Expenses",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Subitems"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date0",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100927218",
+   "name": "Expenses",
+   "description": "Board for tracking and managing expenses including amounts, categories, dates, and approval status.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Unapproved"
+    },
+    {
+     "id": "group_mm5hazn5",
+     "title": "Approved"
+    },
+    {
+     "id": "group_mm5h7e1n",
+     "title": "Rejected"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "multiple_person_mm5hjz64",
+     "title": "Paid By",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hx85w",
+     "title": "Priority",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "numeric_mm5hdsbc",
+     "title": "Amount",
+     "type": "numbers",
+     "settings_str": "{}"
+    },
+    {
+     "id": "text_mm5hmb4y",
+     "title": "Description",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "dropdown_mm5hg555",
+     "title": "Category",
+     "type": "dropdown",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date_mm5hz83j",
+     "title": "Date Incurred",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5hmaex",
+     "title": "Approval Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "subtasks_mm5hz61a",
+     "title": "Subitems",
+     "type": "subtasks",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pdx7s",
+     "title": "Project / Program",
+     "type": "board_relation",
+     "settings_str": "{}"
+    },
+    {
+     "id": "color_mm5pdjap",
+     "title": "Currency",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "file_mm5qtnjw",
+     "title": "Receipts",
+     "type": "file",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100924069",
+   "name": "Marketing Contacts",
+   "description": "",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Marketing Contacts"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_first_name",
+     "title": "First name",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_last_name",
+     "title": "Last name",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_company_name",
+     "title": "Company name",
+     "type": "text",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_email",
+     "title": "Email",
+     "type": "email",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_phone",
+     "title": "Phone",
+     "type": "phone",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_email_subscription",
+     "title": "Subscription",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_is_marketing_contact",
+     "title": "Marketing contact",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "marketing_contact_legal_basis",
+     "title": "Legal Basis",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "booleanaknx5zqr",
+     "title": "I agree to receive emails from JdiobeSTEM",
+     "type": "checkbox",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  },
+  {
+   "id": "5100923593",
+   "name": "Donors' Activities",
+   "description": "Track all donor activities and interactions in one place, including calls, meetings, and more.",
+   "items_count": 0,
+   "groups": [
+    {
+     "id": "topics",
+     "title": "Activities"
+    }
+   ],
+   "columns": [
+    {
+     "id": "name",
+     "title": "Name",
+     "type": "name",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status_1",
+     "title": "Activity Type",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "person",
+     "title": "Owner",
+     "type": "people",
+     "settings_str": "{}"
+    },
+    {
+     "id": "date4",
+     "title": "Date",
+     "type": "date",
+     "settings_str": "{}"
+    },
+    {
+     "id": "status",
+     "title": "Status",
+     "type": "status",
+     "settings_str": "{}"
+    },
+    {
+     "id": "board_relation_mm5pe7fh",
+     "title": "Donor",
+     "type": "board_relation",
+     "settings_str": "{}"
+    }
+   ],
+   "items": []
+  }
+ ]
+}

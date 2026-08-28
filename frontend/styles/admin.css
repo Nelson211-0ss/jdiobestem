@@ -1,0 +1,188 @@
+/*
+ * Dashboard theme.
+ *
+ * shadcn/ui expects a set of HSL custom properties. Every one of them is scoped
+ * to `.admin-shell` rather than `:root`, and so is shadcn's usual
+ * `* { @apply border-border }` base rule — which on the public site would put
+ * back the borders the design deliberately removed. Adding shadcn therefore
+ * cannot restyle a single public page.
+ *
+ * The palette is the Foundation's, translated to HSL: charcoal #3A3B47 as the
+ * ink, orange #FE5C00 as the accent, cream #FFF1E0 as the muted surface.
+ */
+
+/*
+ * typography.css pads the body down to clear the public site's fixed header.
+ * The dashboard has its own header and no such offset, so that padding is a
+ * blank strip above it. Scoped to pages that actually render the shell.
+ */
+body:has(.admin-shell) {
+  padding-top: 0;
+  overflow-x: visible;
+}
+
+.admin-shell {
+  --background: 0 0% 100%;
+  --foreground: 234 10% 25%; /* charcoal #3A3B47 */
+
+  --card: 0 0% 100%;
+  --card-foreground: 234 10% 25%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 234 10% 25%;
+
+  /* Charcoal, not orange: primary is mostly buttons and links, and the site's
+     orange only clears AA against charcoal text, never white. */
+  --primary: 234 10% 25%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 33 100% 94%; /* cream #FFF1E0 */
+  --secondary-foreground: 234 10% 25%;
+
+  --muted: 33 60% 96%;
+  --muted-foreground: 240 4% 44%;
+
+  --accent: 22 100% 50%; /* brand orange #FE5C00 */
+  --accent-foreground: 234 15% 12%;
+
+  --destructive: 6 65% 38%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 240 6% 90%;
+  --input: 240 6% 90%;
+  --ring: 22 100% 50%;
+
+  --radius: 0.65rem;
+
+  /*
+   * Status tints for badges. Kept as their own tokens rather than as fixed
+   * `bg-green-100` utilities in the component, because a tint that works as
+   * pale-wash-with-dark-ink in the light theme has to invert to
+   * dark-wash-with-pale-ink in the dark one, and a hard-coded utility cannot.
+   */
+  --tint-ok-bg: 122 30% 87%; /* green-100 */
+  --tint-ok-fg: 126 37% 14%; /* green-800 */
+  --tint-ok-line: 124 26% 66%; /* green-300 */
+
+  --tint-warn-bg: 25 100% 91%; /* orange-100 */
+  --tint-warn-fg: 21 100% 29%; /* orange-800 */
+  --tint-warn-line: 25 100% 71%; /* orange-300 */
+
+  --tint-bad-bg: 19 79% 89%; /* red-100 */
+  --tint-bad-fg: 4 64% 20%; /* red-800 */
+  --tint-bad-line: 12 71% 68%; /* red-300 */
+
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/*
+ * Dark theme.
+ *
+ * Only the token values change — no component in the dashboard uses a `dark:`
+ * utility, so the whole theme is this one block. Values are the same hues as
+ * the light palette with the lightness inverted, rather than a neutral grey
+ * ramp: keeping the charcoal's warm cast and the cream's hue stops the dark
+ * dashboard reading as a different product from the light one.
+ *
+ * The selector is on `html`, not on `.admin-shell`, so the no-flash script in
+ * the admin layout can set it before React mounts. It still requires
+ * `.admin-shell` in the subtree, so carrying the attribute onto a public page
+ * changes nothing there.
+ *
+ * There is deliberately one block, not two: the script resolves the system
+ * preference itself and always writes an explicit `light` or `dark`, so there
+ * is no `prefers-color-scheme` copy of this palette to drift out of sync. The
+ * dashboard is a React application that cannot run without JavaScript anyway.
+ */
+html[data-admin-theme='dark'] .admin-shell {
+  --background: 240 8% 9%;
+  --foreground: 33 22% 91%;
+
+  --card: 240 8% 12%;
+  --card-foreground: 33 22% 91%;
+
+  --popover: 240 8% 13%;
+  --popover-foreground: 33 22% 91%;
+
+  /* Inverted from light: on a dark ground the readable "primary" surface is
+     the pale one, so primary becomes near-white with dark ink on it. */
+  --primary: 33 22% 91%;
+  --primary-foreground: 240 8% 12%;
+
+  --secondary: 240 7% 18%;
+  --secondary-foreground: 33 22% 91%;
+
+  --muted: 240 7% 15%;
+  --muted-foreground: 240 5% 65%;
+
+  /* Orange lifted and desaturated a little: #FE5C00 at full strength vibrates
+     against a dark ground and fails contrast for text on it. */
+  --accent: 22 100% 58%;
+  --accent-foreground: 240 8% 9%;
+
+  --destructive: 6 62% 52%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 240 6% 22%;
+  --input: 240 6% 24%;
+  --ring: 22 100% 58%;
+
+  /* Inverted tints: a dark wash carrying pale ink, at roughly the same
+     perceived weight against their ground as the light versions. */
+  --tint-ok-bg: 126 30% 16%;
+  --tint-ok-fg: 124 40% 76%;
+  --tint-ok-line: 126 24% 30%;
+
+  --tint-warn-bg: 22 60% 18%;
+  --tint-warn-fg: 25 100% 76%;
+  --tint-warn-line: 22 50% 32%;
+
+  --tint-bad-bg: 6 45% 20%;
+  --tint-bad-fg: 12 80% 78%;
+  --tint-bad-line: 6 40% 34%;
+
+  /* Tells the browser to render form controls, scrollbars and the caret dark. */
+  color-scheme: dark;
+}
+
+/* Scoped, so the public site's border-free design is untouched. */
+.admin-shell *,
+.admin-shell *::before,
+.admin-shell *::after {
+  border-color: hsl(var(--border));
+}
+
+/*
+ * typography.css sets sizes for h1-h6 and for .text-* utilities site-wide with
+ * `body`-prefixed selectors that outrank plain Tailwind. Inside the dashboard
+ * that fights every component, so the utilities are handed back their normal
+ * meaning here.
+ */
+.admin-shell h1,
+.admin-shell h2,
+.admin-shell h3,
+.admin-shell h4,
+.admin-shell h5,
+.admin-shell h6 {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  text-wrap: initial;
+}
+
+.admin-shell .text-xs { font-size: 0.75rem; line-height: 1rem; letter-spacing: 0; }
+.admin-shell .text-sm { font-size: 0.875rem; line-height: 1.25rem; letter-spacing: 0; }
+.admin-shell .text-base { font-size: 1rem; line-height: 1.5rem; letter-spacing: 0; }
+.admin-shell .text-lg { font-size: 1.125rem; line-height: 1.75rem; letter-spacing: -0.01em; }
+.admin-shell .text-xl { font-size: 1.25rem; line-height: 1.75rem; letter-spacing: -0.012em; }
+.admin-shell .text-2xl { font-size: 1.5rem; line-height: 2rem; letter-spacing: -0.016em; }
+.admin-shell .text-3xl { font-size: 1.875rem; line-height: 2.25rem; letter-spacing: -0.02em; }
+
+/* Tabular figures wherever numbers are compared down a column. */
+.admin-shell .tabular {
+  font-variant-numeric: tabular-nums;
+}

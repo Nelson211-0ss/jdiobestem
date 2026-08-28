@@ -1,0 +1,337 @@
+/*
+ * Page-scoped rules that lived in per-page <style> blocks in the static build.
+ * Every selector here is namespaced by a class only its own page uses, so
+ * loading them together is equivalent to loading each on its own page.
+ *
+ * Field styling that used to live here now comes from the shared `.field` rules
+ * in brand-colors.css, so `.contact-field` and `.volunteer-field` are no longer
+ * redefined — this file loads last and would otherwise win.
+ *
+ * Imported after the Tailwind layers so `#donation-form .donate-amount-btn`
+ * can outrank the utility background on the button.
+ */
+
+/* ---------------------------------------------------------------- /contact */
+
+/* Rows in the contact details list. Separated by spacing, not a rule. */
+.contact-info-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.9rem 0;
+}
+
+.contact-info-row:first-child {
+  padding-top: 0;
+}
+
+.contact-info-row:last-child {
+  padding-bottom: 0;
+}
+
+/* ------------------------------------------------------------------- /news */
+
+/* Static headline column: pinned on the left so only the feed on the right scrolls. */
+.news-headline {
+  position: static;
+}
+
+@media (min-width: 1024px) {
+  .news-headline {
+    position: sticky;
+    top: 6.5rem;
+    align-self: start;
+  }
+}
+
+/* Consecutive stories are divided by a soft shadow and generous space rather
+   than a hairline. */
+.news-post + .news-post {
+  margin-top: 3.5rem;
+  padding-top: 3.5rem;
+  box-shadow: 0 -18px 30px -26px rgb(58 59 71 / 0.55);
+}
+
+/* ============================================================ legal pages */
+
+/*
+ * The privacy policy and terms of use are set as documents, not as pages:
+ * black, white and grey only, ruled rather than carded, and with the site's
+ * orange links overridden back to plain underlined black.
+ *
+ * That is deliberate. Colour on this site is persuasive — it moves people
+ * toward donating and applying. These two documents limit liability and
+ * describe what happens to a child's personal data, and neither should be
+ * doing any persuading. Monochrome is also what a reader expects a legal
+ * instrument to look like, and it prints correctly with no further work.
+ *
+ * Everything is scoped under `.legal-doc` so nothing here leaks into the rest
+ * of the site.
+ */
+.legal-doc {
+  --legal-ink: #000;
+  --legal-ink-soft: #1a1a1a;
+  --legal-muted: #4a4a4a;
+  --legal-faint: #767676;
+  --legal-rule: #d8d8d8;
+  --legal-rule-strong: #000;
+
+  background-color: #fff;
+  color: var(--legal-muted);
+}
+
+/* --- masthead ----------------------------------------------------------- */
+
+.legal-masthead {
+  padding-top: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  padding-bottom: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  /* A rule under the masthead, the way a document separates its title block. */
+  border-bottom: 2px solid var(--legal-rule-strong);
+}
+
+.legal-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--legal-faint);
+}
+
+.legal-doc .legal-title {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--legal-ink);
+}
+
+.legal-lede {
+  margin-top: 1rem;
+  max-width: 42rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--legal-muted);
+}
+
+.legal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 2rem;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+}
+
+.legal-meta > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.legal-meta dt {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--legal-ink);
+}
+
+.legal-meta dd {
+  margin: 0;
+  color: var(--legal-muted);
+}
+
+/* --- contents list ------------------------------------------------------ */
+
+.legal-toc h2 {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--legal-ink);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--legal-rule);
+}
+
+.legal-toc ol {
+  margin-top: 0.5rem;
+  list-style: none;
+  font-size: 0.8125rem;
+}
+
+/*
+ * Wins over the link rule further down on specificity: contents entries are
+ * navigation, and eighteen underlined lines in a column reads as a wall.
+ */
+.legal-doc .legal-toc a:not([class]) {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--legal-muted);
+  text-decoration: none;
+}
+
+.legal-doc .legal-toc a:not([class]):hover {
+  color: var(--legal-ink);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+}
+
+.legal-toc-num {
+  flex: none;
+  width: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--legal-faint);
+}
+
+/* --- sections ----------------------------------------------------------- */
+
+.legal-section + .legal-section {
+  margin-top: 2.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--legal-rule);
+}
+
+.legal-doc .legal-section > h2 {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--legal-ink);
+}
+
+.legal-section-num {
+  font-variant-numeric: tabular-nums;
+  color: var(--legal-ink);
+}
+
+/*
+ * Body typography. Denser than the site's marketing copy: a clause is read
+ * once, carefully, and wants tighter setting than a paragraph meant to carry
+ * someone down a landing page.
+ */
+.legal-body {
+  margin-top: 0.9rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--legal-muted);
+}
+
+.legal-body > * + * {
+  margin-top: 0.9rem;
+}
+
+.legal-doc .legal-body h3 {
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--legal-ink);
+}
+
+.legal-body strong {
+  font-weight: 700;
+  color: var(--legal-ink-soft);
+}
+
+/*
+ * Links back to black. `.legal-body a:not([class])` outranks the site-wide
+ * `p a:not([class])` orange rule on specificity, and pages.css loads last, so
+ * this holds without !important.
+ */
+.legal-doc a:not([class]),
+.legal-body a:not([class]),
+.legal-body p a:not([class]) {
+  color: var(--legal-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--legal-faint);
+  text-underline-offset: 0.18em;
+}
+
+.legal-doc a:not([class]):hover,
+.legal-body a:not([class]):hover,
+.legal-body p a:not([class]):hover {
+  text-decoration-color: var(--legal-ink);
+}
+
+/* Clause lists carry their own numbering (a), (b), (c) / (i), (ii). */
+.legal-body ol,
+.legal-body ul {
+  margin-left: 1.35rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.legal-body ol {
+  list-style: lower-alpha;
+}
+
+.legal-body ol.legal-roman {
+  list-style: lower-roman;
+}
+
+.legal-body ul {
+  list-style: disc;
+}
+
+.legal-body li::marker {
+  color: var(--legal-faint);
+  font-weight: 400;
+}
+
+/* Definition lists carry the "Term means ..." blocks. */
+.legal-body dl {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.legal-body dt {
+  font-weight: 700;
+  color: var(--legal-ink);
+}
+
+.legal-body dd {
+  margin-left: 0;
+}
+
+/* Contact blocks at the foot of each document. */
+.legal-body address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.legal-body code {
+  font-size: 0.875em;
+  color: var(--legal-ink);
+}
+
+/* --- print -------------------------------------------------------------- */
+
+/*
+ * These get printed and filed. Drop the contents list (its anchors are useless
+ * on paper), unpin anything sticky, and force plain black on white.
+ */
+@media print {
+  .legal-toc {
+    display: none;
+  }
+
+  .legal-doc,
+  .legal-doc * {
+    color: #000 !important;
+    background: transparent !important;
+  }
+
+  .legal-doc .lg\:col-span-8 {
+    grid-column: 1 / -1;
+  }
+
+  .legal-section {
+    break-inside: avoid-page;
+  }
+}

@@ -1,0 +1,52 @@
+# Local development. Everything runs in containers so the Python version, the
+# Postgres version, and the database itself are the same on every machine.
+#
+#   docker compose up
+#   docker compose exec web python manage.py migrate
+#   docker compose exec web python manage.py createsuperuser
+#
+# Dashboard: http://admin.localhost:8000/
+# API:       http://localhost:8000/api/health/
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-jdiobe}
+      POSTGRES_USER: ${POSTGRES_USER:-jdiobe}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jdiobe}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      # Exposed so you can point psql or a GUI at it from the host.
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-jdiobe} -d ${POSTGRES_DB:-jdiobe}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      # Bind-mounted so edits are live without a rebuild.
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: ${POSTGRES_DB:-jdiobe}
+      POSTGRES_USER: ${POSTGRES_USER:-jdiobe}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jdiobe}
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-1}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-dev-only-insecure-key-change-me}
+      SERVICE_API_KEY: ${SERVICE_API_KEY:-dev-service-key-change-me}
+      SITE_ORIGIN: ${SITE_ORIGIN:-http://localhost:3000}
+      ADMIN_HOST: ${ADMIN_HOST:-admin.localhost}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
