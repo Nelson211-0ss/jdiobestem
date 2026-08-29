@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 
 from documents.models import Document
+from programmes.models import ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
 
@@ -23,6 +24,7 @@ from .serializers import (
 
 
 class BoardViewSet(viewsets.ReadOnlyModelViewSet):
+
     """
     Boards are read-only here.
 
@@ -168,6 +170,10 @@ def option_lists(request):
             "documents": [
                 {"value": str(d.pk), "label": d.title}
                 for d in Document.objects.filter(is_archived=False).order_by("title")
+            ],
+            "projects": [
+                {"value": str(p.pk), "label": f"{p.title} — {p.school}"[:120]}
+                for p in ScienceFairProject.objects.order_by("title")
             ],
             "staff": [
                 {"value": str(u.pk), "label": u.get_full_name() or u.username}

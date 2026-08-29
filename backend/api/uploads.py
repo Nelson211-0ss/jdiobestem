@@ -33,6 +33,8 @@ FOLDERS = {
     "magazine": "magazine",
     "newsletter": "newsletter",
     "documents": "documents",
+    "cv": "cv",
+    "receipts": "receipts",
     "programmes": "programmes",
     "misc": "misc",
 }

@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     "newsletters",
     "documents",
     "activity",
+    "jobs",
 ]
 
 MIDDLEWARE = [
@@ -135,9 +136,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        # Django's default is 8. These accounts can read donor records and change
+        # who else has access, so the floor is raised for all of them.
+        "OPTIONS": {"min_length": 12},
+    },
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {"NAME": "accounts.validators.StrongPasswordValidator"},
 ]
 
 # --------------------------------------------------------------- i18n

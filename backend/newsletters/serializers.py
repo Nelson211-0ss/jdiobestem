@@ -26,7 +26,7 @@ class NewsletterSerializer(serializers.ModelSerializer):
             "id", "subject", "issue_label", "published_on", "pdf", "cover_image",
             "preheader", "body", "country",
             "status", "status_display", "created_by", "created_by_name",
-            "sent_at", "recipient_count", "sent_count", "failed_count",
+            "is_public", "sent_at", "recipient_count", "sent_count", "failed_count",
             "audience_count", "is_editable", "thumbnail", "created_at", "updated_at",
         ]
         read_only_fields = [

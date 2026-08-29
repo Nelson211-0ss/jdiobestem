@@ -22,7 +22,9 @@ those are written by the public website and need real constraints. See
 OVERLAPS in sync_monday.py for where the two meet.
 """
 
+from django.contrib.auth.models import User
 from django.db import models
+from django.utils.text import slugify
 
 from core.countries import country_field
 from core.models import TimeStampedModel
@@ -255,6 +257,27 @@ class Office(TimeStampedModel):
     region = models.CharField(max_length=120, blank=True)
     phone = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
+
+    # Carried over from the "Country Office Profiles" board, which held these
+    # four and nothing else the office record did not already have. One place
+    # for an office rather than two that disagree.
+    lead = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="offices_led",
+        help_text="Who runs this office.",
+    )
+    registration_number = models.CharField(
+        max_length=120, blank=True, help_text="As registered with the authorities in this country."
+    )
+    staff_headcount = models.PositiveSmallIntegerField(
+        null=True, blank=True, help_text="People based here."
+    )
+    established_on = models.DateField(
+        null=True, blank=True, help_text="When the office opened."
+    )
 
     is_active = models.BooleanField(default=True, db_index=True)
     order = models.PositiveSmallIntegerField(default=0)

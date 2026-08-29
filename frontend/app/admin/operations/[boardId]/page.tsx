@@ -69,7 +69,7 @@ export default async function BoardPage({
         actions={
           can(identity, 'boards', 'add') ? (
             <Button variant="accent" asChild>
-              <Link href={`/admin/boards/${boardId}/new`}>
+              <Link href={`/admin/operations/${boardId}/new`}>
                 <Plus /> New record
               </Link>
             </Button>
@@ -100,7 +100,7 @@ export default async function BoardPage({
               </TableRow>
             ) : (
               data.results.map((record) => (
-                <ClickableRow key={record.id} href={`/admin/boards/${boardId}/${record.id}`}>
+                <ClickableRow key={record.id} href={`/admin/operations/${boardId}/${record.id}`}>
                   <TableCell className="font-medium">
                     {record.name}
                     {record.is_local ? (
@@ -131,7 +131,7 @@ export default async function BoardPage({
                   ) : null}
                   <TableCell className="text-right">
                     <Link
-                      href={`/admin/boards/${boardId}/${record.id}`}
+                      href={`/admin/operations/${boardId}/${record.id}`}
                       className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
                     >
                       Open

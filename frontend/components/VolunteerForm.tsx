@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Icon from './Icon';
+import PhoneField from './PhoneField';
 
 /** Volunteer application form. Posts to /api/volunteer, which relays the
  *  application to the organisation's inbox via Resend. Styled for a light
@@ -86,20 +87,7 @@ export default function VolunteerForm() {
             placeholder="you@email.com"
           />
         </div>
-        <div>
-          <label htmlFor="phone" className="field-label">
-            Phone *
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            autoComplete="tel"
-            className="volunteer-field"
-            placeholder="+256 700 000 000"
-          />
-        </div>
+        <PhoneField id="phone" name="phone" label="Phone" />
       </div>
       <div>
         <label htmlFor="interest" className="field-label">

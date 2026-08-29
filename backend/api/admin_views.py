@@ -10,6 +10,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.db.models import Count, Sum
 from django.utils import timezone
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
+
 from activity.models import ActivityLog
 from activity.recorder import LoggedViewSetMixin, record
 from rest_framework import status, viewsets
@@ -27,7 +30,7 @@ from content_cms.models import (
     TeamMember,
 )
 from donations.models import Donation
-from programmes.models import Cohort, Mentee, Mentor, MentorshipPairing, ScienceFairProject
+from programmes.models import Cohort, Mentee, Mentor, MentorshipPairing, ProjectAward, ScienceFairProject
 from submissions.models import (
     ContactMessage,
     NewsletterSubscriber,
@@ -106,6 +109,81 @@ def logout(request):
     return Response({"ok": True})
 
 
+
+@api_view(["POST"])
+@permission_classes([IsStaff])
+def change_password(request):
+    """
+    Change your own password. Nobody else's — that is a separate, deliberate act
+    by an administrator, not something this endpoint quietly allows.
+
+    The current password is required even though the caller is already
+    authenticated: a token left behind on a shared machine should not be enough
+    to take an account over.
+    """
+    current = str(request.data.get("current_password", ""))
+    new = str(request.data.get("new_password", ""))
+    confirm = str(request.data.get("confirm_password", ""))
+
+    if not current or not new:
+        return Response(
+            {"detail": "Enter your current password and a new one."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if not request.user.check_password(current):
+        record(
+            request,
+            action=ActivityLog.Action.LOGIN_FAILED,
+            detail="Failed password change: current password was wrong",
+        )
+        return Response(
+            {"current_password": ["That is not your current password."]},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if confirm and new != confirm:
+        return Response(
+            {"confirm_password": ["The two new passwords do not match."]},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    if new == current:
+        return Response(
+            {"new_password": ["Your new password must be different from the current one."]},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    try:
+        validate_password(new, user=request.user)
+    except DjangoValidationError as exc:
+        return Response({"new_password": list(exc.messages)}, status=status.HTTP_400_BAD_REQUEST)
+
+    request.user.set_password(new)
+    request.user.save(update_fields=["password"])
+
+    # Changing a password should end every other session. The token is reissued
+    # so the person doing it stays signed in here, and anyone holding the old
+    # one is turned out.
+    Token.objects.filter(user=request.user).delete()
+    token, _created = Token.objects.get_or_create(user=request.user)
+
+    record(
+        request,
+        action=ActivityLog.Action.ACCESS_CHANGE,
+        resource="users",
+        object_id=str(request.user.pk),
+        object_label=request.user.get_full_name() or request.user.username,
+        detail="Changed their own password",
+    )
+
+    return Response(
+        {
+            "detail": "Password changed. Any other signed-in sessions have been ended.",
+            "token": token.key,
+        }
+    )
+
 def _identity(user):
     """Who someone is, plus everything the dashboard needs to render for them.
 
@@ -127,6 +205,9 @@ def _identity(user):
         ),
         "country": policy.country_of(user),
         "country_label": profile.country_label if profile else "All countries",
+        # Comes from the team page rather than being uploaded twice, so a
+        # person's photograph is maintained in one place.
+        "avatar": profile.profile_photo if profile else "",
         "position": profile.position if profile else "",
         "department": profile.department if profile else "",
         "permissions": policy.permissions_for(user),
@@ -386,6 +467,34 @@ class TeamMemberViewSet(StaffViewSet):
     ordering = ["group", "order", "name"]
 
 
+class RecognisedVolunteerViewSet(StaffViewSet):
+    """
+    Volunteers the Foundation names publicly.
+
+    The same table as team members, narrowed to the volunteers group. It gets a
+    page of its own because it is a different job: the team page is who runs the
+    organisation, and this is who gave their time — and whoever is thanking a
+    volunteer should not have to scroll past the executive director to do it.
+
+    The group is set here rather than left to the form, so a record created on
+    this page cannot accidentally become a staff profile.
+    """
+
+    queryset = TeamMember.objects.filter(group=TeamMember.Group.VOLUNTEERS)
+    resource = "recognised-volunteers"
+    serializer_class = s.TeamMemberAdminSerializer
+    filterset_fields = ["is_published", "country"]
+    search_fields = ["name", "role", "bio"]
+    ordering_fields = ["order", "name"]
+    ordering = ["order", "name"]
+
+    def perform_create(self, serializer):
+        super().perform_create(serializer)
+        if serializer.instance.group != TeamMember.Group.VOLUNTEERS:
+            serializer.instance.group = TeamMember.Group.VOLUNTEERS
+            serializer.instance.save(update_fields=["group"])
+
+
 class MagazineIssueViewSet(StaffViewSet):
     queryset = MagazineIssue.objects.prefetch_related("stories")
     resource = "magazine"
@@ -444,6 +553,18 @@ class ScienceFairProjectViewSet(StaffViewSet):
     search_fields = ["title", "school", "teacher_mentor", "notes"]
     ordering_fields = ["created_at", "title", "review_score"]
     ordering = ["-created_at"]
+
+
+class ProjectAwardViewSet(StaffViewSet):
+    """What students received for their projects."""
+
+    queryset = ProjectAward.objects.select_related("project")
+    resource = "project-awards"
+    serializer_class = s.ProjectAwardAdminSerializer
+    filterset_fields = ["kind", "is_delivered", "project"]
+    search_fields = ["title", "description", "awarded_by", "project__title"]
+    ordering_fields = ["awarded_on", "created_at", "title"]
+    ordering = ["-awarded_on", "-created_at"]
 
 
 class UserViewSet(StaffViewSet):

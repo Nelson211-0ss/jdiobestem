@@ -63,6 +63,20 @@ class StaffProfile(TimeStampedModel):
         help_text="Leave blank for access across all countries.",
     )
 
+    # An explicit link to the person's public profile, so their photograph and
+    # title come from the one place the Foundation already maintains them.
+    # Optional: it is matched by email or name when left unset, and set here
+    # when that guess would be wrong — two people sharing a name, or somebody
+    # who has no public profile at all.
+    team_member = models.ForeignKey(
+        "content_cms.TeamMember",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="staff_accounts",
+        help_text="Left blank, the matching team member is found by email, then by name.",
+    )
+
     position = models.CharField(max_length=150, blank=True, help_text="Job title, as they would write it.")
     department = models.CharField(max_length=150, blank=True)
     phone = models.CharField(max_length=50, blank=True)
@@ -77,6 +91,30 @@ class StaffProfile(TimeStampedModel):
     @property
     def country_label(self):
         return self.get_country_display() if self.country else "All countries"
+
+    @property
+    def profile_photo(self) -> str:
+        """
+        The person's photograph, from their public profile.
+
+        Explicit link first, then email, then name. Matching on email before
+        name matters: names are entered by hand in two places and drift, while
+        an address is the same string or it is not.
+        """
+        from content_cms.models import TeamMember
+
+        member = self.team_member
+        if member is None:
+            email = (self.user.email or "").strip().lower()
+            if email:
+                member = TeamMember.objects.filter(email__iexact=email).first()
+        if member is None:
+            name = (self.user.get_full_name() or "").strip()
+            if name:
+                member = TeamMember.objects.filter(name__iexact=name).first()
+        if member is None:
+            return ""
+        return (member.image_upload.url if member.image_upload else "") or member.image or ""
 
 
 class PermissionOverride(TimeStampedModel):

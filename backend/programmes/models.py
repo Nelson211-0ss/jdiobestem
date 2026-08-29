@@ -157,6 +157,8 @@ class ScienceFairProject(TimeStampedModel):
         SCHOOL_FAIR = "school_fair", "6. School-level fair"
         REGIONAL_FAIR = "regional_fair", "7. Regional fair"
         NATIONAL_FAIR = "national_fair", "8. National fair"
+        COMPLETED = "completed", "9. Completed"
+        WITHDRAWN = "withdrawn", "Withdrawn"
 
     registration = models.OneToOneField(
         ProjectProposal,
@@ -193,3 +195,59 @@ class ScienceFairProject(TimeStampedModel):
 
     def __str__(self):
         return f"{self.title} — {self.school}"
+
+
+class ProjectAward(TimeStampedModel):
+    """
+    What a student got for their work.
+
+    Kept as rows against the project rather than a field on it, because one
+    project earns several things — a placement at the fair, then a scholarship,
+    then equipment for the school — at different times and from different
+    people. A single "prize" field would record the first and lose the rest.
+
+    The money is stored with its currency. A bare number is meaningless across
+    three countries, and the Foundation has already been caught out by figures
+    that turned out to be in the wrong one.
+    """
+
+    class Kind(models.TextChoices):
+        PLACEMENT = "placement", "Placement at a fair"
+        PRIZE = "prize", "Prize"
+        SCHOLARSHIP = "scholarship", "Scholarship"
+        EQUIPMENT = "equipment", "Equipment"
+        CERTIFICATE = "certificate", "Certificate"
+        MENTORSHIP = "mentorship", "Mentorship place"
+        OTHER = "other", "Other"
+
+    project = models.ForeignKey(
+        ScienceFairProject, on_delete=models.CASCADE, related_name="awards"
+    )
+    kind = models.CharField(max_length=30, choices=Kind.choices, default=Kind.PRIZE, db_index=True)
+    title = models.CharField(max_length=200, help_text="e.g. First place, regional fair.")
+    description = models.TextField(blank=True)
+
+    amount = models.DecimalField(
+        max_digits=12, decimal_places=2, null=True, blank=True,
+        help_text="If it carries money. Leave blank if it does not.",
+    )
+    currency = models.CharField(
+        max_length=3, blank=True, help_text="Required when there is an amount."
+    )
+
+    awarded_on = models.DateField(null=True, blank=True)
+    awarded_by = models.CharField(
+        max_length=200, blank=True, help_text="Who gave it — the Foundation, a partner, a sponsor."
+    )
+    #: Recorded rather than assumed: a scholarship promised in March and paid in
+    #: June are different facts, and only one of them is money out of the door.
+    is_delivered = models.BooleanField(
+        default=False, db_index=True, help_text="Whether the student has actually received it."
+    )
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-awarded_on", "-created_at"]
+
+    def __str__(self):
+        return f"{self.title} — {self.project.title}"

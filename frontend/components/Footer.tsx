@@ -49,6 +49,11 @@ export default function Footer() {
                       </Link>
                     </li>
                     <li>
+                      <Link href="/careers" className="block py-2 text-white/75 transition hover:text-orange-400">
+                        <span>Careers</span>
+                      </Link>
+                    </li>
+                    <li>
                       <Link href="/programs" className="block py-2 text-white/75 transition hover:text-orange-400">
                         <span>Programs</span>
                       </Link>
@@ -142,13 +147,17 @@ export default function Footer() {
                 <SocialIcon name="linkedin" className="w-[18px] h-[18px]"/>
               </a>
             </div>
-            {/* Copyright sits above the legal links on narrow screens and beside
-                them from sm up, so the bar stays one line on a phone. */}
-            <div className="flex flex-col items-center gap-2 sm:items-end">
-              <p className="text-center text-xs text-white/55 sm:text-right">
+            {/* Copyright and the legal links read as one line. `flex-wrap`
+                only comes into play on a narrow phone, where the alternative
+                is the line overflowing the gutter. */}
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:justify-end">
+              <p className="text-white/55">
                 &copy; 2026 Jdiobe STEM Foundation. a 501(c)(3) organization. All rights reserved.
               </p>
-              <nav className="flex items-center gap-3 text-xs" aria-label="Legal">
+              <span className="text-white/25" aria-hidden="true">|</span>
+              {/* Still its own landmark, so the legal links stay findable to a
+                  screen reader rather than dissolving into the copyright line. */}
+              <nav className="flex items-center gap-3" aria-label="Legal">
                 <Link href="/privacy" className="text-white/60 transition hover:text-orange-400">
                   Privacy Policy
                 </Link>

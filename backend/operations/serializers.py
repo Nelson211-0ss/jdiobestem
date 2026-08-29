@@ -78,12 +78,14 @@ class OperatingCountrySerializer(serializers.ModelSerializer):
 
 class OfficeSerializer(serializers.ModelSerializer):
     country_name = serializers.CharField(source="country.name", read_only=True)
+    lead_name = serializers.CharField(source="lead.get_full_name", read_only=True)
 
     class Meta:
         model = Office
         fields = [
             "id", "country", "country_name", "name", "is_main", "address", "city",
-            "region", "phone", "email", "is_active", "order", "notes",
+            "region", "phone", "email", "lead", "lead_name", "registration_number",
+            "staff_headcount", "established_on", "is_active", "order", "notes",
         ]
 
     def validate(self, attrs):

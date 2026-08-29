@@ -8,12 +8,13 @@ from django.views.decorators.csrf import csrf_exempt
 from activity.models import ActivityLog
 from activity.recorder import LoggedViewSetMixin, record
 from rest_framework import status, viewsets
+from rest_framework.generics import ListAPIView
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from accounts import policy
-from api.permissions import ResourcePermission
+from api.permissions import IsStaffOrServiceRead, ResourcePermission
 from submissions.models import NewsletterSubscriber
 
 from . import services
@@ -231,3 +232,36 @@ def unsubscribe(request, token):
 </div></body></html>""",
         content_type="text/html",
     )
+
+
+class PublicIssueList(ListAPIView):
+    """
+    The issues the Foundation has chosen to publish.
+
+    Only ones with a PDF: the page is a shelf of newsletters to read, and a
+    row that links to nothing is worse than an absent row.
+    """
+
+    queryset = (
+        Newsletter.objects.filter(is_public=True)
+        .exclude(pdf="")
+        .order_by("-published_on", "-created_at")
+    )
+    pagination_class = None
+    permission_classes = [IsStaffOrServiceRead]
+
+    def list(self, request, *args, **kwargs):
+        return Response(
+            [
+                {
+                    "id": n.id,
+                    "subject": n.subject,
+                    "issue_label": n.issue_label,
+                    "published_on": n.published_on.isoformat() if n.published_on else "",
+                    "summary": n.preheader or "",
+                    "pdf": absolute(n.pdf),
+                    "cover": absolute(n.cover_image) or n.preview_image or "",
+                }
+                for n in self.get_queryset()
+            ]
+        )

@@ -41,6 +41,9 @@ const CATEGORY_ICON: Record<string, string> = {
 const PARENT_ICON: Record<string, string> = {
   Newsletter: 'Mail',
   Documents: 'FileStack',
+  Hiring: 'Briefcase',
+  'Countries & offices': 'Globe',
+  Volunteers: 'HeartHandshake',
 };
 
 /** Where each board category sits among the existing sections. */
@@ -81,7 +84,7 @@ export default function Sidebar({
 
   /** The board category containing the page currently open, if any. */
   const currentCategory = boardIndex.categories.find((c) =>
-    c.boards.some((b) => pathname.startsWith(`/admin/boards/${b.monday_id}`))
+    c.boards.some((b) => pathname.startsWith(`/admin/operations/${b.monday_id}`))
   )?.name;
 
   /** The parent group holding the page currently open, if any. */
@@ -120,19 +123,37 @@ export default function Sidebar({
   const sectionContent = (section: (typeof SECTION_ORDER)[number]) => {
     const inSection = visible.filter((r) => (r.group as string) === section);
 
-    const parents: { name: string; children: Resource[] }[] = [];
+    const parents: {
+      name: string;
+      children: Resource[];
+      boards?: BoardIndex['categories'][number]['boards'];
+    }[] = [];
     for (const r of inSection.filter((r) => r.parent)) {
       const existing = parents.find((p) => p.name === r.parent);
       if (existing) existing.children.push(r);
       else parents.push({ name: r.parent as string, children: [r] });
     }
 
+    const categories = canSeeBoards
+      ? boardIndex.categories.filter((c) => CATEGORY_SECTION[c.name] === section)
+      : [];
+
+    // Where a parent and a board category share a name, they are one thing to
+    // the person reading the nav: the boards are folded into that parent's
+    // children rather than drawn as a second row with the same label.
+    const merged = new Set<string>();
+    for (const parent of parents) {
+      const match = categories.find((c) => c.name === parent.name);
+      if (match) {
+        parent.boards = match.boards;
+        merged.add(match.name);
+      }
+    }
+
     return {
       resources: inSection.filter((r) => !r.parent),
       parents,
-      categories: canSeeBoards
-        ? boardIndex.categories.filter((c) => CATEGORY_SECTION[c.name] === section)
-        : [],
+      categories: categories.filter((c) => !merged.has(c.name)),
     };
   };
 
@@ -192,6 +213,26 @@ export default function Sidebar({
 
                     {expanded ? (
                       <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
+                        {(parent.boards ?? []).map((board) => {
+                          const href = `/admin/operations/${board.monday_id}`;
+                          const current = pathname.startsWith(href);
+                          return (
+                            <Link
+                              key={board.monday_id}
+                              href={href}
+                              onClick={onNavigate}
+                              title={board.name}
+                              className={cn(
+                                'flex items-center justify-between gap-2 rounded-md px-3 py-1.5 text-sm transition-colors',
+                                current
+                                  ? 'bg-secondary font-semibold text-secondary-foreground'
+                                  : 'text-foreground hover:bg-muted'
+                              )}
+                            >
+                              <span className="truncate">{board.name}</span>
+                            </Link>
+                          );
+                        })}
                         {parent.children.map((child) => {
                           const href = `/admin/${child.key}`;
                           const current = isCurrent(href);
@@ -248,7 +289,7 @@ export default function Sidebar({
                       // their parent, as in the reference.
                       <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
                         {category.boards.map((board) => {
-                          const href = `/admin/boards/${board.monday_id}`;
+                          const href = `/admin/operations/${board.monday_id}`;
                           const current = pathname.startsWith(href);
                           return (
                             <Link

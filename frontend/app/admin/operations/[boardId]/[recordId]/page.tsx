@@ -29,7 +29,7 @@ export default async function RecordPage({
 
   return (
     <FormShell
-      backHref={`/admin/boards/${boardId}`}
+      backHref={`/admin/operations/${boardId}`}
       backLabel={`Back to ${board.name.toLowerCase()}`}
       eyebrow={board.name}
       title={record.name}

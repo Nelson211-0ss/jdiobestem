@@ -212,29 +212,43 @@ class NewsStoryList(ListAPIView):
         return Response(stories)
 
 
+def _person(m):
+    """One team member, shaped the way every page that shows people expects."""
+    return {
+        "name": m.name,
+        "role": m.role,
+        "group": m.group,
+        "img": m.image_upload.url if m.image_upload else (m.image or None),
+        "alt": m.alt,
+        "focus": m.focus or None,
+        "bio": m.bio or None,
+        "links": [
+            {"kind": kind, "href": href}
+            for kind, href in (("linkedin", m.linkedin), ("email", m.email))
+            if href
+        ],
+    }
+
+
 class TeamMemberList(ListAPIView):
-    queryset = TeamMember.objects.published()
+    """Who runs the organisation. Recognised volunteers are deliberately not
+    here — they are not staff, and the team page says who the staff are."""
+
+    queryset = TeamMember.objects.published().exclude(group=TeamMember.Group.VOLUNTEERS)
     pagination_class = None
 
     def list(self, request, *args, **kwargs):
-        people = [
-            {
-                "name": m.name,
-                "role": m.role,
-                "group": m.group,
-                "img": m.image_upload.url if m.image_upload else (m.image or None),
-                "alt": m.alt,
-                "focus": m.focus or None,
-                "bio": m.bio or None,
-                "links": [
-                    {"kind": kind, "href": href}
-                    for kind, href in (("linkedin", m.linkedin), ("email", m.email))
-                    if href
-                ],
-            }
-            for m in self.get_queryset()
-        ]
-        return Response(people)
+        return Response([_person(m) for m in self.get_queryset()])
+
+
+class RecognisedVolunteerList(ListAPIView):
+    """The volunteers named on /volunteers, in the order the Foundation sets."""
+
+    queryset = TeamMember.objects.published().filter(group=TeamMember.Group.VOLUNTEERS)
+    pagination_class = None
+
+    def list(self, request, *args, **kwargs):
+        return Response([_person(m) for m in self.get_queryset()])
 
 
 class MagazineIssueList(ListAPIView):

@@ -72,6 +72,16 @@ class Newsletter(TimeStampedModel):
         max_length=20, choices=Status.choices, default=Status.DRAFT, db_index=True
     )
 
+    # Sending and publishing are separate decisions. A campaign goes to the
+    # people who asked for it; putting the issue on the website for anyone to
+    # read is a further choice, so it is made explicitly rather than inferred
+    # from the send having happened.
+    is_public = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text="Show this issue on the website's newsletters page.",
+    )
+
     created_by = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.SET_NULL, related_name="newsletters"
     )

@@ -244,3 +244,21 @@ dt,
 figcaption {
   overflow-wrap: break-word;
 }
+
+/*
+ * Headings, bold.
+ *
+ * `body h1` rather than `h1`, for the same reason the size rules above use it:
+ * Tailwind's preflight is imported after this file and resets heading weight
+ * to `inherit` at element specificity, so a bare `h1` rule loses to it and the
+ * heading quietly renders at body weight — which is what every bare <h2> on
+ * the site was doing. The extra `body` outranks preflight without !important.
+ */
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-weight: 800;
+}

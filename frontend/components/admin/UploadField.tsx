@@ -1,17 +1,13 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { Loader2, Upload, X } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import FileDropzone from '@/components/FileDropzone';
 
 /**
- * A path input with a file picker beside it.
+ * The dashboard's upload control.
  *
- * The stored value is always a path or URL, so artwork that already sits in
- * /public can simply be typed in — moving every existing image into object
- * storage is not a precondition for editing a record.
+ * A thin wrapper now: every upload in the app — admin and website — goes
+ * through the same dropzone, so they behave identically and there is one place
+ * to change how uploading works.
  */
 export default function UploadField({
   id,
@@ -26,85 +22,25 @@ export default function UploadField({
   disabled?: boolean;
   onChange: (value: string) => void;
 }) {
-  const input = useRef<HTMLInputElement>(null);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
-
-  const pick = async (file: File) => {
-    setBusy(true);
-    setError('');
-    const form = new FormData();
-    form.append('file', file);
-    form.append('folder', folder);
-
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: form });
-    const body = await res.json().catch(() => ({}));
-    setBusy(false);
-
-    if (!res.ok) {
-      setError(String(body?.error || 'Upload failed.'));
-      return;
-    }
-    onChange(String(body.url));
-  };
+  // Folders that hold documents rather than artwork get the file wording and
+  // accept PDFs first; everything else is a picture.
+  const documentish = ['documents', 'newsletter', 'receipts', 'cv'].includes(folder);
 
   return (
-    <div className="space-y-2">
-      <div className="flex gap-2">
-        <Input
-          id={id}
-          value={value}
-          disabled={disabled}
-          placeholder="/images/example.jpg or an uploaded URL"
-          onChange={(e) => onChange(e.target.value)}
-        />
-        <input
-          ref={input}
-          type="file"
-          className="hidden"
-          accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,application/pdf"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) void pick(file);
-            e.target.value = '';
-          }}
-        />
-        <Button
-          type="button"
-          variant="outline"
-          disabled={disabled || busy}
-          onClick={() => input.current?.click()}
-        >
-          {busy ? <Loader2 className="animate-spin" /> : <Upload />}
-          <span className="hidden sm:inline">{busy ? 'Uploading…' : 'Upload'}</span>
-        </Button>
-        {value ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            aria-label="Clear"
-            disabled={disabled}
-            onClick={() => onChange('')}
-          >
-            <X />
-          </Button>
-        ) : null}
-      </div>
-
-      {error ? <p className="text-xs font-medium text-destructive">{error}</p> : null}
-
-      {value && /\.(jpe?g|png|webp|gif|svg)$/i.test(value) ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={value}
-          alt=""
-          className="h-24 w-auto rounded-md border object-cover"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).style.display = 'none';
-          }}
-        />
-      ) : null}
-    </div>
+    <FileDropzone
+      id={id}
+      value={value}
+      onChange={onChange}
+      endpoint="/api/admin/upload"
+      folder={folder}
+      disabled={disabled}
+      kind={documentish ? 'file' : 'image'}
+      accept={
+        documentish
+          ? 'application/pdf,image/jpeg,image/png,image/webp'
+          : 'image/jpeg,image/png,image/webp,image/gif,image/svg+xml,application/pdf'
+      }
+      supports={documentish ? 'PDF, JPG, PNG or WebP · up to 15 MB' : 'JPG, PNG, WebP, GIF or SVG · up to 15 MB'}
+    />
   );
 }

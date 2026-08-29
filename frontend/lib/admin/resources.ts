@@ -27,7 +27,7 @@ export type FieldType =
 export type Field = {
   name: string;
   /** Options come from the countries table rather than this file. */
-  source?: 'country' | 'currency' | 'countryId' | 'office' | 'document' | 'staff';
+  source?: 'country' | 'currency' | 'countryId' | 'office' | 'document' | 'staff' | 'project';
   label: string;
   type?: FieldType;
   options?: { value: string; label: string }[];
@@ -80,6 +80,11 @@ export type Resource = {
   searchHint?: string;
   /** A record of what someone sent — creating one by hand makes no sense. */
   noCreate?: boolean;
+  /**
+   * Written by the application, never by a person. Its detail page is shown as
+   * a record rather than as a form nobody may submit, and it offers no create.
+   */
+  readOnly?: boolean;
   titleField?: string;
 };
 
@@ -140,7 +145,8 @@ const triageFields: Field[] = [
 export const RESOURCES: Resource[] = [
   {
     key: 'volunteers',
-    label: 'Volunteer applications',
+    label: 'Applications',
+    parent: 'Volunteers',
     singular: 'volunteer application',
     group: 'Inbox',
     icon: 'UserPlus',
@@ -170,6 +176,167 @@ export const RESOURCES: Resource[] = [
     ],
   },
   {
+    key: 'recognised-volunteers',
+    label: 'Recognised',
+    singular: 'volunteer',
+    group: 'Inbox',
+    parent: 'Volunteers',
+    icon: 'Award',
+    description:
+      'Volunteers named on the volunteers page. Kept apart from the team, who are staff — these are people who gave their time.',
+    titleField: 'name',
+    searchHint: 'name, role, note',
+    columns: [
+      { name: 'thumbnail', label: '', thumb: true },
+      { name: 'name', label: 'Volunteer' },
+      { name: 'role', label: 'What they did' },
+      { name: 'order', label: 'Order', numeric: true },
+      { name: 'is_published', label: 'Shown' },
+    ],
+    filters: [
+      {
+        name: 'is_published', label: 'Shown', type: 'select',
+        options: [
+          { value: 'true', label: 'Shown' },
+          { value: 'false', label: 'Hidden' },
+        ],
+      },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+    fields: [
+      { name: 'name', label: 'Name', type: 'text', required: true, wide: true },
+      { name: 'role', label: 'What they did', type: 'text', required: true, wide: true, help: 'e.g. STEM tutoring, or Science fair judge.' },
+      { name: 'image', label: 'Photograph', type: 'upload', folder: 'team', wide: true },
+      { name: 'alt', label: 'Photograph alt text', type: 'text', wide: true },
+      { name: 'bio', label: 'Why they are recognised', type: 'textarea', wide: true },
+      { name: 'linkedin', label: 'LinkedIn', type: 'text' },
+      { name: 'order', label: 'Order', type: 'number' },
+      { name: 'is_published', label: 'Shown on the volunteers page', type: 'boolean' },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+  },
+  {
+    key: 'projects',
+    label: 'Projects',
+    singular: 'project',
+    group: 'Programmes',
+    parent: 'Student projects',
+    icon: 'FlaskConical',
+    description:
+      'A student project from proposal through to completion. The stage is the record of where it has got to.',
+    titleField: 'title',
+    searchHint: 'title, school, mentor',
+    columns: [
+      { name: 'title', label: 'Project' },
+      { name: 'school', label: 'School' },
+      { name: 'stage_display', label: 'Stage', badge: true },
+      { name: 'award_count', label: 'Awards', numeric: true },
+      { name: 'country', label: 'Country' },
+    ],
+    filters: [
+      { name: 'stage', label: 'Stage', type: 'select',
+        options: [
+          { value: 'handbook_released', label: '1. Handbook released' },
+          { value: 'project_chosen', label: '2. Project chosen' },
+          { value: 'proposal_submitted', label: '3. Proposal submitted' },
+          { value: 'under_review', label: '4. Review and feedback' },
+          { value: 'research_and_build', label: '5. Research and build' },
+          { value: 'school_fair', label: '6. School fair' },
+          { value: 'regional_fair', label: '7. Regional fair' },
+          { value: 'national_fair', label: '8. National fair' },
+          { value: 'completed', label: '9. Completed' },
+          { value: 'withdrawn', label: 'Withdrawn' },
+        ],
+      },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+    fields: [
+      { name: 'title', label: 'Project title', type: 'text', required: true, wide: true },
+      { name: 'school', label: 'School', type: 'text', required: true },
+      { name: 'district', label: 'District', type: 'text' },
+      { name: 'teacher_mentor', label: 'Teacher or mentor', type: 'text' },
+      { name: 'stage', label: 'Stage', type: 'select', required: true,
+        options: [
+          { value: 'handbook_released', label: '1. Handbook released' },
+          { value: 'project_chosen', label: '2. Project chosen' },
+          { value: 'proposal_submitted', label: '3. Proposal submitted' },
+          { value: 'under_review', label: '4. Review and feedback' },
+          { value: 'research_and_build', label: '5. Research and build' },
+          { value: 'school_fair', label: '6. School fair' },
+          { value: 'regional_fair', label: '7. Regional fair' },
+          { value: 'national_fair', label: '8. National fair' },
+          { value: 'completed', label: '9. Completed' },
+          { value: 'withdrawn', label: 'Withdrawn' },
+        ],
+      },
+      { name: 'review_score', label: 'Review score', type: 'number' },
+      { name: 'review_feedback', label: 'Review feedback', type: 'textarea', wide: true },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+  },
+  {
+    key: 'project-awards',
+    label: 'Awards & benefits',
+    singular: 'award',
+    group: 'Programmes',
+    parent: 'Student projects',
+    icon: 'Trophy',
+    description:
+      'What students received for their work — placements, prizes, scholarships, equipment. Recorded per award, because one project often earns several.',
+    titleField: 'title',
+    searchHint: 'award, project, who gave it',
+    columns: [
+      { name: 'title', label: 'Award' },
+      { name: 'kind_display', label: 'Kind', badge: true },
+      { name: 'project_title', label: 'Project' },
+      { name: 'awarded_on', label: 'Awarded' },
+      { name: 'is_delivered', label: 'Received' },
+    ],
+    filters: [
+      { name: 'kind', label: 'Kind', type: 'select',
+        options: [
+          { value: 'placement', label: 'Placement at a fair' },
+          { value: 'prize', label: 'Prize' },
+          { value: 'scholarship', label: 'Scholarship' },
+          { value: 'equipment', label: 'Equipment' },
+          { value: 'certificate', label: 'Certificate' },
+          { value: 'mentorship', label: 'Mentorship place' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+      {
+        name: 'is_delivered', label: 'Received', type: 'select',
+        options: [
+          { value: 'true', label: 'Received' },
+          { value: 'false', label: 'Promised, not yet received' },
+        ],
+      },
+    ],
+    fields: [
+      { name: 'project', label: 'Project', type: 'select', options: [], source: 'project', required: true },
+      { name: 'kind', label: 'Kind', type: 'select', required: true,
+        options: [
+          { value: 'placement', label: 'Placement at a fair' },
+          { value: 'prize', label: 'Prize' },
+          { value: 'scholarship', label: 'Scholarship' },
+          { value: 'equipment', label: 'Equipment' },
+          { value: 'certificate', label: 'Certificate' },
+          { value: 'mentorship', label: 'Mentorship place' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+      { name: 'title', label: 'Award', type: 'text', required: true, wide: true, help: 'e.g. First place, regional fair.' },
+      { name: 'description', label: 'Description', type: 'textarea', wide: true },
+      { name: 'amount', label: 'Amount', type: 'number', help: 'Only if it carries money.' },
+      { name: 'currency', label: 'Currency', type: 'select', options: [], source: 'currency', help: 'Required when there is an amount.' },
+      { name: 'awarded_by', label: 'Given by', type: 'text', help: 'The Foundation, a partner, a sponsor.' },
+      { name: 'awarded_on', label: 'Awarded on', type: 'date' },
+      { name: 'is_delivered', label: 'The student has received it', type: 'boolean', help: 'A scholarship promised and a scholarship paid are different facts.' },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+    ],
+  },
+  {
     key: 'contact-messages',
     label: 'Contact messages',
     singular: 'contact message',
@@ -196,9 +363,12 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'proposals',
-    label: 'Science Fair registrations',
+    label: 'Applications',
+    parent: 'Student projects',
     singular: 'registration',
-    group: 'Inbox',
+    // Moved out of the Inbox so the whole lifecycle — application, project,
+    // award — sits under one heading rather than starting in a different one.
+    group: 'Programmes',
     icon: 'FlaskConical',
     titleField: 'project_title',
     noCreate: true,
@@ -286,6 +456,7 @@ export const RESOURCES: Resource[] = [
   {
     key: 'donations',
     label: 'Donations',
+    parent: 'Fundraising',
     singular: 'donation',
     group: 'Giving',
     icon: 'HeartHandshake',
@@ -421,6 +592,122 @@ export const RESOURCES: Resource[] = [
     ],
   },
   {
+    key: 'job-postings',
+    label: 'Positions',
+    singular: 'position',
+    group: 'Website',
+    parent: 'Hiring',
+    icon: 'Briefcase',
+    description:
+      'Vacancies on the careers page. Closing a position takes it off the site; it is never deleted, because applications on file refer to it.',
+    titleField: 'title',
+    searchHint: 'title, summary',
+    columns: [
+      { name: 'title', label: 'Position' },
+      { name: 'employment_type_display', label: 'Type' },
+      { name: 'office_name', label: 'Office' },
+      { name: 'application_count', label: 'Applications', numeric: true },
+      { name: 'is_open', label: 'Open' },
+    ],
+    filters: [
+      {
+        name: 'is_open', label: 'Open', type: 'select',
+        options: [
+          { value: 'true', label: 'Open' },
+          { value: 'false', label: 'Closed' },
+        ],
+      },
+      { name: 'employment_type', label: 'Type', type: 'select',
+        options: [
+          { value: 'full_time', label: 'Full time' },
+          { value: 'part_time', label: 'Part time' },
+          { value: 'contract', label: 'Contract' },
+          { value: 'internship', label: 'Internship' },
+          { value: 'volunteer', label: 'Volunteer' },
+        ],
+      },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+    fields: [
+      { name: 'title', label: 'Job title', type: 'text', required: true, wide: true },
+      { name: 'slug', label: 'Slug', type: 'text', help: 'Left blank, it is made from the title.' },
+      { name: 'employment_type', label: 'Employment type', type: 'select', required: true,
+        options: [
+          { value: 'full_time', label: 'Full time' },
+          { value: 'part_time', label: 'Part time' },
+          { value: 'contract', label: 'Contract' },
+          { value: 'internship', label: 'Internship' },
+          { value: 'volunteer', label: 'Volunteer' },
+        ],
+      },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'summary', label: 'Summary', type: 'textarea', wide: true, required: true, help: 'One or two sentences. This is the card on the careers page.' },
+      { name: 'description', label: 'Full description', type: 'textarea', wide: true },
+      { name: 'responsibilities', label: 'What the role involves', type: 'textarea', wide: true, help: 'One per line. Shown as a list.' },
+      { name: 'requirements', label: 'What we are looking for', type: 'textarea', wide: true, help: 'One per line. Shown as a list.' },
+      { name: 'posted_on', label: 'Posted on', type: 'date' },
+      { name: 'order', label: 'Order', type: 'number' },
+      { name: 'is_open', label: 'Open — shown on the careers page', type: 'boolean' },
+    ],
+  },
+  {
+    key: 'job-applications',
+    label: 'Applications',
+    singular: 'application',
+    group: 'Website',
+    parent: 'Hiring',
+    icon: 'UserSearch',
+    description:
+      'Everyone who has applied, and how far they have got. Every stage change is recorded in the activity log.',
+    titleField: 'name',
+    searchHint: 'name, email, position',
+    columns: [
+      { name: 'name', label: 'Applicant' },
+      { name: 'posting_title', label: 'Position' },
+      { name: 'stage_display', label: 'Stage', badge: true },
+      { name: 'email', label: 'Email' },
+      { name: 'created_at', label: 'Applied', date: true },
+    ],
+    filters: [
+      { name: 'stage', label: 'Stage', type: 'select',
+        options: [
+          { value: 'new', label: 'New' },
+          { value: 'screening', label: 'Screening' },
+          { value: 'interview', label: 'Interview' },
+          { value: 'offer', label: 'Offer' },
+          { value: 'hired', label: 'Hired' },
+          { value: 'rejected', label: 'Not taken forward' },
+          { value: 'withdrawn', label: 'Withdrawn' },
+        ],
+      },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+    fields: [
+      { name: 'name', label: 'Applicant', type: 'text', required: true, wide: true },
+      { name: 'email', label: 'Email', type: 'text', required: true },
+      { name: 'phone', label: 'Phone', type: 'text' },
+      { name: 'posting_title', label: 'Applied for', type: 'readonly', wide: true },
+      { name: 'stage', label: 'Stage', type: 'select', required: true,
+        options: [
+          { value: 'new', label: 'New' },
+          { value: 'screening', label: 'Screening' },
+          { value: 'interview', label: 'Interview' },
+          { value: 'offer', label: 'Offer' },
+          { value: 'hired', label: 'Hired' },
+          { value: 'rejected', label: 'Not taken forward' },
+          { value: 'withdrawn', label: 'Withdrawn' },
+        ],
+      },
+      { name: 'cv', label: 'CV', type: 'upload', folder: 'cv', wide: true },
+      { name: 'cover_letter', label: 'Covering letter', type: 'textarea', wide: true },
+      { name: 'notes', label: 'Internal notes', type: 'textarea', wide: true, help: 'Never shown to the applicant.' },
+      { name: 'decided_at', label: 'Decided', type: 'readonly' },
+      { name: 'decided_by_name', label: 'Decided by', type: 'readonly' },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+  },
+  {
     key: 'newsletters',
     label: 'Newsletters',
     singular: 'newsletter',
@@ -438,6 +725,7 @@ export const RESOURCES: Resource[] = [
       { name: 'status_display', label: 'Status', badge: true },
       { name: 'audience_count', label: 'Audience', numeric: true },
       { name: 'sent_count', label: 'Sent', numeric: true },
+      { name: 'is_public', label: 'On site' },
       { name: 'sent_at', label: 'Sent at' },
     ],
     filters: [
@@ -476,6 +764,7 @@ export const RESOURCES: Resource[] = [
       },
       { name: 'country', label: 'Audience', type: 'select', options: COUNTRY_OPTIONS, source: 'country', help: 'Global goes to every subscribed address.' },
       { name: 'preheader', label: 'Preview line', type: 'text', wide: true, help: 'The grey line after the subject in an inbox.' },
+      { name: 'is_public', label: 'Publish on the website', type: 'boolean', help: 'Sending it and publishing it are separate decisions.' },
       { name: 'body', label: 'Covering note', type: 'textarea', wide: true, help: 'Optional. A short line or two above the link. Markdown.' },
     ],
   },
@@ -544,6 +833,7 @@ export const RESOURCES: Resource[] = [
         options: [
           { value: 'leadership', label: 'Leadership' },
           { value: 'mentors', label: 'Mentors' },
+          { value: 'volunteers', label: 'Outstanding volunteers' },
         ],
       },
     ],
@@ -557,6 +847,7 @@ export const RESOURCES: Resource[] = [
         options: [
           { value: 'leadership', label: 'Leadership' },
           { value: 'mentors', label: 'Mentors' },
+          { value: 'volunteers', label: 'Outstanding volunteers' },
         ],
       },
       { name: 'order', label: 'Order', type: 'number' },
@@ -776,6 +1067,7 @@ export const RESOURCES: Resource[] = [
     label: 'Countries',
     singular: 'country',
     group: 'Operations',
+    parent: 'Countries & offices',
     icon: 'Globe',
     description:
       'Where the Foundation operates. Country and currency choices everywhere else are drawn from here.',
@@ -804,6 +1096,7 @@ export const RESOURCES: Resource[] = [
     label: 'Offices',
     singular: 'office',
     group: 'Operations',
+    parent: 'Countries & offices',
     icon: 'Building2',
     description: 'Where the Foundation works from. One main office per country, plus any others.',
     titleField: 'name',
@@ -813,6 +1106,8 @@ export const RESOURCES: Resource[] = [
       { name: 'country_name', label: 'Country' },
       { name: 'city', label: 'City' },
       { name: 'is_main', label: 'Main' },
+      { name: 'lead_name', label: 'Lead' },
+      { name: 'staff_headcount', label: 'Staff', numeric: true },
       { name: 'is_active', label: 'Active' },
     ],
     filters: [{ name: 'country', label: 'Country', type: 'select', options: [], source: 'countryId' }],
@@ -826,6 +1121,10 @@ export const RESOURCES: Resource[] = [
       { name: 'phone', label: 'Phone', type: 'tel' },
       { name: 'email', label: 'Email', type: 'email' },
       { name: 'order', label: 'Order', type: 'number' },
+      { name: 'lead', label: 'Office lead', type: 'select', options: [], source: 'staff', help: 'Who runs this office.' },
+      { name: 'registration_number', label: 'Registration number', type: 'text', help: 'As registered with the authorities in this country.' },
+      { name: 'staff_headcount', label: 'Staff based here', type: 'number' },
+      { name: 'established_on', label: 'Established', type: 'date' },
       { name: 'is_active', label: 'Active', type: 'boolean' },
       { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
     ],
@@ -841,8 +1140,10 @@ export const RESOURCES: Resource[] = [
     titleField: 'summary',
     searchHint: 'person, record, detail',
     // Append-only: the API exposes no write routes, and the policy grants only
-    // view. The flag keeps the interface honest about that.
+    // view. These flags keep the interface honest about that — no create, and
+    // a detail page that reads as a record rather than a disabled form.
     noCreate: true,
+    readOnly: true,
     columns: [
       { name: 'created_at', label: 'When' },
       { name: 'actor_name', label: 'Who' },
@@ -922,6 +1223,7 @@ function optionsFor(
     offices?: { value: string; label: string }[];
     documents?: { value: string; label: string }[];
     staff?: { value: string; label: string }[];
+    projects?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -931,6 +1233,7 @@ function optionsFor(
   if (source === 'office') return options.offices ?? [];
   if (source === 'document') return options.documents ?? [];
   if (source === 'staff') return options.staff ?? [];
+  if (source === 'project') return options.projects ?? [];
   return options.countries;
 }
 

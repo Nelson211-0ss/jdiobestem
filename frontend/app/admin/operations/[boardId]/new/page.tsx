@@ -21,7 +21,7 @@ export default async function NewRecordPage({ params }: { params: Promise<{ boar
 
   return (
     <FormShell
-      backHref={`/admin/boards/${boardId}`}
+      backHref={`/admin/operations/${boardId}`}
       backLabel={`Back to ${board.name.toLowerCase()}`}
       eyebrow="New record"
       title={board.name}

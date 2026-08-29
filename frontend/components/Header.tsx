@@ -16,13 +16,29 @@ import MegaIcon from './MegaIcon';
  * is a full-screen overlay that locks body scroll.
  */
 
-type MegaKey = 'about' | 'programs';
+type MegaKey = 'about' | 'programs' | 'resources';
 
 // Grace period so the pointer can travel from a trigger into its panel (they
 // are not adjacent in the DOM) without the menu snapping shut.
 const CLOSE_DELAY_MS = 180;
 
-export default function Header() {
+export type MegaFeature = {
+  href: string;
+  eyebrow: string;
+  title: string;
+  text: string;
+  image: string;
+  cta: string;
+};
+
+/**
+ * `features` comes from the site layout, which reads the CMS. The header is a
+ * client component — it manages hover, focus and the mobile drawer — so it
+ * cannot fetch; the newest story and issue are handed to it instead. Absent
+ * data simply means the panel shows its links and nothing else, which is the
+ * right behaviour before anything has been published.
+ */
+export default function Header({ features = [] }: { features?: MegaFeature[] }) {
   const [openMega, setOpenMega] = useState<MegaKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -139,26 +155,20 @@ export default function Header() {
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex lg:gap-7">
-          <Link href="/" className="nav-link">
-            <span>Home</span>
-          </Link>
+          <button {...megaBtnProps('programs')}>
+            <span>Programs</span>
+            <Icon name="chevron-down" className="nav-caret h-4 w-4" />
+          </button>
 
           <button {...megaBtnProps('about')}>
             <span>About Us</span>
             <Icon name="chevron-down" className="nav-caret h-4 w-4" />
           </button>
 
-          <button {...megaBtnProps('programs')}>
-            <span>Programs</span>
+          <button {...megaBtnProps('resources')}>
+            <span>Resources</span>
             <Icon name="chevron-down" className="nav-caret h-4 w-4" />
           </button>
-
-          <Link href="/impact" className="nav-link">
-            <span>Impact</span>
-          </Link>
-          <Link href="/news" className="nav-link">
-            <span>News</span>
-          </Link>
           <Link href="/contact" className="nav-link">
             <span>Contact</span>
           </Link>
@@ -191,6 +201,55 @@ export default function Header() {
           Full-bleed, same brand orange as the solid nav, anchored to the nav's
           bottom edge with no gap or border — opening one also forces the nav
           solid, so bar + panel read as a single continuous surface. */}
+      <div {...panelProps('resources')} aria-label="Resources menu">
+        <div className="mega-inner container-page grid gap-10 py-10 lg:grid-cols-12 lg:gap-12">
+          <div className="mega-col lg:col-span-4">
+            <p className="mega-heading">Read</p>
+            <Link href="/news" className="mega-link">
+              <MegaIcon name="news-updates" className="mega-ico" />
+              <span>News &amp; Updates</span>
+            </Link>
+            <Link href="/magazine" className="mega-link">
+              <MegaIcon name="magazine" className="mega-ico" />
+              <span>STEM Bridge Magazine</span>
+            </Link>
+            <Link href="/newsletters" className="mega-link">
+              <MegaIcon name="news-updates" className="mega-ico" />
+              <span>Newsletter publications</span>
+            </Link>
+          </div>
+
+          {features.length > 0 ? (
+            <div className="mega-col lg:col-span-8">
+              <p className="mega-heading">Latest</p>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {features.map((f) => (
+                  <Link key={f.href} href={f.href} className="mega-feature group">
+                    {f.image ? (
+                      <img
+                        src={f.image}
+                        alt=""
+                        className="mega-feature-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
+                    <span className="mega-feature-body">
+                      <span className="mega-feature-eyebrow">{f.eyebrow}</span>
+                      <span className="mega-feature-title">{f.title}</span>
+                      <span className="mega-feature-text">{f.text}</span>
+                      <span className="mega-feature-cta">
+                        {f.cta} <Icon name="arrow-right" className="h-4 w-4" />
+                      </span>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+
       <div {...panelProps('about')} aria-label="About menu">
         <div className="mega-inner container-page grid gap-10 py-10 lg:grid-cols-12 lg:gap-12">
           <div className="mega-col lg:col-span-3">
@@ -206,14 +265,6 @@ export default function Header() {
             <Link href="/impact" className="mega-link">
               <MegaIcon name="our-impact" className="mega-ico" />
               <span>Our Impact</span>
-            </Link>
-            <Link href="/news" className="mega-link">
-              <MegaIcon name="news-updates" className="mega-ico" />
-              <span>News &amp; Updates</span>
-            </Link>
-            <Link href="/magazine" className="mega-link">
-              <MegaIcon name="magazine" className="mega-ico" />
-              <span>STEM Bridge Magazine</span>
             </Link>
           </div>
 
@@ -343,14 +394,6 @@ export default function Header() {
         }`}
       >
         <div className="flex flex-1 flex-col justify-center gap-1">
-          <Link
-            href="/"
-            className="nav-link-mobile py-4 text-lg transition hover:text-orange-600"
-            onClick={() => setMobileOpen(false)}
-          >
-            <span>Home</span>
-          </Link>
-
           <MobileAccordion
             id="about"
             icon="info"
@@ -362,8 +405,6 @@ export default function Header() {
               ['/about', 'About Us'],
               ['/team', 'Our Team'],
               ['/impact', 'Our Impact'],
-              ['/news', 'News & Updates'],
-              ['/magazine', 'STEM Bridge Magazine'],
               ['/volunteers', 'Volunteers'],
             ].map(([href, label]) => (
               <Link
@@ -420,9 +461,30 @@ export default function Header() {
             ))}
           </MobileAccordion>
 
+          <MobileAccordion
+            id="resources"
+            icon="book-open"
+            label="Resources"
+            open={openAcc === 'resources'}
+            onToggle={() => setOpenAcc((k) => (k === 'resources' ? null : 'resources'))}
+          >
+            {[
+              ['/news', 'News & Updates'],
+              ['/magazine', 'STEM Bridge Magazine'],
+              ['/newsletters', 'Newsletter publications'],
+            ].map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                className="block py-2.5 text-base text-charcoal-600 transition hover:text-orange-600"
+                onClick={() => setMobileOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+          </MobileAccordion>
+
           {[
-            ['/impact', 'Impact'],
-            ['/news', 'News'],
             ['/contact', 'Contact'],
           ].map(([href, label]) => (
             <Link

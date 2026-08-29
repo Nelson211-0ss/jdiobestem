@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import ResourceDetail from '@/components/admin/ResourceDetail';
 import ResourceForm from '@/components/admin/ResourceForm';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
@@ -38,12 +39,16 @@ export default async function ResourceDetailPage({
       eyebrow={resource.label}
       title={title}
     >
-      <ResourceForm
-        resource={resource}
-        record={record}
-        canChange={can(identity, key, 'change')}
-        canDelete={can(identity, key, 'delete')}
-      />
+      {resource.readOnly ? (
+        <ResourceDetail resource={resource} record={record} />
+      ) : (
+        <ResourceForm
+          resource={resource}
+          record={record}
+          canChange={can(identity, key, 'change')}
+          canDelete={can(identity, key, 'delete')}
+        />
+      )}
     </FormShell>
   );
 }

@@ -22,7 +22,7 @@ from content_cms.models import (
     TeamMember,
 )
 from donations.models import Donation
-from programmes.models import Cohort, Mentee, Mentor, MentorshipPairing, ScienceFairProject
+from programmes.models import Cohort, Mentee, Mentor, MentorshipPairing, ProjectAward, ScienceFairProject
 from submissions.models import (
     ContactMessage,
     NewsletterSubscriber,
@@ -259,13 +259,43 @@ class MentorshipPairingAdminSerializer(LabelledChoicesMixin, serializers.ModelSe
         read_only_fields = ["created_at", "updated_at"]
 
 
+class ProjectAwardAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
+    project_title = serializers.CharField(source="project.title", read_only=True)
+    student_school = serializers.CharField(source="project.school", read_only=True)
+
+    class Meta:
+        model = ProjectAward
+        fields = "__all__"
+        read_only_fields = ["created_at", "updated_at"]
+
+    def validate(self, attrs):
+        """An amount without a currency is a number nobody can act on."""
+        amount = attrs.get("amount", getattr(self.instance, "amount", None))
+        currency = attrs.get("currency", getattr(self.instance, "currency", ""))
+        if amount is not None and not currency:
+            raise serializers.ValidationError(
+                {"currency": ["Say which currency this amount is in."]}
+            )
+        return attrs
+
+
 class ScienceFairProjectAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     cohort_name = serializers.CharField(source="cohort.name", read_only=True, default="")
+    # Summaries so the table answers "did this project lead to anything?"
+    # without opening every row.
+    award_count = serializers.SerializerMethodField()
+    awards_delivered = serializers.SerializerMethodField()
 
     class Meta:
         model = ScienceFairProject
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at"]
+
+    def get_award_count(self, obj):
+        return obj.awards.count()
+
+    def get_awards_delivered(self, obj):
+        return obj.awards.filter(is_delivered=True).count()
 
 
 class UserAdminSerializer(serializers.ModelSerializer):

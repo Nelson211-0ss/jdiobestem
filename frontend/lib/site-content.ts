@@ -103,6 +103,40 @@ export const getStories = () => fetchContent<SiteStory[]>('/content/news/', []);
 export const getTeam = () => fetchContent<SiteTeamMember[]>('/content/team/', []);
 export const getIssues = () => fetchContent<SiteIssue[]>('/content/magazine/', []);
 
+/** Volunteers the Foundation recognises by name on /volunteers. */
+export const getRecognisedVolunteers = () =>
+  fetchContent<SiteTeamMember[]>('/content/volunteers/', []);
+
+export type SiteJob = {
+  slug: string;
+  title: string;
+  summary: string;
+  description: string;
+  responsibilities: string[];
+  requirements: string[];
+  employment_type: string;
+  country: string;
+  office: string;
+  posted_on: string;
+};
+
+/** Open vacancies. A closed posting is simply absent. */
+export const getOpenJobs = () => fetchContent<SiteJob[]>('/content/jobs/', []);
+
+export type SiteIssuePdf = {
+  id: number;
+  subject: string;
+  issue_label: string;
+  published_on: string;
+  summary: string;
+  pdf: string;
+  cover: string;
+};
+
+/** Newsletter issues the Foundation has chosen to publish. */
+export const getPublishedNewsletters = () =>
+  fetchContent<SiteIssuePdf[]>('/content/newsletters/', []);
+
 export const getProgrammes = () => fetchContent<SiteProgramme[]>('/content/programmes/', []);
 
 /**

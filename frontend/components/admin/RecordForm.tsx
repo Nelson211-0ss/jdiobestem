@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Loader2, Save, Trash2 } from 'lucide-react';
+import { FileText, Loader2, Save, Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { displayValue, inputFor, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import { DetailRow, DetailSection } from './Shell';
+import UploadField from './UploadField';
 
 /**
  * Edit one record on any board.
@@ -20,6 +21,37 @@ import { DetailRow, DetailSection } from './Shell';
  * nobody anticipated still gets a usable form, and a column added later appears
  * without a code change.
  */
+/**
+ * What was attached, at a glance.
+ *
+ * A receipt is usually a photograph, so it shows as one. A PDF has no
+ * thumbnail without rendering it, and this is a board value rather than a
+ * model field with somewhere to keep a rendered page — so it gets a labelled
+ * chip, which still answers "is the receipt attached?".
+ */
+function FilePreview({ url }: { url: string }) {
+  const isImage = /\.(jpe?g|png|webp|gif|avif)(\?|#|$)/i.test(url);
+  if (isImage) {
+    return (
+      <img
+        src={url}
+        alt=""
+        loading="lazy"
+        className="h-24 w-24 rounded-md object-cover"
+      />
+    );
+  }
+  const extension = url.split('?')[0].split('.').pop()?.slice(0, 4).toUpperCase() ?? 'FILE';
+  return (
+    <span className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-md bg-muted">
+      <FileText className="h-6 w-6 text-muted-foreground" />
+      <span className="text-[0.625rem] font-semibold tracking-wide text-muted-foreground">
+        {extension}
+      </span>
+    </span>
+  );
+}
+
 export default function RecordForm({
   board,
   record,
@@ -85,7 +117,7 @@ export default function RecordForm({
       ),
     };
 
-    const base = `/api/admin/boards/${board.monday_id}/records`;
+    const base = `/api/admin/operations/${board.monday_id}/records`;
     const res = await fetch(isNew ? base : `${base}/${record!.id}`, {
       method: isNew ? 'POST' : 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -98,18 +130,18 @@ export default function RecordForm({
       setError(String(body?.error || body?.detail || 'Could not save.'));
       return;
     }
-    router.push(`/admin/boards/${board.monday_id}`);
+    router.push(`/admin/operations/${board.monday_id}`);
     router.refresh();
   };
 
   const remove = async () => {
     setSaving(true);
-    const res = await fetch(`/api/admin/boards/${board.monday_id}/records/${record!.id}`, {
+    const res = await fetch(`/api/admin/operations/${board.monday_id}/records/${record!.id}`, {
       method: 'DELETE',
     });
     setSaving(false);
     if (res.ok) {
-      router.push(`/admin/boards/${board.monday_id}`);
+      router.push(`/admin/operations/${board.monday_id}`);
       router.refresh();
     } else {
       setError('Could not delete that.');
@@ -222,7 +254,27 @@ export default function RecordForm({
             <div key={column.monday_id} className={`space-y-2 ${kind === 'textarea' ? 'sm:col-span-2' : ''}`}>
               <Label htmlFor={id}>{column.title}</Label>
 
-              {kind === 'select' ? (
+              {kind === 'file' ? (
+                <div className="space-y-3">
+                  <UploadField
+                    id={id}
+                    value={String(value ?? '')}
+                    folder="receipts"
+                    disabled={!canChange}
+                    onChange={(v) => set(v)}
+                  />
+                  {String(value ?? '') ? (
+                    <a
+                      href={String(value)}
+                      target="_blank"
+                      rel="noopener"
+                      className="inline-block"
+                    >
+                      <FilePreview url={String(value)} />
+                    </a>
+                  ) : null}
+                </div>
+              ) : kind === 'select' ? (
                 <Select
                   value={String(value ?? '')}
                   disabled={!canChange}

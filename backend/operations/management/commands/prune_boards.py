@@ -26,9 +26,30 @@ RETIRED = [
     "Partner Institutions",
 ]
 
-# Superseded: contact submissions are the Contact messages resource, and one
-# inbox is better than two that drift apart.
-SUPERSEDED = ["Website Inquiries"]
+# Superseded: these are proper tables now, and one place for a thing beats two
+# that disagree. Contact submissions are the Contact messages resource; office
+# details are the Offices resource, which absorbed this board's columns.
+SUPERSEDED = [
+    "Website Inquiries",
+    "Country Office Profiles",
+    # Vacancies are the Positions resource under Hiring, which also carries the
+    # applications against them. Two lists of open posts would disagree within
+    # a week.
+    "Positions",
+    # Volunteers are the Volunteers section: applications and the people the
+    # Foundation recognises, in one place.
+    "Volunteers",
+    "Mentees",
+    "Sessions",
+    # Duplicates of proper tables: proposals are the Applications page, and the
+    # rest are the student projects lifecycle.
+    "Project Proposals",
+    "Projects",
+    "Mentors",
+    "Applicants Management",
+    # The Youth STEM School is a programme on the website, described there.
+    "Youth STEM Program",
+]
 
 # Scratch boards from trying out monday's app builder.
 SCRATCH = ["Build Vibe app"]

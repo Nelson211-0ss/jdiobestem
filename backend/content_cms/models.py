@@ -95,6 +95,10 @@ class TeamMember(TimeStampedModel):
     class Group(models.TextChoices):
         LEADERSHIP = "leadership", "Leadership"
         MENTORS = "mentors", "Mentors"
+        # Volunteers the Foundation wants to recognise by name. They appear on
+        # /volunteers rather than /team: the team page is who runs the
+        # organisation, and a volunteer is not staff.
+        VOLUNTEERS = "volunteers", "Outstanding volunteers"
 
     name = models.CharField(max_length=200)
     role = models.CharField(max_length=200)

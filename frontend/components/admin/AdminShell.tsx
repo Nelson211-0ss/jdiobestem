@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChevronDown, LogOut, Menu, X } from 'lucide-react';
+import { ChevronDown, LogOut, Menu, UserRound, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -84,12 +84,22 @@ export default function AdminShell({
                 type="button"
                 className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-2.5 transition-colors hover:bg-muted"
               >
-                <span
-                  aria-hidden="true"
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
-                >
-                  {initials}
-                </span>
+                {identity.avatar ? (
+                  // Their own photograph from the team page. Initials only when
+                  // there is none, so the fallback is never a broken image.
+                  <img
+                    src={identity.avatar}
+                    alt=""
+                    className="h-8 w-8 shrink-0 rounded-full object-cover"
+                  />
+                ) : (
+                  <span
+                    aria-hidden="true"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
+                  >
+                    {initials}
+                  </span>
+                )}
                 <span className="hidden text-left sm:block">
                   <span className="block text-sm font-medium leading-tight">{identity.name}</span>
                   <span className="block text-xs leading-tight text-muted-foreground">
@@ -110,6 +120,13 @@ export default function AdminShell({
                 <p>{identity.role_display}</p>
                 <p>{identity.country_label}</p>
               </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/admin/account">
+                  <UserRound />
+                  Your account and password
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onSelect={signOut} disabled={signingOut}>
                 <LogOut />

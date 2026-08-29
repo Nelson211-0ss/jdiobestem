@@ -2,12 +2,13 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { Loader2, LogIn } from 'lucide-react';
+import { Eye, EyeOff, Loader2, LogIn } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Logo from '@/components/Logo';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,11 +42,15 @@ export default function LoginForm() {
 
   return (
     <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle className="text-xl">
-          JDIOBE<span className="text-accent">STEM</span> Dashboard
-        </CardTitle>
-        <CardDescription>Sign in with your staff account.</CardDescription>
+      <CardHeader className="items-center space-y-3 text-center">
+        {/* The real lockup rather than the wordmark typed out in markup: it
+            follows currentColor, so it reads correctly in both themes and
+            cannot drift from the logo the rest of the site uses. */}
+        <Logo className="h-8 w-auto text-foreground" />
+        <div className="space-y-1.5">
+          <CardTitle className="text-xl">Dashboard</CardTitle>
+          <CardDescription>Sign in with your staff account.</CardDescription>
+        </div>
       </CardHeader>
       <CardContent>
         <form onSubmit={submit} className="space-y-4">
@@ -61,14 +67,32 @@ export default function LoginForm() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                /* Room for the toggle, so a long password never runs under it. */
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-pressed={showPassword}
+                aria-controls="password"
+                className="absolute inset-y-0 right-0 flex w-10 items-center justify-center rounded-r-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-4 w-4" aria-hidden="true" />
+                )}
+              </button>
+            </div>
           </div>
 
           {error ? (

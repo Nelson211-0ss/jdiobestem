@@ -22,6 +22,8 @@ export type Identity = {
   country_label: string;
   position: string;
   department: string;
+  /** Photograph from the person's team profile, if they have one. */
+  avatar: string;
   /** resource -> allowed actions. Drives what the interface offers. */
   permissions: Record<string, string[]>;
 };
@@ -97,6 +99,8 @@ export type OptionLists = {
   documents: { value: string; label: string }[];
   /** Staff accounts, for fields that name a responsible person. */
   staff: { value: string; label: string }[];
+  /** Student projects an award can belong to. */
+  projects: { value: string; label: string }[];
 };
 
 /**
@@ -117,7 +121,7 @@ export async function getOptionLists(): Promise<OptionLists> {
   } catch {
     return {
       countries: [], staff_scopes: [], currencies: [], offices: [],
-      countryIds: [], documents: [], staff: [],
+      countryIds: [], documents: [], staff: [], projects: [],
     };
   }
 }

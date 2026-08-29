@@ -27,6 +27,7 @@ RESOURCES = (
     "volunteers", "contact-messages", "proposals", "subscribers", "donations",
     "news", "team", "magazine", "stats", "newsletters", "programmes", "page-blocks",
     "documents", "document-editions", "activity",
+    "job-postings", "job-applications", "recognised-volunteers", "project-awards",
     "cohorts", "mentors", "mentees", "pairings", "projects",
     "boards",
     "countries",
@@ -35,15 +36,18 @@ RESOURCES = (
 )
 
 # Convenience bundles, so the matrix below reads as intent rather than lists.
-INBOX = ("volunteers", "contact-messages", "proposals", "subscribers")
-CONTENT = ("news", "team", "magazine", "stats", "newsletters", "programmes", "page-blocks")
-PROGRAMMES = ("cohorts", "mentors", "mentees", "pairings", "projects")
+INBOX = ("volunteers", "contact-messages", "proposals", "subscribers", "job-applications")
+CONTENT = (
+    "news", "team", "magazine", "stats", "newsletters", "programmes",
+    "page-blocks", "job-postings", "recognised-volunteers",
+)
+PROGRAMMES = ("cohorts", "mentors", "mentees", "pairings", "projects", "project-awards")
 #: The monday.com operations boards, as one resource. Per-board permissions are
 #: a finer grain than the Foundation has asked for; this is deliberately all or
 #: nothing, and can be split later without changing how the engine works.
 OPERATIONS = ("boards", "countries", "offices", "documents", "document-editions")
 MENTORSHIP = ("cohorts", "mentors", "mentees", "pairings")
-SCIENCE_FAIR = ("cohorts", "projects", "proposals")
+SCIENCE_FAIR = ("cohorts", "projects", "proposals", "project-awards")
 
 #: role -> {resource: allowed actions}
 MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
@@ -131,14 +135,18 @@ COUNTRY_FIELD = {
     "documents": "country",
     "document-editions": "document__country",
     "activity": "country",
+    "job-postings": "country",
+    "job-applications": "country",
     "donations": "country",
     "news": "country",
     "team": "country",
+    "recognised-volunteers": "country",
     "magazine": "country",
     "boards": "country",
     "mentors": "country",
     "mentees": "country",
     "projects": "country",
+    "project-awards": "project__country",
     "pairings": "mentee__country",
 }
 

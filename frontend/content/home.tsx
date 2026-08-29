@@ -259,7 +259,7 @@ export default function HomeContent({ stats }: { stats: SiteStat[] }) {
               </div>
             </section>
 
-            <section className="py-14">
+            <section className="bg-white py-14">
               <div className="mx-auto grid max-w-7xl items-center gap-9 px-6 lg:grid-cols-2 lg:px-8">
                 <div className="sr-fade-up h-[440px] overflow-hidden rounded-lg bg-white">
                   <img src="/images/moses-nambiro.png" alt="Moses Nambiro scholarship story" className="h-full w-full object-contain object-center"/>
@@ -288,7 +288,7 @@ export default function HomeContent({ stats }: { stats: SiteStat[] }) {
 
             {/* Partners — a monochrome strip rather than a grid of boxed tiles, so
                  the list reads as ongoing and no single brand palette dominates. */}
-            <section className="section-tight">
+            <section className="section-tight bg-white">
               <div className="container-page">
                 <div className="section-head">
                   <p className="eyebrow">Our Partners</p>
@@ -386,34 +386,34 @@ export default function HomeContent({ stats }: { stats: SiteStat[] }) {
               </div>
             </section>
 
-            <section className="surface-brand py-14">
+            <section className="bg-white py-14">
               <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="grid gap-9 lg:grid-cols-2">
                   <div className="sr-fade-up text-center md:text-left">
-                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Looking Ahead</p>
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Looking Ahead</p>
                     <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
                       Expanding access through innovation, partnerships, and long term vision
                     </h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-300">
+                    <p className="mt-6 text-lg leading-8 text-charcoal-600">
                       The next phase of our work broadens both what students can study and how far those
                       studies can take them.
                     </p>
                   </div>
                   <ul className="sr-fade-up self-center lg:pl-4">
                     <li className="flex items-center gap-4 py-4 text-lg font-semibold">
-                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-500"/>
+                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-700"/>
                       {' '}Advanced STEM workshops
                     </li>
                     <li className="flex items-center gap-4 py-4 text-lg font-semibold">
-                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-500"/>
+                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-700"/>
                       {' '}Innovation initiatives
                     </li>
                     <li className="flex items-center gap-4 py-4 text-lg font-semibold">
-                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-500"/>
+                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-700"/>
                       {' '}Environmental monitoring projects
                     </li>
                     <li className="flex items-center gap-4 py-4 text-lg font-semibold">
-                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-500"/>
+                      <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-orange-700"/>
                       {' '}International academic collaborations
                     </li>
                   </ul>

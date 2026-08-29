@@ -29,23 +29,45 @@ RESOURCE_LABELS = {
     "donations": "Donations",
     "news": "News stories",
     "team": "Team members",
+    "recognised-volunteers": "Recognised volunteers",
     "magazine": "Magazine issues",
     "cohorts": "Cohorts",
     "mentors": "Mentors",
     "mentees": "Mentees",
     "pairings": "Mentorship pairings",
-    "projects": "Science Fair projects",
+    "projects": "Student projects",
+    "project-awards": "Project awards",
     "boards": "Operations boards",
+    "countries": "Countries",
+    "offices": "Offices",
+    "documents": "Documents",
+    "document-editions": "Document editions",
+    "stats": "Home page figures",
+    "programmes": "Programmes",
+    "page-blocks": "Page copy",
+    "newsletters": "Newsletters",
+    "job-postings": "Positions",
+    "job-applications": "Job applications",
+    "activity": "Activity log",
     "users": "Staff access",
 }
 
 RESOURCE_GROUPS = [
-    ("From the website", ["volunteers", "contact-messages", "proposals", "subscribers"]),
+    (
+        "From the website",
+        [
+            "volunteers", "recognised-volunteers", "contact-messages",
+            "proposals", "subscribers", "job-applications",
+        ],
+    ),
     ("Giving", ["donations"]),
-    ("Programmes", ["cohorts", "mentors", "mentees", "pairings", "projects"]),
-    ("Operations", ["boards"]),
-    ("Website content", ["news", "team", "magazine"]),
-    ("Administration", ["users"]),
+    ("Programmes", ["cohorts", "mentors", "mentees", "pairings", "projects", "project-awards"]),
+    ("Operations", ["boards", "countries", "offices", "documents", "document-editions"]),
+    (
+        "Website content",
+        ["news", "team", "magazine", "stats", "programmes", "page-blocks", "newsletters", "job-postings"],
+    ),
+    ("Administration", ["users", "activity"]),
 ]
 
 
@@ -182,6 +204,11 @@ def update_user_access(request, pk):
             for field in ("role", "country", "position", "department", "phone"):
                 if field in profile_data:
                     setattr(profile, field, profile_data[field] or "")
+            if "team_member" in profile_data:
+                # Cleared as well as set: an empty value means "go back to
+                # matching by email or name", not "leave whatever was there".
+                value = profile_data["team_member"]
+                profile.team_member_id = int(value) if value else None
             profile.save()
 
         # Overrides arrive as the complete set for this person, so the screen is

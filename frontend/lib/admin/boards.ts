@@ -53,7 +53,9 @@ export type BoardIndex = {
 };
 
 /** Which input a column type gets in the record form. */
-export function inputFor(column: BoardColumn): 'text' | 'textarea' | 'number' | 'date' | 'select' | 'checkbox' | 'readonly' {
+export function inputFor(
+  column: BoardColumn,
+): 'text' | 'textarea' | 'number' | 'date' | 'select' | 'checkbox' | 'file' | 'readonly' {
   switch (column.column_type) {
     case 'status':
     case 'dropdown':
@@ -68,9 +70,12 @@ export function inputFor(column: BoardColumn): 'text' | 'textarea' | 'number' | 
       return 'textarea';
     case 'checkbox':
       return 'checkbox';
-    // Structured values that came across as JSON. Shown, not edited — editing
-    // them properly needs a picker that belongs to a later pass.
+    // A receipt, a signed form, a photograph of a delivery. Uploaded and
+    // shown: a record of a payment without its receipt is half a record.
     case 'file':
+      return 'file';
+    // Structured values that came across as JSON. Shown, not edited —
+    // editing them properly needs a picker that belongs to a later pass.
     case 'people':
     case 'multiple-person':
     case 'board_relation':

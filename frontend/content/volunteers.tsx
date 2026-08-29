@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { text } from '@/lib/site-content';
+import { text, type SiteTeamMember } from '@/lib/site-content';
 import Icon from '@/components/Icon';
 import VolunteerForm from '@/components/VolunteerForm';
 
@@ -49,7 +49,13 @@ const STEPS = [
   },
 ];
 
-export default function VolunteersContent({ blocks }: { blocks: Record<string, string> }) {
+export default function VolunteersContent({
+  blocks,
+  recognised = [],
+}: {
+  blocks: Record<string, string>;
+  recognised?: SiteTeamMember[];
+}) {
   return (
     <main>
       {/* Hero — one colour block, one heading, one ask. */}
@@ -191,6 +197,61 @@ export default function VolunteersContent({ blocks }: { blocks: Record<string, s
           <p className="mx-auto mt-8 max-w-2xl text-center text-charcoal-500">{text(blocks, "p.not-sure-which-fits-pick", "Not sure which fits? Pick the area that interests you on the form and the team will work the rest out with you.")}</p>
         </div>
       </section>
+
+      {/* People who have already done it. Rendered only when somebody has been
+          named — an empty "our outstanding volunteers" heading would say the
+          opposite of what it is for. */}
+      {recognised.length > 0 ? (
+        <section className="section-tight bg-cream-100">
+          <div className="container-page">
+            <div className="section-head">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
+                Recognition
+              </p>
+              <h2 className="mt-3">
+                {text(blocks, 'recognition.heading', 'Volunteers who went further')}
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-charcoal-600">
+                {text(
+                  blocks,
+                  'recognition.lede',
+                  'The programmes run on the time these people gave. Named here because the work deserves it.',
+                )}
+              </p>
+            </div>
+
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {recognised.map((person) => (
+                <article key={person.name} className="card">
+                  {person.img ? (
+                    <div className="card-media">
+                      <img
+                        src={person.img}
+                        alt={person.alt || person.name}
+                        style={person.focus ? { objectPosition: person.focus } : undefined}
+                        className="aspect-[4/3] w-full object-cover"
+                        width={800}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="card-body">
+                    <h3 className="text-xl">{person.name}</h3>
+                    {person.role ? (
+                      <p className="mt-1 text-sm font-bold text-orange-700">{person.role}</p>
+                    ) : null}
+                    {person.bio ? (
+                      <p className="mt-3 text-charcoal-600">{person.bio}</p>
+                    ) : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {/* Ready to make an impact */}
       <section className="surface-brand section-tight">
