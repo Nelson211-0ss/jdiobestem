@@ -13,7 +13,7 @@ import Logo from '@/components/Logo';
 export default function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -27,7 +27,7 @@ export default function LoginForm() {
     const res = await fetch('/api/admin/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
     const body = await res.json().catch(() => ({}));
     setBusy(false);
@@ -55,14 +55,17 @@ export default function LoginForm() {
       <CardContent>
         <form onSubmit={submit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="email">Work email</Label>
             <Input
-              id="username"
+              id="email"
+              type="email"
+              inputMode="email"
               autoComplete="username"
               autoFocus
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="you@jdiobestem.org"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="space-y-2">

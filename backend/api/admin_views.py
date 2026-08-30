@@ -7,6 +7,8 @@ declares — so this file is where a screen's behaviour is actually decided.
 """
 
 from django.contrib.auth import authenticate
+import django_filters
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models import Count, Sum
 from django.utils import timezone
@@ -53,28 +55,55 @@ def login(request):
     """
     Exchange staff credentials for an API token.
 
+    Sign-in is by work email, and only at the Foundation's own domain. That ties
+    every account to a mailbox the Foundation controls, so removing somebody's
+    mailbox removes their way in — where a username outlives the person.
+
     The dashboard stores the token in an httpOnly cookie, so it is never
     readable from JavaScript. Non-staff accounts are refused here rather than
     later: an authenticated non-staff token would otherwise be a valid
     credential with nothing to use it on.
     """
-    username = str(request.data.get("username", "")).strip()
+    # `username` is still read so a client mid-deploy is not broken by the
+    # rename; both carry an email address now.
+    identifier = str(request.data.get("email") or request.data.get("username") or "").strip()
     password = str(request.data.get("password", ""))
 
-    if not username or not password:
+    if not identifier or not password:
         return Response(
-            {"detail": "Enter your username and password."}, status=status.HTTP_400_BAD_REQUEST
+            {"detail": "Enter your work email and password."},
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
-    user = authenticate(request, username=username, password=password)
-    if user is None or not user.is_active:
-        # The username is recorded but never the password, and the response
-        # stays identical either way so this cannot be used to discover which
-        # usernames exist.
+    domain = settings.STAFF_EMAIL_DOMAIN
+    if not identifier.lower().endswith(f"@{domain}"):
+        # Saying so plainly gives nothing away — it is a rule about addresses,
+        # not a statement about which accounts exist.
         record(
             request,
             action=ActivityLog.Action.LOGIN_FAILED,
-            detail=f"Failed sign-in for '{username[:60]}'",
+            detail=f"Sign-in refused, not a {domain} address: '{identifier[:60]}'",
+        )
+        return Response(
+            {"detail": f"Sign in with your @{domain} email address."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # One address, one account. Two accounts sharing an address would make the
+    # credential ambiguous, so it is refused rather than resolved by guessing.
+    matches = list(User.objects.filter(email__iexact=identifier)[:2])
+    user = None
+    if len(matches) == 1:
+        user = authenticate(request, username=matches[0].username, password=password)
+    if user is None or not user.is_active:
+        # The address is recorded but never the password, and the response is
+        # identical whether the address is unknown, the password is wrong or
+        # the account is inactive — so this cannot be used to discover which
+        # accounts exist.
+        record(
+            request,
+            action=ActivityLog.Action.LOGIN_FAILED,
+            detail=f"Failed sign-in for '{identifier[:60]}'",
         )
         return Response(
             {"detail": "Those details were not recognised."}, status=status.HTTP_401_UNAUTHORIZED
@@ -452,6 +481,23 @@ class ProgrammeViewSet(StaffViewSet):
     ordering = ["order", "name"]
 
 
+class PageBlockFilter(django_filters.FilterSet):
+    """
+    The page filter is called `section`, not `page`.
+
+    `page` is what the paginator uses. Exposing a field filter under the same
+    name meant every request the list makes — which always carries `page=1` —
+    was read as "blocks whose page is literally 1", and the screen came back
+    empty with 389 rows sitting in the table.
+    """
+
+    section = django_filters.CharFilter(field_name="page", lookup_expr="iexact")
+
+    class Meta:
+        model = PageBlock
+        fields = ["is_published", "country"]
+
+
 class PageBlockViewSet(StaffViewSet):
     """Copy on the hand-built pages. Filtered by page, because nobody edits
     'all blocks' — they edit the About page."""
@@ -459,7 +505,7 @@ class PageBlockViewSet(StaffViewSet):
     queryset = PageBlock.objects.all()
     resource = "page-blocks"
     serializer_class = s.PageBlockAdminSerializer
-    filterset_fields = ["page", "is_published", "country"]
+    filterset_class = PageBlockFilter
     search_fields = ["page", "key", "value", "label"]
     ordering_fields = ["page", "key"]
     ordering = ["page", "key"]

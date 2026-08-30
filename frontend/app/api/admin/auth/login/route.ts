@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 const BASE = (process.env.BACKEND_API_URL || 'http://localhost:8000/api').replace(/\/$/, '');
 
 export async function POST(req: Request) {
-  let body: { username?: string; password?: string };
+  let body: { email?: string; password?: string };
   try {
     body = await req.json();
   } catch {
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     res = await fetch(`${BASE}/auth/login/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: body.username ?? '', password: body.password ?? '' }),
+      body: JSON.stringify({ email: body.email ?? '', password: body.password ?? '' }),
       cache: 'no-store',
     });
   } catch (err) {

@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import JobApplicationForm from '@/components/JobApplicationForm';
-import { text, type SiteJob } from '@/lib/site-content';
+import { text } from '@/lib/blocks';
+import { type SiteJob } from '@/lib/site-content';
 
 /**
  * Careers.

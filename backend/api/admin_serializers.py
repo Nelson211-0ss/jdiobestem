@@ -382,3 +382,30 @@ class PageBlockAdminSerializer(serializers.ModelSerializer):
         model = PageBlock
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at"]
+
+    def update(self, instance, validated_data):
+        """
+        `page` and `key` are set when the block is made and fixed after that.
+
+        Together they are what a page looks the block up by. Editing either
+        does not rename anything — it points the block at something no page
+        asks for, so the block silently stops applying and the page falls back
+        to its built-in words with nothing to say why. Refused rather than
+        ignored, so the answer is not a save that appears to work.
+        """
+        locked = {
+            name: validated_data.get(name)
+            for name in ("page", "key")
+            if name in validated_data and validated_data[name] != getattr(instance, name)
+        }
+        if locked:
+            raise serializers.ValidationError(
+                {
+                    name: [
+                        f"This is fixed once the block exists. Make a new block if the "
+                        f"page needs a different {name}."
+                    ]
+                    for name in locked
+                }
+            )
+        return super().update(instance, validated_data)

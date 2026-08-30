@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import Icon from '@/components/Icon';
 import NewsletterForm from '@/components/NewsletterForm';
-import { text } from '@/lib/site-content';
+import { text } from '@/lib/blocks';
 
 /**
  * The podcast, before there is a podcast.

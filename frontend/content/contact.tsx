@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { text } from '@/lib/site-content';
+import { text } from '@/lib/blocks';
 import ContactForm from '@/components/ContactForm';
 import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';

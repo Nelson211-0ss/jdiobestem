@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
-import { Check, Loader2, Minus, Save, ShieldAlert, X } from 'lucide-react';
+import { Check, Loader2, Minus, Pencil, Save, ShieldAlert, X } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -39,9 +41,15 @@ const ACTION_LABEL: Record<string, string> = {
 export default function AccessEditor({
   access,
   canEdit,
+  editHref,
 }: {
   access: AccessPayload;
   canEdit: boolean;
+  /**
+   * Where to go to change this, when the page is only showing it. Without it a
+   * superuser reading the record was told they were not one.
+   */
+  editHref?: string;
 }) {
   const router = useRouter();
 
@@ -416,6 +424,16 @@ export default function AccessEditor({
               <Button type="submit" disabled={saving}>
                 {saving ? <Loader2 className="animate-spin" /> : <Save />}
                 {saving ? 'Saving…' : 'Save access'}
+              </Button>
+            ) : editHref ? (
+              // Read-only because this is the record, not the form. The way in
+              // belongs here as well as at the top: on a screen this long the
+              // header button is far off-screen by the time anyone wonders why
+              // nothing can be typed.
+              <Button asChild>
+                <Link href={editHref}>
+                  <Pencil /> Edit access
+                </Link>
               </Button>
             ) : (
               <p className="text-sm text-muted-foreground">Only a superuser can change access.</p>

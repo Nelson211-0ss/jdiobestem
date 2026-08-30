@@ -232,3 +232,27 @@
     transition: none !important;
   }
 }
+
+/*
+ * Previews show everything at once.
+ *
+ * The reveals above start at `opacity: 0` and are switched on by
+ * `ScrollEffects`, which lives in the site layout. A preview renders the page
+ * outside that layout, so nothing ever adds `.sr-in` and every animated
+ * section stays invisible — the frame shows bands of background colour with
+ * the content missing.
+ *
+ * Neutralised rather than animated: somebody checking their wording should not
+ * have to scroll a section into view inside a scaled iframe before they can
+ * read it.
+ */
+.preview-static .sr-fade-up,
+.preview-static .sr-fade-left,
+.preview-static .sr-fade-right,
+.preview-static .sr-zoom {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  transition-delay: 0s;
+  will-change: auto;
+}

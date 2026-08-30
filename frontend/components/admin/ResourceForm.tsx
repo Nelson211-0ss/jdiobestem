@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Loader2, Plus, Save, Trash2, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -28,6 +28,7 @@ import { cn } from '@/lib/utils';
 import { specFor, validateValue } from '@/lib/validation';
 import NumberInput from '@/components/ui/number-input';
 import { DetailRow } from './Shell';
+import PreviewFrame from './PreviewFrame';
 import UploadField from './UploadField';
 import type { Field, Resource } from '@/lib/admin/resources';
 
@@ -149,6 +150,49 @@ export default function ResourceForm({
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+  // The website, beside the form. Only for resources that declare one, and
+  // only once the record exists — a block with no page yet has no page to show.
+  const previewTarget = resource.preview ? String(record?.[resource.preview.field] ?? '') : '';
+  const previewHref =
+    !isNew && resource.preview && previewTarget
+      ? `${resource.preview.basePath}/${previewTarget}`
+      : '';
+  const frame = useRef<HTMLIFrameElement>(null);
+  const [frameReady, setFrameReady] = useState(false);
+
+  /** Push the field being edited into the frame. */
+  const push = useCallback(() => {
+    if (!previewHref || !frame.current?.contentWindow) return;
+    frame.current.contentWindow.postMessage(
+      {
+        type: 'jdiobe:block-preview',
+        page: String(values.page ?? record?.page ?? ''),
+        key: String(values.key ?? record?.key ?? ''),
+        value: String(values.value ?? ''),
+      },
+      window.location.origin
+    );
+  }, [previewHref, values, record]);
+
+  // The frame says when it is listening, so a value typed before it loaded is
+  // not swallowed.
+  useEffect(() => {
+    if (!previewHref) return;
+    const onReady = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if ((event.data as { type?: string })?.type === 'jdiobe:preview-ready') setFrameReady(true);
+    };
+    window.addEventListener('message', onReady);
+    return () => window.removeEventListener('message', onReady);
+  }, [previewHref]);
+
+  useEffect(() => {
+    if (!frameReady) return;
+    // Debounced: a keystroke should not be a postMessage.
+    const timer = setTimeout(push, 180);
+    return () => clearTimeout(timer);
+  }, [frameReady, push]);
+
   const set = (name: string, value: unknown) => setValues((v) => ({ ...v, [name]: value }));
 
   const editable = resource.fields.filter((f) => f.type !== 'readonly');
@@ -252,7 +296,34 @@ export default function ResourceForm({
     }
   };
 
+  /** A value the form shows but does not offer to change. */
+  const renderReadonly = (field: Field) => {
+    const shown = record?.[field.name];
+    return (
+      <div key={field.name} className="sm:col-span-2">
+        <DetailRow label={field.label}>
+        <span className="whitespace-pre-wrap font-semibold">
+          {shown === null || shown === undefined || shown === '' ? (
+            <span className="font-normal text-muted-foreground">&mdash;</span>
+          ) : typeof shown === 'boolean' ? (
+            shown ? 'Yes' : 'No'
+          ) : (
+            String(shown)
+          )}
+        </span>
+        </DetailRow>
+      </div>
+    );
+  };
+
   const renderField = (field: Field) => {
+    // Locked once the record exists: shown as its value rather than as a
+    // disabled box, because a greyed-out field invites people to try to type
+    // in it and then wonder what is broken.
+    if (field.type === 'readonly' || (field.lockedAfterCreate && !isNew)) {
+      return renderReadonly(field);
+    }
+
     const id = `f-${field.name}`;
     const value = values[field.name];
     const invalid = fieldErrors[field.name];
@@ -260,24 +331,6 @@ export default function ResourceForm({
     const required = isRequired(field);
     const describedBy = invalid ? `${id}-error` : field.help ? `${id}-help` : undefined;
 
-    if (field.type === 'readonly') {
-      const shown = record?.[field.name];
-      return (
-        <div key={field.name} className="sm:col-span-2">
-          <DetailRow label={field.label}>
-            <span className="whitespace-pre-wrap font-semibold">
-              {shown === null || shown === undefined || shown === '' ? (
-                <span className="font-normal text-muted-foreground">&mdash;</span>
-              ) : typeof shown === 'boolean' ? (
-                shown ? 'Yes' : 'No'
-              ) : (
-                String(shown)
-              )}
-            </span>
-          </DetailRow>
-        </div>
-      );
-    }
 
     return (
       <div key={field.name} className={cn('space-y-2', field.wide && 'sm:col-span-2')}>
@@ -409,9 +462,25 @@ export default function ResourceForm({
     );
   };
 
+
   return (
     <form onSubmit={submit} className="space-y-6">
-      <div className="grid gap-5 sm:grid-cols-2">{resource.fields.map(renderField)}</div>
+      <div className={cn(previewHref && 'grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]')}>
+        <div className="grid gap-5 sm:grid-cols-2">{resource.fields.map(renderField)}</div>
+
+        {previewHref ? (
+          <div className="xl:sticky xl:top-24 xl:self-start">
+            <PreviewFrame
+              src={previewHref}
+              title="Live preview"
+              frameRef={frame}
+              // A frame that finished loading before its ready message arrived
+              // would otherwise wait for a message that has already been sent.
+              onReady={() => setFrameReady(true)}
+            />
+          </div>
+        ) : null}
+      </div>
 
       {error ? (
         <p role="alert" className="rounded-md bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">

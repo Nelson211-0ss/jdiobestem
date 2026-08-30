@@ -151,10 +151,8 @@ export const getPageBlocks = (page: string) =>
   fetchContent<Record<string, string>>(`/content/page-blocks/?page=${encodeURIComponent(page)}`, {});
 
 /** Read one block, falling back to the text compiled into the page. */
-export function text(blocks: Record<string, string>, key: string, fallback: string): string {
-  const value = blocks[key];
-  return typeof value === 'string' && value.trim() !== '' ? value : fallback;
-}
+// `text` now lives in lib/blocks.ts so the preview can use it on the client.
+export { text } from './blocks';
 
 export async function getStory(slug: string): Promise<SiteStory | null> {
   const stories = await getStories();

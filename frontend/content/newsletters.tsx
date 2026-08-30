@@ -1,6 +1,7 @@
 import Icon from '@/components/Icon';
 import NewsletterForm from '@/components/NewsletterForm';
-import { text, type SiteIssuePdf } from '@/lib/site-content';
+import { text } from '@/lib/blocks';
+import { type SiteIssuePdf } from '@/lib/site-content';
 
 /**
  * Past issues of the newsletter, as a shelf of covers.

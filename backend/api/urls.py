@@ -94,6 +94,7 @@ urlpatterns = [
     path("admin/options/", operations_views.option_lists, name="options"),
     path("admin/users/<int:pk>/access/", access_api.user_access, name="user-access"),
     path("admin/users/<int:pk>/access/update/", access_api.update_user_access, name="user-access-update"),
+    path("admin/users/<int:pk>/password/", access_api.set_user_password, name="user-set-password"),
     path(
         "admin/boards/<str:board_monday_id>/records/",
         operations_views.RecordViewSet.as_view({"get": "list", "post": "create"}),

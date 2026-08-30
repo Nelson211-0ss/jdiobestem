@@ -25,10 +25,10 @@ from datetime import date
 
 from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from accounts import policy
+from api.permissions import IsStaff
 from core.countries import Country
 from donations.models import Donation
 from operations.models import Board, Record
@@ -117,9 +117,16 @@ def rows_from_board(user, name: str, amount_title: str, date_title: str, extra: 
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsStaff])
 def accounting(request):
-    """Twelve months of money in and money out, per currency."""
+    """
+    Twelve months of money in and money out, per currency.
+
+    Staff only, and then only the money their country covers — `policy.scope`
+    narrows every source below. `IsAuthenticated` was too weak for a figure
+    this sensitive: it asks whether somebody holds a token, not whether they
+    are staff, which is the question every other endpoint here asks.
+    """
     months_back = 11
     today = timezone.localdate()
     first = shift_month(today, -months_back)

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
+import { can, getIdentity } from '@/lib/admin/api';
 import { getSessionToken } from '@/lib/admin/session';
 
 /**
@@ -27,6 +28,17 @@ const DEFAULT_MONTHS = 24;
 export async function POST(req: Request) {
   const token = await getSessionToken();
   if (!token) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+
+  // Being signed in is not the same as being allowed to write donations. This
+  // route creates rows through the same endpoint the webhook uses, so without
+  // this check a read-only account could add records to the ledger.
+  const identity = await getIdentity();
+  if (!identity || !can(identity, 'donations', 'add')) {
+    return NextResponse.json(
+      { error: 'Your role does not allow you to record donations.' },
+      { status: 403 }
+    );
+  }
 
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json(

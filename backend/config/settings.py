@@ -261,6 +261,13 @@ REST_FRAMEWORK = {
 # only — it must never reach the browser, so keep it out of NEXT_PUBLIC_*.
 SERVICE_API_KEY = env("SERVICE_API_KEY", "dev-service-key-change-me")
 
+# The only address a dashboard account may sign in with. Staff sign in with
+# their work email rather than a username, so an account is tied to a mailbox
+# the Foundation controls: when somebody leaves, revoking the mailbox and
+# revoking dashboard access are the same act. Configurable so a rename does not
+# need a code change.
+STAFF_EMAIL_DOMAIN = env("STAFF_EMAIL_DOMAIN", "jdiobestem.org").strip().lower().lstrip("@")
+
 if not DEBUG and SERVICE_API_KEY == "dev-service-key-change-me":
     raise RuntimeError("SERVICE_API_KEY must be set when DJANGO_DEBUG is off.")
 

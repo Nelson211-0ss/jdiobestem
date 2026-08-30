@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { text, type SiteTeamMember } from '@/lib/site-content';
+import { text } from '@/lib/blocks';
+import { type SiteTeamMember } from '@/lib/site-content';
 import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 import VolunteerForm from '@/components/VolunteerForm';

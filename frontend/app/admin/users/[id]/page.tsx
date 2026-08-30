@@ -52,9 +52,29 @@ export default async function StaffAccessDetailPage({ params }: { params: Promis
         ) : null
       }
     >
-      {/* Read-only here. What somebody may do is worth being able to look up
-          without the controls that change it being live under the cursor. */}
-      <AccessEditor access={access} canEdit={false} />
+      <div className="space-y-8">
+        {/* Stated where it is noticed. An account can be active, hold a role and
+            still be unable to sign in, and nothing on this screen said so. */}
+        {!access.user.email ? (
+          <p className="rounded-2xl border border-accent-foreground/40 bg-accent/5 px-5 py-4 text-sm">
+            <span className="font-semibold">
+              {access.user.username} has no work email.
+            </span>{' '}
+            Sign-in is by @jdiobestem.org address, so this account cannot sign in until one is set.
+          </p>
+        ) : null}
+
+        {!access.user.has_password ? (
+          <p className="rounded-2xl border border-accent-foreground/40 bg-accent/5 px-5 py-4 text-sm">
+            <span className="font-semibold">{access.user.username} cannot sign in yet.</span>{' '}
+            This account has no password. Open Edit access to set one.
+          </p>
+        ) : null}
+
+        {/* Read-only here. What somebody may do is worth being able to look up
+            without the controls that change it being live under the cursor. */}
+        <AccessEditor access={access} canEdit={false} editHref={`/admin/users/${id}/edit`} />
+      </div>
     </FormShell>
   );
 }

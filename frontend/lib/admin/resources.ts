@@ -49,6 +49,13 @@ export type Field = {
   /** Full width in the two-column form grid. */
   wide?: boolean;
   required?: boolean;
+  /**
+   * Set once, when the record is created, and shown as text thereafter.
+   *
+   * For a value other things are keyed on: editing it does not rename
+   * anything, it quietly points the record at something that is not there.
+   */
+  lockedAfterCreate?: boolean;
 };
 
 export type Column = {
@@ -94,6 +101,14 @@ export type Resource = {
    */
   readOnly?: boolean;
   titleField?: string;
+  /**
+   * Show the website beside the form while a record is edited.
+   *
+   * Described with strings rather than a function: the resource is handed to a
+   * client component, and a function cannot cross that boundary. The URL is
+   * `basePath` followed by the record's `field`.
+   */
+  preview?: { basePath: string; field: string };
 };
 
 /**
@@ -630,6 +645,9 @@ export const RESOURCES: Resource[] = [
       'Wording on the hand-built pages — About, Impact, Uganda, South Sudan. Layout stays in the design; only the words are edited here. Unpublish a block to fall back to the built-in text.',
     titleField: 'key',
     searchHint: 'page, key, text',
+    // Page copy is words on a page; seeing the page is the only way to know
+    // whether the words fit it.
+    preview: { basePath: '/preview/page', field: 'page' },
     columns: [
       { name: 'page', label: 'Page' },
       { name: 'label', label: 'What it is' },
@@ -637,7 +655,9 @@ export const RESOURCES: Resource[] = [
       { name: 'is_published', label: 'In use' },
     ],
     filters: [
-      { name: 'page', label: 'Page', type: 'text' },
+      // `section`, not `page`: the list always sends `page=1` for pagination,
+      // and a filter of the same name swallowed every request.
+      { name: 'section', label: 'Page', type: 'text', help: 'e.g. about, uganda, impact.' },
       {
         name: 'is_published',
         label: 'In use',
@@ -649,8 +669,22 @@ export const RESOURCES: Resource[] = [
       },
     ],
     fields: [
-      { name: 'page', label: 'Page', type: 'text', required: true, help: 'e.g. about, uganda, impact.' },
-      { name: 'key', label: 'Key', type: 'text', required: true, help: 'Which piece of the page, e.g. hero.heading. Must match the page.' },
+      {
+        name: 'page',
+        label: 'Page',
+        type: 'text',
+        required: true,
+        lockedAfterCreate: true,
+        help: 'Which page the block belongs to, e.g. about. Fixed once created — with the key, it is what the page looks the block up by.',
+      },
+      {
+        name: 'key',
+        label: 'Key',
+        type: 'text',
+        required: true,
+        lockedAfterCreate: true,
+        help: 'Which piece of the page this replaces, e.g. hero.heading. Set when the block is created and fixed after that — the page asks for this exact key, so changing it would stop the block applying rather than rename anything.',
+      },
       { name: 'label', label: 'What it is', type: 'text', wide: true, help: 'Plain words, for whoever edits it next.' },
       { name: 'value', label: 'Text', type: 'textarea', wide: true },
       { name: 'is_published', label: 'In use', type: 'boolean', help: 'Off falls back to the text built into the page.' },

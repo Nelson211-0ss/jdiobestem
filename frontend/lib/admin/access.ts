@@ -19,6 +19,8 @@ export type AccessPayload = {
     is_staff: boolean;
     is_superuser: boolean;
     last_login: string | null;
+    /** False for a seeded account that has never been given one. */
+    has_password: boolean;
   };
   profile: {
     role: string;

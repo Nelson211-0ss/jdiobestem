@@ -7,8 +7,12 @@ result — and one accepts changes. Keeping it in a single round trip means the
 matrix can never render half-updated.
 """
 
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
+from rest_framework.authtoken.models import Token
 from activity.models import ActivityLog
 from activity.recorder import diff, record
 from rest_framework import status
@@ -93,6 +97,9 @@ def _access_payload(user):
             "is_staff": user.is_staff,
             "is_superuser": user.is_superuser,
             "last_login": user.last_login,
+            # Seeded accounts are created with no usable password. Without this
+            # the screen cannot say why an active account still cannot sign in.
+            "has_password": user.has_usable_password(),
         },
         "profile": {
             "role": profile.role if profile else Role.VIEWER,
@@ -143,6 +150,57 @@ def user_access(request, pk):
     return Response(_access_payload(user))
 
 
+@api_view(["POST"])
+@permission_classes([IsStaff])
+def set_user_password(request, pk):
+    """
+    Set somebody else's password.
+
+    Separate from `update_user_access` on purpose. Changing what a person may do
+    and handing them the key to get in are different decisions, and one should
+    not ride along inside a form submission about the other — an audit trail
+    that cannot tell them apart is not much of a trail.
+
+    Only a superuser, and the same strength rules everyone else is held to.
+    """
+    denied = _require_superuser(request)
+    if denied:
+        return denied
+
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response({"detail": "No such account."}, status=status.HTTP_404_NOT_FOUND)
+
+    new = str(request.data.get("password", ""))
+    if not new:
+        return Response({"password": ["Enter a password."]}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        validate_password(new, user=user)
+    except DjangoValidationError as exc:
+        return Response({"password": list(exc.messages)}, status=status.HTTP_400_BAD_REQUEST)
+
+    user.set_password(new)
+    user.save(update_fields=["password"])
+
+    # Any session that account already had is ended. If the password is being
+    # set because something went wrong, leaving the old token alive would
+    # defeat the point.
+    Token.objects.filter(user=user).delete()
+
+    record(
+        request,
+        action=ActivityLog.Action.ACCESS_CHANGE,
+        resource="users",
+        object_id=str(user.pk),
+        object_label=user.get_full_name() or user.username,
+        detail=f"Set the password for {user.username}",
+    )
+
+    return Response({"detail": f"Password set for {user.username}."})
+
+
 @api_view(["PATCH"])
 @permission_classes([IsStaff])
 def update_user_access(request, pk):
@@ -156,6 +214,25 @@ def update_user_access(request, pk):
         return Response({"detail": "No such account."}, status=status.HTTP_404_NOT_FOUND)
 
     data = request.data or {}
+
+    # Sign-in is by work email, so the address is the credential: it has to be
+    # at the Foundation's domain, and it has to be unique. An account with a
+    # blank or foreign address cannot sign in at all, and two accounts sharing
+    # one would make the credential ambiguous.
+    email = str((data.get("user") or {}).get("email", "")).strip()
+    if email:
+        domain = settings.STAFF_EMAIL_DOMAIN
+        if not email.lower().endswith(f"@{domain}"):
+            return Response(
+                {"email": [f"Use their @{domain} address — that is what they sign in with."]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        clash = User.objects.filter(email__iexact=email).exclude(pk=pk).first()
+        if clash:
+            return Response(
+                {"email": [f"{clash.username} already uses that address."]},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
     # Guard against locking the last way in. Removing your own superuser flag,
     # or standing down the only remaining superuser, is refused rather than

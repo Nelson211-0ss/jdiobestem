@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import AccessEditor from '@/components/admin/AccessEditor';
+import SetPasswordCard from '@/components/admin/SetPasswordCard';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
 import type { AccessPayload } from '@/lib/admin/access';
@@ -42,7 +43,17 @@ export default async function StaffAccessPage({ params }: { params: Promise<{ id
       eyebrow="Editing · Staff access"
       title={name}
     >
-      <AccessEditor access={access} canEdit />
+      <div className="space-y-8">
+        {/* Above the access form on purpose: activating an account without a
+            password achieves nothing, and this is the half that was missing. */}
+        <SetPasswordCard
+          userId={access.user.id}
+          username={access.user.username}
+          hasPassword={access.user.has_password}
+          isActive={access.user.is_active}
+        />
+        <AccessEditor access={access} canEdit />
+      </div>
     </FormShell>
   );
 }
