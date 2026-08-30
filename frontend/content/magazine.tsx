@@ -85,7 +85,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
   const [featured, ...archive] = issues;
   if (!featured) {
     return (
-      <main>
+      <main className={`${minion.variable} magazine-page`}>
         <section className="section-tight">
           <div className="container-page text-center">
             <h1>STEM Bridge Magazine</h1>
@@ -100,7 +100,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
 
   return (
     <>
-      <main>
+      <main className={`${minion.variable} magazine-page`}>
         {/* Masthead and the featured issue, on white. */}
         <section className="magazine-hero">
           <div className="container-page">
