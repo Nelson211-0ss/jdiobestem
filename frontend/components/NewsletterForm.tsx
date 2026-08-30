@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Icon from './Icon';
+import { checkField, isRequired } from '@/lib/publicForms';
 
 /**
  * Email signup. Posts to /api/newsletter, which adds the address to the Resend
@@ -36,8 +37,9 @@ export default function NewsletterForm({
     setError('');
 
     const value = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      setError('Please enter a valid email address.');
+    const message = checkField('newsletter', 'email', value, 'Email address');
+    if (message) {
+      setError(message);
       return;
     }
 
@@ -80,6 +82,7 @@ export default function NewsletterForm({
         className={`mb-2 block text-sm ${tone === 'dark' ? 'text-white/70' : 'text-charcoal-600'}`}
       >
         {label}
+        {isRequired('newsletter', 'email') ? <span className="field-required">*</span> : null}
       </label>
       <div className="flex flex-col gap-2.5 sm:flex-row">
         <input
@@ -97,7 +100,12 @@ export default function NewsletterForm({
           }}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={tone === 'dark' ? 'newsletter-field' : 'field'}
+          onBlur={(e) =>
+            setError(checkField('newsletter', 'email', e.target.value.trim(), 'Email address'))
+          }
+          className={`${tone === 'dark' ? 'newsletter-field' : 'field'}${
+            error ? ' is-invalid' : ''
+          }`}
         />
         <button type="submit" className="btn-primary shrink-0" disabled={state === 'sending'}>
           {state === 'sending' ? 'Signing up…' : cta}

@@ -15,6 +15,8 @@ import uuid
 
 from django.conf import settings
 from django.core.files.storage import default_storage
+from core.derivatives import make_thumbnail
+
 from activity.models import ActivityLog
 from activity.recorder import record
 from rest_framework import status
@@ -69,7 +71,12 @@ def upload(request):
     # A generated name, not the uploaded one: user-supplied filenames bring
     # path separators, collisions, and unicode surprises with them.
     key = posixpath.join(folder, f"{uuid.uuid4().hex}{extension}")
+    # Read once: the file is needed for storage and again for the thumbnail,
+    # and a Django UploadedFile cannot be rewound reliably after saving.
+    payload = uploaded.read()
+    uploaded.seek(0)
     saved = default_storage.save(key, uploaded)
+    thumb = make_thumbnail(saved, payload)
 
     # Files land in object storage that outlives the record referencing them,
     # so who put one there is worth knowing.
@@ -85,6 +92,9 @@ def upload(request):
         {
             "path": saved,
             "url": default_storage.url(saved),
+            # Empty when the file is not an image, or already small enough that
+            # a copy would save nothing. The browser falls back to `url`.
+            "thumb_url": default_storage.url(thumb) if thumb else "",
             "size": uploaded.size,
             "content_type": content_type,
         },

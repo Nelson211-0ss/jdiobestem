@@ -6,8 +6,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import ClickableRow from '@/components/admin/ClickableRow';
+import FilePreview from '@/components/admin/FilePreview';
 import { api, can, getIdentity, type Page } from '@/lib/admin/api';
 import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
+import { formatNumber, isMoneyLabel } from '@/lib/format';
 import BoardFilters from '@/components/admin/BoardFilters';
 import { ListCard, ListHeader } from '@/components/admin/Shell';
 
@@ -58,7 +60,13 @@ export default async function BoardPage({
 
   // Long text, files and relations are opened on the record rather than
   // squeezed into a cell.
-  const columns = board.columns.filter((c) => c.show_in_list && c.monday_id !== 'name').slice(0, 6);
+  // File columns come first: a receipt is the reason the row exists, and the
+  // six-column cap would otherwise drop it off the end on a wide board.
+  const listable = board.columns.filter((c) => c.show_in_list && c.monday_id !== 'name');
+  const columns = [
+    ...listable.filter((c) => c.column_type === 'file'),
+    ...listable.filter((c) => c.column_type !== 'file'),
+  ].slice(0, 6);
 
   return (
     <div>
@@ -85,7 +93,12 @@ export default async function BoardPage({
             <TableRow>
               <TableHead>Name</TableHead>
               {columns.map((c) => (
-                <TableHead key={c.monday_id}>{c.title}</TableHead>
+                <TableHead
+                  key={c.monday_id}
+                  className={c.column_type === 'numbers' ? 'text-right' : undefined}
+                >
+                  {c.title}
+                </TableHead>
               ))}
               {board.groups.length > 1 ? <TableHead>Group</TableHead> : null}
               <TableHead className="w-10" />
@@ -102,23 +115,45 @@ export default async function BoardPage({
               data.results.map((record) => (
                 <ClickableRow key={record.id} href={`/admin/operations/${boardId}/${record.id}`}>
                   <TableCell className="font-medium">
+                    {/* There was a badge here marking records created in the
+                        dashboard rather than imported from monday. Every record
+                        is now created here — nothing was ever imported — so it
+                        marked every row and distinguished nothing. */}
                     {record.name}
-                    {record.is_local ? (
-                      <Badge variant="muted" className="ml-2">
-                        added here
-                      </Badge>
-                    ) : null}
                   </TableCell>
                   {columns.map((c) => {
+                    // A file column is the attachment itself, so the cell shows
+                    // it rather than a URL nobody can read at a glance.
+                    if (c.column_type === 'file') {
+                      const url = String(record.values?.[c.monday_id] ?? '');
+                      return (
+                        <TableCell key={c.monday_id} className="w-14 pr-0">
+                          <FilePreview url={url} alt={`${c.title} for ${record.name}`} />
+                        </TableCell>
+                      );
+                    }
                     const shown = displayValue(record.values?.[c.monday_id]);
                     const isStatus = c.column_type === 'status';
                     return (
-                      <TableCell key={c.monday_id}>
+                      <TableCell
+                        key={c.monday_id}
+                        className={c.column_type === 'numbers' ? 'text-right' : undefined}
+                      >
                         {shown ? (
                           isStatus ? (
                             <Badge variant="secondary">{shown}</Badge>
                           ) : (
-                            <span className={c.column_type === 'numbers' ? 'tabular' : ''}>{shown}</span>
+                            <span
+                              className={
+                                c.column_type === 'numbers'
+                                  ? 'tabular whitespace-nowrap'
+                                  : undefined
+                              }
+                            >
+                              {c.column_type === 'numbers'
+                                ? formatNumber(shown, { money: isMoneyLabel(c.title) })
+                                : shown}
+                            </span>
                           )
                         ) : (
                           <span className="text-muted-foreground">&mdash;</span>

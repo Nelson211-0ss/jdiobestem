@@ -16,6 +16,25 @@ once when they move across.
 from django.db import models
 from django.utils.text import slugify
 
+
+def unique_slug(model, base, limit, exclude_pk=None):
+    """`base`, or `base-2`, `base-3`… — whichever is free.
+
+    A derived slug can collide (two stories both called "Annual report"), and a
+    collision on a unique column raises IntegrityError, which reaches the user
+    as a 500 rather than as anything they can act on.
+    """
+    slug = (base or "item")[:limit]
+    rows = model.objects.exclude(pk=exclude_pk) if exclude_pk else model.objects
+    if not rows.filter(slug=slug).exists():
+        return slug
+    for n in range(2, 1000):
+        suffix = f"-{n}"
+        candidate = f"{slug[: limit - len(suffix)]}{suffix}"
+        if not rows.filter(slug=candidate).exists():
+            return candidate
+    raise ValueError("Could not find a free slug.")
+
 from core.countries import Country, country_field
 from core.models import TimeStampedModel
 
@@ -53,7 +72,7 @@ class NewsStory(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)[:200]
+            self.slug = unique_slug(NewsStory, slugify(self.title), 200, self.pk)
         if not self.date_label and self.date:
             self.date_label = self.date.strftime("%d %B %Y")
         super().save(*args, **kwargs)
@@ -160,11 +179,29 @@ class MagazineIssue(TimeStampedModel):
     epigraph_attribution = models.CharField(max_length=200, blank=True)
     epigraph_source = models.CharField(max_length=200, blank=True)
 
-    order = models.PositiveSmallIntegerField(default=0, help_text="Lower sorts first; the first entry is featured.")
+    # What "newest" means. Without it the newest issue was whichever slug
+    # sorted highest as text — fine while they are called 2026 and 2027,
+    # wrong the first time somebody writes "spring-2027".
+    published_on = models.DateField(
+        null=True,
+        blank=True,
+        help_text="The issue date. The most recent issue leads the magazine page.",
+    )
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        help_text="Leave at 0 to let the date decide. Raise it to push an issue down the page.",
+    )
     country = country_field()
 
     class Meta:
-        ordering = ["order", "-issue_id"]
+        # Date first, so adding an issue features it without anyone touching
+        # `order`. Issues with no date fall to the back rather than jumping
+        # the queue, which is what a plain DESC does with NULLs in Postgres.
+        ordering = [
+            "order",
+            models.F("published_on").desc(nulls_last=True),
+            "-issue_id",
+        ]
 
     def __str__(self):
         return f"{self.name} ({self.label})"
@@ -270,7 +307,7 @@ class Programme(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)[:120]
+            self.slug = unique_slug(Programme, slugify(self.name), 120, self.pk)
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -22,6 +22,8 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { validateAll } from '@/lib/validation';
+import RichTextEditor from './RichTextEditor';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import UploadField from './UploadField';
@@ -92,7 +94,6 @@ export default function NewsEditor({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const bodyRef = useRef<HTMLTextAreaElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [frameReady, setFrameReady] = useState(false);
 
@@ -154,56 +155,6 @@ export default function NewsEditor({
   }, [frameReady, pushPreview]);
 
   /** Wrap or prefix the current selection, the way a text editor should. */
-  const applyMarkdown = (kind: 'bold' | 'italic' | 'h2' | 'quote' | 'ul' | 'ol' | 'link') => {
-    const el = bodyRef.current;
-    if (!el || !canChange) return;
-
-    const start = el.selectionStart;
-    const end = el.selectionEnd;
-    const selected = draft.body.slice(start, end);
-    const before = draft.body.slice(0, start);
-    const after = draft.body.slice(end);
-
-    const wrap = (open: string, close = open) => `${open}${selected || 'text'}${close}`;
-    const prefixLines = (prefix: string | ((i: number) => string)) =>
-      (selected || 'item')
-        .split('\n')
-        .map((line, i) => `${typeof prefix === 'function' ? prefix(i) : prefix}${line}`)
-        .join('\n');
-
-    let inserted = '';
-    switch (kind) {
-      case 'bold':
-        inserted = wrap('**');
-        break;
-      case 'italic':
-        inserted = wrap('_');
-        break;
-      case 'h2':
-        inserted = `## ${selected || 'Heading'}`;
-        break;
-      case 'quote':
-        inserted = prefixLines('> ');
-        break;
-      case 'ul':
-        inserted = prefixLines('- ');
-        break;
-      case 'ol':
-        inserted = prefixLines((i) => `${i + 1}. `);
-        break;
-      case 'link':
-        inserted = `[${selected || 'link text'}](https://)`;
-        break;
-    }
-
-    const next = `${before}${inserted}${after}`;
-    set('body', next);
-    requestAnimationFrame(() => {
-      el.focus();
-      el.setSelectionRange(start + inserted.length, start + inserted.length);
-    });
-  };
-
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -215,6 +166,30 @@ export default function NewsEditor({
       reading_time: draft.reading_time || readingTimeFor(draft.body),
       date_label: dateLabel,
     };
+
+    // The same rules the serializer will apply, checked here so a 4,000-word
+    // body is not typed twice because a 100-character Category was too long.
+    const found = validateAll('admin', 'news', payload as Record<string, unknown>, {
+      title: 'Headline',
+      category: 'Category',
+      date: 'Date',
+      slug: 'Slug',
+      excerpt: 'Standfirst',
+      body: 'Body',
+      image_alt: 'Alt text',
+      caption: 'Caption',
+      reading_time: 'Reading time',
+    });
+    if (Object.keys(found).length) {
+      setFieldErrors(found);
+      setError('Please check the highlighted fields.');
+      setSaving(false);
+      document.getElementById(Object.keys(found)[0])?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      return;
+    }
 
     const res = await fetch(isNew ? '/api/admin/news' : `/api/admin/news/${story!.id}`, {
       method: isNew ? 'POST' : 'PATCH',
@@ -251,17 +226,15 @@ export default function NewsEditor({
     } else setError('Could not delete that.');
   };
 
-  const TOOLS = [
-    { kind: 'h2', icon: Heading2, label: 'Heading' },
-    { kind: 'bold', icon: Bold, label: 'Bold' },
-    { kind: 'italic', icon: Italic, label: 'Italic' },
-    { kind: 'link', icon: Link2, label: 'Link' },
-    { kind: 'ul', icon: List, label: 'Bulleted list' },
-    { kind: 'ol', icon: ListOrdered, label: 'Numbered list' },
-    { kind: 'quote', icon: Quote, label: 'Quote' },
-  ] as const;
-
   const field = (name: keyof Story) => fieldErrors[name as string];
+
+  /** The message under one field, when it has one. */
+  const Problem = ({ name }: { name: keyof Story }) =>
+    field(name) ? (
+      <p role="alert" className="text-xs font-medium text-destructive">
+        {field(name)}
+      </p>
+    ) : null;
 
   return (
     <form onSubmit={submit} className="pb-20">
@@ -315,7 +288,7 @@ export default function NewsEditor({
                 disabled={!canChange}
                 onChange={(e) => set('title', e.target.value)}
               />
-              {field('title') ? <p className="text-xs text-destructive">{field('title')}</p> : null}
+              <Problem name="title" />
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -331,6 +304,7 @@ export default function NewsEditor({
                   disabled={!canChange}
                   onChange={(e) => set('category', e.target.value)}
                 />
+                <Problem name="category" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="date">
@@ -345,6 +319,7 @@ export default function NewsEditor({
                   disabled={!canChange}
                   onChange={(e) => set('date', e.target.value)}
                 />
+                <Problem name="date" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="slug">Slug</Label>
@@ -356,6 +331,7 @@ export default function NewsEditor({
                   disabled={!canChange}
                   onChange={(e) => set('slug', e.target.value)}
                 />
+                <Problem name="slug" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="reading_time">Reading time</Label>
@@ -367,6 +343,7 @@ export default function NewsEditor({
                   disabled={!canChange}
                   onChange={(e) => set('reading_time', e.target.value)}
                 />
+                <Problem name="reading_time" />
               </div>
             </div>
 
@@ -382,43 +359,25 @@ export default function NewsEditor({
                 disabled={!canChange}
                 onChange={(e) => set('excerpt', e.target.value)}
               />
+              <Problem name="excerpt" />
               <p className="text-xs text-muted-foreground">
                 One sentence. Used on the index card and under the headline.
               </p>
             </div>
 
             <div className="space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <Label htmlFor="body">
-                  Body<span className="text-accent-foreground"> *</span>
-                </Label>
-                <div className="flex items-center gap-0.5">
-                  {TOOLS.map(({ kind, icon: Icon, label }) => (
-                    <button
-                      key={kind}
-                      type="button"
-                      title={label}
-                      aria-label={label}
-                      disabled={!canChange}
-                      onClick={() => applyMarkdown(kind)}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <Textarea
-                id="body"
-                ref={bodyRef}
-                rows={18}
-                required
-                className="font-mono text-sm"
+              <Label id="body-label" htmlFor="body">
+                Body<span className="text-accent-foreground"> *</span>
+              </Label>
+              {/* Still Markdown underneath — the website renders it with the
+                  same parser it always has. Only the surface changed. */}
+              <RichTextEditor
+                ariaLabelledBy="body-label"
                 value={draft.body}
                 disabled={!canChange}
-                onChange={(e) => set('body', e.target.value)}
+                onChange={(markdown) => set('body', markdown)}
               />
-              <p className="text-xs text-muted-foreground">Markdown.</p>
+              <Problem name="body" />
             </div>
 
             <div className="space-y-2">
@@ -447,6 +406,7 @@ export default function NewsEditor({
                     disabled={!canChange}
                     onChange={(e) => set('image_alt', e.target.value)}
                   />
+                  <Problem name="image_alt" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="caption">Caption</Label>
@@ -457,6 +417,7 @@ export default function NewsEditor({
                     disabled={!canChange}
                     onChange={(e) => set('caption', e.target.value)}
                   />
+                  <Problem name="caption" />
                 </div>
               </div>
             ) : null}

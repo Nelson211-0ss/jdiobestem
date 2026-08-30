@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from './Icon';
+import FieldError from './FieldError';
+import { checkField, checkForm, isRequired } from '@/lib/publicForms';
 import PhoneField from './PhoneField';
 
 /** Volunteer application form. Posts to /api/volunteer, which relays the
@@ -13,11 +15,37 @@ export default function VolunteerForm() {
     text: string;
   } | null>(null);
   const [sending, setSending] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const LABELS: Record<string, string> = {
+    name: 'Full name',
+    email: 'Email',
+    phone: 'Phone',
+    interest: 'Area of interest',
+    message: 'This',
+  };
+
+  /** Check one field as the person leaves it. */
+  const blur =
+    (field: string) =>
+    (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      const message = checkField('volunteer', field, e.target.value, LABELS[field] ?? field);
+      setErrors((prev) => {
+        const next = { ...prev };
+        if (message) next[field] = message;
+        else delete next[field];
+        return next;
+      });
+    };
+
+  const invalid = (field: string) => (errors[field] ? ' is-invalid' : '');
+  const describe = (field: string) => (errors[field] ? `${field}-error` : undefined);
+  const star = (field: string) =>
+    isRequired('volunteer', field) ? <span className="field-required">*</span> : null;
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (!form.reportValidity()) return;
 
     const data = new FormData(form);
     const payload = {
@@ -27,6 +55,17 @@ export default function VolunteerForm() {
       interest: String(data.get('interest') ?? ''),
       message: String(data.get('message') ?? '').trim(),
     };
+
+    // Checked here rather than by the browser's own bubbles, which show one
+    // problem at a time, vanish on the next click, and cannot be styled.
+    const found = checkForm('volunteer', payload, LABELS, [], ['phone']);
+    if (Object.keys(found).length) {
+      setErrors(found);
+      setStatus(null);
+      document.getElementById(Object.keys(found)[0])?.focus();
+      return;
+    }
+    setErrors({});
 
     setSending(true);
     setStatus(null);
@@ -43,6 +82,7 @@ export default function VolunteerForm() {
         text: 'Thank you. Your application has been sent — we will be in touch.',
       });
       form.reset();
+      setErrors({});
     } catch (err) {
       setStatus({
         kind: 'error',
@@ -60,7 +100,7 @@ export default function VolunteerForm() {
     <form id="volunteer-form" className="space-y-4" noValidate onSubmit={onSubmit}>
       <div>
         <label htmlFor="name" className="field-label">
-          Full name *
+          Full name{star('name')}
         </label>
         <input
           type="text"
@@ -68,14 +108,18 @@ export default function VolunteerForm() {
           name="name"
           required
           autoComplete="name"
-          className="volunteer-field"
+          className={`volunteer-field${invalid('name')}`}
           placeholder="Your name"
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={describe('name')}
+          onBlur={blur('name')}
         />
+        <FieldError id="name-error" message={errors.name} />
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="field-label">
-            Email *
+            Email{star('email')}
           </label>
           <input
             type="email"
@@ -83,17 +127,30 @@ export default function VolunteerForm() {
             name="email"
             required
             autoComplete="email"
-            className="volunteer-field"
+            className={`volunteer-field${invalid('email')}`}
             placeholder="you@email.com"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={describe('email')}
+            onBlur={blur('email')}
           />
+          <FieldError id="email-error" message={errors.email} />
         </div>
         <PhoneField id="phone" name="phone" label="Phone" />
       </div>
       <div>
         <label htmlFor="interest" className="field-label">
-          Area of interest *
+          Area of interest{star('interest')}
         </label>
-        <select id="interest" name="interest" required className="volunteer-field" defaultValue="">
+        <select
+          id="interest"
+          name="interest"
+          required
+          className={`volunteer-field${invalid('interest')}`}
+          defaultValue=""
+          aria-invalid={Boolean(errors.interest)}
+          aria-describedby={describe('interest')}
+          onBlur={blur('interest')}
+        >
           <option value="">Select an area</option>
           <option value="mentorship">Mentorship</option>
           <option value="event">Event organization</option>
@@ -101,19 +158,24 @@ export default function VolunteerForm() {
           <option value="outreach">Community outreach</option>
           <option value="other">Other</option>
         </select>
+        <FieldError id="interest-error" message={errors.interest} />
       </div>
       <div>
         <label htmlFor="message" className="field-label">
-          Why do you want to volunteer? *
+          Why do you want to volunteer?{star('message')}
         </label>
         <textarea
           id="message"
           name="message"
           rows={3}
           required
-          className="volunteer-field resize-y"
+          className={`volunteer-field resize-y${invalid('message')}`}
           placeholder="Tell us about your motivation and experience..."
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={describe('message')}
+          onBlur={blur('message')}
         ></textarea>
+        <FieldError id="message-error" message={errors.message} />
       </div>
       <button
         type="submit"

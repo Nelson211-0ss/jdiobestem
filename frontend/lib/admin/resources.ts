@@ -27,7 +27,15 @@ export type FieldType =
 export type Field = {
   name: string;
   /** Options come from the countries table rather than this file. */
-  source?: 'country' | 'currency' | 'countryId' | 'office' | 'document' | 'staff' | 'project';
+  source?:
+    | 'country'
+    | 'currency'
+    | 'countryId'
+    | 'office'
+    | 'document'
+    | 'staff'
+    | 'project'
+    | 'scholarship';
   label: string;
   type?: FieldType;
   options?: { value: string; label: string }[];
@@ -455,57 +463,115 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'donations',
-    label: 'Donations',
+    label: 'Donations & gifts',
     parent: 'Fundraising',
-    singular: 'donation',
+    singular: 'gift',
     group: 'Giving',
     icon: 'HeartHandshake',
-    description: 'Mirrored from Stripe. Read-only — Stripe is the source of truth.',
+    description:
+      'Every gift, however it arrived. Card payments are mirrored from Stripe and cannot be edited here; a cheque, transfer, pledge or gift in kind is recorded by hand.',
     titleField: 'donor_name',
-    noCreate: true,
-    searchHint: 'donor name, email, Stripe id',
+    searchHint: 'donor name, email, designation, Stripe id',
     columns: [
-      { name: 'created_at', label: 'Date', date: true },
+      { name: 'received_on', label: 'Received', date: true },
       { name: 'donor_name', label: 'Donor' },
-      { name: 'donor_email', label: 'Email' },
       { name: 'amount_display', label: 'Amount', numeric: true },
+      { name: 'gift_type_display', label: 'Kind' },
+      { name: 'source_display', label: 'Recorded' },
       { name: 'status_display', label: 'Status', badge: true },
-      { name: 'livemode', label: 'Live' },
     ],
     filters: [
       {
-        name: 'status',
-        label: 'Status',
-        type: 'select',
+        name: 'source', label: 'How it arrived', type: 'select',
         options: [
+          { value: 'online', label: 'Online (Stripe)' },
+          { value: 'offline', label: 'Recorded by hand' },
+        ],
+      },
+      {
+        name: 'status', label: 'Status', type: 'select',
+        options: [
+          { value: 'received', label: 'Received' },
           { value: 'succeeded', label: 'Succeeded' },
+          { value: 'pledged', label: 'Pledged' },
           { value: 'pending', label: 'Pending' },
           { value: 'failed', label: 'Failed' },
           { value: 'refunded', label: 'Refunded' },
         ],
       },
       {
-        name: 'livemode',
-        label: 'Mode',
-        type: 'select',
+        name: 'gift_type', label: 'Kind', type: 'select',
         options: [
-          { value: 'true', label: 'Live' },
-          { value: 'false', label: 'Test' },
+          { value: 'one_off', label: 'One-off gift' },
+          { value: 'recurring', label: 'Recurring gift' },
+          { value: 'pledge', label: 'Pledge' },
+          { value: 'in_kind', label: 'In kind' },
+          { value: 'grant', label: 'Grant' },
         ],
       },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
     ],
     fields: [
-      { name: 'donor_name', label: 'Donor', type: 'readonly' },
-      { name: 'donor_email', label: 'Email', type: 'readonly' },
-      { name: 'amount_display', label: 'Amount', type: 'readonly' },
-      { name: 'currency', label: 'Currency', type: 'readonly' },
-      { name: 'status_display', label: 'Status', type: 'readonly' },
+      { name: 'donor_name', label: 'Donor', type: 'text', wide: true },
+      { name: 'donor_email', label: 'Email', type: 'email', wide: true },
+      { name: 'amount_major', label: 'Amount', type: 'number', required: true },
+      { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
+      { name: 'received_on', label: 'Received on', type: 'date', help: 'When the money arrived, not when it was typed in.' },
+      {
+        name: 'gift_type', label: 'Kind of gift', type: 'select',
+        options: [
+          { value: 'one_off', label: 'One-off gift' },
+          { value: 'recurring', label: 'Recurring gift' },
+          { value: 'pledge', label: 'Pledge' },
+          { value: 'in_kind', label: 'In kind' },
+          { value: 'grant', label: 'Grant' },
+        ],
+      },
+      {
+        name: 'status', label: 'Status', type: 'select',
+        help: 'A pledge is a promise and is not counted until it is received.',
+        options: [
+          { value: 'received', label: 'Received' },
+          { value: 'pledged', label: 'Pledged' },
+          { value: 'refunded', label: 'Refunded' },
+        ],
+      },
+      {
+        name: 'payment_method', label: 'How it was paid', type: 'select',
+        options: [
+          { value: '', label: 'Not recorded' },
+          { value: 'bank', label: 'Bank transfer' },
+          { value: 'mobile', label: 'Mobile money' },
+          { value: 'cheque', label: 'Cheque' },
+          { value: 'cash', label: 'Cash' },
+          { value: 'card', label: 'Card' },
+          { value: 'in_kind', label: 'In kind' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+      { name: 'designation', label: 'What it is for', type: 'text', wide: true, help: 'Blank means unrestricted.' },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country', help: 'Which office it is credited to.' },
+      {
+        name: 'receipt_status', label: 'Receipt', type: 'select',
+        options: [
+          { value: 'not_sent', label: 'Not sent' },
+          { value: 'sent', label: 'Sent' },
+          { value: 'not_required', label: 'Not required' },
+        ],
+      },
+      { name: 'receipt_sent_on', label: 'Receipt sent on', type: 'date' },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+
+      // Stripe's own record. Shown so a card gift can be traced, never edited:
+      // changing it here would leave a total that disagrees with the processor.
+      { name: 'source_display', label: 'How it arrived', type: 'readonly' },
+      { name: 'recorded_by_name', label: 'Recorded by', type: 'readonly' },
+      { name: 'amount_display', label: 'Amount as stored', type: 'readonly' },
       { name: 'livemode', label: 'Live mode', type: 'readonly' },
       { name: 'stripe_session_id', label: 'Stripe session', type: 'readonly', wide: true },
       { name: 'stripe_payment_intent', label: 'Payment intent', type: 'readonly', wide: true },
-      { name: 'receipt_url', label: 'Receipt', type: 'readonly', wide: true },
-      { name: 'amount_cents', label: 'Amount in minor units', type: 'readonly' },
-      { name: 'created_at', label: 'Received', type: 'readonly' },
+      { name: 'receipt_url', label: 'Stripe receipt', type: 'readonly', wide: true },
+      { name: 'created_at', label: 'Entered', type: 'readonly' },
     ],
   },
   {
@@ -870,6 +936,7 @@ export const RESOURCES: Resource[] = [
     titleField: 'name',
     searchHint: 'name, label, summary',
     columns: [
+      { name: 'published_on', label: 'Issue date' },
       { name: 'thumbnail', label: '', thumb: true },
       { name: 'name', label: 'Issue' },
       { name: 'label', label: 'Cover line' },
@@ -878,6 +945,7 @@ export const RESOURCES: Resource[] = [
       { name: 'order', label: 'Order', numeric: true },
     ],
     fields: [
+      { name: 'published_on', label: 'Issue date', type: 'date', help: 'The most recent issue leads the magazine page.' },
       { name: 'issue_id', label: 'Issue id', type: 'text', required: true, help: 'e.g. 2026' },
       { name: 'label', label: 'Cover line', type: 'text', required: true, help: 'As printed, e.g. 11/2026' },
       { name: 'name', label: 'Name in prose', type: 'text', required: true },
@@ -1208,6 +1276,212 @@ export const RESOURCES: Resource[] = [
       { name: 'is_superuser', label: 'Superuser', type: 'boolean' },
     ],
   },
+  {
+    key: 'scholarships',
+    label: 'Bursaries',
+    singular: 'bursary',
+    group: 'Programmes',
+    parent: 'Scholarships',
+    icon: 'GraduationCap',
+    description:
+      'A student on a bursary: who pays, which school, what it covers, and how long it runs. The money actually sent to each school is recorded against it as payments.',
+    titleField: 'student_name',
+    searchHint: 'student, school, sponsor, guardian, reference',
+    columns: [
+      { name: 'thumbnail', label: '', thumb: true },
+      { name: 'student_name', label: 'Student' },
+      { name: 'reference', label: 'Ref' },
+      { name: 'school_name', label: 'School' },
+      { name: 'current_class', label: 'Class' },
+      { name: 'sponsor_name', label: 'Paid for by' },
+      { name: 'total_paid', label: 'Paid to date', numeric: true },
+      { name: 'status_display', label: 'Status', badge: true },
+    ],
+    filters: [
+      {
+        name: 'status', label: 'Status', type: 'select',
+        options: [
+          { value: 'pending', label: 'Pending start' },
+          { value: 'active', label: 'Active' },
+          { value: 'suspended', label: 'Suspended' },
+          { value: 'completed', label: 'Completed' },
+          { value: 'terminated', label: 'Terminated' },
+        ],
+      },
+      {
+        name: 'school_level', label: 'Level', type: 'select',
+        options: [
+          { value: 'primary', label: 'Primary' },
+          { value: 'secondary', label: 'Secondary' },
+          { value: 'vocational', label: 'Vocational / technical' },
+          { value: 'tertiary', label: 'University / tertiary' },
+        ],
+      },
+      {
+        name: 'sponsor_type', label: 'Sponsor', type: 'select',
+        options: [
+          { value: 'individual', label: 'Individual' },
+          { value: 'organisation', label: 'Organisation' },
+          { value: 'church', label: 'Church or faith group' },
+          { value: 'foundation', label: 'Trust or foundation' },
+          { value: 'jdiobe', label: 'JdiobeSTEM general fund' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office' },
+    ],
+    fields: [
+      { name: 'student_name', label: 'Student name', type: 'text', required: true, wide: true },
+      {
+        name: 'photo', label: 'Photograph', type: 'upload', folder: 'scholarships', wide: true,
+        help: 'Uploads are served from a public address — see the note before adding a child\u2019s photograph.',
+      },
+      { name: 'reference', label: 'Reference', type: 'readonly', help: 'Issued by the system when the bursary is created.' },
+      {
+        name: 'gender', label: 'Gender', type: 'select',
+        options: [
+          { value: '', label: 'Not recorded' },
+          { value: 'female', label: 'Female' },
+          { value: 'male', label: 'Male' },
+          { value: 'other', label: 'Prefer not to say' },
+        ],
+      },
+      { name: 'date_of_birth', label: 'Date of birth', type: 'date' },
+      { name: 'student_phone', label: 'Student phone', type: 'tel' },
+
+      { name: 'school_name', label: 'School', type: 'text', required: true, wide: true },
+      {
+        name: 'school_level', label: 'Level', type: 'select',
+        options: [
+          { value: 'primary', label: 'Primary' },
+          { value: 'secondary', label: 'Secondary' },
+          { value: 'vocational', label: 'Vocational / technical' },
+          { value: 'tertiary', label: 'University / tertiary' },
+        ],
+      },
+      {
+        name: 'class_at_award', label: 'Class when the bursary started', type: 'text',
+        help: 'Never changes. It is what makes progress answerable years later.',
+      },
+      { name: 'current_class', label: 'Class now', type: 'text' },
+      { name: 'school_contact', label: 'School contact', type: 'text', wide: true, help: 'Bursar or head teacher, and how to reach them.' },
+      { name: 'school_account', label: 'Where fees are paid', type: 'text', wide: true, help: 'Kept so a transfer can be checked against it.' },
+
+      { name: 'sponsor_name', label: 'Paid for by', type: 'text', wide: true, help: 'Who is funding this student.' },
+      {
+        name: 'sponsor_type', label: 'Kind of sponsor', type: 'select',
+        options: [
+          { value: '', label: 'Not recorded' },
+          { value: 'individual', label: 'Individual' },
+          { value: 'organisation', label: 'Organisation' },
+          { value: 'church', label: 'Church or faith group' },
+          { value: 'foundation', label: 'Trust or foundation' },
+          { value: 'jdiobe', label: 'JdiobeSTEM general fund' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+      { name: 'sponsor_contact', label: 'Sponsor contact', type: 'text', wide: true },
+
+      { name: 'amount_per_term', label: 'Amount per term', type: 'number' },
+      { name: 'total_committed', label: 'Total committed', type: 'number', help: 'If a whole figure was agreed up front.' },
+      { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
+      { name: 'started_on', label: 'Started', type: 'date' },
+      { name: 'expected_end_on', label: 'Expected to finish', type: 'date', help: 'How long the bursary is expected to run.' },
+      {
+        name: 'status', label: 'Status', type: 'select', required: true,
+        options: [
+          { value: 'pending', label: 'Pending start' },
+          { value: 'active', label: 'Active' },
+          { value: 'suspended', label: 'Suspended' },
+          { value: 'completed', label: 'Completed' },
+          { value: 'terminated', label: 'Terminated' },
+        ],
+      },
+      { name: 'ended_on', label: 'Ended', type: 'date', help: 'Required once the status is completed or terminated.' },
+      {
+        name: 'termination_reason', label: 'Why it ended', type: 'textarea', wide: true,
+        help: 'Required when a bursary is terminated rather than completed.',
+      },
+
+      {
+        name: 'benefits', label: 'What else the bursary covers', type: 'list', wide: true,
+        addLabel: 'Add a benefit',
+        itemFields: [
+          { name: 'label', label: 'Benefit' },
+          { name: 'detail', label: 'Detail' },
+        ],
+      },
+
+      { name: 'guardian_name', label: 'Parent or guardian', type: 'text', wide: true },
+      { name: 'guardian_relationship', label: 'Relationship', type: 'text', help: 'Mother, father, aunt, grandparent…' },
+      { name: 'guardian_phone', label: 'Guardian phone', type: 'tel' },
+      { name: 'guardian_address', label: 'Guardian address', type: 'text', wide: true },
+
+      { name: 'managed_by', label: 'Looked after by', type: 'select', options: [], source: 'staff', help: 'Who at the Foundation follows this student.' },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+    ],
+  },
+  {
+    key: 'scholarship-payments',
+    label: 'Payments to schools',
+    singular: 'payment',
+    group: 'Programmes',
+    parent: 'Scholarships',
+    icon: 'Receipt',
+    description:
+      'Every transfer made to a school under a bursary, with its receipt. Kept as separate rows rather than a running total, so what was paid in a given term stays answerable.',
+    titleField: 'term',
+    searchHint: 'student, school, term, reference',
+    columns: [
+      { name: 'receipt', label: '', thumb: true },
+      { name: 'student_name', label: 'Student' },
+      { name: 'school_name', label: 'School' },
+      { name: 'term', label: 'Covers' },
+      { name: 'amount', label: 'Amount', numeric: true },
+      { name: 'currency', label: 'Currency' },
+      { name: 'paid_on', label: 'Paid', date: true },
+      { name: 'method_display', label: 'Method', badge: true },
+    ],
+    filters: [
+      { name: 'scholarship', label: 'Bursary', type: 'select', options: [], source: 'scholarship' },
+      {
+        name: 'method', label: 'Method', type: 'select',
+        options: [
+          { value: 'bank', label: 'Bank transfer' },
+          { value: 'mobile', label: 'Mobile money' },
+          { value: 'cheque', label: 'Cheque' },
+          { value: 'cash', label: 'Cash' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+    ],
+    fields: [
+      { name: 'scholarship', label: 'Bursary', type: 'select', options: [], source: 'scholarship', required: true, wide: true },
+      { name: 'paid_on', label: 'Date paid', type: 'date', required: true },
+      { name: 'amount', label: 'Amount', type: 'number', required: true },
+      { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
+      { name: 'term', label: 'What it covers', type: 'text', help: 'e.g. Term 1 2026.' },
+      { name: 'academic_year', label: 'Academic year', type: 'text', help: 'e.g. 2026.' },
+      {
+        name: 'method', label: 'Method', type: 'select',
+        options: [
+          { value: 'bank', label: 'Bank transfer' },
+          { value: 'mobile', label: 'Mobile money' },
+          { value: 'cheque', label: 'Cheque' },
+          { value: 'cash', label: 'Cash' },
+          { value: 'other', label: 'Other' },
+        ],
+      },
+      { name: 'reference', label: 'Reference', type: 'text', help: 'Bank or mobile money reference.' },
+      { name: 'paid_to', label: 'Paid to', type: 'text', wide: true, help: 'Only if it did not go to the school\u2019s usual account.' },
+      { name: 'receipt', label: 'Receipt', type: 'upload', folder: 'receipts', wide: true },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+      { name: 'recorded_by_name', label: 'Recorded by', type: 'readonly' },
+    ],
+  },
 ];
 
 export const RESOURCE_BY_KEY = Object.fromEntries(RESOURCES.map((r) => [r.key, r]));
@@ -1224,6 +1498,7 @@ function optionsFor(
     documents?: { value: string; label: string }[];
     staff?: { value: string; label: string }[];
     projects?: { value: string; label: string }[];
+    scholarships?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -1234,13 +1509,23 @@ function optionsFor(
   if (source === 'document') return options.documents ?? [];
   if (source === 'staff') return options.staff ?? [];
   if (source === 'project') return options.projects ?? [];
+  if (source === 'scholarship') return options.scholarships ?? [];
   return options.countries;
 }
 
 /** Substitute the data-driven options into a resource's fields. */
 export function withOptions(
   resource: Resource,
-  options: { countries: { value: string; label: string }[]; currencies: { value: string; label: string }[] }
+  options: {
+    countries: { value: string; label: string }[];
+    currencies: { value: string; label: string }[];
+    countryIds?: { value: string; label: string }[];
+    offices?: { value: string; label: string }[];
+    documents?: { value: string; label: string }[];
+    staff?: { value: string; label: string }[];
+    projects?: { value: string; label: string }[];
+    scholarships?: { value: string; label: string }[];
+  }
 ): Resource {
   return {
     ...resource,

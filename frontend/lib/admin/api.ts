@@ -101,6 +101,8 @@ export type OptionLists = {
   staff: { value: string; label: string }[];
   /** Student projects an award can belong to. */
   projects: { value: string; label: string }[];
+  /** Bursaries a payment can belong to. */
+  scholarships: { value: string; label: string }[];
 };
 
 /**
@@ -121,7 +123,7 @@ export async function getOptionLists(): Promise<OptionLists> {
   } catch {
     return {
       countries: [], staff_scopes: [], currencies: [], offices: [],
-      countryIds: [], documents: [], staff: [], projects: [],
+      countryIds: [], documents: [], staff: [], projects: [], scholarships: [],
     };
   }
 }

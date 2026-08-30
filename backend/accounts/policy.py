@@ -29,6 +29,7 @@ RESOURCES = (
     "documents", "document-editions", "activity",
     "job-postings", "job-applications", "recognised-volunteers", "project-awards",
     "cohorts", "mentors", "mentees", "pairings", "projects",
+    "scholarships", "scholarship-payments",
     "boards",
     "countries",
     "offices",
@@ -41,7 +42,14 @@ CONTENT = (
     "news", "team", "magazine", "stats", "newsletters", "programmes",
     "page-blocks", "job-postings", "recognised-volunteers",
 )
-PROGRAMMES = ("cohorts", "mentors", "mentees", "pairings", "projects", "project-awards")
+PROGRAMMES = (
+    "cohorts", "mentors", "mentees", "pairings", "projects", "project-awards",
+    "scholarships",
+)
+#: Money leaving the Foundation for a student. Programme staff record who is
+#: on a bursary; what was actually paid to a school is Finance's to write,
+#: which is why the payments are a separate resource from the bursary itself.
+BURSARY_MONEY = ("scholarship-payments",)
 #: The monday.com operations boards, as one resource. Per-board permissions are
 #: a finer grain than the Foundation has asked for; this is deliberately all or
 #: nothing, and can be split later without changing how the engine works.
@@ -56,7 +64,8 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
         **{r: NO_DELETE for r in INBOX},
         **{r: ALL_ACTIONS for r in CONTENT},
         **{r: ALL_ACTIONS for r in PROGRAMMES},
-        "donations": READ_ONLY,
+        "donations": NO_DELETE,
+        **{r: ALL_ACTIONS for r in BURSARY_MONEY},
         **{r: ALL_ACTIONS for r in OPERATIONS},
         "users": READ_ONLY,  # can see who has access, cannot grant it
     },
@@ -64,13 +73,15 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
         **{r: NO_DELETE for r in INBOX},
         **{r: NO_DELETE for r in PROGRAMMES},
         **{r: READ_ONLY for r in CONTENT},
-        "donations": READ_ONLY,
+        "donations": NO_DELETE,
+        **{r: NO_DELETE for r in BURSARY_MONEY},
         **{r: NO_DELETE for r in OPERATIONS},
         "users": READ_ONLY,
     },
     Role.PROGRAMME_MANAGER: {
         **{r: NO_DELETE for r in INBOX},
         **{r: NO_DELETE for r in PROGRAMMES},
+        **{r: READ_ONLY for r in BURSARY_MONEY},
         **{r: READ_ONLY for r in CONTENT},
         **{r: NO_DELETE for r in OPERATIONS},
     },
@@ -94,8 +105,10 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
         **{r: NO_DELETE for r in OPERATIONS},
     },
     Role.FINANCE: {
-        "donations": READ_ONLY,
+        "donations": NO_DELETE,
         "subscribers": READ_ONLY,
+        "scholarships": READ_ONLY,
+        **{r: NO_DELETE for r in BURSARY_MONEY},
         **{r: NO_DELETE for r in OPERATIONS},
     },
     Role.VIEWER: {r: READ_ONLY for r in RESOURCES if r != "users"},
@@ -147,6 +160,8 @@ COUNTRY_FIELD = {
     "mentees": "country",
     "projects": "country",
     "project-awards": "project__country",
+    "scholarships": "country",
+    "scholarship-payments": "scholarship__country",
     "pairings": "mentee__country",
 }
 

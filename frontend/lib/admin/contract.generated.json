@@ -1,0 +1,1744 @@
+{
+  "admin": {
+    "activity": {
+      "action": {
+        "choices": [
+          "create",
+          "update",
+          "delete",
+          "login",
+          "login_failed",
+          "logout",
+          "send",
+          "access_change",
+          "upload"
+        ],
+        "kind": "choice",
+        "required": true
+      },
+      "actor": {
+        "allowNull": true
+      },
+      "actor_name": {
+        "kind": "text",
+        "maxLength": 150
+      },
+      "changes": {},
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "detail": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "ip_address": {
+        "allowNull": true,
+        "kind": "text"
+      },
+      "object_id": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "object_label": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "resource": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "user_agent": {
+        "kind": "text",
+        "maxLength": 300
+      }
+    },
+    "boards": {
+      "category": {
+        "choices": [
+          "fundraising",
+          "finance",
+          "programmes",
+          "people",
+          "governance",
+          "operations",
+          "marketing",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "description": {
+        "kind": "text"
+      },
+      "is_subitem_board": {
+        "kind": "boolean"
+      },
+      "is_visible": {
+        "kind": "boolean"
+      },
+      "item_count": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 2147483647,
+        "minValue": 0
+      },
+      "monday_id": {
+        "kind": "text",
+        "maxLength": 32,
+        "required": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 255,
+        "required": true
+      },
+      "synced_at": {
+        "allowNull": true,
+        "kind": "datetime"
+      }
+    },
+    "cohorts": {
+      "ends_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 120,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "starts_on": {
+        "allowNull": true,
+        "kind": "date"
+      }
+    },
+    "contact-messages": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "staff_notes": {
+        "kind": "text"
+      },
+      "status": {
+        "choices": [
+          "new",
+          "in_review",
+          "contacted",
+          "closed",
+          "spam"
+        ],
+        "kind": "choice"
+      }
+    },
+    "countries": {
+      "code": {
+        "kind": "text",
+        "maxLength": 2,
+        "required": true
+      },
+      "currency_code": {
+        "kind": "text",
+        "maxLength": 3,
+        "required": true
+      },
+      "currency_symbol": {
+        "kind": "text",
+        "maxLength": 8
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 120,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      }
+    },
+    "document-editions": {
+      "document": {
+        "required": true
+      },
+      "effective_date": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "external_url": {
+        "kind": "url"
+      },
+      "file": {},
+      "is_current": {
+        "kind": "boolean"
+      },
+      "summary": {
+        "kind": "text"
+      },
+      "version": {
+        "kind": "text",
+        "maxLength": 60,
+        "required": true
+      }
+    },
+    "documents": {
+      "category": {
+        "choices": [
+          "handbook",
+          "policy",
+          "form",
+          "report",
+          "template",
+          "governance",
+          "finance",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "description": {
+        "kind": "text"
+      },
+      "is_archived": {
+        "kind": "boolean"
+      },
+      "is_public": {
+        "kind": "boolean"
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "owner": {
+        "allowNull": true
+      },
+      "slug": {
+        "kind": "slug"
+      },
+      "title": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    "donations": {
+      "amount_major": {
+        "decimals": 2,
+        "kind": "number"
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "currency": {
+        "kind": "text",
+        "maxLength": 10
+      },
+      "designation": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "donor_email": {
+        "kind": "email"
+      },
+      "donor_name": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "gift_type": {
+        "choices": [
+          "one_off",
+          "recurring",
+          "pledge",
+          "in_kind",
+          "grant"
+        ],
+        "kind": "choice"
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "payment_method": {
+        "choices": [
+          "card",
+          "bank",
+          "mobile",
+          "cheque",
+          "cash",
+          "in_kind",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "receipt_sent_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "receipt_status": {
+        "choices": [
+          "not_sent",
+          "sent",
+          "not_required"
+        ],
+        "kind": "choice"
+      },
+      "received_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "source": {
+        "choices": [
+          "online",
+          "offline"
+        ],
+        "kind": "choice"
+      },
+      "status": {
+        "choices": [
+          "pending",
+          "succeeded",
+          "failed",
+          "refunded",
+          "pledged",
+          "received"
+        ],
+        "kind": "choice"
+      }
+    },
+    "job-applications": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "cover_letter": {
+        "kind": "text",
+        "maxLength": 6000
+      },
+      "cv": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "email": {
+        "kind": "email",
+        "required": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "posting": {
+        "allowNull": true
+      },
+      "stage": {
+        "choices": [
+          "new",
+          "screening",
+          "interview",
+          "offer",
+          "hired",
+          "rejected",
+          "withdrawn"
+        ],
+        "kind": "choice"
+      }
+    },
+    "job-postings": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "description": {
+        "kind": "text"
+      },
+      "employment_type": {
+        "choices": [
+          "full_time",
+          "part_time",
+          "contract",
+          "internship",
+          "volunteer"
+        ],
+        "kind": "choice"
+      },
+      "is_open": {
+        "kind": "boolean"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "posted_on": {
+        "kind": "date"
+      },
+      "requirements": {
+        "kind": "text"
+      },
+      "responsibilities": {
+        "kind": "text"
+      },
+      "slug": {
+        "kind": "slug"
+      },
+      "summary": {
+        "kind": "text",
+        "required": true
+      },
+      "title": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    "magazine": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "cover": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "cover_alt": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "cover_upload": {},
+      "epigraph_attribution": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "epigraph_quote": {
+        "kind": "text"
+      },
+      "epigraph_source": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "file_contains": {
+        "choices": [
+          "Full issue",
+          "Cover"
+        ],
+        "kind": "choice"
+      },
+      "file_filename": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "file_href": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "file_size": {
+        "kind": "text",
+        "maxLength": 40
+      },
+      "file_upload": {},
+      "issue_id": {
+        "kind": "slug",
+        "required": true
+      },
+      "label": {
+        "kind": "text",
+        "maxLength": 60,
+        "required": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 120,
+        "required": true
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "published_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "status": {
+        "choices": [
+          "published",
+          "in-production"
+        ],
+        "kind": "choice"
+      },
+      "stories": {},
+      "summary": {
+        "kind": "text"
+      },
+      "wrap": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "wrap_alt": {
+        "kind": "text",
+        "maxLength": 300
+      }
+    },
+    "mentees": {
+      "class_stream": {
+        "kind": "text",
+        "maxLength": 100
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "district": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "email": {
+        "kind": "email"
+      },
+      "guardian_contact": {
+        "kind": "text",
+        "maxLength": 255
+      },
+      "interests": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "school": {
+        "kind": "text",
+        "maxLength": 200
+      }
+    },
+    "mentors": {
+      "application": {
+        "allowNull": true
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "email": {
+        "kind": "email"
+      },
+      "expertise": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "mode": {
+        "choices": [
+          "in_person",
+          "remote",
+          "both"
+        ],
+        "kind": "choice"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "organisation": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "profession": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "team_member": {
+        "allowNull": true
+      }
+    },
+    "news": {
+      "body": {
+        "kind": "text",
+        "required": true
+      },
+      "caption": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "category": {
+        "kind": "text",
+        "maxLength": 100,
+        "required": true
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "date": {
+        "kind": "date",
+        "required": true
+      },
+      "date_label": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "excerpt": {
+        "kind": "text",
+        "required": true
+      },
+      "gallery": {},
+      "image": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "image_alt": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "image_upload": {},
+      "is_published": {
+        "kind": "boolean"
+      },
+      "links": {},
+      "reading_time": {
+        "kind": "text",
+        "maxLength": 40
+      },
+      "slug": {
+        "kind": "slug"
+      },
+      "title": {
+        "kind": "text",
+        "maxLength": 255,
+        "required": true
+      }
+    },
+    "newsletters": {
+      "body": {
+        "kind": "text"
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "cover_image": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "is_public": {
+        "kind": "boolean"
+      },
+      "issue_label": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "pdf": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "preheader": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "published_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "subject": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    "offices": {
+      "address": {
+        "kind": "text"
+      },
+      "city": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "country": {
+        "required": true
+      },
+      "email": {
+        "kind": "email"
+      },
+      "established_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "is_main": {
+        "kind": "boolean"
+      },
+      "lead": {
+        "allowNull": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "region": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "registration_number": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "staff_headcount": {
+        "allowNull": true,
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      }
+    },
+    "page-blocks": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "is_published": {
+        "kind": "boolean"
+      },
+      "key": {
+        "kind": "text",
+        "maxLength": 120,
+        "required": true
+      },
+      "label": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "page": {
+        "kind": "text",
+        "maxLength": 80,
+        "required": true
+      },
+      "value": {
+        "kind": "text"
+      }
+    },
+    "pairings": {
+      "cohort": {
+        "allowNull": true
+      },
+      "ended_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "mentee": {
+        "required": true
+      },
+      "mentor": {
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "started_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "status": {
+        "choices": [
+          "proposed",
+          "active",
+          "paused",
+          "completed",
+          "ended"
+        ],
+        "kind": "choice"
+      }
+    },
+    "programmes": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "href": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "icon": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "image": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "image_alt": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "image_upload": {},
+      "is_published": {
+        "kind": "boolean"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "pathway_label": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "pathway_stage": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "slug": {
+        "kind": "slug"
+      },
+      "summary": {
+        "kind": "text",
+        "required": true
+      },
+      "tagline": {
+        "kind": "text",
+        "maxLength": 200
+      }
+    },
+    "project-awards": {
+      "amount": {
+        "allowNull": true,
+        "decimals": 2,
+        "kind": "number"
+      },
+      "awarded_by": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "awarded_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "currency": {
+        "kind": "text",
+        "maxLength": 3
+      },
+      "description": {
+        "kind": "text"
+      },
+      "is_delivered": {
+        "kind": "boolean"
+      },
+      "kind": {
+        "choices": [
+          "placement",
+          "prize",
+          "scholarship",
+          "equipment",
+          "certificate",
+          "mentorship",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "project": {
+        "required": true
+      },
+      "title": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    "projects": {
+      "category": {
+        "choices": [
+          "physical",
+          "life",
+          "engineering",
+          "software",
+          "innovation",
+          "community"
+        ],
+        "kind": "choice",
+        "required": true
+      },
+      "cohort": {
+        "allowNull": true
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "district": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "registration": {
+        "allowNull": true
+      },
+      "review_feedback": {
+        "kind": "text"
+      },
+      "review_score": {
+        "allowNull": true,
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "school": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "stage": {
+        "choices": [
+          "handbook_released",
+          "project_chosen",
+          "proposal_submitted",
+          "under_review",
+          "research_and_build",
+          "school_fair",
+          "regional_fair",
+          "national_fair",
+          "completed",
+          "withdrawn"
+        ],
+        "kind": "choice"
+      },
+      "students": {},
+      "teacher_mentor": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "title": {
+        "kind": "text",
+        "maxLength": 300,
+        "required": true
+      }
+    },
+    "proposals": {
+      "staff_notes": {
+        "kind": "text"
+      },
+      "status": {
+        "choices": [
+          "new",
+          "in_review",
+          "contacted",
+          "closed",
+          "spam"
+        ],
+        "kind": "choice"
+      }
+    },
+    "recognised-volunteers": {
+      "alt": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "bio": {
+        "kind": "text"
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "email": {
+        "kind": "email"
+      },
+      "focus": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "group": {
+        "choices": [
+          "leadership",
+          "mentors",
+          "volunteers"
+        ],
+        "kind": "choice"
+      },
+      "image": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "image_upload": {},
+      "is_published": {
+        "kind": "boolean"
+      },
+      "linkedin": {
+        "kind": "url"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "role": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    "scholarship-payments": {
+      "academic_year": {
+        "kind": "text",
+        "maxLength": 20
+      },
+      "amount": {
+        "decimals": 2,
+        "kind": "number",
+        "required": true
+      },
+      "currency": {
+        "kind": "text",
+        "maxLength": 8
+      },
+      "method": {
+        "choices": [
+          "bank",
+          "mobile",
+          "cheque",
+          "cash",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "paid_on": {
+        "kind": "date",
+        "required": true
+      },
+      "paid_to": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "receipt": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "reference": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "scholarship": {
+        "required": true
+      },
+      "term": {
+        "kind": "text",
+        "maxLength": 60
+      }
+    },
+    "scholarships": {
+      "amount_per_term": {
+        "allowNull": true,
+        "decimals": 2,
+        "kind": "number"
+      },
+      "benefits": {},
+      "class_at_award": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "currency": {
+        "kind": "text",
+        "maxLength": 8
+      },
+      "current_class": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "date_of_birth": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "ended_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "expected_end_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "gender": {
+        "choices": [
+          "female",
+          "male",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "guardian_address": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "guardian_name": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "guardian_phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "guardian_relationship": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "managed_by": {
+        "allowNull": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "photo": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "school_account": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "school_contact": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "school_level": {
+        "choices": [
+          "primary",
+          "secondary",
+          "vocational",
+          "tertiary"
+        ],
+        "kind": "choice"
+      },
+      "school_name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "sponsor_contact": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "sponsor_name": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "sponsor_type": {
+        "choices": [
+          "individual",
+          "organisation",
+          "church",
+          "foundation",
+          "jdiobe",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "started_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "status": {
+        "choices": [
+          "pending",
+          "active",
+          "suspended",
+          "completed",
+          "terminated"
+        ],
+        "kind": "choice"
+      },
+      "student_name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "student_phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "termination_reason": {
+        "kind": "text"
+      },
+      "total_committed": {
+        "allowNull": true,
+        "decimals": 2,
+        "kind": "number"
+      }
+    },
+    "stats": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "is_published": {
+        "kind": "boolean"
+      },
+      "label": {
+        "kind": "text",
+        "maxLength": 120,
+        "required": true
+      },
+      "note": {
+        "kind": "text"
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "suffix": {
+        "kind": "text",
+        "maxLength": 8
+      },
+      "value": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 2147483647,
+        "minValue": 0,
+        "required": true
+      }
+    },
+    "subscribers": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "email": {
+        "kind": "email",
+        "required": true
+      },
+      "source": {
+        "kind": "text",
+        "maxLength": 100
+      },
+      "status": {
+        "choices": [
+          "subscribed",
+          "unsubscribed",
+          "bounced"
+        ],
+        "kind": "choice"
+      },
+      "unsubscribed_at": {
+        "allowNull": true,
+        "kind": "datetime"
+      }
+    },
+    "team": {
+      "alt": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "bio": {
+        "kind": "text"
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "email": {
+        "kind": "email"
+      },
+      "focus": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "group": {
+        "choices": [
+          "leadership",
+          "mentors",
+          "volunteers"
+        ],
+        "kind": "choice"
+      },
+      "image": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "image_upload": {},
+      "is_published": {
+        "kind": "boolean"
+      },
+      "linkedin": {
+        "kind": "url"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "role": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
+    "users": {
+      "email": {
+        "kind": "email"
+      },
+      "first_name": {
+        "kind": "text",
+        "maxLength": 150
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "is_staff": {
+        "kind": "boolean"
+      },
+      "is_superuser": {
+        "kind": "boolean"
+      },
+      "last_name": {
+        "kind": "text",
+        "maxLength": 150
+      },
+      "username": {
+        "kind": "text",
+        "maxLength": 150,
+        "required": true
+      }
+    },
+    "volunteers": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "office": {
+        "allowNull": true
+      },
+      "staff_notes": {
+        "kind": "text"
+      },
+      "status": {
+        "choices": [
+          "new",
+          "in_review",
+          "contacted",
+          "closed",
+          "spam"
+        ],
+        "kind": "choice"
+      }
+    }
+  },
+  "public": {
+    "contact": {
+      "email": {
+        "kind": "email",
+        "required": true
+      },
+      "message": {
+        "kind": "text",
+        "maxLength": 4000,
+        "required": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "topic": {
+        "kind": "text",
+        "maxLength": 120
+      }
+    },
+    "job-application": {
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "cover_letter": {
+        "kind": "text",
+        "maxLength": 6000
+      },
+      "cv": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "email": {
+        "kind": "email",
+        "required": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "posting": {
+        "allowNull": true
+      }
+    },
+    "newsletter": {
+      "email": {
+        "kind": "email",
+        "required": true
+      },
+      "source": {
+        "kind": "text",
+        "maxLength": 100
+      }
+    },
+    "proposal": {
+      "age": {
+        "allowNull": true,
+        "integer": true,
+        "kind": "number",
+        "maxValue": 30,
+        "minValue": 5
+      },
+      "category": {
+        "choices": [
+          "physical",
+          "life",
+          "engineering",
+          "software",
+          "innovation",
+          "community"
+        ],
+        "kind": "choice",
+        "required": true
+      },
+      "class_stream": {
+        "kind": "text",
+        "maxLength": 100,
+        "required": true
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "declaration": {
+        "kind": "boolean"
+      },
+      "district": {
+        "kind": "text",
+        "maxLength": 120,
+        "required": true
+      },
+      "duration": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "gender": {
+        "kind": "text",
+        "maxLength": 40
+      },
+      "guardian_contact": {
+        "kind": "text",
+        "maxLength": 255,
+        "required": true
+      },
+      "head_teacher": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "keywords": {
+        "kind": "text",
+        "maxLength": 255
+      },
+      "office": {
+        "allowNull": true
+      },
+      "project_title": {
+        "kind": "text",
+        "maxLength": 300,
+        "required": true
+      },
+      "project_type": {
+        "kind": "text",
+        "maxLength": 255
+      },
+      "region": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "school": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "student_email": {
+        "kind": "email",
+        "required": true
+      },
+      "student_name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "student_phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "summary": {
+        "kind": "text",
+        "maxLength": 4000,
+        "required": true
+      },
+      "teacher_mentor": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "team_size": {
+        "kind": "text",
+        "maxLength": 60
+      }
+    },
+    "volunteer": {
+      "email": {
+        "kind": "email",
+        "required": true
+      },
+      "interest": {
+        "choices": [
+          "mentorship",
+          "event",
+          "tutoring",
+          "outreach",
+          "other"
+        ],
+        "kind": "choice",
+        "required": true
+      },
+      "message": {
+        "kind": "text",
+        "maxLength": 4000,
+        "required": true
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      }
+    }
+  }
+}

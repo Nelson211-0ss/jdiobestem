@@ -13,6 +13,7 @@ import uuid
 from django.db import models
 
 from core.models import TimeStampedModel
+from core.validators import MESSAGE_MAX, age_validators, phone_validator
 
 from core.countries import Country  # noqa: E402
 
@@ -69,9 +70,9 @@ class VolunteerApplication(SubmissionBase):
 
     name = models.CharField(max_length=200)
     email = models.EmailField()
-    phone = models.CharField(max_length=50, blank=True)
+    phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
     interest = models.CharField(max_length=20, choices=Interest.choices)
-    message = models.TextField(help_text="Why do you want to volunteer?")
+    message = models.TextField(max_length=MESSAGE_MAX, help_text="Why do you want to volunteer?")
 
     class Meta(SubmissionBase.Meta):
         verbose_name = "volunteer application"
@@ -127,7 +128,7 @@ class ContactMessage(SubmissionBase):
     name = models.CharField(max_length=200)
     email = models.EmailField()
     topic = models.CharField(max_length=120, blank=True)
-    message = models.TextField()
+    message = models.TextField(max_length=MESSAGE_MAX)
 
     class Meta(SubmissionBase.Meta):
         verbose_name = "contact message"
@@ -157,13 +158,13 @@ class ProjectProposal(SubmissionBase):
     # Section 1 — student
     student_name = models.CharField(max_length=200)
     gender = models.CharField(max_length=40, blank=True)
-    age = models.PositiveSmallIntegerField(null=True, blank=True)
+    age = models.PositiveSmallIntegerField(null=True, blank=True, validators=age_validators)
     class_stream = models.CharField("class / stream", max_length=100)
     school = models.CharField(max_length=200, db_index=True)
     district = models.CharField(max_length=120, db_index=True)
     region = models.CharField(max_length=120, blank=True)
     student_email = models.EmailField()
-    student_phone = models.CharField(max_length=50, blank=True)
+    student_phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
     guardian_contact = models.CharField("parent / guardian contact", max_length=255)
     teacher_mentor = models.CharField(max_length=200)
     head_teacher = models.CharField(max_length=200, blank=True)
@@ -175,7 +176,7 @@ class ProjectProposal(SubmissionBase):
     keywords = models.CharField(max_length=255, blank=True)
     duration = models.CharField(max_length=120, blank=True)
     team_size = models.CharField(max_length=60, blank=True, help_text="Individual or team project.")
-    summary = models.TextField("problem the student wants to work on")
+    summary = models.TextField("problem the student wants to work on", max_length=MESSAGE_MAX)
 
     declaration = models.BooleanField(
         default=False,

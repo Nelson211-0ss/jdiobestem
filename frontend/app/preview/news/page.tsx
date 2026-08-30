@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { marked } from 'marked';
 
+import { withVideoEmbeds } from '@/lib/embeds';
+
 /**
  * Live preview of a news story, as the website renders it.
  *
@@ -69,7 +71,7 @@ export default function NewsPreviewPage() {
     };
   }, []);
 
-  const html = draft.body ? (marked.parse(draft.body) as string) : '';
+  const html = draft.body ? withVideoEmbeds(marked.parse(draft.body) as string) : '';
 
   return (
     <main>

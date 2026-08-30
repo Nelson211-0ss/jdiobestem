@@ -1,9 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChevronDown, LogOut, Menu, UserRound, X } from 'lucide-react';
+import {
+  ChevronDown,
+  LogOut,
+  Menu,
+  PanelLeftClose,
+  PanelLeftOpen,
+  UserRound,
+  X,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -15,11 +23,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Logo from '@/components/Logo';
+import LogoMark from '@/components/LogoMark';
 import HeaderSearch from './HeaderSearch';
 import Sidebar from './Sidebar';
 import ThemeToggle from './ThemeToggle';
+import { cn } from '@/lib/utils';
 import type { Identity } from '@/lib/admin/api';
 import type { BoardIndex } from '@/lib/admin/boards';
+
+/** Where the rail's state is remembered between visits. */
+const NAV_KEY = 'jdiobe-admin-nav';
+
+/** Tailwind's `lg`, the width at which the nav stops being a drawer. */
+const DESKTOP = '(min-width: 1024px)';
 
 /** The frame: header, navigation, and the sign-out control. */
 export default function AdminShell({
@@ -33,7 +49,44 @@ export default function AdminShell({
 }) {
   const [navOpen, setNavOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
+  // Starts expanded and is corrected on mount from what this person chose last
+  // time. Reading storage during render would make the server and the client
+  // disagree about the first paint.
+  const [collapsed, setCollapsed] = useState(false);
   const router = useRouter();
+
+  // Below `lg` the nav is a drawer that is either open or shut, so collapsing
+  // does not apply there — a rail of icons inside a full-width drawer would be
+  // the worst of both.
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    try {
+      setCollapsed(window.localStorage.getItem(NAV_KEY) === 'collapsed');
+    } catch {
+      // A browser refusing storage is not a reason to fail to draw the nav.
+    }
+
+    const query = window.matchMedia(DESKTOP);
+    const sync = () => setIsDesktop(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
+  }, []);
+
+  const railCollapsed = collapsed && isDesktop;
+
+  const toggleRail = () => {
+    setCollapsed((was) => {
+      const next = !was;
+      try {
+        window.localStorage.setItem(NAV_KEY, next ? 'collapsed' : 'expanded');
+      } catch {
+        // Preference is lost on reload; the dashboard still works.
+      }
+      return next;
+    });
+  };
 
   const initials =
     (identity.name || identity.username)
@@ -67,10 +120,38 @@ export default function AdminShell({
           <Link
             href="/admin"
             aria-label="Jdiobe STEM Foundation dashboard"
-            className="shrink-0 lg:w-56"
+            className="shrink-0"
           >
-            <Logo className="h-7 w-auto text-foreground" />
+            {/* Collapsed, the rail is too narrow for the wordmark, so the mark
+                stands in for it — still the Foundation's, still a link home. */}
+            <span
+              className={cn(
+                'hidden lg:block',
+                // Matches the rail beneath it, so the mark sits over the icons
+                // rather than floating above the middle of nothing.
+                railCollapsed ? 'lg:w-8' : 'lg:w-56'
+              )}
+            >
+              {railCollapsed ? (
+                <LogoMark className="h-8 w-auto" />
+              ) : (
+                <Logo className="h-7 w-auto text-foreground" />
+              )}
+            </span>
+            <Logo className="h-7 w-auto text-foreground lg:hidden" />
           </Link>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden shrink-0 lg:inline-flex"
+            aria-label={railCollapsed ? 'Expand the menu' : 'Collapse the menu'}
+            aria-pressed={railCollapsed}
+            title={railCollapsed ? 'Expand the menu' : 'Collapse the menu'}
+            onClick={toggleRail}
+          >
+            {railCollapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
+          </Button>
 
           <div className="min-w-0 flex-1">
             <HeaderSearch />
@@ -139,13 +220,19 @@ export default function AdminShell({
 
       <div className="flex">
         <aside
-          className={`fixed inset-y-16 left-0 z-30 w-64 bg-background transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${
-            navOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={cn(
+            'fixed inset-y-16 left-0 z-30 w-64 bg-background transition-all lg:sticky lg:top-0 lg:h-screen lg:translate-x-0',
+            navOpen ? 'translate-x-0' : '-translate-x-full',
+            // Narrow only from `lg` up. On a phone the nav is a drawer that is
+            // either open or shut, and a 4rem drawer would be neither.
+            railCollapsed && 'lg:w-16'
+          )}
         >
           <Sidebar
             permissions={identity.permissions}
             boardIndex={boardIndex}
+            collapsed={railCollapsed}
+            onExpand={() => setCollapsed(false)}
             onNavigate={() => setNavOpen(false)}
           />
         </aside>

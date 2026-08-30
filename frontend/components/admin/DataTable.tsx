@@ -17,8 +17,10 @@ import {
 } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import { formatNumber, isMoneyLabel } from '@/lib/format';
 import type { Column, Resource } from '@/lib/admin/resources';
 import ClickableRow from './ClickableRow';
+import FilePreview from './FilePreview';
 
 type Row = Record<string, unknown>;
 
@@ -84,78 +86,11 @@ function badgeVariant(value: string): 'default' | 'secondary' | 'accent' | 'dest
 
 const IMAGE_EXTENSIONS = /\.(jpe?g|png|webp|gif|avif|svg)(\?|#|$)/i;
 
-/**
- * A thumbnail image, cropped or fitted depending on its shape.
- *
- * Portraits and covers look best filling the square. A rendered PDF page can
- * be much wider than it is tall — a handbook's first page is often the full
- * printed wrap, back cover and spine and front together — and centre-cropping
- * that lands squarely on the spine. Rather than guess which panel is the front
- * cover, a wide image is shown whole.
- */
-function ThumbnailImage({ url }: { url: string }) {
-  const [wide, setWide] = useState(false);
-  return (
-    <img
-      src={url}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      onLoad={(e) => {
-        const img = e.currentTarget;
-        if (img.naturalWidth > img.naturalHeight * 1.25) setWide(true);
-      }}
-      className={cn(
-        'h-11 w-11 rounded-md',
-        wide ? 'bg-muted object-contain' : 'object-cover',
-      )}
-    />
-  );
-}
-
-/**
- * A record's picture at a glance.
- *
- * Some of these are not pictures: a newsletter and a handbook are PDFs, and
- * there is no thumbnail to show without rendering the file. Those get a
- * labelled chip rather than a broken image, which still tells you at a glance
- * that the record has its file attached — the thing you are scanning for.
- */
-function Thumbnail({ url }: { url: string }) {
-  if (!url) {
-    return (
-      <div
-        className="flex h-11 w-11 items-center justify-center rounded-md bg-muted"
-        aria-label="No file"
-      >
-        <ImageOff className="h-4 w-4 text-muted-foreground" />
-      </div>
-    );
-  }
-
-  if (IMAGE_EXTENSIONS.test(url)) {
-    return <ThumbnailImage url={url} />;
-  }
-
-  const extension = url.split('?')[0].split('.').pop()?.slice(0, 4).toUpperCase() ?? 'FILE';
-  return (
-    <div
-      className="flex h-11 w-11 flex-col items-center justify-center rounded-md bg-muted"
-      title={url}
-    >
-      <FileText className="h-4 w-4 text-muted-foreground" />
-      <span className="mt-0.5 text-[0.5625rem] font-semibold tracking-wide text-muted-foreground">
-        {extension}
-      </span>
-    </div>
-  );
-}
-
 function renderCell(row: Row, column: Column) {
   const value = row[column.name];
 
   if (column.thumb) {
-    return <Thumbnail url={typeof value === 'string' ? value : ''} />;
+    return <FilePreview url={typeof value === 'string' ? value : ''} />;
   }
 
   if (value === null || value === undefined || value === '') {
@@ -181,7 +116,17 @@ function renderCell(row: Row, column: Column) {
   if (column.badge) {
     return <Badge variant={badgeVariant(String(value))}>{String(value)}</Badge>;
   }
-  return <span className={column.numeric ? 'tabular' : ''}>{String(value)}</span>;
+  if (column.numeric) {
+    // A figure the server already formatted — `amount_display` arrives as
+    // "USD 1,500.00" — is not a number and comes back from formatNumber
+    // untouched, so it is not mangled into something else.
+    return (
+      <span className="tabular whitespace-nowrap">
+        {formatNumber(value, { money: isMoneyLabel(column.label) })}
+      </span>
+    );
+  }
+  return <span>{String(value)}</span>;
 }
 
 export default function DataTable({

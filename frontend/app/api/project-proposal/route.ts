@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { postToBackend } from '@/lib/backend';
+import { FIELD_MAPS } from '@/lib/publicForms';
 
 /**
  * Science Fair project registration — a proxy onto the Django backend.
@@ -21,28 +22,8 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-/** Form field -> model field. The order mirrors the Proposal Workbook. */
-const FIELD_MAP: Record<string, string> = {
-  studentName: 'student_name',
-  gender: 'gender',
-  age: 'age',
-  classStream: 'class_stream',
-  school: 'school',
-  district: 'district',
-  region: 'region',
-  studentEmail: 'student_email',
-  studentPhone: 'student_phone',
-  guardianContact: 'guardian_contact',
-  teacherMentor: 'teacher_mentor',
-  headTeacher: 'head_teacher',
-  projectTitle: 'project_title',
-  category: 'category',
-  projectType: 'project_type',
-  keywords: 'keywords',
-  duration: 'duration',
-  teamSize: 'team_size',
-  summary: 'summary',
-};
+/** Form field -> model field. Shared with the form, which validates against it. */
+const FIELD_MAP = FIELD_MAPS.proposal;
 
 /** The form sends the full category label; the backend stores a short key. */
 const CATEGORY_KEYS: Record<string, string> = {

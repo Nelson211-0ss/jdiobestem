@@ -25,6 +25,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { specFor, validateValue } from '@/lib/validation';
+import NumberInput from '@/components/ui/number-input';
 import { DetailRow } from './Shell';
 import UploadField from './UploadField';
 import type { Field, Resource } from '@/lib/admin/resources';
@@ -151,11 +153,52 @@ export default function ResourceForm({
 
   const editable = resource.fields.filter((f) => f.type !== 'readonly');
 
+  // What the serializer will accept, read from the generated contract. The
+  // registry may mark a field required that the model allows blank — an
+  // editorial rule rather than a database one — so the two are OR'd.
+  const specOf = (field: Field) => specFor('admin', resource.key, field.name);
+  const isRequired = (field: Field) => Boolean(field.required || specOf(field).required);
+
+  /** Check one field and remember the outcome. Returns the message. */
+  const check = (field: Field, value: unknown): string => {
+    const spec = { ...specOf(field) };
+    if (field.required) spec.required = true;
+    const message = validateValue(spec, value, field.label);
+    setFieldErrors((prev) => {
+      if (message === (prev[field.name] ?? '')) return prev;
+      const next = { ...prev };
+      if (message) next[field.name] = message;
+      else delete next[field.name];
+      return next;
+    });
+    return message;
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     setError('');
     setFieldErrors({});
+
+    const found: Record<string, string> = {};
+    for (const field of editable) {
+      const spec = { ...specOf(field) };
+      if (field.required) spec.required = true;
+      const message = validateValue(spec, values[field.name], field.label);
+      if (message) found[field.name] = message;
+    }
+    if (Object.keys(found).length) {
+      setFieldErrors(found);
+      setError('Please check the highlighted fields.');
+      setSaving(false);
+      // Take them to the first problem; on a twenty-field record the offending
+      // one is usually off-screen.
+      document.getElementById(`f-${Object.keys(found)[0]}`)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      return;
+    }
 
     const payload: Values = {};
     for (const field of editable) {
@@ -213,6 +256,9 @@ export default function ResourceForm({
     const id = `f-${field.name}`;
     const value = values[field.name];
     const invalid = fieldErrors[field.name];
+    const spec = specOf(field);
+    const required = isRequired(field);
+    const describedBy = invalid ? `${id}-error` : field.help ? `${id}-help` : undefined;
 
     if (field.type === 'readonly') {
       const shown = record?.[field.name];
@@ -249,7 +295,12 @@ export default function ResourceForm({
           <>
             <Label htmlFor={id}>
               {field.label}
-              {field.required ? <span className="text-accent-foreground"> *</span> : null}
+              {required ? (
+                <span className="text-accent-foreground" aria-hidden="true">
+                  {' '}
+                  *
+                </span>
+              ) : null}
             </Label>
 
             {field.type === 'list' ? (
@@ -272,17 +323,31 @@ export default function ResourceForm({
                 id={id}
                 rows={field.name === 'body' ? 14 : 4}
                 value={String(value ?? '')}
+                required={required}
+                maxLength={spec.maxLength}
                 disabled={!canChange}
+                aria-invalid={Boolean(invalid)}
+                aria-describedby={describedBy}
                 onChange={(e) => set(field.name, e.target.value)}
+                onBlur={(e) => check(field, e.target.value)}
               />
             ) : field.type === 'select' ? (
               <Select
                 value={String(value ?? '')}
                 disabled={!canChange}
-                onValueChange={(v) => set(field.name, v === '__blank__' ? '' : v)}
+                onValueChange={(v) => {
+                  const next = v === '__blank__' ? '' : v;
+                  set(field.name, next);
+                  check(field, next);
+                }}
               >
-                <SelectTrigger id={id} className="h-12">
-                  <SelectValue placeholder="Choose one" />
+                <SelectTrigger
+                  id={id}
+                  className="h-12"
+                  aria-invalid={Boolean(invalid)}
+                  aria-describedby={describedBy}
+                >
+                  <SelectValue placeholder={required ? 'Choose one' : 'Choose one (optional)'} />
                 </SelectTrigger>
                 <SelectContent>
                   {(field.options ?? []).map((o) => (
@@ -292,31 +357,54 @@ export default function ResourceForm({
                   ))}
                 </SelectContent>
               </Select>
+            ) : field.type === 'number' ? (
+              <NumberInput
+                id={id}
+                className="h-12"
+                value={String(value ?? '')}
+                required={required}
+                disabled={!canChange}
+                aria-invalid={Boolean(invalid)}
+                aria-describedby={describedBy}
+                onChange={(raw) => set(field.name, raw)}
+                onBlur={() => check(field, values[field.name])}
+              />
             ) : (
               <Input
                 id={id}
                 className="h-12"
                 type={
-                  field.type === 'number'
-                    ? 'number'
-                    : field.type === 'date'
-                      ? 'date'
-                      : field.type === 'email'
-                        ? 'email'
-                        : field.type === 'tel'
-                          ? 'tel'
-                          : 'text'
+                  field.type === 'date'
+                    ? 'date'
+                    : field.type === 'email'
+                      ? 'email'
+                      : field.type === 'tel'
+                        ? 'tel'
+                        : 'text'
                 }
                 value={String(value ?? '')}
+                required={required}
+                maxLength={spec.maxLength}
                 disabled={!canChange}
+                aria-invalid={Boolean(invalid)}
+                aria-describedby={describedBy}
                 onChange={(e) => set(field.name, e.target.value)}
+                onBlur={(e) => check(field, e.target.value)}
               />
             )}
           </>
         )}
 
-        {field.help ? <p className="text-xs text-muted-foreground">{field.help}</p> : null}
-        {invalid ? <p className="text-xs font-medium text-destructive">{invalid}</p> : null}
+        {field.help ? (
+          <p id={`${id}-help`} className="text-xs text-muted-foreground">
+            {field.help}
+          </p>
+        ) : null}
+        {invalid ? (
+          <p id={`${id}-error`} role="alert" className="text-xs font-medium text-destructive">
+            {invalid}
+          </p>
+        ) : null}
       </div>
     );
   };

@@ -10,8 +10,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { displayValue, inputFor, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
-import { DetailRow, DetailSection } from './Shell';
+import { inputFor, validateColumn, type BoardColumn, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
+import NumberInput from '@/components/ui/number-input';
+import PhoneInput from './PhoneInput';
 import UploadField from './UploadField';
 
 /**
@@ -55,13 +56,17 @@ function FilePreview({ url }: { url: string }) {
 export default function RecordForm({
   board,
   record,
+  currentUserName,
   options,
   canChange,
   canDelete,
 }: {
   board: BoardDetail;
   record: BoardRecord | null;
+  /** Who is filling the form, used to default people columns on a new record. */
+  currentUserName?: string;
   options: {
+    staff?: { value: string; label: string }[];
     countries: { value: string; label: string }[];
     offices: { value: string; label: string; country: string }[];
   };
@@ -77,7 +82,14 @@ export default function RecordForm({
     const initial: Record<string, unknown> = {};
     for (const column of board.columns) {
       if (column.monday_id === 'name') continue;
-      initial[column.monday_id] = record?.values?.[column.monday_id] ?? '';
+      const stored = record?.values?.[column.monday_id];
+      // On a new record, a people column starts as whoever is filling the form
+      // — on an expense that is nearly always the person who paid. It is a
+      // default, not an assertion: it is a normal select and can be changed
+      // before saving.
+      const fallback =
+        !record && inputFor(column) === 'people' && currentUserName ? currentUserName : '';
+      initial[column.monday_id] = stored ?? fallback;
     }
     return initial;
   });
@@ -85,6 +97,7 @@ export default function RecordForm({
   const [office, setOffice] = useState(record?.office ? String(record.office) : '');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   // Offices belong to a country, so the list follows the country above it. A
   // Global record has no single office, so the picker stands down.
@@ -93,14 +106,42 @@ export default function RecordForm({
   const editable = board.columns.filter(
     (c) => c.monday_id !== 'name' && inputFor(c) !== 'readonly'
   );
-  const readOnly = board.columns.filter(
-    (c) => c.monday_id !== 'name' && inputFor(c) === 'readonly'
-  );
+
+  /** Check one column and remember the outcome. */
+  const check = (column: BoardColumn, value: unknown): string => {
+    const message = validateColumn(column, value);
+    setFieldErrors((prev) => {
+      if (message === (prev[column.monday_id] ?? '')) return prev;
+      const next = { ...prev };
+      if (message) next[column.monday_id] = message;
+      else delete next[column.monday_id];
+      return next;
+    });
+    return message;
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     setError('');
+    setFieldErrors({});
+
+    const found: Record<string, string> = {};
+    for (const column of editable) {
+      const message = validateColumn(column, values[column.monday_id]);
+      if (message) found[column.monday_id] = message;
+    }
+    if (!name.trim()) found.name = 'Name is required.';
+    if (Object.keys(found).length) {
+      setFieldErrors(found);
+      setError('Please check the highlighted fields.');
+      setSaving(false);
+      const first = Object.keys(found)[0];
+      document
+        .getElementById(first === 'name' ? 'record-name' : `c-${first}`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
 
     const payload = {
       name,
@@ -161,8 +202,15 @@ export default function RecordForm({
             required
             value={name}
             disabled={!canChange}
+            aria-invalid={Boolean(fieldErrors.name)}
+            aria-describedby={fieldErrors.name ? 'record-name-error' : undefined}
             onChange={(e) => setName(e.target.value)}
           />
+          {fieldErrors.name ? (
+            <p id="record-name-error" role="alert" className="text-xs font-medium text-destructive">
+              {fieldErrors.name}
+            </p>
+          ) : null}
         </div>
 
         <div className="space-y-2">
@@ -239,6 +287,8 @@ export default function RecordForm({
           const kind = inputFor(column);
           const id = `c-${column.monday_id}`;
           const value = values[column.monday_id];
+          const invalid = fieldErrors[column.monday_id];
+          const describedBy = invalid ? `${id}-error` : undefined;
           const set = (v: unknown) => setValues((prev) => ({ ...prev, [column.monday_id]: v }));
 
           if (kind === 'checkbox') {
@@ -254,7 +304,27 @@ export default function RecordForm({
             <div key={column.monday_id} className={`space-y-2 ${kind === 'textarea' ? 'sm:col-span-2' : ''}`}>
               <Label htmlFor={id}>{column.title}</Label>
 
-              {kind === 'file' ? (
+              {kind === 'people' ? (
+                <Select
+                  value={String(value ?? '')}
+                  disabled={!canChange}
+                  onValueChange={(v) => set(v === '__blank__' ? '' : v)}
+                >
+                  <SelectTrigger id={id} className="h-12">
+                    <SelectValue placeholder="Nobody yet" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__blank__">Nobody yet</SelectItem>
+                    {(options.staff ?? []).map((person) => (
+                      // Stored as the name, matching what the import wrote for
+                      // these columns, so old and new records read alike.
+                      <SelectItem key={person.value} value={person.label}>
+                        {person.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : kind === 'file' ? (
                 <div className="space-y-3">
                   <UploadField
                     id={id}
@@ -295,35 +365,57 @@ export default function RecordForm({
                   </SelectContent>
                 </Select>
               ) : kind === 'textarea' ? (
-                <Textarea id={id} rows={5} value={String(value ?? '')} disabled={!canChange} onChange={(e) => set(e.target.value)} />
+                <Textarea
+                  id={id}
+                  rows={5}
+                  value={String(value ?? '')}
+                  disabled={!canChange}
+                  onChange={(e) => set(e.target.value)}
+                />
+              ) : kind === 'number' ? (
+                <NumberInput
+                  id={id}
+                  className="h-12"
+                  value={String(value ?? '')}
+                  disabled={!canChange}
+                  aria-invalid={Boolean(invalid)}
+                  aria-describedby={describedBy}
+                  onChange={(raw) => set(raw)}
+                  onBlur={() => check(column, values[column.monday_id])}
+                />
+              ) : kind === 'phone' ? (
+                <PhoneInput
+                  id={id}
+                  value={String(value ?? '')}
+                  disabled={!canChange}
+                  invalid={Boolean(invalid)}
+                  describedBy={describedBy}
+                  onChange={(combined) => set(combined)}
+                  onBlur={() => check(column, values[column.monday_id])}
+                />
               ) : (
                 <Input
                   id={id}
                   className="h-12"
-                  type={kind === 'number' ? 'number' : kind === 'date' ? 'date' : 'text'}
+                  type={kind === 'date' ? 'date' : kind === 'email' ? 'email' : 'text'}
                   value={String(value ?? '')}
                   disabled={!canChange}
-                  onChange={(e) => set(kind === 'number' ? e.target.value : e.target.value)}
+                  aria-invalid={Boolean(invalid)}
+                  aria-describedby={describedBy}
+                  onChange={(e) => set(e.target.value)}
+                  onBlur={(e) => check(column, e.target.value)}
                 />
               )}
+
+              {invalid ? (
+                <p id={`${id}-error`} role="alert" className="text-xs font-medium text-destructive">
+                  {invalid}
+                </p>
+              ) : null}
             </div>
           );
         })}
       </div>
-
-      {readOnly.length ? (
-        <div className="border-t pt-6">
-          <DetailSection title="Not editable here">
-            {readOnly.map((column) => (
-              <DetailRow key={column.monday_id} label={column.title}>
-                {displayValue(record?.values?.[column.monday_id]) || (
-                  <span className="font-normal text-muted-foreground">&mdash;</span>
-                )}
-              </DetailRow>
-            ))}
-          </DetailSection>
-        </div>
-      ) : null}
 
       {error ? (
         <p role="alert" className="rounded-md bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">

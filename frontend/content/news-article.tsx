@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { marked } from 'marked';
 
+import { withVideoEmbeds } from '@/lib/embeds';
+
 import Icon from '@/components/Icon';
 import type { SiteStory } from '@/lib/site-content';
 
@@ -16,7 +18,7 @@ export default function NewsArticle({
 }) {
   // Bodies are Markdown in the database; the preview in the dashboard renders
   // through the same parser, so what an editor sees is what publishes.
-  const html = marked.parse(story.body || '') as string;
+  const html = withVideoEmbeds(marked.parse(story.body || '') as string);
 
   return (
     <>

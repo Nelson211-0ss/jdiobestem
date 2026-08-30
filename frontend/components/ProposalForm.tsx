@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Icon from './Icon';
+import FieldError from './FieldError';
+import { checkField, checkForm, isRequired } from '@/lib/publicForms';
 
 /**
  * Science Fair project registration.
@@ -106,21 +108,36 @@ const PROJECT_FIELDS: Field[] = [
   },
 ];
 
-function FieldControl({ field }: { field: Field }) {
+function FieldControl({
+  field,
+  error,
+  onCheck,
+}: {
+  field: Field;
+  error?: string;
+  onCheck: (name: string, value: string) => void;
+}) {
   const id = `pf-${field.name}`;
+  // The form insists on a few things the database allows blank — an age, a
+  // team size — so the star follows the form's own rule where it is stricter.
+  const required = Boolean(field.required) || isRequired('proposal', field.name);
   const common = {
     id,
     name: field.name,
     required: field.required,
-    className: 'field',
-    'aria-describedby': field.hint ? `${id}-hint` : undefined,
+    className: `field${error ? ' is-invalid' : ''}`,
+    'aria-invalid': Boolean(error),
+    'aria-describedby': error ? `${id}-error` : field.hint ? `${id}-hint` : undefined,
+    onBlur: (
+      e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => onCheck(field.name, e.target.value),
   };
 
   return (
     <div className={field.half ? 'proposal-field' : 'proposal-field is-full'}>
       <label htmlFor={id} className="field-label">
         {field.label}
-        {field.required ? null : <span className="proposal-optional"> (optional)</span>}
+        {required ? <span className="field-required">*</span> : null}
       </label>
 
       {field.type === 'textarea' ? (
@@ -149,6 +166,7 @@ function FieldControl({ field }: { field: Field }) {
           {field.hint}
         </p>
       ) : null}
+      <FieldError id={`${id}-error`} message={error} />
     </div>
   );
 }
@@ -156,19 +174,61 @@ function FieldControl({ field }: { field: Field }) {
 export default function ProposalForm() {
   const [status, setStatus] = useState<{ kind: 'ok' | 'error'; text: string } | null>(null);
   const [sending, setSending] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const ALL_FIELDS = [...STUDENT_FIELDS, ...PROJECT_FIELDS];
+  const LABELS = Object.fromEntries(ALL_FIELDS.map((f) => [f.name, f.label]));
+  // Fields this form demands that the model would accept blank.
+  const ALSO_REQUIRED = ALL_FIELDS.filter((f) => f.required).map((f) => f.name);
+
+  const checkOne = (name: string, value: string) => {
+    const field = ALL_FIELDS.find((f) => f.name === name);
+    const message = checkField('proposal', name, value, field?.label ?? name, {
+      required: ALSO_REQUIRED.includes(name),
+      phone: field?.type === 'tel',
+    });
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (message) next[name] = message;
+      else delete next[name];
+      return next;
+    });
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (!form.reportValidity()) return;
 
     const data = new FormData(form);
     const payload: Record<string, unknown> = {};
-    for (const f of [...STUDENT_FIELDS, ...PROJECT_FIELDS]) {
+    for (const f of ALL_FIELDS) {
       payload[f.name] = String(data.get(f.name) ?? '').trim();
     }
     payload.projectType = data.getAll('projectType').join(', ');
     payload.declaration = data.get('declaration') === 'on';
+
+    const found = checkForm(
+      'proposal',
+      Object.fromEntries(ALL_FIELDS.map((f) => [f.name, payload[f.name]])),
+      LABELS,
+      ALSO_REQUIRED,
+      ALL_FIELDS.filter((f) => f.type === 'tel').map((f) => f.name)
+    );
+    // The serializer refuses a registration without the declaration, so the
+    // form should too rather than letting it round-trip to find out.
+    if (!payload.declaration) {
+      found.declaration = 'Please confirm the declaration before submitting.';
+    }
+    if (Object.keys(found).length) {
+      setErrors(found);
+      setStatus(null);
+      const first = Object.keys(found)[0];
+      document
+        .getElementById(first === 'declaration' ? 'pf-declaration' : `pf-${first}`)
+        ?.focus();
+      return;
+    }
+    setErrors({});
 
     setSending(true);
     setStatus(null);
@@ -185,6 +245,7 @@ export default function ProposalForm() {
         text: 'Registered. We will be in touch with your teacher mentor about the next step — the full Proposal Workbook.',
       });
       form.reset();
+      setErrors({});
     } catch (err) {
       setStatus({
         kind: 'error',
@@ -208,7 +269,7 @@ export default function ProposalForm() {
         </p>
         <div className="proposal-grid">
           {STUDENT_FIELDS.map((f) => (
-            <FieldControl key={f.name} field={f} />
+            <FieldControl key={f.name} field={f} error={errors[f.name]} onCheck={checkOne} />
           ))}
         </div>
       </fieldset>
@@ -218,7 +279,7 @@ export default function ProposalForm() {
         <p className="proposal-legend-note">Workbook Section 3.</p>
         <div className="proposal-grid">
           {PROJECT_FIELDS.map((f) => (
-            <FieldControl key={f.name} field={f} />
+            <FieldControl key={f.name} field={f} error={errors[f.name]} onCheck={checkOne} />
           ))}
 
           <div className="proposal-field is-full">
@@ -239,12 +300,27 @@ export default function ProposalForm() {
 
       <div className="proposal-declaration">
         <label className="proposal-check">
-          <input type="checkbox" name="declaration" required />
+          <input
+            id="pf-declaration"
+            type="checkbox"
+            name="declaration"
+            required
+            aria-invalid={Boolean(errors.declaration)}
+            aria-describedby={errors.declaration ? 'pf-declaration-error' : undefined}
+            onChange={() =>
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next.declaration;
+                return next;
+              })
+            }
+          />
           <span>
             This is our own original work, and any use of AI tools will be fully declared in
             Section 12 of the workbook.
           </span>
         </label>
+        <FieldError id="pf-declaration-error" message={errors.declaration} />
       </div>
 
       <div className="mt-8 flex flex-wrap items-center gap-4">

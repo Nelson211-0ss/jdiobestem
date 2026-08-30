@@ -1,16 +1,18 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { FileText, Image as ImageIcon, Loader2, Upload, X } from 'lucide-react';
+
+import { uploadFile } from '@/lib/upload';
+import { FileText, Image as ImageIcon, Loader2, Upload, WifiOff, X } from 'lucide-react';
 
 /**
  * Dropping, choosing, or pasting a path to a file.
  *
- * Uploads go through XMLHttpRequest rather than fetch for one reason: fetch
- * cannot report upload progress. On a Ugandan mobile connection a 6MB
- * photograph is not instant, and a control that sits there saying nothing is
- * indistinguishable from one that has failed — so the percentage is real,
- * measured from bytes actually sent, and the request can be abandoned.
+ * Uploading is delegated to `lib/upload`, which sends anything sizeable in
+ * pieces so a dropped connection costs the last piece rather than the whole
+ * file. The percentage here counts pieces the server has acknowledged, not
+ * bytes handed to the browser — on a Ugandan mobile connection those are very
+ * different numbers, and only one of them is true.
  *
  * The manual path box is kept alongside. Much of the site's artwork already
  * sits under /public and is referenced by path; making people re-upload it to
@@ -55,53 +57,35 @@ export default function FileDropzone({
   kind = 'file',
 }: Props) {
   const input = useRef<HTMLInputElement>(null);
-  const request = useRef<XMLHttpRequest | null>(null);
+  const abort = useRef<AbortController | null>(null);
   const [dragging, setDragging] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
+  const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState('');
 
   const busy = progress !== null;
 
-  function send(file: File) {
+  async function send(file: File) {
     setError('');
     setProgress(0);
-
-    const body = new FormData();
-    body.append('file', file);
-    body.append('folder', folder);
-
-    const xhr = new XMLHttpRequest();
-    request.current = xhr;
-    xhr.open('POST', endpoint);
-
-    xhr.upload.onprogress = (e) => {
-      if (e.lengthComputable) setProgress(Math.round((e.loaded / e.total) * 100));
-    };
-    xhr.onload = () => {
-      request.current = null;
+    setWaiting(false);
+    const controller = new AbortController();
+    abort.current = controller;
+    try {
+      const result = await uploadFile(file, {
+        folder,
+        signal: controller.signal,
+        onProgress: setProgress,
+        onWaiting: setWaiting,
+      });
+      onChange(result.url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'That file could not be uploaded.');
+    } finally {
+      abort.current = null;
       setProgress(null);
-      let data: { url?: string; detail?: string } = {};
-      try {
-        data = JSON.parse(xhr.responseText);
-      } catch {
-        /* an unreadable body is handled by the status check below */
-      }
-      if (xhr.status >= 400 || !data.url) {
-        setError(data.detail || 'That file could not be uploaded.');
-        return;
-      }
-      onChange(data.url);
-    };
-    xhr.onerror = () => {
-      request.current = null;
-      setProgress(null);
-      setError('The upload did not reach the server. Check your connection and try again.');
-    };
-    xhr.onabort = () => {
-      request.current = null;
-      setProgress(null);
-    };
-    xhr.send(body);
+      setWaiting(false);
+    }
   }
 
   function take(files: FileList | null) {
@@ -173,8 +157,14 @@ export default function FileDropzone({
 
           {busy ? (
             <>
-              <Loader2 className="dropzone-icon animate-spin" />
-              <p className="dropzone-prompt">Uploading… {progress}%</p>
+              {waiting ? (
+                <WifiOff className="dropzone-icon" />
+              ) : (
+                <Loader2 className="dropzone-icon animate-spin" />
+              )}
+              <p className="dropzone-prompt">
+                {waiting ? 'Waiting for the connection…' : `Uploading… ${progress}%`}
+              </p>
               <div className="dropzone-bar" role="progressbar" aria-valuenow={progress ?? 0}>
                 <span style={{ width: `${progress ?? 0}%` }} />
               </div>
@@ -183,7 +173,7 @@ export default function FileDropzone({
                 className="dropzone-cancel"
                 onClick={(e) => {
                   e.stopPropagation();
-                  request.current?.abort();
+                  abort.current?.abort();
                 }}
               >
                 Cancel

@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 
 from documents.models import Document
+from scholarships.models import Scholarship
 from programmes.models import ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
@@ -77,8 +78,16 @@ class RecordViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         board = Board.objects.get(monday_id=self.kwargs["board_monday_id"])
+        user = self.request.user
         # Created here, not yet in monday. The sync command leaves these alone.
-        serializer.save(board=board, is_local=True)
+        # The name is stored alongside the reference so the attribution reads
+        # correctly even after an account is deleted.
+        serializer.save(
+            board=board,
+            is_local=True,
+            created_by=user,
+            created_by_name=(user.get_full_name() or user.username) if user else "",
+        )
 
 
 @api_view(["GET"])
@@ -171,13 +180,26 @@ def option_lists(request):
                 {"value": str(d.pk), "label": d.title}
                 for d in Document.objects.filter(is_archived=False).order_by("title")
             ],
+            # A payment belongs to a bursary, so the form needs the list.
+            # Ended awards are included: a final payment often lands after
+            # the student has already finished.
+            "scholarships": [
+                {"value": str(s.pk), "label": f"{s.reference} — {s.student_name} ({s.school_name})"[:140]}
+                for s in Scholarship.objects.order_by("student_name")
+            ],
             "projects": [
                 {"value": str(p.pk), "label": f"{p.title} — {p.school}"[:120]}
                 for p in ScienceFairProject.objects.order_by("title")
             ],
+            # Every staff account, not only the ones that can currently sign in.
+            # "Inactive" here means "no password set yet" as often as it means
+            # "left" — and an expense was paid by a colleague whether or not
+            # that colleague has a working login.
             "staff": [
                 {"value": str(u.pk), "label": u.get_full_name() or u.username}
-                for u in User.objects.filter(is_active=True, is_staff=True).order_by("username")
+                for u in User.objects.filter(is_staff=True).order_by(
+                    "first_name", "last_name", "username"
+                )
             ],
         }
     )

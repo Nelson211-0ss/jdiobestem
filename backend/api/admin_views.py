@@ -401,18 +401,26 @@ class NewsletterSubscriberViewSet(StaffViewSet):
     ordering = ["-created_at"]
 
 
-class DonationViewSet(viewsets.ReadOnlyModelViewSet):
-    """Read-only: Stripe owns this data, and a local edit would create a total
-    that quietly disagrees with the payment processor."""
+class DonationViewSet(StaffViewSet):
+    """Every gift, however it arrived.
+
+    A Stripe row is a copy of their record and the serializer refuses to change
+    it. A gift recorded by hand — a cheque, a transfer, a pledge — is written
+    and corrected here, because nowhere else knows about it.
+    """
 
     permission_classes = [ResourcePermission]
     resource = "donations"
-    queryset = Donation.objects.all()
+    queryset = Donation.objects.select_related("recorded_by")
     serializer_class = s.DonationAdminSerializer
-    filterset_fields = ["status", "livemode", "currency"]
-    search_fields = ["donor_name", "donor_email", "stripe_session_id"]
-    ordering_fields = ["created_at", "amount_cents"]
-    ordering = ["-created_at"]
+    filterset_fields = ["status", "livemode", "currency", "source", "gift_type", "country"]
+    search_fields = ["donor_name", "donor_email", "stripe_session_id", "designation", "notes"]
+    ordering_fields = ["received_on", "created_at", "amount_cents"]
+    ordering = ["-received_on", "-created_at"]
+
+    def perform_create(self, serializer):
+        # Who wrote it down comes from the session, never from the client.
+        serializer.save(recorded_by=self.request.user)
 
 
 class NewsStoryViewSet(StaffViewSet):

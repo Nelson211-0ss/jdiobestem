@@ -7,8 +7,9 @@ from documents import views as documents_views
 from jobs import views as jobs_views
 from newsletters import views as newsletters_views
 from operations import views as operations_views
+from scholarships import views as scholarships_views
 
-from . import admin_views, search, uploads, views
+from . import accounting, admin_views, chunked_uploads, search, uploads, views
 
 app_name = "api"
 
@@ -41,6 +42,12 @@ router.register("activity", activity_views.ActivityLogViewSet, basename="activit
 router.register("job-postings", jobs_views.JobPostingViewSet, basename="job-posting")
 router.register("job-applications", jobs_views.JobApplicationViewSet, basename="job-application")
 router.register("newsletters", newsletters_views.NewsletterViewSet, basename="newsletter")
+router.register("scholarships", scholarships_views.ScholarshipViewSet, basename="scholarship")
+router.register(
+    "scholarship-payments",
+    scholarships_views.ScholarshipPaymentViewSet,
+    basename="scholarship-payment",
+)
 
 urlpatterns = [
     path("health/", views.health, name="health"),
@@ -73,8 +80,15 @@ urlpatterns = [
     path("auth/change-password/", admin_views.change_password, name="change-password"),
     path("auth/me/", admin_views.me, name="me"),
     path("stats/", admin_views.stats, name="stats"),
+    path("accounting/", accounting.accounting, name="accounting"),
     path("admin/search/", search.search, name="search"),
     path("uploads/", uploads.upload, name="upload"),
+    # Resumable uploads, for files big enough that losing the connection
+    # halfway matters.
+    path("uploads/begin/", chunked_uploads.begin, name="upload-begin"),
+    path("uploads/<str:upload_id>/status/", chunked_uploads.status_for, name="upload-status"),
+    path("uploads/<str:upload_id>/part/", chunked_uploads.part, name="upload-part"),
+    path("uploads/<str:upload_id>/finish/", chunked_uploads.finish, name="upload-finish"),
     path("admin/", include(router.urls)),
     path("admin/board-index/", operations_views.board_index, name="board-index"),
     path("admin/options/", operations_views.option_lists, name="options"),

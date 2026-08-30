@@ -88,12 +88,65 @@ class NewsletterSubscriberAdminSerializer(LabelledChoicesMixin, serializers.Mode
 class DonationAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     amount = serializers.DecimalField(max_digits=12, decimal_places=2, read_only=True)
     amount_display = serializers.CharField(read_only=True)
+    recorded_by_name = serializers.CharField(
+        source="recorded_by.get_full_name", read_only=True, default=""
+    )
+    # Money is typed in the units people use and stored in minor units, so no
+    # form ever asks anybody to enter a number of cents.
+    amount_major = serializers.DecimalField(max_digits=12, decimal_places=2, required=False)
 
     class Meta:
         model = Donation
         fields = "__all__"
-        # Stripe is the source of truth for money; nothing here is editable.
-        read_only_fields = [f.name for f in Donation._meta.fields]
+        # Stripe owns what it processed. Everything below is for a gift somebody
+        # recorded by hand, and a Stripe row is refused outright in validate().
+        read_only_fields = [
+            "amount_cents",
+            "stripe_session_id",
+            "stripe_payment_intent",
+            "livemode",
+            "receipt_url",
+            "raw_event",
+            "recorded_by",
+            "created_at",
+            "updated_at",
+        ]
+
+    def to_representation(self, instance):
+        # Filled from the stored minor units, so opening a gift to correct it
+        # shows the amount rather than an empty box.
+        data = super().to_representation(instance)
+        data["amount_major"] = f"{instance.amount:.2f}"
+        return data
+
+    def validate(self, attrs):
+        # A local edit to a Stripe gift would produce a total that quietly
+        # disagrees with the payment processor.
+        if self.instance and self.instance.source == Donation.Source.ONLINE:
+            raise serializers.ValidationError(
+                "This gift came through Stripe and is a copy of their record. "
+                "It cannot be edited here."
+            )
+        if not self.instance and not attrs.get("amount_major"):
+            raise serializers.ValidationError({"amount_major": "Give the amount."})
+        if attrs.get("amount_major") is not None and attrs["amount_major"] <= 0:
+            raise serializers.ValidationError({"amount_major": "A gift has to be more than zero."})
+        return attrs
+
+    def _apply_amount(self, validated):
+        major = validated.pop("amount_major", None)
+        if major is not None:
+            validated["amount_cents"] = int(round(float(major) * 100))
+        return validated
+
+    def create(self, validated_data):
+        validated_data = self._apply_amount(validated_data)
+        # Anything typed into this form is by definition not a Stripe payment.
+        validated_data["source"] = Donation.Source.OFFLINE
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, self._apply_amount(validated_data))
 
 
 class NewsGalleryImageSerializer(serializers.ModelSerializer):
@@ -146,6 +199,9 @@ class NewsStoryAdminSerializer(ThumbnailMixin, serializers.ModelSerializer):
         model = NewsStory
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at"]
+        # Left blank, the model makes one from the headline. Without this the
+        # field is required and that never happens.
+        extra_kwargs = {"slug": {"required": False, "allow_blank": True}}
 
     def _write_children(self, story, gallery, links):
         if gallery is not None:
@@ -317,6 +373,8 @@ class ProgrammeAdminSerializer(ThumbnailMixin, serializers.ModelSerializer):
         model = Programme
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at"]
+        # As above: blank means "make one from the name".
+        extra_kwargs = {"slug": {"required": False, "allow_blank": True}}
 
 
 class PageBlockAdminSerializer(serializers.ModelSerializer):

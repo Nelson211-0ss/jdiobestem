@@ -26,7 +26,14 @@ export default async function NewRecordPage({ params }: { params: Promise<{ boar
       eyebrow="New record"
       title={board.name}
     >
-      <RecordForm board={board} record={null} options={options} canChange canDelete={false} />
+      <RecordForm
+        board={board}
+        record={null}
+        options={options}
+        currentUserName={identity.name}
+        canChange
+        canDelete={false}
+      />
     </FormShell>
   );
 }

@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "programmes",
     "newsletters",
     "documents",
+    "scholarships",
     "activity",
     "jobs",
 ]

@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+
+import FieldError from './FieldError';
+import { checkField, checkForm, isRequired } from '@/lib/publicForms';
 import Icon from './Icon';
 
 /**
@@ -14,12 +17,46 @@ import Icon from './Icon';
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const LABELS: Record<string, string> = {
+    name: 'Full name',
+    email: 'Email',
+    subject: 'Topic',
+    message: 'Message',
+  };
+
+  // The model allows a blank topic; this form has always insisted on one,
+  // because it is what routes the message to the right person. The stricter
+  // rule is kept and declared here rather than silently starring a field the
+  // server would accept empty.
+  const ALSO_REQUIRED = ['subject'];
+
+  const blur =
+    (field: string) =>
+    (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      const message = checkField('contact', field, e.target.value, LABELS[field] ?? field, {
+        required: ALSO_REQUIRED.includes(field) || isRequired('contact', field),
+      });
+      setErrors((prev) => {
+        const next = { ...prev };
+        if (message) next[field] = message;
+        else delete next[field];
+        return next;
+      });
+    };
+
+  const invalid = (field: string) => (errors[field] ? ' is-invalid' : '');
+  const describe = (field: string) => (errors[field] ? `${field}-error` : undefined);
+  const star = (field: string) =>
+    ALSO_REQUIRED.includes(field) || isRequired('contact', field) ? (
+      <span className="field-required">*</span>
+    ) : null;
   const [sending, setSending] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (!form.reportValidity()) return;
 
     const data = new FormData(form);
     const payload = {
@@ -28,6 +65,23 @@ export default function ContactForm() {
       topic: String(data.get('subject') ?? ''),
       message: String(data.get('message') ?? '').trim(),
     };
+
+    // `topic` is what the model calls the Topic select; check under the name
+    // the form uses so the error lands on the right control.
+    const found = checkForm(
+      'contact',
+      { ...payload, subject: payload.topic },
+      LABELS,
+      ALSO_REQUIRED
+    );
+    delete found.topic;
+    if (Object.keys(found).length) {
+      setErrors(found);
+      setError('');
+      document.getElementById(Object.keys(found)[0])?.focus();
+      return;
+    }
+    setErrors({});
 
     setSending(true);
     setError('');
@@ -41,6 +95,7 @@ export default function ContactForm() {
       if (!res.ok) throw new Error(body.error || 'Something went wrong.');
       setSent(true);
       form.reset();
+      setErrors({});
     } catch (err) {
       setError(
         err instanceof Error
@@ -65,7 +120,7 @@ export default function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-stone-700">
-            Full name *
+            Full name{star('name')}
           </label>
           <input
             type="text"
@@ -73,13 +128,17 @@ export default function ContactForm() {
             name="name"
             required
             autoComplete="name"
-            className="contact-field"
+            className={`contact-field${invalid('name')}`}
             placeholder="Your name"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={describe('name')}
+            onBlur={blur('name')}
           />
+          <FieldError id="name-error" message={errors.name} />
         </div>
         <div>
           <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-stone-700">
-            Email *
+            Email{star('email')}
           </label>
           <input
             type="email"
@@ -87,17 +146,30 @@ export default function ContactForm() {
             name="email"
             required
             autoComplete="email"
-            className="contact-field"
+            className={`contact-field${invalid('email')}`}
             placeholder="you@example.com"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={describe('email')}
+            onBlur={blur('email')}
           />
+          <FieldError id="email-error" message={errors.email} />
         </div>
       </div>
 
       <div>
         <label htmlFor="subject" className="mb-1.5 block text-sm font-semibold text-stone-700">
-          Topic *
+          Topic{star('subject')}
         </label>
-        <select id="subject" name="subject" required className="contact-field" defaultValue="">
+        <select
+          id="subject"
+          name="subject"
+          required
+          className={`contact-field${invalid('subject')}`}
+          defaultValue=""
+          aria-invalid={Boolean(errors.subject)}
+          aria-describedby={describe('subject')}
+          onBlur={blur('subject')}
+        >
           <option value="">Choose a topic</option>
           <option value="General inquiry">General inquiry</option>
           <option value="Partnership">Partnership &amp; collaboration</option>
@@ -106,20 +178,25 @@ export default function ContactForm() {
           <option value="Media">Media &amp; press</option>
           <option value="Donations">Donations</option>
         </select>
+        <FieldError id="subject-error" message={errors.subject} />
       </div>
 
       <div>
         <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-stone-700">
-          Message *
+          Message{star('message')}
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
           required
-          className="contact-field resize-y"
+          className={`contact-field resize-y${invalid('message')}`}
           placeholder="How can we help?"
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={describe('message')}
+          onBlur={blur('message')}
         ></textarea>
+        <FieldError id="message-error" message={errors.message} />
       </div>
 
       {error ? (

@@ -6,7 +6,8 @@ import SocialIcon from '@/components/SocialIcon';
 /**
  * About.
  *
- * The layout is bespoke and stays here; the words come from the `page-blocks`
+ * There is no hero: the page opens on Our Story, whose heading is the page's
+ * h1. The layout is bespoke and stays here; the words come from the `page-blocks`
  * table under the page name "about". Every call to `text()` carries the
  * original copy as its fallback, so an unreachable API or a block nobody has
  * filled in renders exactly what was written here rather than a gap.
@@ -14,17 +15,6 @@ import SocialIcon from '@/components/SocialIcon';
 export default function AboutContent({ blocks }: { blocks: Record<string, string> }) {
   return (
     <>
-      {/* Hero Section */}
-        <section className="page-hero mb-8">
-          <img src="/images/hero-students-community.png" alt="" className="page-hero__bg object-top" width="1600" height="900"/>
-          <div className="page-hero__overlay" aria-hidden="true"></div>
-          <div className="page-hero__inner">
-            <p className="page-hero__eyebrow">Our Purpose</p>
-            <h1>About Us</h1>
-            <p className="page-hero__lede">{text(blocks, "hero.lede", "We expand STEM access for underserved students in Uganda through scholarships, mentorship, and hands-on learning.")}</p>
-          </div>
-        </section>
-
         <main>
           {/* Our Story — the copy is a problem/response argument, so it is set that
                way: a lead statement, a full-bleed image band, then the barrier and our
@@ -32,14 +22,14 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
           <section className="relative overflow-hidden bg-white py-12 md:py-16">
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
               <header className="sr-fade-up max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Story</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "origin.heading", "Why we began")}</h2>
+                <h1 className="mt-3">{text(blocks, "origin.heading", "Why we began")}</h1>
               </header>
 
-              {/* Lead statement paired with the photo so the image stays modest and
-                   the two read as one opening block. */}
-              <div className="mt-5 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-                <p className="sr-fade-up text-lg leading-relaxed text-gray-700 sm:text-xl sm:leading-relaxed lg:col-span-7">
+              {/* Lead statement paired with the photo. The photo takes an equal
+                   half and is lifted above the paragraph's line, so it reads
+                   alongside the heading rather than trailing the text. */}
+              <div className="mt-5 grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+                <p className="sr-fade-up text-lg leading-relaxed text-gray-700 sm:text-xl sm:leading-relaxed lg:col-span-6">
                   Jdiobe STEM Foundation was established to address a simple but urgent reality: many
                   talented students in underserved communities have the ability to succeed in science,
                   technology, engineering, and mathematics, but{' '}
@@ -47,8 +37,8 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
                   {' '}needed to pursue that path.
                 </p>
 
-                <figure className="sr-fade-up overflow-hidden rounded-lg lg:col-span-5">
-                  <img src="/images/1718038140753.jpeg" alt="A student in school uniform wiring a servo and breadboard project at a classroom desk" className="aspect-[4/3] w-full object-cover object-center" width="1200" height="800" loading="lazy" decoding="async"/>
+                <figure className="sr-fade-up overflow-hidden rounded-lg lg:col-span-6 lg:-mt-14">
+                  <img src="/images/1718038140753.jpeg" alt="A student in school uniform wiring a servo and breadboard project at a classroom desk" className="aspect-[5/4] w-full object-cover object-center" width="1200" height="800" loading="lazy" decoding="async"/>
                 </figure>
               </div>
 
@@ -80,21 +70,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
 
               {/* Focus areas as inline pills rather than a boxed list */}
               <div className="sr-fade-up mt-9 pt-8">
-                <p className="eyebrow">Where we focus</p>
-                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="STEM focus areas">
-                  <li className="chip">
-                    <Icon name="cpu" className="h-4 w-4"/>Robotics
-                  </li>
-                  <li className="chip">
-                    <Icon name="navigation" className="h-4 w-4"/>Aerospace
-                  </li>
-                  <li className="chip">
-                    <Icon name="droplet" className="h-4 w-4"/>Water monitoring
-                  </li>
-                  <li className="chip">
-                    <Icon name="sun" className="h-4 w-4"/>Environmental engineering
-                  </li>
-                </ul>
+               
               </div>
             </div>
           </section>

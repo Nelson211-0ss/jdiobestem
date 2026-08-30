@@ -44,6 +44,7 @@ const PARENT_ICON: Record<string, string> = {
   Hiring: 'Briefcase',
   'Countries & offices': 'Globe',
   Volunteers: 'HeartHandshake',
+  Scholarships: 'GraduationCap',
 };
 
 /** Where each board category sits among the existing sections. */
@@ -70,10 +71,16 @@ export default function Sidebar({
   permissions,
   boardIndex,
   onNavigate,
+  collapsed = false,
+  onExpand,
 }: {
   permissions: Record<string, string[]>;
   boardIndex: BoardIndex;
   onNavigate?: () => void;
+  /** Icons only, no labels. */
+  collapsed?: boolean;
+  /** Ask the shell to open the rail again — a group cannot show its children in it. */
+  onExpand?: () => void;
 }) {
   const pathname = usePathname();
   const visible = RESOURCES.filter((r) => permissions[r.key]?.includes('view'));
@@ -105,7 +112,10 @@ export default function Sidebar({
 
   const itemClass = (current: boolean) =>
     cn(
-      'flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors',
+      'flex items-center rounded-md text-sm transition-colors',
+      // Collapsed, the icon is the whole control, so it is centred in a square
+      // rather than left-aligned with a gap where the label used to be.
+      collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3 py-2',
       current
         ? 'bg-secondary font-semibold text-secondary-foreground'
         : 'font-medium text-foreground hover:bg-muted'
@@ -159,10 +169,21 @@ export default function Sidebar({
 
 
   return (
-    <nav className="flex h-full flex-col gap-5 overflow-y-auto p-4">
-      <Link href="/admin" onClick={onNavigate} className={itemClass(isCurrent('/admin'))}>
+    <nav
+      className={cn(
+        'flex h-full flex-col overflow-y-auto overflow-x-hidden',
+        collapsed ? 'items-center gap-3 p-2' : 'gap-5 p-4'
+      )}
+    >
+      <Link
+        href="/admin"
+        onClick={onNavigate}
+        title={collapsed ? 'Overview' : undefined}
+        aria-label={collapsed ? 'Overview' : undefined}
+        className={itemClass(isCurrent('/admin'))}
+      >
         <Overview className={iconClass(isCurrent('/admin'))} />
-        Overview
+        {collapsed ? null : 'Overview'}
       </Link>
 
       {SECTION_ORDER.map((section) => {
@@ -170,20 +191,31 @@ export default function Sidebar({
         if (!resources.length && !parents.length && !categories.length) return null;
 
         return (
-          <div key={section}>
-            <p className="px-3 pb-1.5 text-[0.6875rem] font-medium uppercase tracking-wider text-muted-foreground">
-              {section}
-            </p>
+          <div key={section} className={collapsed ? 'w-full' : undefined}>
+            {collapsed ? (
+              <hr className="mx-auto mb-2 w-6 border-t border-border" aria-hidden="true" />
+            ) : (
+              <p className="px-3 pb-1.5 text-[0.6875rem] font-medium uppercase tracking-wider text-muted-foreground">
+                {section}
+              </p>
+            )}
 
-            <div className="space-y-0.5">
+            <div className={cn('space-y-0.5', collapsed && 'flex flex-col items-center')}>
               {resources.map((r) => {
                 const Icon = iconFor(r.icon);
                 const href = `/admin/${r.key}`;
                 const current = isCurrent(href);
                 return (
-                  <Link key={r.key} href={href} onClick={onNavigate} className={itemClass(current)}>
+                  <Link
+                    key={r.key}
+                    href={href}
+                    onClick={onNavigate}
+                    title={collapsed ? r.label : undefined}
+                    aria-label={collapsed ? r.label : undefined}
+                    className={itemClass(current)}
+                  >
                     <Icon className={iconClass(current)} />
-                    <span className="truncate">{r.label}</span>
+                    {collapsed ? null : <span className="truncate">{r.label}</span>}
                   </Link>
                 );
               })}
@@ -197,21 +229,34 @@ export default function Sidebar({
                   <div key={parent.name}>
                     <button
                       type="button"
-                      aria-expanded={expanded}
-                      onClick={() => setOpen(expanded ? null : parent.name)}
-                      className={cn(itemClass(holdsCurrent && !expanded), 'w-full text-left')}
+                      aria-expanded={collapsed ? false : expanded}
+                      title={collapsed ? parent.name : undefined}
+                      aria-label={collapsed ? parent.name : undefined}
+                      onClick={() => {
+                        if (collapsed) {
+                          onExpand?.();
+                          setOpen(parent.name);
+                          return;
+                        }
+                        setOpen(expanded ? null : parent.name);
+                      }}
+                      className={cn(itemClass(holdsCurrent && !expanded), !collapsed && 'w-full text-left')}
                     >
                       <Icon className={iconClass(holdsCurrent)} />
-                      <span className="flex-1 truncate">{parent.name}</span>
-                      <Icons.ChevronDown
-                        className={cn(
-                          'h-4 w-4 shrink-0 text-muted-foreground transition-transform',
-                          expanded && 'rotate-180'
-                        )}
-                      />
+                      {collapsed ? null : (
+                        <>
+                          <span className="flex-1 truncate">{parent.name}</span>
+                          <Icons.ChevronDown
+                            className={cn(
+                              'h-4 w-4 shrink-0 text-muted-foreground transition-transform',
+                              expanded && 'rotate-180'
+                            )}
+                          />
+                        </>
+                      )}
                     </button>
 
-                    {expanded ? (
+                    {expanded && !collapsed ? (
                       <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
                         {(parent.boards ?? []).map((board) => {
                           const href = `/admin/operations/${board.monday_id}`;
@@ -267,24 +312,37 @@ export default function Sidebar({
                   <div key={category.name}>
                     <button
                       type="button"
-                      aria-expanded={expanded}
-                      onClick={() => setOpen(expanded ? null : category.name)}
-                      className={cn(itemClass(holdsCurrent && !expanded), 'w-full text-left')}
+                      aria-expanded={collapsed ? false : expanded}
+                      title={collapsed ? `${category.name} (${category.boards.length})` : undefined}
+                      aria-label={collapsed ? category.name : undefined}
+                      onClick={() => {
+                        if (collapsed) {
+                          onExpand?.();
+                          setOpen(category.name);
+                          return;
+                        }
+                        setOpen(expanded ? null : category.name);
+                      }}
+                      className={cn(itemClass(holdsCurrent && !expanded), !collapsed && 'w-full text-left')}
                     >
                       <Icon className={iconClass(holdsCurrent)} />
-                      <span className="flex-1 truncate">{category.name}</span>
-                      <span className="text-xs tabular text-muted-foreground">
-                        {category.boards.length}
-                      </span>
-                      <Icons.ChevronDown
-                        className={cn(
-                          'h-4 w-4 shrink-0 text-muted-foreground transition-transform',
-                          expanded && 'rotate-180'
-                        )}
-                      />
+                      {collapsed ? null : (
+                        <>
+                          <span className="flex-1 truncate">{category.name}</span>
+                          <span className="text-xs tabular text-muted-foreground">
+                            {category.boards.length}
+                          </span>
+                          <Icons.ChevronDown
+                            className={cn(
+                              'h-4 w-4 shrink-0 text-muted-foreground transition-transform',
+                              expanded && 'rotate-180'
+                            )}
+                          />
+                        </>
+                      )}
                     </button>
 
-                    {expanded ? (
+                    {expanded && !collapsed ? (
                       // The rule down the left is what ties the children to
                       // their parent, as in the reference.
                       <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">

@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import type { Resource } from '@/lib/admin/resources';
+import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
 import { DetailRow, DetailSection } from './Shell';
 
 /**
@@ -13,7 +14,7 @@ import { DetailRow, DetailSection } from './Shell';
  * that cannot change simply looks like a record.
  */
 
-function formatValue(value: unknown): React.ReactNode {
+function formatValue(value: unknown, label = ''): React.ReactNode {
   if (value === null || value === undefined || value === '') {
     return <span className="font-normal text-muted-foreground">&mdash;</span>;
   }
@@ -34,6 +35,16 @@ function formatValue(value: unknown): React.ReactNode {
         })}
       </span>
     );
+  }
+  // A figure reads as a figure: grouped. Only where grouping is meaningful,
+  // though — a phone number, a reference or a year is a string of digits that
+  // separators actively damage, so those are named and left alone.
+  const neverGrouped = /\b(phone|mobile|tel|id|code|year|reference|ref|zip|postcode|version|token|account|stripe|intent|session)\b/i;
+  const counted = /\b(count|quantity|headcount|enrol(?:l)?ment|beneficiaries|attendees|students|members|places)\b/i;
+  const groupable = !neverGrouped.test(label) && (isMoneyLabel(label) || counted.test(label));
+
+  if (groupable && toNumber(text) !== null && /^[-+]?[\d.,]+$/.test(text)) {
+    return <span className="tabular">{formatNumber(text, { money: isMoneyLabel(label) })}</span>;
   }
   return <span className="whitespace-pre-wrap">{text}</span>;
 }
@@ -109,7 +120,7 @@ export default function ResourceDetail({
               {field.name === 'action_display' && record[field.name] ? (
                 <Badge variant="secondary">{String(record[field.name])}</Badge>
               ) : (
-                formatValue(record[field.name])
+                formatValue(record[field.name], field.label)
               )}
             </DetailRow>
           ))}

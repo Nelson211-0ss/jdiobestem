@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { api, can, getIdentity } from '@/lib/admin/api';
 import { RESOURCE_BY_KEY } from '@/lib/admin/resources';
 import OperationsMap, { type CountryFigures } from '@/components/admin/OperationsMap';
+import AccountingDashboard, { type Accounting } from '@/components/admin/AccountingDashboard';
 
 export const dynamic = 'force-dynamic';
 
@@ -45,6 +46,14 @@ export default async function DashboardPage() {
 
   const stats = await api.get<Stats>('/stats/');
   const t = stats.totals;
+
+  // The figures come from the Expenses and Gifts & Pledges boards and the
+  // donations table, so this is only fetched for someone allowed to see them.
+  // A failure here must not take the whole overview down with it.
+  const showAccounting = can(identity, 'boards', 'view');
+  const accounts = showAccounting
+    ? await api.get<Accounting>('/accounting/').catch(() => null)
+    : null;
 
   /** Only the queues this person may actually open. */
   const queues = (
@@ -108,6 +117,8 @@ export default async function DashboardPage() {
           }))}
         />
       ) : null}
+
+      {accounts ? <AccountingDashboard data={accounts} /> : null}
 
       {can(identity, 'donations', 'view') ? (
         <section className="space-y-3">

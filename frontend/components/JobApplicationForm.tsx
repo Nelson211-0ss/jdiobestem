@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Icon from './Icon';
 import FileDropzone from './FileDropzone';
 import PhoneField from './PhoneField';
+import FieldError from './FieldError';
+import { checkField, checkForm, isRequired } from '@/lib/publicForms';
 import type { SiteJob } from '@/lib/site-content';
 
 /**
@@ -14,7 +16,6 @@ import type { SiteJob } from '@/lib/site-content';
  * lose the covering letter somebody just wrote.
  */
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
   const [slug, setSlug] = useState(jobs[0]?.slug ?? '');
@@ -22,6 +23,31 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const LABELS: Record<string, string> = {
+    name: 'Full name',
+    email: 'Email address',
+    phone: 'Phone',
+    cover_letter: 'This',
+  };
+
+  const blur =
+    (field: string) =>
+    (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const message = checkField('job-application', field, e.target.value, LABELS[field] ?? field);
+      setErrors((prev) => {
+        const next = { ...prev };
+        if (message) next[field] = message;
+        else delete next[field];
+        return next;
+      });
+    };
+
+  const invalid = (field: string) => (errors[field] ? ' is-invalid' : '');
+  const describe = (field: string) => (errors[field] ? `${field}-error` : undefined);
+  const star = (field: string) =>
+    isRequired('job-application', field) ? <span className="field-required">*</span> : null;
 
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -33,8 +59,19 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
     const name = String(data.get('name') ?? '').trim();
     const email = String(data.get('email') ?? '').trim();
 
-    if (!name) return setError('Please enter your full name.');
-    if (!EMAIL_RE.test(email)) return setError('Please enter a valid email address.');
+    const application = {
+      name,
+      email,
+      phone: String(data.get('phone') ?? '').trim(),
+      cover_letter: String(data.get('cover_letter') ?? '').trim(),
+    };
+    const found = checkForm('job-application', application, LABELS, [], ['phone']);
+    if (Object.keys(found).length) {
+      setErrors(found);
+      document.getElementById(Object.keys(found)[0])?.focus();
+      return;
+    }
+    setErrors({});
     if (!slug) return setError('Please choose the position you are applying for.');
 
     setBusy(true);
@@ -44,10 +81,7 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           slug,
-          name,
-          email,
-          phone: String(data.get('phone') ?? '').trim(),
-          cover_letter: String(data.get('cover_letter') ?? '').trim(),
+          ...application,
           cv: cvUrl,
         }),
       });
@@ -55,6 +89,7 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
       if (!res.ok) throw new Error(payload.detail ?? 'Your application could not be sent.');
       setDone(true);
       form.reset();
+      setErrors({});
       setCvUrl('');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Your application could not be sent.');
@@ -102,13 +137,24 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="field-label">
-            Full name *
+            Full name{star('name')}
           </label>
-          <input id="name" name="name" type="text" autoComplete="name" required className="field" />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            required
+            className={`field${invalid('name')}`}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={describe('name')}
+            onBlur={blur('name')}
+          />
+          <FieldError id="name-error" message={errors.name} />
         </div>
         <div>
           <label htmlFor="email" className="field-label">
-            Email address *
+            Email address{star('email')}
           </label>
           <input
             id="email"
@@ -116,8 +162,12 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
             type="email"
             autoComplete="email"
             required
-            className="field"
+            className={`field${invalid('email')}`}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={describe('email')}
+            onBlur={blur('email')}
           />
+          <FieldError id="email-error" message={errors.email} />
         </div>
       </div>
 
@@ -141,7 +191,16 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
         <label htmlFor="cover_letter" className="field-label">
           Why you, for this post?
         </label>
-        <textarea id="cover_letter" name="cover_letter" rows={6} className="field" />
+        <textarea
+          id="cover_letter"
+          name="cover_letter"
+          rows={6}
+          className={`field${invalid('cover_letter')}`}
+          aria-invalid={Boolean(errors.cover_letter)}
+          aria-describedby={describe('cover_letter')}
+          onBlur={blur('cover_letter')}
+        />
+        <FieldError id="cover_letter-error" message={errors.cover_letter} />
       </div>
 
       {error ? (

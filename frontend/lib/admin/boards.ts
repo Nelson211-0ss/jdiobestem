@@ -42,6 +42,7 @@ export type BoardRecord = {
   office: number | null;
   office_name: string;
   is_local: boolean;
+  created_by_name: string;
   monday_updated_at: string | null;
 };
 
@@ -55,7 +56,18 @@ export type BoardIndex = {
 /** Which input a column type gets in the record form. */
 export function inputFor(
   column: BoardColumn,
-): 'text' | 'textarea' | 'number' | 'date' | 'select' | 'checkbox' | 'file' | 'readonly' {
+):
+  | 'text'
+  | 'textarea'
+  | 'number'
+  | 'date'
+  | 'select'
+  | 'checkbox'
+  | 'file'
+  | 'people'
+  | 'email'
+  | 'phone'
+  | 'readonly' {
   switch (column.column_type) {
     case 'status':
     case 'dropdown':
@@ -70,14 +82,23 @@ export function inputFor(
       return 'textarea';
     case 'checkbox':
       return 'checkbox';
+    // Typed rather than free text, so a mistyped address is caught here and
+    // the number is stored in one shape instead of six.
+    case 'email':
+      return 'email';
+    case 'phone':
+      return 'phone';
     // A receipt, a signed form, a photograph of a delivery. Uploaded and
     // shown: a record of a payment without its receipt is half a record.
     case 'file':
       return 'file';
     // Structured values that came across as JSON. Shown, not edited —
     // editing them properly needs a picker that belongs to a later pass.
+    // Who this is assigned to. Picked from the staff list rather than
+    // typed, so the same person is not recorded three different ways.
     case 'people':
     case 'multiple-person':
+      return 'people';
     case 'board_relation':
     case 'dependency':
     case 'mirror':
@@ -87,6 +108,40 @@ export function inputFor(
     default:
       return 'text';
   }
+}
+
+/**
+ * What a column will accept, beyond its type.
+ *
+ * Board columns carry no required flag — nothing but the record's name is
+ * mandatory — so this checks shape, not presence: a number that is a number, a
+ * date that is a real date, an address that could exist.
+ */
+export function validateColumn(column: BoardColumn, value: unknown): string {
+  const text = typeof value === 'string' ? value.trim() : '';
+  if (!text) return '';
+
+  const kind = inputFor(column);
+  const looksLikeEmail = /e-?mail/i.test(column.title);
+  const looksLikePhone = /phone|mobile|tel\b/i.test(column.title);
+
+  if (kind === 'email' || (kind === 'text' && looksLikeEmail)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(text)) return 'Enter a valid email address.';
+  }
+  if (kind === 'phone' || (kind === 'text' && looksLikePhone)) {
+    if (text.replace(/\D/g, '').length < 6) return 'That number looks too short.';
+    if (!/^[\d\s()+-]{6,20}$/.test(text)) return 'Enter a valid phone number.';
+  }
+  if (kind === 'number') {
+    if (!/^[-+]?\d*\.?\d+$/.test(text.replace(/,/g, ''))) return 'Enter a number.';
+  }
+  if (kind === 'date') {
+    const d = new Date(text);
+    if (Number.isNaN(d.getTime())) return 'Enter a valid date.';
+    const year = d.getFullYear();
+    if (year < 1900 || year > 2200) return 'Check the year.';
+  }
+  return '';
 }
 
 /** A column value as a plain string, whatever shape it arrived in. */

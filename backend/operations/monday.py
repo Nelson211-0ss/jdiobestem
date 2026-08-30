@@ -107,7 +107,11 @@ def categorise(board_name: str) -> str:
 
 
 #: Column types whose content is too long or too structured for a table cell.
-NOT_IN_LIST = {"long_text", "file", "subtasks", "doc", "board_relation", "dependency", "mirror"}
+#: Column types kept out of the table view — either too long to fit a cell or
+#: structured values a row cannot usefully show. `file` is deliberately not
+#: here: an attachment renders as a thumbnail, and on a board like Expenses
+#: the receipt is the column people scan for.
+NOT_IN_LIST = {"long_text", "subtasks", "doc", "board_relation", "dependency", "mirror"}
 
 
 def normalise_value(column_type: str, text: str | None, raw: str | None):

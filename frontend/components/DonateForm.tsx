@@ -1,7 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Icon from './Icon';
+import FieldError from './FieldError';
+import { formatMoney, toNumber } from '@/lib/format';
+import { useGroupedNumber } from '@/lib/useGroupedNumber';
+import { validateValue } from '@/lib/validation';
 
 /**
  * Donation form. Collects donor details and an amount, then asks
@@ -20,7 +24,6 @@ import Icon from './Icon';
 
 const CHECKOUT_API = '/api/create-checkout-session';
 const PRESET_AMOUNTS = [25, 50, 100, 250];
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isLocalDevHost() {
   const h = window.location.hostname;
@@ -28,9 +31,8 @@ function isLocalDevHost() {
 }
 
 function formatTotal(amount: number) {
-  if (!amount || !Number.isFinite(amount)) return '$0';
-  if (Math.abs(amount - Math.round(amount)) < 1e-9) return `$${Math.round(amount)}`;
-  return `$${amount.toFixed(2)}`;
+  if (!amount || !Number.isFinite(amount)) return formatMoney(0, 'USD');
+  return formatMoney(amount, 'USD');
 }
 
 export default function DonateForm() {
@@ -40,7 +42,16 @@ export default function DonateForm() {
   const [customOpen, setCustomOpen] = useState(false);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const customRef = useRef<HTMLInputElement>(null);
+  const [errors, setErrors] = useState<{ name?: string; email?: string; amount?: string }>({});
+
+  // The custom amount is grouped as it is typed, and held as a plain number.
+  const customField = useGroupedNumber(custom, (raw) => {
+    setCustom(raw);
+    setPreset(null);
+    setError('');
+    setErrors((prev) => ({ ...prev, amount: undefined }));
+  });
+  const customRef = customField.ref;
 
   useEffect(() => {
     if (!isLocalDevHost()) return;
@@ -57,7 +68,7 @@ export default function DonateForm() {
 
   // A preset and a custom entry are mutually exclusive; whichever was touched
   // last is the amount.
-  const amount = custom !== '' ? Number.parseFloat(custom) : (preset ?? 0);
+  const amount = custom !== '' ? (toNumber(custom) ?? 0) : (preset ?? 0);
   const total = Number.isFinite(amount) ? amount : 0;
 
   // The custom field stays on screen once it holds a value, so an amount can
@@ -80,20 +91,28 @@ export default function DonateForm() {
     const donorName = String(data.get('donor-name') ?? '').trim();
     const donorEmail = String(data.get('donor-email') ?? '').trim();
 
-    if (!donorName) {
-      setError('Please enter your full name.');
-      form.querySelector<HTMLInputElement>('#donor-name')?.focus();
-      return;
-    }
-    if (!EMAIL_RE.test(donorEmail)) {
-      setError('Please enter a valid email address.');
-      form.querySelector<HTMLInputElement>('#donor-email')?.focus();
-      return;
-    }
+    const found: { name?: string; email?: string; amount?: string } = {};
+    const nameProblem = validateValue({ required: true, kind: 'text' }, donorName, 'Full name');
+    if (nameProblem) found.name = nameProblem;
+    const emailProblem = validateValue(
+      { required: true, kind: 'email' },
+      donorEmail,
+      'Email address'
+    );
+    if (emailProblem) found.email = emailProblem;
     if (!total || total < 1) {
-      setError('Please select or enter a donation of at least $1.');
+      found.amount = 'Choose or enter a donation of at least $1.';
+    }
+
+    if (Object.keys(found).length) {
+      setErrors(found);
+      setError('');
+      const firstId = found.amount ? 'custom-amount' : found.name ? 'donor-name' : 'donor-email';
+      if (found.amount) setCustomOpen(true);
+      form.querySelector<HTMLInputElement>(`#${firstId}`)?.focus();
       return;
     }
+    setErrors({});
 
     const amountCents = Math.round(total * 100);
     setSubmitting(true);
@@ -178,24 +197,18 @@ export default function DonateForm() {
         <div className="donate-field-icon">
           <Icon name="dollar-sign" />
           <input
-            ref={customRef}
+            {...customField}
             id="custom-amount"
             name="custom-amount"
-            type="number"
-            min="1"
-            step="1"
-            inputMode="decimal"
             placeholder="0"
             autoComplete="transaction-amount"
-            className="field"
-            value={custom}
-            onChange={(e) => {
-              setCustom(e.target.value);
-              setPreset(null);
-              setError('');
-            }}
+            className={`field${errors.amount ? ' is-invalid' : ''}`}
+            aria-invalid={Boolean(errors.amount)}
+            aria-describedby={errors.amount ? 'custom-amount-error' : undefined}
+            onBlur={customField.commit}
           />
         </div>
+        <FieldError id="custom-amount-error" message={errors.amount} />
         <p className="donate-hint">Minimum $1 &middot; decimals allowed</p>
       </div>
 
@@ -203,7 +216,7 @@ export default function DonateForm() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="donor-name" className="field-label">
-            Full name
+            Full name<span className="field-required">*</span>
           </label>
           <div className="donate-field-icon">
             <Icon name="user" />
@@ -214,14 +227,23 @@ export default function DonateForm() {
               autoComplete="name"
               placeholder="Your full name"
               required
-              className="field"
+              className={`field${errors.name ? ' is-invalid' : ''}`}
+              aria-invalid={Boolean(errors.name)}
+              aria-describedby={errors.name ? 'donor-name-error' : undefined}
+              onBlur={(e) =>
+                setErrors((prev) => ({
+                  ...prev,
+                  name: validateValue({ required: true, kind: 'text' }, e.target.value, 'Full name'),
+                }))
+              }
             />
           </div>
+          <FieldError id="donor-name-error" message={errors.name} />
         </div>
 
         <div>
           <label htmlFor="donor-email" className="field-label">
-            Email address
+            Email address<span className="field-required">*</span>
           </label>
           <div className="donate-field-icon">
             <Icon name="mail" />
@@ -233,9 +255,22 @@ export default function DonateForm() {
               inputMode="email"
               placeholder="you@email.com"
               required
-              className="field"
+              className={`field${errors.email ? ' is-invalid' : ''}`}
+              aria-invalid={Boolean(errors.email)}
+              aria-describedby={errors.email ? 'donor-email-error' : undefined}
+              onBlur={(e) =>
+                setErrors((prev) => ({
+                  ...prev,
+                  email: validateValue(
+                    { required: true, kind: 'email' },
+                    e.target.value,
+                    'Email address'
+                  ),
+                }))
+              }
             />
           </div>
+          <FieldError id="donor-email-error" message={errors.email} />
         </div>
       </div>
       <p className="donate-hint">We&apos;ll email your receipt &mdash; never shared.</p>

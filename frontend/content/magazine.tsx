@@ -1,8 +1,42 @@
 import Link from 'next/link';
+import localFont from 'next/font/local';
+
 import Icon from '@/components/Icon';
 import MagazineLogo from '@/components/MagazineLogo';
 import NewsletterForm from '@/components/NewsletterForm';
 import type { SiteIssue as Issue } from '@/lib/site-content';
+
+/**
+ * Minion Pro, self-hosted, for this page alone.
+ *
+ * The rest of the site is Vistol — a geometric sans that suits a foundation
+ * explaining itself. A magazine is a different act of reading: long passages,
+ * held for minutes rather than scanned in seconds, and a text face cut for
+ * that is what makes the page feel like a publication rather than a section of
+ * the website with a cover picture on it.
+ *
+ * Four faces, not the ten in the archive. Regular and its italic carry the
+ * prose, semibold the subheads, bold the mastheads; medium, the condensed cuts
+ * and the bold italic were dropped because nothing here asked for them and each
+ * one is another 55 KB. Declared in this file rather than the root layout so
+ * Next only ships it on the routes that render this component.
+ *
+ * Subset to the Latin the site uses — 225 KB for four faces instead of 1.6 MB
+ * of OpenType.
+ */
+const minion = localFont({
+  src: [
+    { path: '../app/fonts/MinionPro-Regular.woff2', weight: '400', style: 'normal' },
+    { path: '../app/fonts/MinionPro-It.woff2', weight: '400', style: 'italic' },
+    { path: '../app/fonts/MinionPro-Semibold.woff2', weight: '600', style: 'normal' },
+    { path: '../app/fonts/MinionPro-Bold.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-minion',
+  display: 'swap',
+  // Georgia is the closest thing most machines already have; the generic
+  // serif is what stops a fallback landing on a sans and undoing the point.
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+});
 
 const isPublished = (i: Issue) => i.status === 'published';
 
@@ -67,67 +101,58 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
   return (
     <>
       <main>
-        {/* Masthead over the featured issue's artwork. */}
-        <section className="magazine-hero on-dark-surface">
-          {featured.wrap ? (
-            <img
-              src={featured.wrap}
-              alt=""
-              aria-hidden="true"
-              className="magazine-hero-bg"
-              width={1800}
-              height={1138}
-              loading="eager"
-              decoding="async"
-            />
-          ) : null}
-          <div className="magazine-hero-scrim" aria-hidden="true" />
+        {/* Masthead and the featured issue, on white. */}
+        <section className="magazine-hero">
+          <div className="container-page">
+            {/* The issue itself, front and back, and nothing else.
+                The masthead, the standfirst and the buttons all still exist
+                further down the page — "Download the cover" and "Know when the
+                issue lands" each have a section of their own — so nothing is
+                lost by letting the artwork carry the hero alone. */}
+            <h1 className="sr-only">
+              STEM Bridge Magazine — {featured.name}
+            </h1>
 
-          <div className="container-page relative z-10">
-            <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-              <div>
-                <MagazineLogo className="magazine-masthead" />
+            <div className="magazine-wrap-stage">
+              {/* The same artwork again, blurred and pushed down behind the
+                  real one: it throws the cover's own colour onto the page
+                  below it, so the spread sits on the white rather than being
+                  pasted onto it. Hidden from assistive tech — it carries no
+                  information the sharp copy does not. */}
+              <img
+                src={featured.wrap ?? featured.cover}
+                alt=""
+                aria-hidden="true"
+                className="magazine-wrap-glow"
+                loading="eager"
+                decoding="async"
+              />
+              {/* The block of page edges under the cover. What you actually see
+                  of a magazine's thickness is a band of leaves, not a stack of
+                  cards — so it is one thin element with striations, sitting
+                  directly beneath the artwork. */}
+              <span className="magazine-wrap-pages" aria-hidden="true" />
 
-                <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-extrabold uppercase tracking-[0.16em] text-orange-400">
-                  <span>{live ? 'Featured issue' : 'Upcoming issue'}</span>
-                  <span aria-hidden="true">&middot;</span>
-                  <span className="text-white/70">{featured.label}</span>
-                  <span aria-hidden="true">&middot;</span>
-                  <span className="text-white/70">Free to read</span>
-                </p>
+              <img
+                src={featured.wrap ?? featured.cover}
+                alt={featured.wrapAlt ?? `Front and back cover of ${featured.name}`}
+                className="magazine-wrap"
+                width={1800}
+                height={1138}
+                loading="eager"
+                decoding="async"
+              />
 
-                <p className="mt-6 max-w-xl text-lg leading-8 text-white/85">{featured.summary}</p>
-
-                <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                  {file ? (
-                    <a href={file.href} download={file.filename} className="btn-primary">
-                      <Icon name="download" />
-                      {live ? 'Download the issue' : 'Download the cover'}
-                    </a>
-                  ) : null}
-                  <a href="#alerts" className="btn-ghost">
-                    {live ? 'Get the next one' : 'Tell me when it is out'}
-                  </a>
-                </div>
-
-                {file ? (
-                  <p className="mt-4 text-sm text-white/60">
-                    PDF &middot; {file.size} &middot; {file.contains.toLowerCase()}
-                    {live ? null : ' — the issue itself is in production'}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className="justify-self-center lg:justify-self-end">
-                <IssueCover issue={featured} className="magazine-cover" />
-              </div>
+              {/* The gutter. An open magazine curves into its spine; without
+                  this the spread reads as one flat sheet. */}
+              <span className="magazine-wrap-gutter" aria-hidden="true" />
             </div>
           </div>
         </section>
 
         {/* Contents of the featured issue */}
         {featured.stories.length ? (
-          <section className="section-tight">
+          <section className="section-tight bg-white">
             <div className="container-page">
               <div className="section-head">
                 <p className="eyebrow">In this issue</p>

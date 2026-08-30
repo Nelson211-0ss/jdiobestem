@@ -118,7 +118,15 @@ class BoardColumn(models.Model):
     position = models.PositiveSmallIntegerField(default=0)
 
     #: Shown in the list view. Long text and files are opened on the record.
-    show_in_list = models.BooleanField(default=True)
+    show_in_list = models.BooleanField(
+        default=True, help_text="Show this column in the table view."
+    )
+    # Retired: not shown in the table, not offered on the form, not deleted.
+    # `show_in_list` only governs the table — a long description belongs on the
+    # form but not in a cell — so hiding a column everywhere needs its own
+    # switch. Values already recorded stay in the record untouched, which is
+    # why this is a flag rather than a deletion.
+    is_hidden = models.BooleanField(default=False, db_index=True)
 
     class Meta:
         ordering = ["position", "id"]
@@ -182,6 +190,19 @@ class Record(TimeStampedModel):
         help_text="Which office this belongs to, where that is narrower than the country.",
     )
     is_local = models.BooleanField(default=False, db_index=True)
+
+    # Who entered it. Set from the session when the record is created and never
+    # editable: an attribution somebody can type is not an attribution. Kept if
+    # the account is later removed, so the trail survives the person leaving.
+    created_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+        related_name="board_records",
+    )
+    created_by_name = models.CharField(max_length=150, blank=True, editable=False)
     monday_updated_at = models.DateTimeField(null=True, blank=True)
     synced_at = models.DateTimeField(null=True, blank=True)
 

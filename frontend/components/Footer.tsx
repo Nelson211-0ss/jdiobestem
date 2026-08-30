@@ -152,7 +152,7 @@ export default function Footer() {
                 is the line overflowing the gutter. */}
             <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:justify-end">
               <p className="text-white/55">
-                &copy; 2026 Jdiobe STEM Foundation. a 501(c)(3) organization. All rights reserved.
+                &copy; 2026 Jdiobe STEM Foundation, 501(c)(3) organization. All rights reserved.
               </p>
               <span className="text-white/25" aria-hidden="true">|</span>
               {/* Still its own landmark, so the legal links stay findable to a

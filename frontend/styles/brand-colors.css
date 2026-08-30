@@ -1384,6 +1384,47 @@ body:has(.hero-home) .mobile-menu {
   color: var(--ink-strong);
 }
 
+/* The asterisk on a required label. Orange rather than red: it marks what is
+   needed, it is not yet an error. */
+.field-required {
+  color: var(--brand-orange);
+  margin-left: 0.125rem;
+}
+
+/* An invalid field. The site draws no borders, so the fault is shown the way
+   focus is — as a ring — in red rather than orange, and the tint carries it
+   for anyone who cannot separate the two colours. */
+.field.is-invalid,
+.contact-field.is-invalid,
+.volunteer-field.is-invalid,
+.newsletter-field.is-invalid {
+  background-color: #fdf0ee;
+  box-shadow: inset 0 0 0 2px #c0392b;
+}
+
+.field.is-invalid:focus,
+.contact-field.is-invalid:focus,
+.volunteer-field.is-invalid:focus,
+.newsletter-field.is-invalid:focus {
+  box-shadow: 0 0 0 3px #c0392b;
+}
+
+.field-error {
+  display: block;
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #c0392b;
+}
+
+/* On the charcoal footer band and orange panels, that red would be unreadable. */
+.on-dark-surface .field-error,
+.surface-brand .field-error,
+.panel-brand .field-error,
+footer .field-error {
+  color: #ffb4a8;
+}
+
 /* On orange or a dark photo the well is a light translucent fill, and focus is a
    white ring — an orange ring on orange would not register. */
 .surface-brand .field,
@@ -2208,8 +2249,19 @@ main > section.bg-white {
   margin-top: 1.4rem;
 }
 
+/* A quotation. It carried nothing but a larger size, which reads as a slightly
+   emphatic paragraph rather than as somebody else's words — so it gains the
+   orange rule down its left. This is the one place the site draws a line,
+   because a quote has to be recognisable as a quote. */
 .news-article-body blockquote {
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--brand-orange);
   font-size: 1.125rem;
+  color: var(--ink-muted);
+}
+
+.news-article-body blockquote p + p {
+  margin-top: 0.9rem;
 }
 
 /* ============================================================ partners */
@@ -2545,7 +2597,7 @@ main > section.bg-white {
   margin-top: -5.5rem;
   padding-top: calc(5.5rem + clamp(3rem, 2rem + 4vw, 5.5rem));
   padding-bottom: clamp(3rem, 2rem + 4vw, 5.5rem);
-  background-color: var(--charcoal-950);
+  background-color: #fff;
 }
 
 @media (min-width: 768px) {
@@ -2553,28 +2605,6 @@ main > section.bg-white {
     margin-top: -6rem;
     padding-top: calc(6rem + clamp(3rem, 2rem + 4vw, 5.5rem));
   }
-}
-
-/* The cover art doubles as the hero backdrop, blurred and held well back so the
-   masthead reads and the real cover beside it stays the sharp one. */
-.magazine-hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: blur(18px) saturate(0.9);
-  transform: scale(1.08);
-}
-
-.magazine-hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(to right, rgb(11 14 17 / 0.94) 0%, rgb(11 14 17 / 0.82) 55%, rgb(11 14 17 / 0.7) 100%);
 }
 
 /* Masthead: a wide 530x78.6 wordmark, so width-led sizing with a cap. */
@@ -2586,14 +2616,17 @@ main > section.bg-white {
 
 .magazine-cover {
   display: block;
-  width: min(100%, 20rem);
+  /* Grows with the column rather than sitting at a fixed 20rem, so the cover
+     carries the hero on a wide screen and still fits the 0.85fr track. */
+  width: min(100%, 28rem);
   border-radius: 0.5rem;
   overflow: hidden;
   /* A magazine sits on a surface; the lift and slight tilt say "object", not
-     "screenshot". */
+     "screenshot". Lighter than it was: the old depth was tuned against a
+     near-black hero and reads as a smudge now the section is white. */
   box-shadow:
-    0 2px 6px -2px rgb(0 0 0 / 0.4),
-    0 30px 60px -20px rgb(0 0 0 / 0.65);
+    0 2px 6px -2px rgb(0 0 0 / 0.18),
+    0 24px 48px -18px rgb(0 0 0 / 0.32);
   transform: rotate(-1.5deg);
   transition:
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2603,8 +2636,8 @@ main > section.bg-white {
 .magazine-cover:hover {
   transform: rotate(0deg) translateY(-4px);
   box-shadow:
-    0 2px 6px -2px rgb(0 0 0 / 0.4),
-    0 40px 70px -20px rgb(0 0 0 / 0.7);
+    0 2px 6px -2px rgb(0 0 0 / 0.18),
+    0 32px 60px -18px rgb(0 0 0 / 0.38);
 }
 
 .magazine-cover img {
@@ -2796,9 +2829,30 @@ main > section.bg-white {
   letter-spacing: -0.024em;
 }
 
+/* Tailwind's preflight strips the marker and the indent from every list, so
+   both have to be restored deliberately. `ul` was; `ol` never was, which is why
+   a numbered list rendered as a run of unindented paragraphs with no numbers
+   at all. Nested levels change marker so an outline can be followed. */
 .news-article-body ul {
   padding-left: 1.25rem;
   list-style: disc;
+}
+
+.news-article-body ol {
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.news-article-body ul ul { list-style: circle; }
+.news-article-body ul ul ul { list-style: square; }
+.news-article-body ol ol { list-style: lower-alpha; }
+.news-article-body ol ol ol { list-style: lower-roman; }
+
+/* A nested list belongs to the item above it, not to the gap after it. */
+.news-article-body li > ul,
+.news-article-body li > ol {
+  margin-top: 0.6rem;
+  margin-bottom: 0.2rem;
 }
 
 .news-article-body li + li {
@@ -2810,6 +2864,44 @@ main > section.bg-white {
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 0.18em;
+}
+
+/* A sub-heading inside a story. Smaller than h2 and not orange — it divides a
+   section, it does not start one. */
+.news-article-body h3 {
+  margin-top: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  letter-spacing: -0.018em;
+}
+
+/* A picture placed inside the body. It breaks the measure of the text, because
+   a photograph constrained to the column reads as an illustration of the
+   sentence beside it rather than as part of the story.
+
+   Same corner as the lead photograph: two pictures in one article rounded two
+   different amounts reads as a mistake, and `--r-panel` is what the lead uses.
+   Taking the token rather than the number means they cannot drift apart. */
+.news-article-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-block: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  border-radius: var(--r-panel);
+}
+
+/* Video keeps its aspect ratio at every width; a fixed height would letterbox
+   it on a phone. */
+.story-video {
+  margin-block: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+}
+
+.story-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--r-panel);
+  background-color: var(--charcoal-900, #17161a);
 }
 
 /* ============================================================ science fair */
@@ -3475,3 +3567,104 @@ main > section.bg-white {
 /* The dashboard renders on a white card, so the tint would disappear. */
 .admin-shell .dropzone { --dropzone-bg: transparent; --dropzone-border: hsl(var(--border)); }
 .admin-shell .dropzone-done { --dropzone-border: hsl(var(--border)); background: transparent; }
+
+/* The magazine hero, when it is just the artwork: the wrap centred and given
+   room, with a lift that reads as a printed object rather than a screenshot.
+   Sized against the viewport rather than a fixed width so it stays the hero on
+   a large screen without overflowing a phone. */
+.magazine-wrap-stage {
+  position: relative;
+  width: min(100%, 62rem);
+  margin-inline: auto;
+}
+
+/* A blurred copy of the cover, sunk below the sharp one. Masked so it is
+   absent at the top and strongest under the bottom edge — the light falls
+   downward, the way it would off a printed object lying on a table. */
+.magazine-wrap-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.625rem;
+  filter: blur(34px) saturate(1.35);
+  transform: translateY(7%) scale(0.95);
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 35%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 35%, #000 100%);
+  pointer-events: none;
+}
+
+.magazine-wrap {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.625rem;
+  /* Softer and pushed further down than before: the page block now supplies
+     the hard edge under the cover, and two shadows in the same place read as
+     a seam. */
+  box-shadow: 0 34px 60px -28px rgb(0 0 0 / 0.30);
+}
+
+/* --- The spread as a physical object ------------------------------------
+   Three parts, all decorative: sheets behind for thickness, and a gutter over
+   the middle for the fold. Everything is a sibling of the image rather than a
+   background on it, so the artwork itself is never covered or cropped. */
+
+.magazine-wrap-gutter {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 5.5%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  /* Paper curving into the spine: shaded either side of the fold, with a thin
+     highlight along the crease itself. */
+  background: linear-gradient(
+    to right,
+    rgb(0 0 0 / 0) 0%,
+    rgb(0 0 0 / 0.16) 38%,
+    rgb(0 0 0 / 0.28) 49%,
+    rgb(255 255 255 / 0.14) 50.5%,
+    rgb(0 0 0 / 0.22) 52%,
+    rgb(0 0 0 / 0.12) 64%,
+    rgb(0 0 0 / 0) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Page edges: a thin band under the cover, inset a hair so the cover
+   overhangs it the way a cover actually does. The striations are individual
+   leaves — irregular rather than evenly spaced, because a perfectly regular
+   comb reads as a pattern, not paper. The lower half is darker: light falls
+   from above and the block is in the cover's own shadow. */
+.magazine-wrap-pages {
+  position: absolute;
+  z-index: 1;
+  left: 0.5%;
+  right: 0.5%;
+  top: 100%;
+  height: clamp(5px, 0.9%, 11px);
+  margin-top: -1px;
+  border-radius: 0 0 0.3rem 0.3rem;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.07) 0 1px,
+      rgb(255 255 255 / 0) 1px 2px,
+      rgb(0 0 0 / 0.04) 2px 3px,
+      rgb(255 255 255 / 0) 3px 5px
+    ),
+    linear-gradient(to bottom, #f6f1e8 0%, #ece4d6 55%, #d8cdbb 100%);
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.10);
+  pointer-events: none;
+}
+
+/* The image sits above the page block and below the gutter. */
+.magazine-wrap { z-index: 2; }

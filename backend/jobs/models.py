@@ -24,6 +24,7 @@ from django.utils.text import slugify
 
 from core.countries import country_field
 from core.models import TimeStampedModel
+from core.validators import COVER_LETTER_MAX, phone_validator
 from operations.models import Office
 
 
@@ -111,9 +112,9 @@ class JobApplication(TimeStampedModel):
 
     name = models.CharField(max_length=200)
     email = models.EmailField()
-    phone = models.CharField(max_length=50, blank=True)
+    phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
 
-    cover_letter = models.TextField(blank=True)
+    cover_letter = models.TextField(blank=True, max_length=COVER_LETTER_MAX)
     cv = models.CharField(
         max_length=500, blank=True, help_text="The applicant's CV, in object storage."
     )

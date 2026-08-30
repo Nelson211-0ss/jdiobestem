@@ -29,8 +29,15 @@ class BoardSerializer(serializers.ModelSerializer):
 
 
 class BoardDetailSerializer(BoardSerializer):
-    columns = BoardColumnSerializer(many=True, read_only=True)
+    # Retired columns are left out entirely rather than flagged, so the table,
+    # the form and the filters all stop offering them without any of them
+    # having to know the concept exists.
+    columns = serializers.SerializerMethodField()
     groups = BoardGroupSerializer(many=True, read_only=True)
+
+    def get_columns(self, obj):
+        live = [c for c in obj.columns.all() if not c.is_hidden]
+        return BoardColumnSerializer(live, many=True).data
 
     class Meta(BoardSerializer.Meta):
         fields = BoardSerializer.Meta.fields + ["columns", "groups"]
@@ -45,9 +52,11 @@ class RecordSerializer(serializers.ModelSerializer):
         fields = [
             "id", "monday_id", "name", "group_id", "group_title", "values",
             "country", "office", "office_name",
-            "is_local", "monday_updated_at", "created_at", "updated_at",
+            "is_local", "created_by_name", "monday_updated_at", "created_at", "updated_at",
         ]
-        read_only_fields = ["monday_id", "monday_updated_at", "created_at", "updated_at"]
+        read_only_fields = [
+            "monday_id", "created_by_name", "monday_updated_at", "created_at", "updated_at",
+        ]
 
     def get_group_title(self, obj):
         group = obj.board.groups.filter(monday_id=obj.group_id).first()
