@@ -64,7 +64,13 @@ class DonationSerializer(serializers.ModelSerializer):
         model = Donation
         fields = [
             "id", "stripe_session_id", "stripe_payment_intent", "donor_name", "donor_email",
-            "amount_cents", "amount", "currency", "status", "livemode", "receipt_url", "created_at",
+            "amount_cents", "amount", "currency", "status", "livemode", "receipt_url",
+            # The date Stripe took the payment. Sent when gifts are pulled in
+            # after the fact — without it a donation from last year would be
+            # dated the day it was imported, and land in the wrong month on
+            # every total that follows.
+            "received_on",
+            "created_at",
         ]
         read_only_fields = ["id", "created_at"]
         extra_kwargs = {"stripe_session_id": {"validators": []}}  # upsert, not a duplicate error

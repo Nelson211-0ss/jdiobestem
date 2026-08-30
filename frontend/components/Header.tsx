@@ -217,6 +217,14 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
               <MegaIcon name="news-updates" className="mega-ico" />
               <span>Newsletter publications</span>
             </Link>
+            {/* Announced, not yet published. The badge is the honest part: a
+                menu entry that leads to an empty page reads as a broken link
+                unless it says so before the click. */}
+            <Link href="/podcast" className="mega-link">
+              <MegaIcon name="podcast" className="mega-ico" />
+              <span>Podcast</span>
+              <span className="mega-soon">Soon</span>
+            </Link>
           </div>
 
           {features.length > 0 ? (
@@ -309,10 +317,6 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
         <div className="mega-inner container-page grid gap-10 py-10 lg:grid-cols-12 lg:gap-12">
           <div className="mega-col lg:col-span-3">
             <p className="mega-heading">Our Programs</p>
-            <Link href="/programs" className="mega-link">
-              <MegaIcon name="all-programs" className="mega-ico" />
-              <span>All Programs</span>
-            </Link>
             <Link href="/scholarship" className="mega-link">
               <MegaIcon name="scholarships" className="mega-ico" />
               <span>Scholarships</span>
@@ -426,7 +430,6 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
             onToggle={() => setOpenAcc((k) => (k === 'programs' ? null : 'programs'))}
           >
             {[
-              ['/programs', 'All Programs'],
               ['/scholarship', 'Scholarships'],
               ['/youth-stem', 'Youth STEM'],
               ['/aerospace-institute', 'Aerospace Institute'],
@@ -472,7 +475,8 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
               ['/news', 'News & Updates'],
               ['/magazine', 'STEM Bridge Magazine'],
               ['/newsletters', 'Newsletter publications'],
-            ].map(([href, label]) => (
+              ['/podcast', 'Podcast', 'Soon'],
+            ].map(([href, label, badge]) => (
               <Link
                 key={href}
                 href={href}
@@ -480,6 +484,7 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
                 onClick={() => setMobileOpen(false)}
               >
                 {label}
+                {badge ? <span className="mega-soon ml-2">{badge}</span> : null}
               </Link>
             ))}
           </MobileAccordion>

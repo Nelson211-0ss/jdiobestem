@@ -1,50 +1,55 @@
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Pencil } from 'lucide-react';
 
-import NewsEditor from '@/components/admin/NewsEditor';
+import { Button } from '@/components/ui/button';
+import ResourceDetail from '@/components/admin/ResourceDetail';
 import { FormShell } from '@/components/admin/Shell';
-import { api, can, getIdentity } from '@/lib/admin/api';
+import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
+import { RESOURCE_BY_KEY, withOptions } from '@/lib/admin/resources';
 
 export const dynamic = 'force-dynamic';
 
-/** Stories get their own editor rather than the generic resource form. */
-export default async function EditStoryPage({ params }: { params: Promise<{ id: string }> }) {
+/**
+ * A story as a record, not as a form.
+ *
+ * Opening a row shows what it holds; changing it is a decision taken by
+ * pressing Edit. A story keeps its own editor, so Edit goes there rather than
+ * to the generic form.
+ */
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const identity = await getIdentity();
+  const [identity, options] = await Promise.all([getIdentity(), getOptionLists()]);
   if (!identity || !can(identity, 'news', 'view')) notFound();
 
-  let story: Record<string, unknown>;
+  const resource = withOptions(RESOURCE_BY_KEY['news'], options);
+
+  let record: Record<string, unknown>;
   try {
-    story = await api.get(`/admin/news/${id}/`);
+    record = await api.get<Record<string, unknown>>(`/admin/news/${id}/`);
   } catch {
     notFound();
   }
 
+  const title = String(record[resource.titleField ?? 'id'] ?? `#${id}`);
+
   return (
     <FormShell
       backHref="/admin/news"
-      backLabel="Back to news stories"
-      eyebrow="News story"
-      title={String(story.title ?? 'Untitled')}
-      wide
+      backLabel={`Back to ${resource.label.toLowerCase()}`}
+      eyebrow={resource.label}
+      title={title}
+      actions={
+        can(identity, 'news', 'change') ? (
+          <Button variant="outline" asChild>
+            <Link href={`/admin/news/${id}/edit`}>
+              <Pencil /> Edit
+            </Link>
+          </Button>
+        ) : null
+      }
     >
-      <NewsEditor
-        story={{
-          id: Number(story.id),
-          title: String(story.title ?? ''),
-          slug: String(story.slug ?? ''),
-          category: String(story.category ?? ''),
-          date: String(story.date ?? ''),
-          reading_time: String(story.reading_time ?? ''),
-          excerpt: String(story.excerpt ?? ''),
-          body: String(story.body ?? ''),
-          image: String(story.image ?? ''),
-          image_alt: String(story.image_alt ?? ''),
-          caption: String(story.caption ?? ''),
-          is_published: Boolean(story.is_published),
-        }}
-        canChange={can(identity, 'news', 'change')}
-        canDelete={can(identity, 'news', 'delete')}
-      />
+      <ResourceDetail resource={resource} record={record} />
     </FormShell>
   );
 }

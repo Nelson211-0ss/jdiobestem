@@ -110,8 +110,8 @@ export default function HomeContent({ stats }: { stats: SiteStat[] }) {
                           <dd className="mt-1 text-sm leading-relaxed text-white/85">Inclusive outreach, scholarships, and research pathways for underserved youth.</dd>
                         </div>
                       </dl>
-                      <Link href="/programs" className="mt-8 w-fit btn-on-brand">
-                        Explore programs <Icon name="arrow-right" className="h-4 w-4"/>
+                      <Link href="/secondary-research" className="mt-8 w-fit btn-on-brand">
+                        The Science Fair <Icon name="arrow-right" className="h-4 w-4"/>
                       </Link>
                     </div>
                   </div>
@@ -180,8 +180,8 @@ export default function HomeContent({ stats }: { stats: SiteStat[] }) {
                 </div>
 
                 <div className="sr-fade-up mt-10 text-center">
-                  <Link href="/programs" className="btn-primary">
-                    View all programs{' '}
+                  <Link href="/secondary-research" className="btn-primary">
+                    See the Science Fair{' '}
                     <Icon name="arrow-right" className="h-4 w-4"/>
                   </Link>
                 </div>

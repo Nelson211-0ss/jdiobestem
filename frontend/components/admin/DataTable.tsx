@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Check, ChevronLeft, ChevronRight, FileText, ImageOff, Search, X } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, FileText, ImageOff, Pencil, Search, X } from 'lucide-react';
 import { useState, useTransition } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -135,12 +135,15 @@ export default function DataTable({
   count,
   page,
   pageSize,
+  canEdit = false,
 }: {
   resource: Resource;
   rows: Row[];
   count: number;
   page: number;
   pageSize: number;
+  /** Decided by the page, from this person's role. */
+  canEdit?: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -242,7 +245,7 @@ export default function DataTable({
               rows.map((row) => {
                 const href = `/admin/${resource.key}/${row.id}`;
                 return (
-                  <ClickableRow key={String(row.id)} href={href}>
+                  <ClickableRow key={String(row.id)} href={href} className="group/row">
                     {resource.columns.map((c) => (
                       <TableCell
                         key={c.name}
@@ -251,16 +254,32 @@ export default function DataTable({
                         {renderCell(row, c)}
                       </TableCell>
                     ))}
-                    <TableCell className="text-right">
-                      {/* Kept as a real anchor: the row handles the click, but a
-                          link is what a screen reader announces, what
-                          cmd-click opens in a tab, and what a crawler follows. */}
-                      <Link
-                        href={href}
-                        className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
-                      >
-                        Open
-                      </Link>
+                    <TableCell className="w-px whitespace-nowrap text-right">
+                      <span className="flex items-center justify-end gap-3">
+                        {/* Kept as a real anchor: the row handles the click, but
+                            a link is what a screen reader announces, what
+                            cmd-click opens in a tab, and what a crawler
+                            follows. */}
+                        <Link
+                          href={href}
+                          className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
+                        >
+                          Open
+                        </Link>
+                        {/* Revealed on hover, and on keyboard focus — a control
+                            that only exists under a pointer is a control nobody
+                            navigating by keyboard can reach. */}
+                        {canEdit ? (
+                          <Link
+                            href={`${href}/edit`}
+                            aria-label="Edit"
+                            title="Edit"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-muted hover:text-foreground focus-visible:opacity-100 group-hover/row:opacity-100"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Link>
+                        ) : null}
+                      </span>
                     </TableCell>
                   </ClickableRow>
                 );

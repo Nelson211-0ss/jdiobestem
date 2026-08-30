@@ -83,6 +83,10 @@ DROPPED = [
     # gifts themselves that the Foundation has not asked for.
     "Campaigns",
     "Donors' Activities",
+    # Folded into Grants, along with Grant Providers. The proposal and the
+    # funder were two records describing the same pursuit at two moments.
+    "Grant Proposals",
+    "Subitems of Grant Proposals",
 ]
 
 # Scratch boards from trying out monday's app builder.

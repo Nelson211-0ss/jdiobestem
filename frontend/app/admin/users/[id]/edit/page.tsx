@@ -1,8 +1,5 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Pencil } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import AccessEditor from '@/components/admin/AccessEditor';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
@@ -20,11 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 }
 
-export default async function StaffAccessDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function StaffAccessPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   const identity = await getIdentity();
-  if (!identity || !can(identity, 'users', 'view')) notFound();
+  // Only a superuser may change access; for anyone else this page does not
+  // exist rather than existing and refusing.
+  if (!identity || !identity.is_superuser) notFound();
 
   let access: AccessPayload;
   try {
@@ -38,23 +37,12 @@ export default async function StaffAccessDetailPage({ params }: { params: Promis
 
   return (
     <FormShell
-      backHref="/admin/users"
-      backLabel="Back to staff access"
-      eyebrow="Staff access"
+      backHref={`/admin/users/${id}`}
+      backLabel={`Back to ${name}`}
+      eyebrow="Editing · Staff access"
       title={name}
-      actions={
-        identity.is_superuser ? (
-          <Button variant="outline" asChild>
-            <Link href={`/admin/users/${id}/edit`}>
-              <Pencil /> Edit access
-            </Link>
-          </Button>
-        ) : null
-      }
     >
-      {/* Read-only here. What somebody may do is worth being able to look up
-          without the controls that change it being live under the cursor. */}
-      <AccessEditor access={access} canEdit={false} />
+      <AccessEditor access={access} canEdit />
     </FormShell>
   );
 }

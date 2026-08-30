@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { text } from '@/lib/site-content';
 import ContactForm from '@/components/ContactForm';
+import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 
 export default function ContactContent({ blocks }: { blocks: Record<string, string> }) {
@@ -19,27 +20,21 @@ export default function ContactContent({ blocks }: { blocks: Record<string, stri
 
                   <div className="mt-5">
                     <a href="mailto:info@jdiobestem.org" className="contact-info-row group">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-charcoal-900">
-                        <Icon name="mail" className="h-4 w-4"/>
-                      </span>
+                      <FeatureIcon name="mail" className="feature-ico shrink-0" />
                       <span>
                         <span className="block text-xs font-semibold uppercase tracking-wide text-stone-500">Email</span>
                         <span className="mt-0.5 block text-sm font-medium text-orange-700 group-hover:underline">info@jdiobestem.org</span>
                       </span>
                     </a>
                     <a href="tel:+14054374755" className="contact-info-row group">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-charcoal-900">
-                        <Icon name="phone" className="h-4 w-4"/>
-                      </span>
+                      <FeatureIcon name="phone" className="feature-ico shrink-0" />
                       <span>
                         <span className="block text-xs font-semibold uppercase tracking-wide text-stone-500">Phone</span>
                         <span className="mt-0.5 block text-sm font-medium text-orange-700 group-hover:underline">+1 (405) 437-4755</span>
                       </span>
                     </a>
                     <div className="contact-info-row">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-charcoal-900">
-                        <Icon name="map-pin" className="h-4 w-4"/>
-                      </span>
+                      <FeatureIcon name="place" className="feature-ico shrink-0" />
                       <span>
                         <span className="block text-xs font-semibold uppercase tracking-wide text-stone-500">U.S. office</span>
                         <span className="mt-0.5 block text-sm leading-relaxed text-stone-600">

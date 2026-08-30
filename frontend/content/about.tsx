@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 import { text } from '@/lib/site-content';
 import SocialIcon from '@/components/SocialIcon';
@@ -46,9 +47,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
               <div className="mt-10 grid gap-10 pt-9 lg:grid-cols-2 lg:gap-0">
                 <div className="sr-fade-up lg:pr-14">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cream-100 text-stone-500" aria-hidden="true">
-                      <Icon name="alert-circle" className="h-5 w-5"/>
-                    </span>
+                    <FeatureIcon name="problem" className="feature-ico shrink-0" />
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-500">The barrier</h3>
                   </div>
                   <p className="mt-5 text-base leading-8 text-gray-600">{text(blocks, "origin.para1", "For many students, the barrier is not ability. It is the cost of education, limited exposure to STEM careers, lack of mentorship, and the absence of professional networks that can help them imagine and prepare for a different future.")}</p>
@@ -56,9 +55,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
 
                 <div className="sr-fade-up lg:pl-14">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cream-200 text-orange-700" aria-hidden="true">
-                      <Icon name="arrow-right-circle" className="h-5 w-5"/>
-                    </span>
+                    <FeatureIcon name="response" className="feature-ico shrink-0" />
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-orange-700">Our response</h3>
                   </div>
                   <p className="mt-5 text-base leading-8 text-gray-600">{text(blocks, "origin.para2", "The foundation was created to help close that gap. Our work focuses on supporting students not only with financial assistance, but also with guidance, encouragement, and real world exposure that helps them build confidence and direction.")}</p>
@@ -91,9 +88,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
               <div className="mt-10 grid gap-9 pt-9 lg:grid-cols-2 lg:gap-0">
                 <div className="sr-fade-up lg:pr-16">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15 ring-1 ring-white/25" aria-hidden="true">
-                      <Icon name="target" className="h-5 w-5 text-white"/>
-                    </span>
+                    <FeatureIcon name="mission" className="feature-ico shrink-0" />
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-orange-100">Mission</h3>
                   </div>
                   <p className="mt-6 text-xl font-semibold leading-relaxed text-white sm:text-2xl sm:leading-relaxed">{text(blocks, "mission.mission", "To empower underserved students through access to STEM education, scholarships, mentorship, and innovation driven opportunities that prepare them to become future leaders and problem solvers.")}</p>
@@ -101,9 +96,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
 
                 <div className="sr-fade-up lg:pl-16">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/15 ring-1 ring-white/25" aria-hidden="true">
-                      <Icon name="eye" className="h-5 w-5 text-white"/>
-                    </span>
+                    <FeatureIcon name="vision" className="feature-ico shrink-0" />
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-orange-100">Vision</h3>
                   </div>
                   <p className="mt-6 text-xl font-semibold leading-relaxed text-white sm:text-2xl sm:leading-relaxed">{text(blocks, "mission.vision", "A world where every student, regardless of background, has the opportunity to access quality STEM education and contribute to solving local and global challenges.")}</p>
@@ -189,30 +182,22 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
 
               <div className="sr-stagger mt-9 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
                 <div className="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
-                    <Icon name="unlock" className="h-5 w-5 text-white"/>
-                  </div>
+                  <FeatureIcon name="access" className="feature-ico mb-4" />
                   <h3 className="text-lg font-semibold text-white">Access</h3>
                   <p className="mt-4 text-sm leading-6 text-orange-50">{text(blocks, "values.access", "We believe capable students should not be limited by financial barriers, geography, or lack of exposure.")}</p>
                 </div>
                 <div className="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
-                    <Icon name="users" className="h-5 w-5 text-white"/>
-                  </div>
+                  <FeatureIcon name="mentorship" className="feature-ico mb-4" />
                   <h3 className="text-lg font-semibold text-white">Mentorship</h3>
                   <p className="mt-4 text-sm leading-6 text-orange-50">{text(blocks, "values.mentorship", "We believe guidance from educators, professionals, and role models can change the direction of a student’s life.")}</p>
                 </div>
                 <div className="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
-                    <Icon name="zap" className="h-5 w-5 text-white"/>
-                  </div>
+                  <FeatureIcon name="innovation" className="feature-ico mb-4" />
                   <h3 className="text-lg font-semibold text-white">Innovation</h3>
                   <p className="mt-4 text-sm leading-6 text-orange-50">{text(blocks, "values.innovation", "We encourage students to use STEM knowledge to solve real problems in their communities and beyond.")}</p>
                 </div>
                 <div className="sr-fade-up rounded-lg surface-brand p-6 ring-1 ring-white/15">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true">
-                    <Icon name="heart" className="h-5 w-5 text-white"/>
-                  </div>
+                  <FeatureIcon name="service" className="feature-ico mb-4" />
                   <h3 className="text-lg font-semibold text-white">Service</h3>
                   <p className="mt-4 text-sm leading-6 text-orange-50">{text(blocks, "values.sustainability", "We are committed to building opportunities that create lasting impact for students, families, and communities.")}</p>
                 </div>
@@ -250,11 +235,9 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
               <div className="mt-10 pt-9">
                 <p className="sr-fade-up eyebrow">Areas of operation</p>
 
-                <div className="sr-stagger mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="sr-stagger mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   <Link href="/uganda" className="sr-fade-up group flex flex-col rounded-lg bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-900/10 shadow-card">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true">
-                      <Icon name="map-pin" className="h-5 w-5"/>
-                    </span>
+                    <FeatureIcon name="uganda" className="feature-ico" />
                     <span className="mt-4 font-bold text-gray-900">Uganda</span>
                     <span className="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
                       Primary area of impact &mdash; scholarships, mentorship, and STEM outreach.
@@ -265,9 +248,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
                   </Link>
 
                   <Link href="/south-sudan" className="sr-fade-up group flex flex-col rounded-lg bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-900/10 shadow-card">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true">
-                      <Icon name="map-pin" className="h-5 w-5"/>
-                    </span>
+                    <FeatureIcon name="south-sudan" className="feature-ico" />
                     <span className="mt-4 font-bold text-gray-900">South Sudan</span>
                     <span className="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
                       Teacher training, access to equipment, and mentorship pathways.
@@ -278,25 +259,26 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
                   </Link>
 
                   <div className="sr-fade-up flex flex-col rounded-lg bg-white/60 p-5">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true">
-                      <Icon name="home" className="h-5 w-5"/>
-                    </span>
+                    <FeatureIcon name="usa" className="feature-ico" />
                     <span className="mt-4 font-bold text-gray-900">United States</span>
                     <span className="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
                       Registered nonprofit; Oklahoma City office for administration and fundraising.
                     </span>
                   </div>
 
-                  <div className="sr-fade-up flex flex-col rounded-lg bg-white/60 p-5">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true">
-                      <Icon name="globe" className="h-5 w-5"/>
-                    </span>
-                    <span className="mt-4 font-bold text-gray-900">Global partnerships</span>
-                    <span className="mt-1.5 flex-1 text-sm leading-relaxed text-gray-600">
-                      Schools, universities, and collaborators extending student opportunity.
-                    </span>
-                  </div>
                 </div>
+
+                <p className="sr-fade-up mt-5 text-xs text-gray-500">
+                  Country outlines &copy;{' '}
+                  <a
+                    href="https://vemaps.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2"
+                  >
+                    Vemaps.com
+                  </a>
+                </p>
               </div>
             </div>
           </section>

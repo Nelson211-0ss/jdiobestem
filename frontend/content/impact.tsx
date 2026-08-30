@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { text } from '@/lib/site-content';
+import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 
 export default function ImpactContent({ blocks }: { blocks: Record<string, string> }) {
@@ -50,33 +51,25 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
 
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-x-10 gap-y-12 pt-9 sm:gap-x-12 xl:grid-cols-4">
                 <div className="sr-fade-up">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="users" className="h-6 w-6 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="people" className="feature-ico" />
                   <p className="mt-5 text-4xl font-bold tracking-tight text-orange-700 sm:text-5xl">25+</p>
                   <h3 className="mt-3 text-base font-semibold text-gray-900">{text(blocks, "h3.students-supported", "Students Supported")}</h3>
                   <p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.students-reached-through-scholarships-guidance", "Students reached through scholarships, guidance, mentorship, or STEM focused support.")}</p>
                 </div>
                 <div className="sr-fade-up">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="award" className="h-6 w-6 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="award" className="feature-ico" />
                   <p className="mt-5 text-4xl font-bold tracking-tight text-orange-700 sm:text-5xl">3+</p>
                   <h3 className="mt-3 text-base font-semibold text-gray-900">{text(blocks, "h3.scholarships-awarded", "Scholarships Awarded")}</h3>
                   <p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.scholarship-support-provided-to-students", "Scholarship support provided to students pursuing education in STEM related fields.")}</p>
                 </div>
                 <div className="sr-fade-up">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="layers" className="h-6 w-6 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="layers" className="feature-ico" />
                   <p className="mt-5 text-4xl font-bold tracking-tight text-orange-700 sm:text-5xl">2+</p>
                   <h3 className="mt-3 text-base font-semibold text-gray-900">{text(blocks, "h3.active-initiatives", "Active Initiatives")}</h3>
                   <p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.ongoing-efforts-focused-on-scholarships", "Ongoing efforts focused on scholarships, mentorship, and student opportunity building.")}</p>
                 </div>
                 <div className="sr-fade-up">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="map-pin" className="h-6 w-6 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="place" className="feature-ico" />
                   <p className="mt-5 text-4xl font-bold tracking-tight text-orange-700 sm:text-5xl">Uganda</p>
                   <h3 className="mt-3 text-base font-semibold text-gray-900">{text(blocks, "h3.primary-area-of-operation", "Primary Area of Operation")}</h3>
                   <p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.current-work-is-focused-on", "Current work is focused on expanding access for underserved students in Uganda.")}</p>
@@ -151,30 +144,22 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
 
                 <div className="sr-stagger grid gap-x-10 gap-y-10 pt-10 sm:grid-cols-2">
                   <div className="sr-fade-up">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/15" aria-hidden="true">
-                      <Icon name="book-open" className="h-5 w-5 text-orange-200"/>
-                    </div>
+                    <FeatureIcon name="book" className="feature-ico mb-4" />
                     <h3 className="text-lg font-semibold">{text(blocks, "h3.access-to-education", "Access to Education")}</h3>
                     <p className="mt-3 text-sm leading-6 text-orange-100">{text(blocks, "p.students-receive-support-that-helps", "Students receive support that helps reduce financial barriers and makes STEM education more reachable.")}</p>
                   </div>
                   <div className="sr-fade-up">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/15" aria-hidden="true">
-                      <Icon name="trending-up" className="h-5 w-5 text-orange-200"/>
-                    </div>
+                    <FeatureIcon name="growth" className="feature-ico mb-4" />
                     <h3 className="text-lg font-semibold">{text(blocks, "h3.increased-confidence", "Increased Confidence")}</h3>
                     <p className="mt-3 text-sm leading-6 text-orange-100">{text(blocks, "p.mentorship-and-exposure-help-students", "Mentorship and exposure help students see themselves as future engineers, scientists, researchers, and innovators.")}</p>
                   </div>
                   <div className="sr-fade-up">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/15" aria-hidden="true">
-                      <Icon name="compass" className="h-5 w-5 text-orange-200"/>
-                    </div>
+                    <FeatureIcon name="compass" className="feature-ico mb-4" />
                     <h3 className="text-lg font-semibold">{text(blocks, "h3.career-direction", "Career Direction")}</h3>
                     <p className="mt-3 text-sm leading-6 text-orange-100">{text(blocks, "p.guidance-helps-students-understand-academic", "Guidance helps students understand academic pathways, professional options, and the steps needed to pursue STEM careers.")}</p>
                   </div>
                   <div className="sr-fade-up">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/15" aria-hidden="true">
-                      <Icon name="zap" className="h-5 w-5 text-orange-200"/>
-                    </div>
+                    <FeatureIcon name="innovation" className="feature-ico mb-4" />
                     <h3 className="text-lg font-semibold">{text(blocks, "h3.innovation-mindset", "Innovation Mindset")}</h3>
                     <p className="mt-3 text-sm leading-6 text-orange-100">{text(blocks, "p.students-are-encouraged-to-think", "Students are encouraged to think beyond the classroom and apply STEM knowledge to real community challenges.")}</p>
                   </div>
@@ -247,27 +232,19 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
 
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
                 <div className="sr-fade-up">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="award" className="h-5 w-5 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="award" className="feature-ico mb-4" />
                   <p className="text-sm font-semibold leading-6 text-gray-900">{text(blocks, "p.expand-scholarship-support-for-more", "Expand scholarship support for more STEM students")}</p>
                 </div>
                 <div className="sr-fade-up">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="users" className="h-5 w-5 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="people" className="feature-ico mb-4" />
                   <p className="text-sm font-semibold leading-6 text-gray-900">{text(blocks, "p.develop-structured-mentorship-cohorts", "Develop structured mentorship cohorts")}</p>
                 </div>
                 <div className="sr-fade-up">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="tool" className="h-5 w-5 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="tools" className="feature-ico mb-4" />
                   <p className="text-sm font-semibold leading-6 text-gray-900">{text(blocks, "p.launch-more-hands-on-stem", "Launch more hands on STEM learning activities")}</p>
                 </div>
                 <div className="sr-fade-up">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white" aria-hidden="true">
-                    <Icon name="briefcase" className="h-5 w-5 text-orange-700"/>
-                  </div>
+                  <FeatureIcon name="work" className="feature-ico mb-4" />
                   <p className="text-sm font-semibold leading-6 text-gray-900">{text(blocks, "p.build-stronger-partnerships-with-schools", "Build stronger partnerships with schools, universities, and community organizations")}</p>
                 </div>
               </div>

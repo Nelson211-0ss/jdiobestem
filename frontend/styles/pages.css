@@ -335,3 +335,264 @@
     break-inside: avoid-page;
   }
 }
+
+/* ------------------------------------------------------------- /magazine */
+
+/*
+ * The magazine reads in Minion Pro.
+ *
+ * Everything below is scoped to `.magazine-page`, so the typeface reaches this
+ * one page and nothing else — the rest of the site stays in Vistol, which is
+ * the point of the contrast.
+ *
+ * A text face is not a drop-in for a geometric sans. Minion has a smaller
+ * x-height, so the same nominal size reads noticeably smaller and needs a
+ * little more of it; it tops out at bold, so the site-wide `font-weight: 800`
+ * on headings has to come down or the browser synthesises a weight that was
+ * never drawn; and its letterforms already carry the contrast that negative
+ * tracking was compensating for in the sans, so the tightening comes off.
+ */
+.magazine-page {
+  font-family: var(--font-minion), Georgia, 'Times New Roman', serif;
+  /* Old-style figures sit on the baseline like lowercase letters, which is
+     what a date or a page count should do inside a sentence. */
+  font-variant-numeric: oldstyle-num proportional-nums;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'clig' 1;
+}
+
+/* Minion's small x-height at the site's body size reads as fine print. */
+.magazine-page p,
+.magazine-page li,
+.magazine-page dd,
+.magazine-page dt {
+  font-size: 1.09em;
+  line-height: 1.68;
+}
+
+/*
+ * Headings. `body h1…h6` in typography.css asks for 800, which this family
+ * does not have — left alone the browser fakes it by smearing the bold, and a
+ * text face is the last place that survives. 700 is the heaviest real cut.
+ */
+/*
+ * Headings, and the classed titles typography.css counts as headings.
+ *
+ * Those all carry `font-family: var(--font-overpass)` of their own, and a rule
+ * on the element beats the family inherited from the page around it — so
+ * setting the family on `.magazine-page` alone left every heading on this page
+ * still running on Overpass. Each has to be named here to actually change.
+ */
+.magazine-page h1,
+.magazine-page h2,
+.magazine-page h3,
+.magazine-page h4,
+.magazine-page h5,
+.magazine-page h6,
+.magazine-page .card-title,
+.magazine-page .feature-title,
+.magazine-page .stage-title,
+.magazine-page .news-item-title,
+.magazine-page .team-name,
+.magazine-page .magazine-back-title,
+.magazine-page .magazine-quote blockquote,
+.magazine-page .testimonial-quote {
+  font-family: var(--font-minion), Georgia, 'Times New Roman', serif;
+}
+
+.magazine-page h1,
+.magazine-page h2,
+.magazine-page h3,
+.magazine-page h4,
+.magazine-page h5,
+.magazine-page h6 {
+  font-weight: 700;
+  /* The sans wanted −0.02em to stop wide headings falling apart. Minion is
+     already tightly fitted, so the same value closes the counters. */
+  letter-spacing: -0.005em;
+  line-height: 1.14;
+}
+
+.magazine-page h1 {
+  font-size: clamp(2.5rem, 1.9rem + 3vw, 4.25rem);
+}
+
+.magazine-page h2 {
+  font-size: clamp(1.85rem, 1.5rem + 1.7vw, 2.75rem);
+}
+
+.magazine-page h3 {
+  font-size: clamp(1.3rem, 1.15rem + 0.7vw, 1.6rem);
+  letter-spacing: 0;
+}
+
+/* The standfirst under a section heading. Set larger and lighter in colour so
+   it reads as introduction rather than as the first paragraph of the body. */
+.magazine-page .lede {
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/*
+ * Eyebrows become small capitals rather than uppercased letters. A serif has
+ * real small caps drawn for the purpose — shorter, and weighted to sit beside
+ * lowercase — where `text-transform: uppercase` just makes full capitals that
+ * shout at this size.
+ */
+.magazine-page .eyebrow {
+  font-family: var(--font-minion), Georgia, serif;
+  text-transform: none;
+  font-variant-caps: all-small-caps;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+
+/* A pull quote is the one place the italic earns its 63 KB. */
+.magazine-page .magazine-quote blockquote,
+.magazine-page blockquote {
+  font-style: italic;
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 1.75rem);
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+/* Figures in the issue's own metadata are compared down a column, so they take
+   lining, tabular numerals rather than the old-style ones used in prose. */
+.magazine-page .magazine-meta,
+.magazine-page .magazine-back-label {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/*
+ * The whole page, controls included.
+ *
+ * Buttons, labels and the sign-up field inherit the family like everything
+ * else — a form element carries its own font by default rather than taking the
+ * one around it, so each has to be named or it silently falls back to the
+ * browser's.
+ */
+.magazine-page button,
+.magazine-page input,
+.magazine-page select,
+.magazine-page textarea,
+.magazine-page optgroup,
+.magazine-page option {
+  font-family: inherit;
+}
+
+/*
+ * One exception, and it is about numerals rather than the typeface: text a
+ * person types keeps lining figures. Old-style figures step above and below
+ * the baseline, which beside a caret in an input reads as a rendering fault
+ * rather than as a typographic choice.
+ */
+.magazine-page input,
+.magazine-page textarea,
+.magazine-page select {
+  font-variant-numeric: lining-nums;
+}
+
+/*
+ * Every issue, in a row.
+ *
+ * A rail rather than a grid. Issues are published in order and read in order,
+ * so the newest stays where the eye already is instead of being pushed down a
+ * line each time another one appears — and a horizontal run of covers looks
+ * like a shelf, which is what a back catalogue is.
+ *
+ * It scrolls rather than wraps. With one issue it reads as a single card and
+ * nothing suggests there should be more; with a dozen it stays one gesture
+ * wide instead of turning the panel into a wall.
+ */
+.magazine-rail-head {
+  max-width: 44rem;
+}
+
+.magazine-rail {
+  display: flex;
+  gap: clamp(1.25rem, 1rem + 1vw, 2rem);
+  margin: clamp(2rem, 1.6rem + 1.6vw, 3rem) 0 0;
+  padding: 0 0 1rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* Room for the focus ring on the first and last card, which would otherwise
+     be clipped by the scroll container. */
+  scroll-padding-inline: 0.25rem;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+}
+
+.magazine-rail::-webkit-scrollbar {
+  height: 0.5rem;
+}
+
+.magazine-rail::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: rgb(255 255 255 / 0.22);
+}
+
+.magazine-rail-item {
+  flex: 0 0 auto;
+  width: min(24rem, 78vw);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The cover is the link. It carries the whole issue, so it takes the click
+   rather than making someone find a small one underneath it. */
+.magazine-rail-cover {
+  display: block;
+  border-radius: var(--r-media);
+  overflow: hidden;
+  background-color: rgb(255 255 255 / 0.06);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.magazine-rail-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.magazine-rail-cover:hover,
+.magazine-rail-cover:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 0.35);
+}
+
+.magazine-rail-label {
+  margin-top: 1.1rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange-400, #ff7c33);
+}
+
+.magazine-rail-title {
+  margin-top: 0.35rem;
+  color: var(--on-dark);
+}
+
+.magazine-rail-meta {
+  margin-top: 0.5rem;
+  color: rgb(255 255 255 / 0.7);
+  font-variant-numeric: lining-nums;
+}
+
+/* Pushed to the foot of the card so the buttons line up across the rail even
+   when one issue's name runs to two lines. */
+.magazine-rail-actions {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

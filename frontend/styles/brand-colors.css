@@ -3668,3 +3668,62 @@ main > section.bg-white {
 
 /* The image sits above the page block and below the gutter. */
 .magazine-wrap { z-index: 2; }
+
+/* A menu entry for something announced but not yet published. Small, and
+   deliberately not the brand orange — this is a note, not a call to action. */
+.mega-soon {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background-color: var(--charcoal-100, #edecef);
+  color: var(--ink-muted);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* The podcast page's placeholder mark. A tinted disc rather than invented
+   artwork: there is no cover yet, and a placeholder that looks like a cover
+   would be read as one. */
+.podcast-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  background-color: var(--cream);
+  color: var(--brand-orange-text);
+}
+
+/*
+ * The About page's flat two-tone icons.
+ *
+ * One drawing, two settings. On a light section the base is the brand charcoal
+ * and the accent is the orange; on an orange card the base goes white and the
+ * accent to the pale tint, because charcoal-on-orange is unreadable and a
+ * second set of drawings for the dark surface would be two things to keep in
+ * step.
+ */
+.feature-ico {
+  /* One flat colour, the same tint the home page marks use. The shapes are cut
+     out with a mask inside the SVG, so there is nothing to set here but the
+     colour and the size. */
+  color: var(--brand-orange-300, #ffa26e);
+  /* Large enough for the detail to survive — the filament in the bulb and the
+     notch in the heart are a pixel or two at 40px, which is the same as not
+     drawing them. Scales down on a phone, where the cards narrow anyway. */
+  width: clamp(3rem, 2.6rem + 1.2vw, 3.75rem);
+  height: clamp(3rem, 2.6rem + 1.2vw, 3.75rem);
+}
+
+/* On an orange card the tint would vanish into the background. */
+.surface-brand .feature-ico,
+.panel-brand .feature-ico,
+.surface-dark .feature-ico,
+.panel-dark .feature-ico,
+.on-dark-surface .feature-ico {
+  color: #ffffff;
+}

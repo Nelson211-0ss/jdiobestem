@@ -54,8 +54,8 @@ export default function Footer() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/programs" className="block py-2 text-white/75 transition hover:text-orange-400">
-                        <span>Programs</span>
+                      <Link href="/secondary-research" className="block py-2 text-white/75 transition hover:text-orange-400">
+                        <span>Science Fair</span>
                       </Link>
                     </li>
                     <li>

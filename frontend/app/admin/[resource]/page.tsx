@@ -5,6 +5,7 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DataTable from '@/components/admin/DataTable';
 import { ListCard, ListHeader } from '@/components/admin/Shell';
+import StripeSyncButton from '@/components/admin/StripeSyncButton';
 import { api, can, getIdentity, getOptionLists, type Page } from '@/lib/admin/api';
 import { RESOURCE_BY_KEY, withOptions } from '@/lib/admin/resources';
 
@@ -63,13 +64,17 @@ export default async function ResourceListPage({
         title={resource.label}
         subtitle={resource.description}
         actions={
-          !resource.noCreate && can(identity, key, 'add') ? (
-            <Button variant="accent" asChild>
-              <Link href={`/admin/${key}/new`}>
-                <Plus /> New {resource.singular}
-              </Link>
-            </Button>
-          ) : null
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Only the donations table has anywhere to pull from. */}
+            {key === 'donations' && can(identity, key, 'add') ? <StripeSyncButton /> : null}
+            {!resource.noCreate && can(identity, key, 'add') ? (
+              <Button variant="accent" asChild>
+                <Link href={`/admin/${key}/new`}>
+                  <Plus /> New {resource.singular}
+                </Link>
+              </Button>
+            ) : null}
+          </div>
         }
       />
 
@@ -79,6 +84,7 @@ export default async function ResourceListPage({
         count={data.count}
         page={page}
         pageSize={PAGE_SIZE}
+        canEdit={!resource.readOnly && can(identity, key, 'change')}
       />
     </ListCard>
   );

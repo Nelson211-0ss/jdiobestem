@@ -98,8 +98,8 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
                 <h3 className="mt-4 text-2xl">{text(blocks, "h3.what-a-student-gets", "What a student gets")}</h3>
                 <p className="text-charcoal-600">{text(blocks, "p.member-students-are-matched-with", "Member students are matched with someone working in the field they are curious about. Over a cohort, that becomes guidance on subject choices, university applications, and career direction — plus the thing no syllabus provides: a working adult who takes the question seriously.")}</p>
                 <p className="mt-3 text-charcoal-600">{text(blocks, "p.mentorship-is-open-to-students", "Mentorship is open to students already in a foundation programme — the Youth STEM School, the Science Fair, or a scholarship.")}</p>
-                <Link href="/programs" className="btn-ghost mt-auto self-start pt-6">
-                  See the programmes
+                <Link href="/secondary-research" className="btn-ghost mt-auto self-start pt-6">
+                  See the Science Fair
                   <Icon name="arrow-right" />
                 </Link>
               </div>

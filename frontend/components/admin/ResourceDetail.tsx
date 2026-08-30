@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import type { Resource } from '@/lib/admin/resources';
 import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
-import { DetailRow, DetailSection } from './Shell';
+import { DetailSection, DetailTable, DetailTableRow } from './Shell';
 
 /**
  * A record shown as a record, not as a form nobody may submit.
@@ -112,19 +112,19 @@ export default function ResourceDetail({
 
   return (
     <div className="space-y-8">
-      <DetailSection>
+      <DetailTable>
         {resource.fields
           .filter((f) => f.name !== 'changes' && f.name !== 'change_summary')
           .map((field) => (
-            <DetailRow key={field.name} label={field.label}>
+            <DetailTableRow key={field.name} label={field.label}>
               {field.name === 'action_display' && record[field.name] ? (
                 <Badge variant="secondary">{String(record[field.name])}</Badge>
               ) : (
                 formatValue(record[field.name], field.label)
               )}
-            </DetailRow>
+            </DetailTableRow>
           ))}
-      </DetailSection>
+      </DetailTable>
 
       {hasChanges ? <Changes changes={changes as Record<string, unknown>} /> : null}
     </div>

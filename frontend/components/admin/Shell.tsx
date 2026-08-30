@@ -51,6 +51,7 @@ export function FormShell({
   title,
   children,
   footer,
+  actions,
   wide = false,
 }: {
   backHref: string;
@@ -59,17 +60,22 @@ export function FormShell({
   title: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
+  /** Sits beside the back link — where Edit goes on a record being read. */
+  actions?: React.ReactNode;
   /** The story editor needs room for its preview; record forms do not. */
   wide?: boolean;
 }) {
   return (
     <div className="pb-24">
-      <Link
-        href={backHref}
-        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" /> {backLabel}
-      </Link>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Link
+          href={backHref}
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" /> {backLabel}
+        </Link>
+        {actions}
+      </div>
 
       <div className={cn('mx-auto mt-8', wide ? 'max-w-6xl' : 'max-w-3xl')}>
         <div className="text-center">
@@ -88,6 +94,45 @@ export function FormShell({
         </div>
       ) : null}
     </div>
+  );
+}
+
+/**
+ * A record shown as a table: one row per field, the name on the left and the
+ * value on the right.
+ *
+ * The same shape as the list the record came from, so reading one row and
+ * reading one record feel like the same act — and a long record stays scannable
+ * where a run of loose label/value pairs starts to drift.
+ */
+export function DetailTable({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="overflow-hidden rounded-xl border">
+      <table className="w-full text-sm">
+        <tbody className="divide-y">{children}</tbody>
+      </table>
+    </div>
+  );
+}
+
+/** One field in a `DetailTable`. */
+export function DetailTableRow({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <tr className="align-top">
+      <th
+        scope="row"
+        className="w-[38%] max-w-[16rem] bg-muted/30 px-4 py-3 text-left font-medium text-muted-foreground"
+      >
+        {label}
+      </th>
+      <td className="px-4 py-3 font-semibold">{children}</td>
+    </tr>
   );
 }
 

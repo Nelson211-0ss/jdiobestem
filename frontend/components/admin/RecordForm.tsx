@@ -397,7 +397,16 @@ export default function RecordForm({
                 <Input
                   id={id}
                   className="h-12"
-                  type={kind === 'date' ? 'date' : kind === 'email' ? 'email' : 'text'}
+                  type={
+                    kind === 'date'
+                      ? 'date'
+                      : kind === 'email'
+                        ? 'email'
+                        : kind === 'url'
+                          ? 'url'
+                          : 'text'
+                  }
+                  placeholder={kind === 'url' ? 'https://' : undefined}
                   value={String(value ?? '')}
                   disabled={!canChange}
                   aria-invalid={Boolean(invalid)}

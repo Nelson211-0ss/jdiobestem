@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { text } from '@/lib/site-content';
+import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 
 export default function ScholarshipContent({ blocks }: { blocks: Record<string, string> }) {
@@ -34,7 +35,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                 <article className="sr-fade-up flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
                   <div className="surface-brand p-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true"><Icon name="award" className="h-6 w-6"/></span>
+                      <FeatureIcon name="award" className="feature-ico shrink-0" />
                       <span className="on-dark inline-flex items-center gap-1.5 rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">
                         <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Closed
                       </span>
@@ -46,19 +47,19 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                     <p className="text-base leading-7 text-slate-600">{text(blocks, "p.established-through-the-generosity-of", "Established through the generosity of Dr. Ron and Cara Beer, this scholarship helps remove financial barriers for students pursuing STEM education.")}</p>
                     <dl className="mt-6 space-y-4">
                       <div className="flex items-start gap-3">
-                        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="dollar-sign" className="h-4 w-4"/></span>
+                        <FeatureIcon name="money" className="feature-ico mt-0.5 shrink-0" />
                         <div><dt className="text-sm font-bold text-slate-900">Award Amount</dt><dd className="text-sm text-slate-600">Varies by year</dd></div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="cpu" className="h-4 w-4"/></span>
+                        <FeatureIcon name="chip" className="feature-ico mt-0.5 shrink-0" />
                         <div><dt className="text-sm font-bold text-slate-900">Field</dt><dd className="text-sm text-slate-600">STEM degrees</dd></div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="check-circle" className="h-4 w-4"/></span>
+                        <FeatureIcon name="done" className="feature-ico mt-0.5 shrink-0" />
                         <div><dt className="text-sm font-bold text-slate-900">Eligibility</dt><dd className="text-sm text-slate-600">Academic excellence, financial need, leadership potential</dd></div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="gift" className="h-4 w-4"/></span>
+                        <FeatureIcon name="gift" className="feature-ico mt-0.5 shrink-0" />
                         <div><dt className="text-sm font-bold text-slate-900">Support Includes</dt><dd className="text-sm text-slate-600">Tuition assistance, mentorship, leadership development</dd></div>
                       </div>
                     </dl>
@@ -73,7 +74,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                 <article className="sr-fade-up flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
                   <div className="surface-brand p-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true"><Icon name="award" className="h-6 w-6"/></span>
+                      <FeatureIcon name="award" className="feature-ico shrink-0" />
                       <span className="on-dark inline-flex items-center gap-1.5 rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">
                         <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Open
                       </span>
@@ -87,15 +88,15 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                     <p className="mt-5 text-sm font-bold text-slate-900">{text(blocks, "p.this-scholarship-includes", "This scholarship includes")}</p>
                     <ul className="mt-3 space-y-3">
                       <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="dollar-sign" className="h-4 w-4"/></span>
+                        <FeatureIcon name="money" className="feature-ico shrink-0" />
                         {' '}Financial support
                       </li>
                       <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="book-open" className="h-4 w-4"/></span>
+                        <FeatureIcon name="book" className="feature-ico shrink-0" />
                         {' '}Academic encouragement
                       </li>
                       <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="users" className="h-4 w-4"/></span>
+                        <FeatureIcon name="people" className="feature-ico shrink-0" />
                         {' '}Professional mentorship
                       </li>
                     </ul>
@@ -109,7 +110,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                 <article className="sr-fade-up flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
                   <div className="surface-brand p-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/25" aria-hidden="true"><Icon name="award" className="h-6 w-6"/></span>
+                      <FeatureIcon name="award" className="feature-ico shrink-0" />
                       <span className="on-dark inline-flex items-center gap-1.5 rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">
                         <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Open
                       </span>
@@ -122,15 +123,15 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                     <p className="mt-5 text-sm font-bold text-slate-900">{text(blocks, "p.this-scholarship-includes-2", "This scholarship includes")}</p>
                     <ul className="mt-3 space-y-3">
                       <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="dollar-sign" className="h-4 w-4"/></span>
+                        <FeatureIcon name="money" className="feature-ico shrink-0" />
                         {' '}Financial support
                       </li>
                       <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="compass" className="h-4 w-4"/></span>
+                        <FeatureIcon name="compass" className="feature-ico shrink-0" />
                         {' '}Travel &amp; research grants
                       </li>
                       <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-orange-700" aria-hidden="true"><Icon name="users" className="h-4 w-4"/></span>
+                        <FeatureIcon name="people" className="feature-ico shrink-0" />
                         {' '}Professional mentorship
                       </li>
                     </ul>
@@ -157,22 +158,22 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
               </div>
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true"><Icon name="dollar-sign" className="h-6 w-6"/></span>
+                  <FeatureIcon name="money" className="feature-ico shrink-0" />
                   <h3 className="mt-5 text-lg font-bold text-slate-900">{text(blocks, "h3.tuition-assistance", "Tuition Assistance")}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.reducing-the-financial-barriers-to", "Reducing the financial barriers to STEM education.")}</p>
                 </div>
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true"><Icon name="users" className="h-6 w-6"/></span>
+                  <FeatureIcon name="people" className="feature-ico shrink-0" />
                   <h3 className="mt-5 text-lg font-bold text-slate-900">Mentorship</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.guidance-from-engineers-scientists-and", "Guidance from engineers, scientists, and educators.")}</p>
                 </div>
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true"><Icon name="flag" className="h-6 w-6"/></span>
+                  <FeatureIcon name="flag" className="feature-ico shrink-0" />
                   <h3 className="mt-5 text-lg font-bold text-slate-900">{text(blocks, "h3.leadership-development", "Leadership Development")}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.building-the-skills-to-lead", "Building the skills to lead in STEM and community.")}</p>
                 </div>
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white" aria-hidden="true"><Icon name="trending-up" className="h-6 w-6"/></span>
+                  <FeatureIcon name="growth" className="feature-ico shrink-0" />
                   <h3 className="mt-5 text-lg font-bold text-slate-900">{text(blocks, "h3.professional-growth", "Professional Growth")}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.pathways-into-research-internships-and", "Pathways into research, internships, and careers.")}</p>
                 </div>

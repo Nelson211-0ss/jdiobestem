@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Plus } from 'lucide-react';
+import { Pencil, Plus } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import FilePreview from '@/components/admin/FilePreview';
 import { api, can, getIdentity, type Page } from '@/lib/admin/api';
 import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import { formatNumber, isMoneyLabel } from '@/lib/format';
+import SiteFavicon from '@/components/admin/SiteFavicon';
 import BoardFilters from '@/components/admin/BoardFilters';
 import { ListCard, ListHeader } from '@/components/admin/Shell';
 
@@ -60,13 +61,17 @@ export default async function BoardPage({
 
   // Long text, files and relations are opened on the record rather than
   // squeezed into a cell.
-  // File columns come first: a receipt is the reason the row exists, and the
-  // six-column cap would otherwise drop it off the end on a wide board.
+  // Pictures first: a receipt or a funder's icon is what the eye finds the
+  // row by, and the six-column cap would otherwise drop it off the end on a
+  // wide board.
   const listable = board.columns.filter((c) => c.show_in_list && c.monday_id !== 'name');
+  const isThumb = (t: string) => t === 'file' || t === 'link';
   const columns = [
-    ...listable.filter((c) => c.column_type === 'file'),
-    ...listable.filter((c) => c.column_type !== 'file'),
+    ...listable.filter((c) => isThumb(c.column_type)),
+    ...listable.filter((c) => !isThumb(c.column_type)),
   ].slice(0, 6);
+
+  const canEdit = can(identity, 'boards', 'change');
 
   return (
     <div>
@@ -113,7 +118,8 @@ export default async function BoardPage({
               </TableRow>
             ) : (
               data.results.map((record) => (
-                <ClickableRow key={record.id} href={`/admin/operations/${boardId}/${record.id}`}>
+                <ClickableRow key={record.id} href={`/admin/operations/${boardId}/${record.id}`}
+                  className="group/row">
                   <TableCell className="font-medium">
                     {/* There was a badge here marking records created in the
                         dashboard rather than imported from monday. Every record
@@ -132,7 +138,43 @@ export default async function BoardPage({
                         </TableCell>
                       );
                     }
-                    const shown = displayValue(record.values?.[c.monday_id]);
+                    // A website shows as the site's own icon and its host.
+                    // The full URL is unreadable in a cell and the same for
+                    // every row until the very end of it.
+                    if (c.column_type === 'link') {
+                      const url = String(record.values?.[c.monday_id] ?? '');
+                      let host = '';
+                      try {
+                        host = url ? new URL(url).hostname.replace(/^www\./, '') : '';
+                      } catch {
+                        host = url;
+                      }
+                      return (
+                        <TableCell key={c.monday_id}>
+                          {url ? (
+                            <span className="flex items-center gap-2">
+                              <SiteFavicon url={url} name={record.name} />
+                              <span className="truncate">{host}</span>
+                            </span>
+                          ) : (
+                            <span className="text-muted-foreground">&mdash;</span>
+                          )}
+                        </TableCell>
+                      );
+                    }
+                    const raw = displayValue(record.values?.[c.monday_id]);
+                    // Dates are stored as `2026-11-30`, which is right for
+                    // sorting and wrong for reading. Shown the way every other
+                    // table in the dashboard shows one.
+                    const shown =
+                      c.column_type === 'date' && /^\d{4}-\d{2}-\d{2}/.test(raw)
+                        ? new Date(`${raw.slice(0, 10)}T00:00:00Z`).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            timeZone: 'UTC',
+                          })
+                        : raw;
                     const isStatus = c.column_type === 'status';
                     return (
                       <TableCell
@@ -164,13 +206,28 @@ export default async function BoardPage({
                   {board.groups.length > 1 ? (
                     <TableCell className="text-muted-foreground">{record.group_title}</TableCell>
                   ) : null}
-                  <TableCell className="text-right">
-                    <Link
-                      href={`/admin/operations/${boardId}/${record.id}`}
-                      className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
-                    >
-                      Open
-                    </Link>
+                  <TableCell className="w-px whitespace-nowrap text-right">
+                    <span className="flex items-center justify-end gap-3">
+                      <Link
+                        href={`/admin/operations/${boardId}/${record.id}`}
+                        className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
+                      >
+                        Open
+                      </Link>
+                      {/* Revealed on hover, and on keyboard focus — a control
+                          that only appears under a pointer cannot be reached by
+                          anyone navigating with a keyboard. */}
+                      {canEdit ? (
+                        <Link
+                          href={`/admin/operations/${boardId}/${record.id}/edit`}
+                          aria-label={`Edit ${record.name}`}
+                          title="Edit"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-muted hover:text-foreground focus-visible:opacity-100 group-hover/row:opacity-100"
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Link>
+                      ) : null}
+                    </span>
                   </TableCell>
                 </ClickableRow>
               ))

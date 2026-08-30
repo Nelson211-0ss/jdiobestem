@@ -1,12 +1,8 @@
 import { notFound } from 'next/navigation';
 
-import Link from 'next/link';
-import { Pencil } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
-import RecordDetail from '@/components/admin/RecordDetail';
+import RecordForm from '@/components/admin/RecordForm';
 import { FormShell } from '@/components/admin/Shell';
-import { api, can, getIdentity } from '@/lib/admin/api';
+import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
 import type { BoardDetail, BoardRecord } from '@/lib/admin/boards';
 
 export const dynamic = 'force-dynamic';
@@ -17,7 +13,7 @@ export default async function RecordPage({
   params: Promise<{ boardId: string; recordId: string }>;
 }) {
   const { boardId, recordId } = await params;
-  const identity = await getIdentity();
+  const [identity, options] = await Promise.all([getIdentity(), getOptionLists()]);
   if (!identity || !can(identity, 'boards', 'view')) notFound();
 
   let board: BoardDetail;
@@ -31,25 +27,22 @@ export default async function RecordPage({
     notFound();
   }
 
-  const editable = can(identity, 'boards', 'change');
+  if (!can(identity, 'boards', 'change')) notFound();
 
   return (
     <FormShell
-      backHref={`/admin/operations/${boardId}`}
-      backLabel={`Back to ${board.name.toLowerCase()}`}
-      eyebrow={board.name}
+      backHref={`/admin/operations/${boardId}/${recordId}`}
+      backLabel={`Back to ${record.name}`}
+      eyebrow={`Editing · ${board.name}`}
       title={record.name}
-      actions={
-        editable ? (
-          <Button variant="outline" asChild>
-            <Link href={`/admin/operations/${boardId}/${recordId}/edit`}>
-              <Pencil /> Edit
-            </Link>
-          </Button>
-        ) : null
-      }
     >
-      <RecordDetail board={board} record={record} />
+      <RecordForm
+        board={board}
+        options={options}
+        record={record}
+        canChange
+        canDelete={can(identity, 'boards', 'delete')}
+      />
     </FormShell>
   );
 }

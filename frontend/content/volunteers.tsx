@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { text, type SiteTeamMember } from '@/lib/site-content';
+import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 import VolunteerForm from '@/components/VolunteerForm';
 
@@ -314,12 +315,7 @@ export default function VolunteersContent({
           <div className="grid gap-8 md:grid-cols-2">
             <article className="card">
               <div className="card-body">
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-xl bg-cream-100 text-orange-700"
-                  aria-hidden="true"
-                >
-                  <Icon name="briefcase" className="h-6 w-6" />
-                </span>
+                <FeatureIcon name="work" className="feature-ico" />
                 <h3 className="mt-4 text-2xl">{text(blocks, "h3.partner-with-us", "Partner with us")}</h3>
                 <p className="text-charcoal-600">{text(blocks, "p.schools-universities-and-companies-work", "Schools, universities, and companies work with the foundation on sessions, facilities, and placements. If your organisation could open a door, we would like to hear from you.")}</p>
                 <Link href="/contact" className="btn-ghost mt-auto self-start pt-6">
@@ -331,12 +327,7 @@ export default function VolunteersContent({
 
             <article className="card">
               <div className="card-body">
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-xl bg-cream-100 text-orange-700"
-                  aria-hidden="true"
-                >
-                  <Icon name="heart" className="h-6 w-6" />
-                </span>
+                <FeatureIcon name="service" className="feature-ico" />
                 <h3 className="mt-4 text-2xl">{text(blocks, "h3.support-a-student", "Support a student")}</h3>
                 <p className="text-charcoal-600">{text(blocks, "p.scholarships-materials-and-travel-to", "Scholarships, materials, and travel to competitions are all funded. A donation pays for the part of a student’s path that goodwill cannot.")}</p>
                 <Link href="/donate" className="btn-ghost mt-auto self-start pt-6">

@@ -23,6 +23,10 @@ const nextConfig = {
     return [
       { source: '/faqs', destination: '/contact#faqs', permanent: true },
       { source: '/regina-henry-scholarship', destination: '/scholarship', permanent: true },
+      // The programmes index was folded away; the Science Fair is what its
+      // links now point at. Redirected rather than left to 404, because the
+      // address is in old newsletters and search results.
+      { source: '/programs', destination: '/secondary-research', permanent: true },
     ];
   },
 };

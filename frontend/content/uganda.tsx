@@ -29,8 +29,8 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
                   <Link href="/donate" className="btn-on-brand">
                     Sponsor a Student
                   </Link>
-                  <Link href="/programs" className="btn-outline-on-brand">
-                    All Programs
+                  <Link href="/secondary-research" className="btn-outline-on-brand">
+                    The Science Fair
                   </Link>
                 </div>
               </div>
@@ -143,7 +143,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
                 <h2 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.student-led-innovation", "Student-led innovation")}</h2>
                 <p className="mt-6 text-lg leading-8 text-stone-600">{text(blocks, "p.teams-identify-a-problem-in", "Teams identify a problem in their own community and build toward it — assistive devices, robotics, translation tools, environmental monitoring. The brief is always local.")}</p>
-                <Link href="/programs" className="mt-8 btn-primary">
+                <Link href="/secondary-research" className="mt-8 btn-primary">
                   Explore the projects <Icon name="arrow-right" className="h-4 w-4"/>
                 </Link>
               </div>

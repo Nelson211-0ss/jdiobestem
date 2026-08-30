@@ -96,7 +96,9 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
     );
   }
   const live = isPublished(featured);
-  const file = featured.file;
+  // An issue with no PDF has nothing to offer here, so it is left out rather
+  // than shown as a card whose buttons do nothing.
+  const downloadable = issues.filter((issue) => issue.file);
 
   return (
     <>
@@ -164,7 +166,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
                 {featured.stories.map((story) => (
                   <article key={story.title} className="card-plain">
                     <p className="eyebrow">Cover story</p>
-                    <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-charcoal-900">
+                    <h3 className="mt-3 text-2xl text-charcoal-900">
                       {story.title}
                     </h3>
                     <p className="mt-3 text-charcoal-600">{story.blurb}</p>
@@ -184,68 +186,85 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
           </section>
         ) : null}
 
-        {/* Read / download */}
-        {file ? (
-          <section className="section-tight">
+        {/* Read / download — every issue, side by side. */}
+        {downloadable.length ? (
+          <section className="section-tight" id="issues">
             <div className="container-page">
               <div className="panel-dark">
-                <div className="split">
-                  {featured.wrap ? (
-                    <div className="magazine-spread">
-                      <img
-                        src={featured.wrap}
-                        alt={featured.wrapAlt ?? ''}
-                        width={1800}
-                        height={1138}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                  ) : null}
-
-                  <div>
-                    <p className="eyebrow">Read it</p>
-                    <h2 className="mt-3">
-                      {live ? `Download ${featured.name}` : `Download the ${featured.label} cover`}
-                    </h2>
-                    <p className="mt-5 text-lg leading-8 text-white/80">
-                      {live
+                <div className="magazine-rail-head">
+                  <p className="eyebrow">Read it</p>
+                  <h2 className="mt-3">
+                    {downloadable.length === 1
+                      ? live
+                        ? `Download ${featured.name}`
+                        : `Download the ${featured.label} cover`
+                      : 'Download an issue'}
+                  </h2>
+                  <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
+                    {downloadable.length === 1
+                      ? live
                         ? 'A free PDF — read it on any device, print it for a classroom, or pass it on to a student who needs to see what is possible.'
-                        : 'The cover is available now as a free PDF. The issue itself is still in production — sign up below and we will send it the moment it is ready.'}
-                    </p>
-
-                    <dl className="magazine-meta">
-                      <div>
-                        <dt>Format</dt>
-                        <dd>PDF</dd>
-                      </div>
-                      <div>
-                        <dt>Size</dt>
-                        <dd>{file.size}</dd>
-                      </div>
-                      <div>
-                        <dt>Contains</dt>
-                        <dd>{file.contains}</dd>
-                      </div>
-                    </dl>
-
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                      <a href={file.href} download={file.filename} className="btn-primary">
-                        <Icon name="download" />
-                        Download PDF
-                      </a>
-                      <a
-                        href={file.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-ghost"
-                      >
-                        <Icon name="external-link" />
-                        Open in browser
-                      </a>
-                    </div>
-                  </div>
+                        : 'The cover is available now as a free PDF. The issue itself is still in production — sign up below and we will send it the moment it is ready.'
+                      : 'Every issue is a free PDF — read it on any device, print it for a classroom, or pass it on to a student who needs to see what is possible.'}
+                  </p>
                 </div>
+
+                {/* A rail rather than a grid: issues arrive in order and are
+                    read in order, and a row that scrolls keeps the newest
+                    where the eye already is instead of pushing it down a line
+                    every time another one is published. */}
+                <ul className="magazine-rail">
+                  {downloadable.map((issue) => {
+                    const issueFile = issue.file!;
+                    const published = isPublished(issue);
+                    return (
+                      <li key={issue.id} className="magazine-rail-item">
+                        <a
+                          href={issueFile.href}
+                          download={issueFile.filename}
+                          className="magazine-rail-cover"
+                          aria-label={`Download ${issue.name} (PDF, ${issueFile.size})`}
+                        >
+                          <img
+                            src={issue.wrap ?? issue.cover}
+                            alt={issue.wrapAlt ?? issue.coverAlt}
+                            width={1800}
+                            height={1138}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </a>
+
+                        <p className="magazine-rail-label">{issue.label}</p>
+                        <h3 className="magazine-rail-title">{issue.name}</h3>
+                        <p className="magazine-rail-meta">
+                          PDF · {issueFile.size} · {issueFile.contains}
+                          {published ? '' : ' · in production'}
+                        </p>
+
+                        <div className="magazine-rail-actions">
+                          <a
+                            href={issueFile.href}
+                            download={issueFile.filename}
+                            className="btn-primary"
+                          >
+                            <Icon name="download" />
+                            Download
+                          </a>
+                          <a
+                            href={issueFile.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-ghost"
+                          >
+                            <Icon name="external-link" />
+                            Open
+                          </a>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
           </section>
@@ -323,8 +342,8 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
                     Pitch a story
                     <Icon name="arrow-right" />
                   </Link>
-                  <Link href="/programs" className="btn-ghost">
-                    See the programs
+                  <Link href="/secondary-research" className="btn-ghost">
+                    See the Science Fair
                   </Link>
                 </div>
               </div>

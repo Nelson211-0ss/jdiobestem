@@ -1,17 +1,13 @@
 import { notFound } from 'next/navigation';
 
-import Link from 'next/link';
-import { Pencil } from 'lucide-react';
-
-import { Button } from '@/components/ui/button';
-import ResourceDetail from '@/components/admin/ResourceDetail';
+import ResourceForm from '@/components/admin/ResourceForm';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
 import { RESOURCE_BY_KEY, withOptions } from '@/lib/admin/resources';
 
 export const dynamic = 'force-dynamic';
 
-export default async function ResourceDetailPage({
+export default async function ResourceEditPage({
   params,
 }: {
   params: Promise<{ resource: string; id: string }>;
@@ -35,28 +31,23 @@ export default async function ResourceDetailPage({
 
   const title = String(record[resource.titleField ?? 'id'] ?? `#${id}`);
 
-  // Opening a record shows the record. Editing is a decision, taken by
-  // pressing Edit, rather than the state a page happens to open in — which is
-  // what put a form in front of anyone who only wanted to read a donation.
-  const editable = !resource.readOnly && can(identity, key, 'change');
+  // Written by the application, never by a person — there is nothing to edit.
+  if (resource.readOnly) notFound();
+  if (!can(identity, key, 'change')) notFound();
 
   return (
     <FormShell
-      backHref={`/admin/${key}`}
-      backLabel={`Back to ${resource.label.toLowerCase()}`}
-      eyebrow={resource.label}
+      backHref={`/admin/${key}/${id}`}
+      backLabel={`Back to ${title}`}
+      eyebrow={`Editing · ${resource.label}`}
       title={title}
-      actions={
-        editable ? (
-          <Button variant="outline" asChild>
-            <Link href={`/admin/${key}/${id}/edit`}>
-              <Pencil /> Edit
-            </Link>
-          </Button>
-        ) : null
-      }
     >
-      <ResourceDetail resource={resource} record={record} />
+      <ResourceForm
+        resource={resource}
+        record={record}
+        canChange
+        canDelete={can(identity, key, 'delete')}
+      />
     </FormShell>
   );
 }

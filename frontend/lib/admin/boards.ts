@@ -67,6 +67,7 @@ export function inputFor(
   | 'people'
   | 'email'
   | 'phone'
+  | 'url'
   | 'readonly' {
   switch (column.column_type) {
     case 'status':
@@ -88,6 +89,11 @@ export function inputFor(
       return 'email';
     case 'phone':
       return 'phone';
+    // A website. It was listed as read-only alongside the structured monday
+    // types, which put it in the table and left it out of the form — so a
+    // column you could see was one you could never fill in.
+    case 'link':
+      return 'url';
     // A receipt, a signed form, a photograph of a delivery. Uploaded and
     // shown: a record of a payment without its receipt is half a record.
     case 'file':
@@ -103,7 +109,6 @@ export function inputFor(
     case 'dependency':
     case 'mirror':
     case 'subtasks':
-    case 'link':
       return 'readonly';
     default:
       return 'text';
@@ -134,6 +139,11 @@ export function validateColumn(column: BoardColumn, value: unknown): string {
   }
   if (kind === 'number') {
     if (!/^[-+]?\d*\.?\d+$/.test(text.replace(/,/g, ''))) return 'Enter a number.';
+  }
+  if (kind === 'url') {
+    if (!/^https?:\/\/[^\s.]+\.[^\s]{2,}$/i.test(text)) {
+      return 'Enter a full web address, starting with https://';
+    }
   }
   if (kind === 'date') {
     const d = new Date(text);
