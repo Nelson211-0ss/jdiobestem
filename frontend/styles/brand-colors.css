@@ -2543,7 +2543,7 @@ main > section.bg-white {
      square box would squash the wide ones.
      Sized for a three-up row — at four-up these were proportionate, but with
      wider columns the same figures read as undersized in the space. */
-  height: clamp(3.75rem, 3rem + 3vw, 5.5rem);
+  height: clamp(2.5rem, 2rem + 2vw, 3.5rem);
   width: auto;
   max-width: 100%;
   color: var(--brand-orange-300, #ffa26e);
