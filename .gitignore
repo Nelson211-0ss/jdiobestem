@@ -24,3 +24,7 @@ deploy/acme/
 deploy/letsencrypt/
 *.pem
 *.key
+.vercel
+.env*
+!.env.example
+!**/.env.example
