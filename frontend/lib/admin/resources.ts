@@ -1372,13 +1372,7 @@ export const RESOURCES: Resource[] = [
         name: 'phone', label: 'School phone', type: 'tel',
         help: "The school's number. A head teacher moves on and the number stays.",
       },
-      { name: 'email', label: 'Email', type: 'email' },
       { name: 'established_on', label: 'Established', type: 'date' },
-      {
-        name: 'bank_account', label: 'Where fees are paid', type: 'text', wide: true,
-        help: 'Kept so a transfer can be checked against it.',
-      },
-      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
     ],
   },
   {

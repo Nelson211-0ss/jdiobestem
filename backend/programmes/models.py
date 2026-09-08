@@ -84,17 +84,10 @@ class School(TimeStampedModel):
     # The school's number. A head teacher moves on and the number stays, which
     # is why this is not named after whoever answers it.
     phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
-    email = models.EmailField(blank=True)
     established_on = models.DateField(null=True, blank=True)
-    bank_account = models.CharField(
-        max_length=200,
-        blank=True,
-        help_text="Where bursary fees are sent, so a transfer can be checked against it.",
-    )
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.ACTIVE, db_index=True
     )
-    notes = models.TextField(blank=True)
 
     class Meta:
         ordering = ["name"]

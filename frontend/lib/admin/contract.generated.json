@@ -1325,10 +1325,6 @@
       }
     },
     "schools": {
-      "bank_account": {
-        "kind": "text",
-        "maxLength": 200
-      },
       "country": {
         "choices": [
           "GL",
@@ -1341,9 +1337,6 @@
       "district": {
         "kind": "text",
         "maxLength": 120
-      },
-      "email": {
-        "kind": "email"
       },
       "established_on": {
         "allowNull": true,
@@ -1363,9 +1356,6 @@
         "kind": "text",
         "maxLength": 200,
         "required": true
-      },
-      "notes": {
-        "kind": "text"
       },
       "phone": {
         "kind": "text",

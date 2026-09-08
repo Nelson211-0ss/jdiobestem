@@ -572,7 +572,7 @@ class SchoolViewSet(StaffViewSet):
     resource = "schools"
     serializer_class = s.SchoolAdminSerializer
     filterset_fields = ["level", "country", "region", "status"]
-    search_fields = ["name", "district", "region", "phone", "email", "notes"]
+    search_fields = ["name", "district", "region", "phone"]
     ordering_fields = ["name", "district", "created_at"]
     ordering = ["name"]
 

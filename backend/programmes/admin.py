@@ -12,7 +12,7 @@ class SchoolAdmin(ExportCsvMixin, admin.ModelAdmin):
     list_display = ("name", "level", "district", "region", "country", "status")
     list_filter = ("level", "country", "region", "status")
     # Required for the autocomplete pickers on the programme records below.
-    search_fields = ("name", "district", "region", "phone", "email")
+    search_fields = ("name", "district", "region", "phone")
     actions = ["export_as_csv"]
 
 
