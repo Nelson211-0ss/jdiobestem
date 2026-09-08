@@ -844,6 +844,9 @@ a.card:hover,
  */
 body:has(.hero-home) .site-nav {
   background-color: transparent;
+  /* Nothing under the bar until the page moves — a shadow over the hero would
+     draw the edge the transparency exists to remove. */
+  box-shadow: none;
 }
 
 body:has(.hero-home) .site-nav.is-scrolled {

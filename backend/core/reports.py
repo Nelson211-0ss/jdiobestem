@@ -35,6 +35,30 @@ RULE = (0xE2 / 255, 0xE0 / 255, 0xDC / 255)
 
 PAGE = pymupdf.paper_rect("a4-l")          # landscape: tables are wide
 PORTRAIT = pymupdf.paper_rect("a4")        # one record reads as a document
+
+#: The Foundation's mark, converted from SVG once and reused on every page.
+#: A failure to load must never cost a report — the rule and wordmark carry the
+#: branding on their own — so this returns None rather than raising.
+_LOGO: "pymupdf.Document | None" = None
+_LOGO_TRIED = False
+
+
+def _logo():
+    global _LOGO, _LOGO_TRIED
+    if _LOGO_TRIED:
+        return _LOGO
+    _LOGO_TRIED = True
+    try:
+        from pathlib import Path
+
+        from django.conf import settings
+
+        path = Path(settings.BASE_DIR) / "static" / "brand" / "logo-mark.svg"
+        svg = pymupdf.open("svg", path.read_bytes())
+        _LOGO = pymupdf.open("pdf", svg.convert_to_pdf())
+    except Exception:
+        _LOGO = None
+    return _LOGO
 MARGIN = 36
 HEADER_H = 74
 FOOTER_H = 30
@@ -77,7 +101,7 @@ class Report:
         return [label for _, label in self.columns]
 
     def cells(self, row: dict) -> list[str]:
-        return [_text(_lookup(row, name)) for name, _ in self.columns]
+        return [_text(_lookup(row, name), label) for name, label in self.columns]
 
     def subtitle(self) -> str:
         shown = len(self.rows)
@@ -103,12 +127,34 @@ def _lookup(row: dict, path: str):
     return current
 
 
-def _text(value) -> str:
+#: Words that make a number money. The dashboard groups these with thousands
+#: separators, and a report that does not is harder to read than the screen.
+MONEY_WORDS = (
+    "amount", "total", "paid", "budget", "cost", "fee", "salary", "price",
+    "balance", "committed", "value", "income", "expense",
+)
+
+
+def _looks_like_money(label: str) -> bool:
+    lowered = label.lower()
+    return any(word in lowered for word in MONEY_WORDS)
+
+
+def _text(value, label: str = "") -> str:
     if value is None or value == "":
         return ""
     if isinstance(value, bool):
         return "Yes" if value else "No"
-    return str(value)
+
+    text = str(value)
+    if label and _looks_like_money(label):
+        try:
+            number = float(text.replace(",", ""))
+        except (TypeError, ValueError):
+            return text
+        # Whole amounts read better without a trailing .00; fractions keep it.
+        return f"{number:,.0f}" if number == int(number) else f"{number:,.2f}"
+    return text
 
 
 def to_csv(report: Report) -> bytes:
@@ -156,18 +202,19 @@ def _css(column_count: int) -> str:
 
 def record_to_pdf(report: RecordReport) -> bytes:
     """One record, portrait, with its related rows beneath it."""
-    blocks = ["<table class=\"pairs\">"]
+    # Label above value rather than a two-column table: Story does not honour a
+    # percentage width on a cell, so the label column collapsed and its text ran
+    # straight over the value beside it.
+    blocks = []
     for label, value in report.pairs:
-        blocks.append(
-            f"<tr><th>{_escape(label)}</th><td>{_escape(_text(value)) or '&#8212;'}</td></tr>"
-        )
-    blocks.append("</table>")
+        shown = _escape(_text(value, label)) or "&#8212;"
+        blocks.append(f'<p class="lbl">{_escape(label)}</p><p class="val">{shown}</p>')
 
     for heading, columns, rows in report.tables:
         blocks.append(f"<p class=\"section\">{_escape(heading)}</p>")
         head = "".join(f"<th>{_escape(l)}</th>" for _, l in columns)
         body = "".join(
-            "<tr>" + "".join(f"<td>{_escape(_text(_lookup(r, n)))}</td>" for n, _ in columns) + "</tr>"
+            "<tr>" + "".join(f"<td>{_escape(_text(_lookup(r, n), l))}</td>" for n, l in columns) + "</tr>"
             for r in rows
         )
         if not body:
@@ -176,14 +223,16 @@ def record_to_pdf(report: RecordReport) -> bytes:
 
     css = """
     body { font-family: sans-serif; font-size: 9pt; color: #3a3b47; }
+    p.lbl { font-size: 7.5pt; color: #6b6c78; margin: 7px 0 0 0; }
+    p.val { font-size: 10pt; color: #3a3b47; margin: 0 0 1px 0; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-    table.pairs th { width: 34%; background-color: #fff1e0; font-weight: bold; }
     th { background-color: #fff1e0; text-align: left; padding: 5px 7px;
-         border-bottom: 0.8px solid #fe5c00; }
-    td { padding: 5px 7px; border-bottom: 0.6px solid #e2e0dc; vertical-align: top; }
+         font-size: 8pt; border-bottom: 0.8px solid #fe5c00; }
+    td { padding: 5px 7px; font-size: 8pt; border-bottom: 0.6px solid #e2e0dc;
+         vertical-align: top; }
     td.empty { color: #6b6c78; }
     p.section { font-size: 10pt; font-weight: bold; color: #fe5c00;
-                margin: 14px 0 4px 0; }
+                margin: 16px 0 4px 0; }
     """
 
     body_rect = pymupdf.Rect(
@@ -218,13 +267,13 @@ def record_to_csv(report: RecordReport) -> bytes:
         writer.writerow([report.heading])
     writer.writerow([])
     for label, value in report.pairs:
-        writer.writerow([label, _text(value)])
+        writer.writerow([label, _text(value, label)])
     for heading, columns, rows in report.tables:
         writer.writerow([])
         writer.writerow([heading])
         writer.writerow([l for _, l in columns])
         for r in rows:
-            writer.writerow([_text(_lookup(r, n)) for n, _ in columns])
+            writer.writerow([_text(_lookup(r, n), l) for n, l in columns])
     return buf.getvalue().encode("utf-8-sig")
 
 
@@ -268,21 +317,29 @@ def _brand(doc: pymupdf.Document, report, page_rect=PAGE) -> None:
             pymupdf.Rect(MARGIN, MARGIN - 6, page_rect.width - MARGIN, MARGIN - 2),
             color=None, fill=ORANGE,
         )
+        mark = _logo()
+        text_x = MARGIN
+        if mark is not None:
+            page.show_pdf_page(
+                pymupdf.Rect(MARGIN, MARGIN + 4, MARGIN + 26, MARGIN + 31), mark, 0
+            )
+            text_x = MARGIN + 34
+
         page.insert_text(
-            (MARGIN, MARGIN + 16), "JDIOBE STEM FOUNDATION",
+            (text_x, MARGIN + 16), "JDIOBE STEM FOUNDATION",
             fontname="hebo", fontsize=9, color=ORANGE, render_mode=0,
         )
         page.insert_text(
-            (MARGIN, MARGIN + 38), report.title,
+            (text_x, MARGIN + 38), report.title,
             fontname="hebo", fontsize=16, color=CHARCOAL,
         )
         page.insert_text(
-            (MARGIN, MARGIN + 54), report.subtitle(),
+            (text_x, MARGIN + 54), report.subtitle(),
             fontname="helv", fontsize=8, color=MUTED,
         )
         if report.note:
             page.insert_text(
-                (MARGIN, MARGIN + 66), report.note,
+                (text_x, MARGIN + 66), report.note,
                 fontname="helv", fontsize=7.5, color=ORANGE,
             )
 

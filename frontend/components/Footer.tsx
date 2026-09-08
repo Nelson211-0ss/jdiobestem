@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <div id="footer">
       <div className="pattern-band" aria-hidden="true" />
-      <footer className="surface-dark bg-charcoal-700 text-white/80">
+      <footer className="surface-dark bg-charcoal-800 text-white/80">
         <div className="container-page pt-14 pb-12">
           <div className="grid grid-cols-1 gap-9 lg:grid-cols-12 lg:gap-10 xl:gap-12">
             {/* Brand */}

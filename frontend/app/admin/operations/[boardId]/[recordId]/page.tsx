@@ -40,7 +40,9 @@ export default async function RecordPage({
     `&fields=${[
       `name:${encodeURIComponent('Name')}`,
       ...board.columns
-        .filter((c) => c.column_type !== 'subtasks')
+        // The board's own Name column holds the same value as the record's
+        // name, which was listing it twice.
+        .filter((c) => c.column_type !== 'subtasks' && c.monday_id !== 'name')
         .map((c) => `values.${c.monday_id}:${encodeURIComponent(c.title)}`),
     ].join(',')}`;
 

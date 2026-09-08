@@ -181,10 +181,15 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
           {/* Shown at every width now, not just from sm up: on a phone the
               donate path was otherwise two taps behind the hamburger. Tighter
               padding below sm so the logo, the button and the hamburger still
-              fit on one line on a small handset. */}
+              fit on one line on a small handset.
+
+              Hidden while the menu is open, because the menu carries its own
+              full-width Donate and two of them on one screen read as a bug. */}
           <Link
             href="/donate"
-            className="btn-primary !px-4 !py-2 !text-sm sm:!px-5 sm:!py-2.5"
+            className={`btn-primary !px-4 !py-2 !text-sm sm:!px-5 sm:!py-2.5${
+              mobileOpen ? ' hidden' : ''
+            }`}
           >
             <span>Donate</span>
           </Link>
@@ -404,7 +409,11 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
           mobileOpen ? ' is-open' : ''
         }`}
       >
-        <div className="flex flex-1 flex-col justify-center gap-1">
+        {/* Top-aligned, not `justify-center`: with four collapsed rows the
+            centred list left a screen-height gap under the bar, and expanding
+            an accordion then jumped every row. Starting at the top keeps the
+            first item where the thumb expects it and stops that jump. */}
+        <div className="flex flex-1 flex-col justify-start gap-1">
           <MobileAccordion
             id="about"
             icon="info"

@@ -25,7 +25,15 @@ from django.http import HttpResponse
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from core.reports import Report, RecordReport, record_to_csv, record_to_pdf, to_csv, to_pdf
+from core.reports import (
+    Report,
+    RecordReport,
+    _lookup,
+    record_to_csv,
+    record_to_pdf,
+    to_csv,
+    to_pdf,
+)
 
 #: Enough for any real report, low enough that a bad filter cannot spin for
 #: minutes building a thousand-page document.
@@ -139,7 +147,9 @@ class ExportableMixin:
         report = RecordReport(
             title=self.export_title(request),
             heading=str(obj)[:160],
-            pairs=[(label, data.get(name)) for name, label in pairs_spec],
+            # _lookup, not data.get: a page record keeps its columns in one
+            # JSON blob, so `values.text8` is a path and a plain get misses it.
+            pairs=[(label, _lookup(data, name)) for name, label in pairs_spec],
             tables=self.export_detail_tables(obj),
             generated_by=(person.get_full_name() or person.username) if person else "",
             generated_at=datetime.now(),
