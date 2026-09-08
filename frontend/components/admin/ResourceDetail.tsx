@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import type { Resource } from '@/lib/admin/resources';
+import type { Field, Resource } from '@/lib/admin/resources';
 import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
 import { DetailSection, DetailTable, DetailTableRow } from './Shell';
 
@@ -13,6 +13,29 @@ import { DetailSection, DetailTable, DetailTableRow } from './Shell';
  * is the same label-and-value layout used elsewhere for detail, so a record
  * that cannot change simply looks like a record.
  */
+
+/**
+ * What a field should actually show.
+ *
+ * A select stores a value, not the thing a reader wants: `office` holds a row
+ * id and a choices field holds a slug, so the page read "Office 1". The API
+ * already carries the readable form beside it — `_display` for a Django
+ * choices field, `_name` for a foreign key — so prefer those, then the field's
+ * own options, and only then the stored value.
+ */
+function displayValue(field: Field, record: Record<string, unknown>): unknown {
+  for (const key of [`${field.name}_display`, `${field.name}_name`]) {
+    const readable = record[key];
+    if (readable !== undefined && readable !== null && readable !== '') return readable;
+  }
+
+  const raw = record[field.name];
+  if (field.options?.length && raw !== null && raw !== undefined && raw !== '') {
+    const match = field.options.find((option) => option.value === String(raw));
+    if (match) return match.label;
+  }
+  return raw;
+}
 
 function formatValue(value: unknown, label = ''): React.ReactNode {
   if (value === null || value === undefined || value === '') {
@@ -120,7 +143,7 @@ export default function ResourceDetail({
               {field.name === 'action_display' && record[field.name] ? (
                 <Badge variant="secondary">{String(record[field.name])}</Badge>
               ) : (
-                formatValue(record[field.name], field.label)
+                formatValue(displayValue(field, record), field.label)
               )}
             </DetailTableRow>
           ))}
