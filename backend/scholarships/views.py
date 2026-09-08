@@ -23,14 +23,14 @@ class ScopedViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
 
 class ScholarshipViewSet(ScopedViewSet):
     queryset = (
-        Scholarship.objects.select_related("office", "managed_by", "school")
+        Scholarship.objects.select_related("office", "school")
         .prefetch_related("benefits", "payments")
     )
     resource = "scholarships"
     serializer_class = ScholarshipSerializer
-    filterset_fields = ["status", "school__level", "country", "office", "sponsor_type"]
+    filterset_fields = ["status", "school__level", "country", "office"]
     search_fields = [
-        "reference", "student_name", "school__name", "sponsor_name", "guardian_name", "notes",
+        "reference", "student_name", "school__name", "guardian_name",
     ]
     ordering_fields = ["student_name", "school__name", "started_on", "status", "created_at"]
     ordering = ["student_name"]

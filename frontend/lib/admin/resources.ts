@@ -1388,14 +1388,13 @@ export const RESOURCES: Resource[] = [
     description:
       'A student on a bursary: who pays, which school, what it covers, and how long it runs. The money actually sent to each school is recorded against it as payments.',
     titleField: 'student_name',
-    searchHint: 'student, school, sponsor, guardian, reference',
+    searchHint: 'student, school, guardian, reference',
     columns: [
       { name: 'thumbnail', label: '', thumb: true },
       { name: 'student_name', label: 'Student' },
       { name: 'reference', label: 'Ref' },
       { name: 'school_name', label: 'School' },
       { name: 'current_class', label: 'Class' },
-      { name: 'sponsor_name', label: 'Paid for by' },
       { name: 'total_paid', label: 'Paid to date', numeric: true },
       { name: 'status_display', label: 'Status', badge: true },
     ],
@@ -1417,17 +1416,6 @@ export const RESOURCES: Resource[] = [
           { value: 'secondary', label: 'Secondary' },
           { value: 'vocational', label: 'Vocational / technical' },
           { value: 'tertiary', label: 'University / tertiary' },
-        ],
-      },
-      {
-        name: 'sponsor_type', label: 'Sponsor', type: 'select',
-        options: [
-          { value: 'individual', label: 'Individual' },
-          { value: 'organisation', label: 'Organisation' },
-          { value: 'church', label: 'Church or faith group' },
-          { value: 'foundation', label: 'Trust or foundation' },
-          { value: 'jdiobe', label: 'JdiobeSTEM general fund' },
-          { value: 'other', label: 'Other' },
         ],
       },
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
@@ -1463,20 +1451,6 @@ export const RESOURCES: Resource[] = [
       },
       { name: 'current_class', label: 'Class now', type: 'text' },
 
-      { name: 'sponsor_name', label: 'Paid for by', type: 'text', wide: true, help: 'Who is funding this student.' },
-      {
-        name: 'sponsor_type', label: 'Kind of sponsor', type: 'select',
-        options: [
-          { value: '', label: 'Not recorded' },
-          { value: 'individual', label: 'Individual' },
-          { value: 'organisation', label: 'Organisation' },
-          { value: 'church', label: 'Church or faith group' },
-          { value: 'foundation', label: 'Trust or foundation' },
-          { value: 'jdiobe', label: 'JdiobeSTEM general fund' },
-          { value: 'other', label: 'Other' },
-        ],
-      },
-      { name: 'sponsor_contact', label: 'Sponsor contact', type: 'text', wide: true },
 
       { name: 'amount_per_term', label: 'Amount per term', type: 'number' },
       { name: 'total_committed', label: 'Total committed', type: 'number', help: 'If a whole figure was agreed up front.' },
@@ -1513,10 +1487,7 @@ export const RESOURCES: Resource[] = [
       { name: 'guardian_phone', label: 'Guardian phone', type: 'tel' },
       { name: 'guardian_address', label: 'Guardian address', type: 'text', wide: true },
 
-      { name: 'managed_by', label: 'Looked after by', type: 'select', options: [], source: 'staff', help: 'Who at the Foundation follows this student.' },
-      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
       { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
-      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
     ],
   },
   {

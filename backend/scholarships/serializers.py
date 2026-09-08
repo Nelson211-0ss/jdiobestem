@@ -19,9 +19,6 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
     thumbnail_fields = ("photo",)
 
     office_name = serializers.CharField(source="office.name", read_only=True, default="")
-    managed_by_name = serializers.CharField(
-        source="managed_by.get_full_name", read_only=True, default=""
-    )
     payment_count = serializers.IntegerField(source="payments.count", read_only=True)
     total_paid = serializers.SerializerMethodField()
     school_name = serializers.CharField(source="school.name", read_only=True, default="")

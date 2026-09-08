@@ -1257,12 +1257,6 @@
         "kind": "text",
         "maxLength": 60
       },
-      "managed_by": {
-        "allowNull": true
-      },
-      "notes": {
-        "kind": "text"
-      },
       "office": {
         "allowNull": true
       },
@@ -1272,25 +1266,6 @@
       },
       "school": {
         "required": true
-      },
-      "sponsor_contact": {
-        "kind": "text",
-        "maxLength": 200
-      },
-      "sponsor_name": {
-        "kind": "text",
-        "maxLength": 200
-      },
-      "sponsor_type": {
-        "choices": [
-          "individual",
-          "organisation",
-          "church",
-          "foundation",
-          "jdiobe",
-          "other"
-        ],
-        "kind": "choice"
       },
       "started_on": {
         "allowNull": true,

@@ -2,9 +2,8 @@
 Bursaries, and the money that goes out under them.
 
 A bursary is not an event. It is a commitment to one student that runs for
-years: they start in a particular class, at a particular school, paid for by a
-particular sponsor, and money goes to that school term after term until they
-finish or the award stops. The question the Foundation has to be able to answer
+years: they start in a particular class, at a particular school, and money goes
+to that school term after term until they finish or the award stops. The question the Foundation has to be able to answer
 is "what has actually been paid for this child, and to whom", which needs the
 payments kept as their own rows rather than a running total somebody edits.
 
@@ -35,14 +34,6 @@ class Scholarship(TimeStampedModel):
         SUSPENDED = "suspended", "Suspended"
         COMPLETED = "completed", "Completed"
         TERMINATED = "terminated", "Terminated"
-
-    class SponsorType(models.TextChoices):
-        INDIVIDUAL = "individual", "Individual"
-        ORGANISATION = "organisation", "Organisation"
-        CHURCH = "church", "Church or faith group"
-        FOUNDATION = "foundation", "Trust or foundation"
-        JDIOBE = "jdiobe", "JdiobeSTEM general fund"
-        OTHER = "other", "Other"
 
     class Gender(models.TextChoices):
         FEMALE = "female", "Female"
@@ -88,13 +79,6 @@ class Scholarship(TimeStampedModel):
     )
     current_class = models.CharField(max_length=60, blank=True)
 
-    # --- who pays --------------------------------------------------------
-    sponsor_name = models.CharField(
-        max_length=200, blank=True, db_index=True, help_text="Who is paying for this student."
-    )
-    sponsor_type = models.CharField(max_length=20, choices=SponsorType.choices, blank=True)
-    sponsor_contact = models.CharField(max_length=200, blank=True)
-
     # --- the award -------------------------------------------------------
     amount_per_term = models.DecimalField(
         max_digits=12,
@@ -137,18 +121,9 @@ class Scholarship(TimeStampedModel):
     guardian_address = models.CharField(max_length=300, blank=True)
 
     # --- everything else -------------------------------------------------
-    notes = models.TextField(blank=True)
     country = country_field()
     office = models.ForeignKey(
         Office, null=True, blank=True, on_delete=models.SET_NULL, related_name="scholarships"
-    )
-    managed_by = models.ForeignKey(
-        User,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="scholarships",
-        help_text="Who at the Foundation looks after this student.",
     )
 
     class Meta:
@@ -160,6 +135,13 @@ class Scholarship(TimeStampedModel):
     def save(self, *args, **kwargs):
         if not self.reference:
             self.reference = self._next_reference()
+        # Country decides who may see this record, so it has to be set — but it
+        # is the school's country, not a separate fact. The school is therefore
+        # the source of truth and overwrites rather than merely filling a gap:
+        # country_field defaults to GLOBAL, so "unset" is indistinguishable from
+        # a deliberate "everywhere", and a bursary is never global anyway.
+        if self.school_id and self.school.country:
+            self.country = self.school.country
         super().save(*args, **kwargs)
 
     @staticmethod
