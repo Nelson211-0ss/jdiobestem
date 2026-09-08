@@ -49,6 +49,13 @@ SUPERSEDED = [
     "Applicants Management",
     # The Youth STEM School is a programme on the website, described there.
     "Youth STEM Program",
+    # Schools are the Schools resource now: one record per school, pointed at by
+    # bursaries, Science Fair projects and mentees. Leaving the board up meant
+    # two "Add school" forms that disagreed about what a school is.
+    "Schools",
+    # Its subitem board goes with it; a subitem board whose parent is gone is
+    # unreachable.
+    "Subitems of Schools",
 ]
 
 # Dropped on review of the dashboard: each was an empty board whose job is
