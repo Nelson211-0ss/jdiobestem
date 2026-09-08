@@ -2,6 +2,7 @@
 
 from django.db.models import Q
 from activity.recorder import LoggedViewSetMixin
+from core.exporting import ExportableMixin
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -48,7 +49,7 @@ class BoardViewSet(viewsets.ReadOnlyModelViewSet):
         return BoardDetailSerializer if self.action == "retrieve" else BoardSerializer
 
 
-class RecordViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class RecordViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     permission_classes = [ResourcePermission]
     resource = "boards"
     serializer_class = RecordSerializer
@@ -114,7 +115,7 @@ def board_index(request):
     return Response({"categories": [{"name": k, "boards": v} for k, v in grouped.items()]})
 
 
-class OperatingCountryViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class OperatingCountryViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """The countries the Foundation works in. Country and currency selects
     everywhere else are drawn from this table."""
 
@@ -127,7 +128,7 @@ class OperatingCountryViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
     ordering = ["order", "name"]
 
 
-class OfficeViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class OfficeViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """Offices, one main per country."""
 
     permission_classes = [ResourcePermission]

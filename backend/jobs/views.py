@@ -29,6 +29,7 @@ ALLOWED_CV_TYPES = {
     "image/jpeg": ".jpg",
     "image/png": ".png",
 }
+from core.exporting import ExportableMixin
 from .serializers import (
     JobApplicationSerializer,
     JobPostingSerializer,
@@ -36,7 +37,7 @@ from .serializers import (
 )
 
 
-class JobPostingViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class JobPostingViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     permission_classes = [ResourcePermission]
     resource = "job-postings"
     queryset = JobPosting.objects.select_related("office").prefetch_related("applications")
@@ -50,7 +51,7 @@ class JobPostingViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
         return policy.scope(self.request.user, super().get_queryset(), self.resource)
 
 
-class JobApplicationViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class JobApplicationViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     permission_classes = [ResourcePermission]
     resource = "job-applications"
     queryset = JobApplication.objects.select_related("posting", "decided_by")

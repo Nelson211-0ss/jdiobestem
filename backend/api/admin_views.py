@@ -53,6 +53,7 @@ from . import admin_serializers as s
 from accounts import policy
 
 from .permissions import IsStaff, ResourcePermission
+from core.exporting import ExportableMixin
 
 
 # ---------------------------------------------------------------- auth
@@ -382,7 +383,7 @@ def stats(request):
 # ---------------------------------------------------------------- CRUD
 
 
-class StaffViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class StaffViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """
     Base for every dashboard resource.
 

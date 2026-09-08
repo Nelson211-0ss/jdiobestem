@@ -28,9 +28,10 @@ from .emails import (
 )
 from .models import Newsletter, NewsletterDelivery
 from .serializers import NewsletterDeliverySerializer, NewsletterSerializer
+from core.exporting import ExportableMixin
 
 
-class NewsletterViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class NewsletterViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """Compose, preview, test and send."""
 
     permission_classes = [ResourcePermission]

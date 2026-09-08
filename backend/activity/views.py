@@ -2,13 +2,14 @@
 
 from accounts import policy
 from api.permissions import ResourcePermission
+from core.exporting import ExportableMixin
 from rest_framework import viewsets
 
 from .models import ActivityLog
 from .serializers import ActivityLogSerializer
 
 
-class ActivityLogViewSet(viewsets.ReadOnlyModelViewSet):
+class ActivityLogViewSet(ExportableMixin, viewsets.ReadOnlyModelViewSet):
     """
     Read-only, and not by omission.
 

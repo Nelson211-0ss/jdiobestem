@@ -7,9 +7,10 @@ from rest_framework import viewsets
 
 from .models import Document, DocumentEdition
 from .serializers import DocumentEditionSerializer, DocumentSerializer
+from core.exporting import ExportableMixin
 
 
-class ScopedViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class ScopedViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """Same two layers as every other resource: the permission decides whether
     the action is allowed, the queryset decides which rows are in view."""
 

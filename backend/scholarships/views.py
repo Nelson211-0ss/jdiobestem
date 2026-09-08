@@ -8,9 +8,10 @@ from api.permissions import ResourcePermission
 
 from .models import Scholarship, ScholarshipPayment
 from .serializers import ScholarshipPaymentSerializer, ScholarshipSerializer
+from core.exporting import ExportableMixin
 
 
-class ScopedViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
+class ScopedViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """The permission decides whether the action is allowed, the queryset
     decides which rows are in view — the same two layers as everything else."""
 

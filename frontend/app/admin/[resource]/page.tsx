@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import DataTable from '@/components/admin/DataTable';
+import ExportMenu from '@/components/admin/ExportMenu';
 import { ListCard, ListHeader } from '@/components/admin/Shell';
 import StripeSyncButton from '@/components/admin/StripeSyncButton';
 import { api, can, getIdentity, getOptionLists, type Page } from '@/lib/admin/api';
@@ -58,6 +59,21 @@ export default async function ResourceListPage({
 
   const data = await api.get<Page<Record<string, unknown>>>(`/admin/${key}/?${query.toString()}`);
 
+  // The same filters, minus paging — an export is of the whole filtered set,
+  // not of the page someone happens to be on. The columns travel too, so the
+  // file carries the headings on screen rather than raw field names.
+  const exportQuery = new URLSearchParams(query);
+  exportQuery.delete('page');
+  exportQuery.set('title', resource.label);
+  exportQuery.set(
+    'columns',
+    resource.columns
+      .filter((c) => c.name !== 'thumbnail')
+      .map((c) => `${c.name}:${encodeURIComponent(c.label || c.name)}`)
+      .join(',')
+  );
+  const exportHref = `/api/admin/${key}/export?${exportQuery.toString()}`;
+
   return (
     <ListCard>
       <ListHeader
@@ -67,6 +83,7 @@ export default async function ResourceListPage({
           <div className="flex flex-wrap items-center gap-3">
             {/* Only the donations table has anywhere to pull from. */}
             {key === 'donations' && can(identity, key, 'add') ? <StripeSyncButton /> : null}
+            <ExportMenu href={exportHref} label={resource.label} />
             {!resource.noCreate && can(identity, key, 'add') ? (
               <Button variant="accent" asChild>
                 <Link href={`/admin/${key}/new`}>
