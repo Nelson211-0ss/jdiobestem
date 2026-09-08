@@ -76,6 +76,9 @@ class RecordReport:
     heading: str = ""
     pairs: list[tuple[str, str]] = field(default_factory=list)
     tables: list[tuple[str, list[tuple[str, str]], list[dict]]] = field(default_factory=list)
+    #: (caption, PNG/JPEG bytes) — receipts and other attachments, shown rather
+    #: than left as a URL nobody can follow on paper.
+    images: list[tuple[str, bytes]] = field(default_factory=list)
     generated_by: str = ""
     generated_at: datetime | None = None
     note: str = ""
@@ -233,12 +236,23 @@ def record_to_pdf(report: RecordReport) -> bytes:
     td.empty { color: #6b6c78; }
     p.section { font-size: 10pt; font-weight: bold; color: #fe5c00;
                 margin: 16px 0 4px 0; }
+    p.shot { margin: 0 0 10px 0; }
     """
+
+    # Attachments are put in an archive Story can resolve <img src> against; a
+    # receipt is the evidence the record is about, so it belongs on the page
+    # rather than as a link that cannot be clicked on paper.
+    archive = pymupdf.Archive() if report.images else None
+    for index, (caption, data) in enumerate(report.images):
+        name = f"attachment-{index}.jpg"
+        archive.add(data, name)
+        blocks.append(f'<p class="section">{_escape(caption)}</p>')
+        blocks.append(f'<p class="shot"><img src="{name}" width="430"/></p>')
 
     body_rect = pymupdf.Rect(
         MARGIN, MARGIN + HEADER_H, PORTRAIT.width - MARGIN, PORTRAIT.height - MARGIN - FOOTER_H
     )
-    story = pymupdf.Story(html="".join(blocks), user_css=css)
+    story = pymupdf.Story(html="".join(blocks), user_css=css, archive=archive)
     buf = io.BytesIO()
     writer = pymupdf.DocumentWriter(buf)
     more = True
