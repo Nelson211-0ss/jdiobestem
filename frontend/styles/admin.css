@@ -21,6 +21,18 @@ body:has(.admin-shell) {
   overflow-x: visible;
 }
 
+/*
+ * typography.css sets `overflow-x: hidden` on <html> for the public site. That
+ * makes <html> a scrolling container, and a scrolling container between a
+ * sticky element and the viewport turns `position: sticky` into `static`
+ * without any warning — which left the navigation as a plain 100vh block that
+ * ran out partway down a long form. The body half of the same rule was already
+ * undone above; this is the other half.
+ */
+html:has(.admin-shell) {
+  overflow-x: visible;
+}
+
 .admin-shell {
   --background: 0 0% 100%;
   --foreground: 234 10% 25%; /* charcoal #3A3B47 */
