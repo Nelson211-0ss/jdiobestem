@@ -1351,7 +1351,6 @@ export const RESOURCES: Resource[] = [
       { name: 'level_display', label: 'Level', badge: true },
       { name: 'district', label: 'District' },
       { name: 'country_display', label: 'Country' },
-      { name: 'enrollment', label: 'On roll', numeric: true },
       { name: 'scholarship_count', label: 'Bursaries', numeric: true },
       { name: 'project_count', label: 'Projects', numeric: true },
       { name: 'status_display', label: 'Status', badge: true },
@@ -1374,7 +1373,6 @@ export const RESOURCES: Resource[] = [
         help: "The school's number. A head teacher moves on and the number stays.",
       },
       { name: 'email', label: 'Email', type: 'email' },
-      { name: 'enrollment', label: 'Pupils on roll', type: 'number' },
       { name: 'established_on', label: 'Established', type: 'date' },
       {
         name: 'bank_account', label: 'Where fees are paid', type: 'text', wide: true,

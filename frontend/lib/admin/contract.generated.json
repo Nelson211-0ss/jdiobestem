@@ -1345,13 +1345,6 @@
       "email": {
         "kind": "email"
       },
-      "enrollment": {
-        "allowNull": true,
-        "integer": true,
-        "kind": "number",
-        "maxValue": 2147483647,
-        "minValue": 0
-      },
       "established_on": {
         "allowNull": true,
         "kind": "date"

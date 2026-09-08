@@ -85,7 +85,6 @@ class School(TimeStampedModel):
     # is why this is not named after whoever answers it.
     phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
     email = models.EmailField(blank=True)
-    enrollment = models.PositiveIntegerField(null=True, blank=True, help_text="Pupils on roll, if known.")
     established_on = models.DateField(null=True, blank=True)
     bank_account = models.CharField(
         max_length=200,
