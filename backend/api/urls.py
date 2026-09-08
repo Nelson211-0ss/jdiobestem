@@ -106,6 +106,13 @@ urlpatterns = [
         operations_views.RecordViewSet.as_view({"get": "list", "post": "create"}),
         name="record-list",
     ),
+    # RecordViewSet is mounted by hand rather than through the router, so the
+    # export action it inherits needs its own path or it has no URL at all.
+    path(
+        "admin/boards/<str:board_monday_id>/records/export/",
+        operations_views.RecordViewSet.as_view({"get": "export"}),
+        name="record-export",
+    ),
     path(
         "admin/boards/<str:board_monday_id>/records/<int:pk>/",
         operations_views.RecordViewSet.as_view(

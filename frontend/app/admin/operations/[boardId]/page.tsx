@@ -12,6 +12,7 @@ import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/bo
 import { formatNumber, isMoneyLabel } from '@/lib/format';
 import SiteFavicon from '@/components/admin/SiteFavicon';
 import BoardFilters from '@/components/admin/BoardFilters';
+import ExportMenu from '@/components/admin/ExportMenu';
 import { ListCard, ListHeader } from '@/components/admin/Shell';
 
 export const dynamic = 'force-dynamic';
@@ -71,6 +72,20 @@ export default async function BoardPage({
     ...listable.filter((c) => !isThumb(c.column_type)),
   ].slice(0, 6);
 
+  // The same filters, minus paging. A board record keeps its values in one
+  // JSON column, so each column is addressed by path rather than by key.
+  const exportQuery = new URLSearchParams(query);
+  exportQuery.delete('page');
+  exportQuery.set('title', board.name);
+  exportQuery.set(
+    'columns',
+    [
+      `name:${encodeURIComponent('Name')}`,
+      ...columns.map((c) => `values.${c.monday_id}:${encodeURIComponent(c.title)}`),
+    ].join(',')
+  );
+  const exportHref = `/api/admin/boards/${boardId}/records/export?${exportQuery.toString()}`;
+
   const canEdit = can(identity, 'boards', 'change');
 
   return (
@@ -80,13 +95,16 @@ export default async function BoardPage({
         title={board.name}
         subtitle={board.description}
         actions={
-          can(identity, 'boards', 'add') ? (
-            <Button variant="accent" asChild>
-              <Link href={`/admin/operations/${boardId}/new`}>
-                <Plus /> New record
-              </Link>
-            </Button>
-          ) : null
+          <div className="flex flex-wrap items-center gap-3">
+            <ExportMenu href={exportHref} label={board.name} />
+            {can(identity, 'boards', 'add') ? (
+              <Button variant="accent" asChild>
+                <Link href={`/admin/operations/${boardId}/new`}>
+                  <Plus /> New record
+                </Link>
+              </Button>
+            ) : null}
+          </div>
         }
       />
 

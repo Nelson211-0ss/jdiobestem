@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Pencil } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import ExportMenu from '@/components/admin/ExportMenu';
 import ResourceDetail from '@/components/admin/ResourceDetail';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
@@ -40,6 +41,14 @@ export default async function ResourceDetailPage({
   // what put a form in front of anyone who only wanted to read a donation.
   const editable = !resource.readOnly && can(identity, key, 'change');
 
+  // A full report for this one record: the fields as shown, plus whatever the
+  // backend hangs off it — a bursary's payments, a school's projects.
+  const exportHref =
+    `/api/admin/${key}/${id}/export?title=${encodeURIComponent(resource.singular)}` +
+    `&fields=${resource.fields
+      .map((f) => `${f.name}:${encodeURIComponent(f.label || f.name)}`)
+      .join(',')}`;
+
   return (
     <FormShell
       backHref={`/admin/${key}`}
@@ -47,13 +56,16 @@ export default async function ResourceDetailPage({
       eyebrow={resource.label}
       title={title}
       actions={
-        editable ? (
-          <Button variant="outline" asChild>
-            <Link href={`/admin/${key}/${id}/edit`}>
-              <Pencil /> Edit
-            </Link>
-          </Button>
-        ) : null
+        <div className="flex flex-wrap items-center gap-3">
+          <ExportMenu href={exportHref} label={title} />
+          {editable ? (
+            <Button variant="outline" asChild>
+              <Link href={`/admin/${key}/${id}/edit`}>
+                <Pencil /> Edit
+              </Link>
+            </Button>
+          ) : null}
+        </div>
       }
     >
       <ResourceDetail resource={resource} record={record} />

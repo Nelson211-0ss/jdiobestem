@@ -91,7 +91,9 @@ export default function Sidebar({
 
   /** The board category containing the page currently open, if any. */
   const currentCategory = boardIndex.categories.find((c) =>
-    c.boards.some((b) => pathname.startsWith(`/admin/operations/${b.monday_id}`))
+    c.boards.some((b) =>
+      pathname.startsWith(`/admin/operations/${b.slug || b.monday_id}`)
+    )
   )?.name;
 
   /** The parent group holding the page currently open, if any. */
@@ -262,7 +264,7 @@ export default function Sidebar({
                     {expanded && !collapsed ? (
                       <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
                         {(parent.boards ?? []).map((board) => {
-                          const href = `/admin/operations/${board.monday_id}`;
+                          const href = `/admin/operations/${board.slug || board.monday_id}`;
                           const current = pathname.startsWith(href);
                           return (
                             <Link
@@ -350,7 +352,7 @@ export default function Sidebar({
                       // their parent, as in the reference.
                       <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
                         {category.boards.map((board) => {
-                          const href = `/admin/operations/${board.monday_id}`;
+                          const href = `/admin/operations/${board.slug || board.monday_id}`;
                           const current = pathname.startsWith(href);
                           return (
                             <Link

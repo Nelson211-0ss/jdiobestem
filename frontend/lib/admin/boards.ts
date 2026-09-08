@@ -49,7 +49,15 @@ export type BoardRecord = {
 export type BoardIndex = {
   categories: {
     name: string;
-    boards: { monday_id: string; name: string; description: string; item_count: number; synced_at: string | null }[];
+    boards: {
+      monday_id: string;
+      /** How the dashboard addresses the board; the monday id is internal. */
+      slug: string;
+      name: string;
+      description: string;
+      item_count: number;
+      synced_at: string | null;
+    }[];
   }[];
 };
 

@@ -36,6 +36,30 @@ class ScholarshipViewSet(ScopedViewSet):
     ordering_fields = ["student_name", "school__name", "started_on", "status", "created_at"]
     ordering = ["student_name"]
 
+    def export_detail_tables(self, obj):
+        """A bursary report is only useful with the money on the same sheet."""
+        payments = obj.payments.select_related("recorded_by").order_by("-paid_on")
+        return [
+            (
+                "Payments to the school",
+                [("paid_on", "Date"), ("academic_year", "Year"), ("term", "Term"),
+                 ("amount", "Amount"), ("method", "Method"), ("reference", "Reference")],
+                [
+                    {
+                        "paid_on": p.paid_on, "academic_year": p.academic_year, "term": p.term,
+                        "amount": f"{p.amount:,.0f}", "method": p.get_method_display(),
+                        "reference": p.reference,
+                    }
+                    for p in payments
+                ],
+            ),
+            (
+                "What else the bursary covers",
+                [("label", "Benefit"), ("detail", "Detail")],
+                [{"label": b.label, "detail": b.detail} for b in obj.benefits.all()],
+            ),
+        ]
+
 
 class ScholarshipPaymentViewSet(ScopedViewSet):
     queryset = ScholarshipPayment.objects.select_related("scholarship", "scholarship__school", "recorded_by")

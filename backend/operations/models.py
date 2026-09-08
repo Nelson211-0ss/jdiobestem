@@ -44,8 +44,27 @@ class BoardCategory(models.TextChoices):
     OTHER = "other", "Other"
 
 
+def board_slug(name: str, exclude_pk=None) -> str:
+    """A readable, stable address for a board: "Fixed Assets & Equipment" ->
+    "fixed-assets-equipment". Suffixed only if two boards would collide."""
+    base = slugify(name)[:130] or "board"
+    candidate, n = base, 2
+    while (
+        Board.objects.filter(slug=candidate).exclude(pk=exclude_pk).exists()
+        if exclude_pk
+        else Board.objects.filter(slug=candidate).exists()
+    ):
+        candidate = f"{base}-{n}"
+        n += 1
+    return candidate
+
+
 class Board(TimeStampedModel):
     monday_id = models.CharField(max_length=32, unique=True, db_index=True)
+    # How the dashboard addresses a board. The monday id is an internal number
+    # that means nothing to anyone reading a URL, and it survives here only so a
+    # record can be traced back to where it came from.
+    slug = models.SlugField(max_length=140, unique=True, blank=True)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     category = models.CharField(
@@ -71,14 +90,13 @@ class Board(TimeStampedModel):
     class Meta:
         ordering = ["category", "order", "name"]
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = board_slug(self.name, self.pk)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
-
-    @property
-    def slug(self):
-        """Stable, URL-safe identifier. The monday id, because board names are
-        not unique — this account has three boards called 'Build Vibe app'."""
-        return self.monday_id
 
 
 class BoardGroup(models.Model):

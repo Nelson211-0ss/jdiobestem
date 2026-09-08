@@ -1,6 +1,7 @@
 """Board and record endpoints for the dashboard."""
 
 from django.db.models import Q
+from django.http import Http404
 from activity.recorder import LoggedViewSetMixin
 from core.exporting import ExportableMixin
 from rest_framework import viewsets
@@ -39,11 +40,26 @@ class BoardViewSet(viewsets.ReadOnlyModelViewSet):
     resource = "boards"
     queryset = Board.objects.filter(is_visible=True).prefetch_related("columns", "groups")
     serializer_class = BoardSerializer
-    lookup_field = "monday_id"
+    # Addressed by slug; the monday id still resolves so links kept from
+    # before the rename do not break.
+    lookup_field = "slug"
+    lookup_value_regex = "[^/]+"
     filterset_fields = ["category"]
     search_fields = ["name", "description"]
     ordering = ["category", "name"]
     pagination_class = None
+
+    def get_object(self):
+        key = self.kwargs[self.lookup_field]
+        board = (
+            self.filter_queryset(self.get_queryset())
+            .filter(Q(slug=key) | Q(monday_id=key))
+            .first()
+        )
+        if board is None:
+            raise Http404("No such board.")
+        self.check_object_permissions(self.request, board)
+        return board
 
     def get_serializer_class(self):
         return BoardDetailSerializer if self.action == "retrieve" else BoardSerializer
@@ -56,9 +72,18 @@ class RecordViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     search_fields = ["name"]
     ordering = ["-monday_updated_at", "-created_at"]
 
+    def export_slug(self, request) -> str:
+        """Every board shares the `boards` resource key, so name the file after
+        the board itself — "expenses-2026-09-08.csv", not "boards-..."."""
+        return str(self.kwargs.get("board_monday_id") or "board")
+
     def get_queryset(self):
-        board_id = self.kwargs.get("board_monday_id")
-        qs = Record.objects.filter(board__monday_id=board_id, parent_record__isnull=True).select_related("board")
+        # Either address: the slug the dashboard now uses, or the monday id
+        # that older links and bookmarks still carry.
+        key = self.kwargs.get("board_monday_id")
+        qs = Record.objects.filter(
+            Q(board__slug=key) | Q(board__monday_id=key), parent_record__isnull=True
+        ).select_related("board")
 
         group = self.request.query_params.get("group")
         if group:
@@ -106,6 +131,7 @@ def board_index(request):
         grouped.setdefault(board.get_category_display(), []).append(
             {
                 "monday_id": board.monday_id,
+                "slug": board.slug,
                 "name": board.name,
                 "description": board.description,
                 "item_count": board.item_count,
@@ -129,6 +155,34 @@ class OperatingCountryViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.Mode
 
 
 class OfficeViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
+    def export_detail_tables(self, obj):
+        """What this branch actually carries, for a per-office report."""
+        from programmes.models import Mentee
+        from scholarships.models import Scholarship
+
+        return [
+            (
+                "Bursaries run from here",
+                [("reference", "Ref"), ("student", "Student"), ("school", "School"),
+                 ("status", "Status")],
+                [
+                    {"reference": s.reference, "student": s.student_name,
+                     "school": s.school.name, "status": s.get_status_display()}
+                    for s in Scholarship.objects.filter(office=obj)
+                    .select_related("school").order_by("student_name")
+                ],
+            ),
+            (
+                "Mentees",
+                [("name", "Name"), ("school", "School"), ("district", "District")],
+                [
+                    {"name": m.name, "school": m.school.name if m.school_id else "",
+                     "district": m.district}
+                    for m in Mentee.objects.filter(office=obj).select_related("school").order_by("name")
+                ],
+            ),
+        ]
+
     """Offices, one main per country."""
 
     permission_classes = [ResourcePermission]

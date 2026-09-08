@@ -578,6 +578,39 @@ class SchoolViewSet(StaffViewSet):
     ordering_fields = ["name", "district", "created_at"]
     ordering = ["name"]
 
+    def export_detail_tables(self, obj):
+        """Everything the Foundation does at this school, on one sheet."""
+        return [
+            (
+                "Bursaries at this school",
+                [("reference", "Ref"), ("student", "Student"), ("status", "Status")],
+                [
+                    {"reference": s.reference, "student": s.student_name,
+                     "status": s.get_status_display()}
+                    for s in obj.scholarships.order_by("student_name")
+                ],
+            ),
+            (
+                "Science Fair projects",
+                [("title", "Project"), ("stage", "Stage")],
+                [
+                    {"title": p.title, "stage": p.get_stage_display()}
+                    for p in obj.science_fair_projects.order_by("title")
+                ],
+            ),
+            (
+                "Where money is sent",
+                [("method", "Method"), ("code", "Code"), ("bank", "Bank"),
+                 ("account", "Account number"), ("primary", "Default")],
+                [
+                    {"method": d.get_method_display(), "code": d.payment_code,
+                     "bank": d.bank_name, "account": d.bank_account_number,
+                     "primary": "Yes" if d.is_primary else ""}
+                    for d in obj.payment_details.all()
+                ],
+            ),
+        ]
+
 
 class SchoolPaymentDetailViewSet(StaffViewSet):
     queryset = SchoolPaymentDetail.objects.select_related("school")
