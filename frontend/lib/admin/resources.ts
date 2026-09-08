@@ -141,6 +141,13 @@ const SCHOOL_REGION_OPTIONS = [
   { value: 'upper_nile', label: 'Upper Nile' },
 ];
 
+const SCHOOL_PAYMENT_METHOD_OPTIONS = [
+  { value: 'bank', label: 'Bank transfer' },
+  { value: 'school_pay', label: 'School Pay' },
+  { value: 'mobile_money', label: 'Mobile money' },
+  { value: 'other', label: 'Other' },
+];
+
 const SCHOOL_STATUS_OPTIONS = [
   { value: 'active', label: 'Active' },
   { value: 'prospective', label: 'Prospective' },
@@ -1376,6 +1383,52 @@ export const RESOURCES: Resource[] = [
         name: 'partnership_started_on', label: 'Partnership started', type: 'date',
         help: 'When the Foundation began working with this school.',
       },
+    ],
+  },
+  {
+    key: 'school-payment-details',
+    label: 'School payment details',
+    singular: 'payment route',
+    group: 'Programmes',
+    icon: 'Landmark',
+    description:
+      'Where money for a school is actually sent. One record per route, because a school often has a bank account and a School Pay code at the same time — which fields matter depends on the method.',
+    titleField: 'school_name',
+    searchHint: 'school, code, bank, account number',
+    columns: [
+      { name: 'school_name', label: 'School' },
+      { name: 'method_display', label: 'Method', badge: true },
+      { name: 'payment_code', label: 'Payment code' },
+      { name: 'bank_name', label: 'Bank' },
+      { name: 'bank_account_number', label: 'Account number' },
+      { name: 'is_primary', label: 'Default' },
+      { name: 'is_active', label: 'Active' },
+    ],
+    filters: [
+      { name: 'school', label: 'School', type: 'select', options: [], source: 'school' },
+      { name: 'method', label: 'Method', type: 'select', options: SCHOOL_PAYMENT_METHOD_OPTIONS },
+    ],
+    fields: [
+      { name: 'school', label: 'School', type: 'select', options: [], source: 'school', required: true, wide: true },
+      {
+        name: 'method', label: 'Method', type: 'select', options: SCHOOL_PAYMENT_METHOD_OPTIONS,
+        required: true, help: 'Which fields below apply depends on this.',
+      },
+      {
+        name: 'payment_code', label: 'Payment code', type: 'text',
+        help: 'The School Pay code, where the school uses one.',
+      },
+      { name: 'bank_name', label: 'Bank', type: 'text' },
+      {
+        name: 'bank_account_name', label: 'Account name', type: 'text', wide: true,
+        help: 'Exactly as the bank holds it, or a transfer bounces.',
+      },
+      { name: 'bank_account_number', label: 'Account number', type: 'text' },
+      {
+        name: 'is_primary', label: 'Use this route by default', type: 'boolean',
+        help: 'Where the money goes unless someone says otherwise.',
+      },
+      { name: 'is_active', label: 'Still in use', type: 'boolean' },
     ],
   },
   {

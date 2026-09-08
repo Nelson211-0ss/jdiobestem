@@ -39,6 +39,7 @@ from programmes.models import (
     MentorshipPairing,
     ProjectAward,
     School,
+    SchoolPaymentDetail,
     ScienceFairProject,
 )
 from submissions.models import (
@@ -575,6 +576,19 @@ class SchoolViewSet(StaffViewSet):
     search_fields = ["name", "district", "region", "phone"]
     ordering_fields = ["name", "district", "created_at"]
     ordering = ["name"]
+
+
+class SchoolPaymentDetailViewSet(StaffViewSet):
+    queryset = SchoolPaymentDetail.objects.select_related("school")
+    resource = "school-payment-details"
+    serializer_class = s.SchoolPaymentDetailAdminSerializer
+    filterset_fields = ["school", "method", "is_primary", "is_active"]
+    search_fields = [
+        "school__name", "payment_code", "bank_name",
+        "bank_account_name", "bank_account_number",
+    ]
+    ordering_fields = ["school__name", "method", "created_at"]
+    ordering = ["school__name", "-is_primary"]
 
 
 class CohortViewSet(StaffViewSet):

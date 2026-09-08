@@ -29,6 +29,7 @@ from programmes.models import (
     MentorshipPairing,
     ProjectAward,
     School,
+    SchoolPaymentDetail,
     ScienceFairProject,
 )
 from submissions.models import (
@@ -311,6 +312,15 @@ class SchoolAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
 
     class Meta:
         model = School
+        fields = "__all__"
+        read_only_fields = ["created_at", "updated_at"]
+
+
+class SchoolPaymentDetailAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
+    school_name = serializers.CharField(source="school.name", read_only=True)
+
+    class Meta:
+        model = SchoolPaymentDetail
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at"]
 

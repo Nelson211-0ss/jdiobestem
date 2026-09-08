@@ -3,7 +3,15 @@ from django.contrib import admin
 from core.admin import ExportCsvMixin
 from core.admin_site import admin_site
 
-from .models import Cohort, Mentee, Mentor, MentorshipPairing, School, ScienceFairProject
+from .models import (
+    Cohort,
+    Mentee,
+    Mentor,
+    MentorshipPairing,
+    School,
+    SchoolPaymentDetail,
+    ScienceFairProject,
+)
 
 
 @admin.register(School, site=admin_site)
@@ -13,6 +21,16 @@ class SchoolAdmin(ExportCsvMixin, admin.ModelAdmin):
     list_filter = ("level", "country", "region", "status")
     # Required for the autocomplete pickers on the programme records below.
     search_fields = ("name", "district", "region", "phone")
+    actions = ["export_as_csv"]
+
+
+@admin.register(SchoolPaymentDetail, site=admin_site)
+class SchoolPaymentDetailAdmin(ExportCsvMixin, admin.ModelAdmin):
+    csv_filename = "school-payment-details"
+    list_display = ("school", "method", "bank_name", "bank_account_number", "is_primary", "is_active")
+    list_filter = ("method", "is_primary", "is_active")
+    search_fields = ("school__name", "payment_code", "bank_name", "bank_account_number")
+    autocomplete_fields = ("school",)
     actions = ["export_as_csv"]
 
 

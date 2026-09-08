@@ -29,6 +29,7 @@ RESOURCES = (
     "documents", "document-editions", "activity",
     "job-postings", "job-applications", "recognised-volunteers", "project-awards",
     "cohorts", "mentors", "mentees", "pairings", "projects", "schools",
+    "school-payment-details",
     "scholarships", "scholarship-payments",
     "boards",
     "countries",
@@ -44,7 +45,7 @@ CONTENT = (
 )
 PROGRAMMES = (
     "cohorts", "mentors", "mentees", "pairings", "projects", "project-awards",
-    "scholarships", "schools",
+    "scholarships", "schools", "school-payment-details",
 )
 #: Money leaving the Foundation for a student. Programme staff record who is
 #: on a bursary; what was actually paid to a school is Finance's to write,
@@ -159,6 +160,7 @@ COUNTRY_FIELD = {
     "mentors": "country",
     "mentees": "country",
     "schools": "country",
+    "school-payment-details": "school__country",
     "projects": "country",
     "project-awards": "project__country",
     "scholarships": "country",

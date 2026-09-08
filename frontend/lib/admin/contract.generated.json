@@ -1299,6 +1299,42 @@
         "kind": "number"
       }
     },
+    "school-payment-details": {
+      "bank_account_name": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "bank_account_number": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "bank_name": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "is_active": {
+        "kind": "boolean"
+      },
+      "is_primary": {
+        "kind": "boolean"
+      },
+      "method": {
+        "choices": [
+          "bank",
+          "school_pay",
+          "mobile_money",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "payment_code": {
+        "kind": "text",
+        "maxLength": 60
+      },
+      "school": {
+        "required": true
+      }
+    },
     "schools": {
       "country": {
         "choices": [

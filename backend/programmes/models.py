@@ -105,6 +105,54 @@ class School(TimeStampedModel):
         return f"{self.name}{f' — {self.district}' if self.district else ''}"
 
 
+class SchoolPaymentDetail(TimeStampedModel):
+    """
+    Where money for a school is actually sent.
+
+    A separate record per route rather than columns on the school, because a
+    school commonly has more than one: a bank account for fees and a School Pay
+    code for the same student, sometimes a mobile money line as well. Which
+    fields matter depends on the route, so they are all optional and the method
+    says which ones to read.
+
+    `is_primary` is what a bursar needs in practice — "where does this school's
+    money go by default" — without deleting the others.
+    """
+
+    class Method(models.TextChoices):
+        BANK = "bank", "Bank transfer"
+        SCHOOL_PAY = "school_pay", "School Pay"
+        MOBILE_MONEY = "mobile_money", "Mobile money"
+        OTHER = "other", "Other"
+
+    school = models.ForeignKey(
+        School, on_delete=models.CASCADE, related_name="payment_details"
+    )
+    method = models.CharField(max_length=20, choices=Method.choices, default=Method.BANK)
+
+    # School Pay issues a code per school; nothing else here applies to it.
+    payment_code = models.CharField(
+        max_length=60, blank=True, help_text="The School Pay code, where the school uses one."
+    )
+
+    bank_name = models.CharField(max_length=120, blank=True)
+    bank_account_name = models.CharField(
+        max_length=200, blank=True, help_text="Exactly as the bank holds it, or a transfer bounces."
+    )
+    bank_account_number = models.CharField(max_length=60, blank=True)
+
+    is_primary = models.BooleanField(
+        default=False, help_text="Use this route unless told otherwise."
+    )
+    is_active = models.BooleanField(default=True, db_index=True)
+
+    class Meta:
+        ordering = ["school__name", "-is_primary", "method"]
+
+    def __str__(self):
+        return f"{self.school.name} — {self.get_method_display()}"
+
+
 class Mentor(TimeStampedModel):
     """A volunteer mentor. Usually arrives as a VolunteerApplication with
     'Mentorship' as the area, and may also appear on the public team page."""
