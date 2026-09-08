@@ -1,2 +1,5 @@
 .vercel
 .env*
+
+# Verification builds, kept out of the running dev server's .next
+.next-verify/

@@ -35,7 +35,8 @@ export type Field = {
     | 'document'
     | 'staff'
     | 'project'
-    | 'scholarship';
+    | 'scholarship'
+    | 'school';
   label: string;
   type?: FieldType;
   options?: { value: string; label: string }[];
@@ -120,6 +121,31 @@ export const DYNAMIC = { country: 'country', currency: 'currency' } as const;
 
 const COUNTRY_OPTIONS: { value: string; label: string }[] = [];
 const CURRENCY_OPTIONS: { value: string; label: string }[] = [];
+
+const SCHOOL_LEVEL_OPTIONS = [
+  { value: 'primary', label: 'Primary' },
+  { value: 'secondary', label: 'Secondary' },
+  { value: 'combined', label: 'Combined (Primary & Secondary)' },
+  { value: 'vocational', label: 'Vocational / Technical' },
+  { value: 'tertiary', label: 'Tertiary' },
+];
+
+// Uganda's four regions and South Sudan's three, matching the School model.
+const SCHOOL_REGION_OPTIONS = [
+  { value: 'central', label: 'Central' },
+  { value: 'eastern', label: 'Eastern' },
+  { value: 'northern', label: 'Northern' },
+  { value: 'western', label: 'Western' },
+  { value: 'bahr_el_ghazal', label: 'Bahr el Ghazal' },
+  { value: 'equatoria', label: 'Equatoria' },
+  { value: 'upper_nile', label: 'Upper Nile' },
+];
+
+const SCHOOL_STATUS_OPTIONS = [
+  { value: 'active', label: 'Active' },
+  { value: 'prospective', label: 'Prospective' },
+  { value: 'dormant', label: 'Dormant' },
+];
 
 const TRIAGE_OPTIONS = [
   { value: 'new', label: 'New' },
@@ -251,7 +277,7 @@ export const RESOURCES: Resource[] = [
     searchHint: 'title, school, mentor',
     columns: [
       { name: 'title', label: 'Project' },
-      { name: 'school', label: 'School' },
+      { name: 'school_name', label: 'School' },
       { name: 'stage_display', label: 'Stage', badge: true },
       { name: 'award_count', label: 'Awards', numeric: true },
       { name: 'country', label: 'Country' },
@@ -275,7 +301,7 @@ export const RESOURCES: Resource[] = [
     ],
     fields: [
       { name: 'title', label: 'Project title', type: 'text', required: true, wide: true },
-      { name: 'school', label: 'School', type: 'text', required: true },
+      { name: 'school', label: 'School', type: 'select', options: [], source: 'school', required: true },
       { name: 'district', label: 'District', type: 'text' },
       { name: 'teacher_mentor', label: 'Teacher or mentor', type: 'text' },
       { name: 'stage', label: 'Stage', type: 'select', required: true,
@@ -1311,6 +1337,53 @@ export const RESOURCES: Resource[] = [
     ],
   },
   {
+    key: 'schools',
+    label: 'Schools',
+    singular: 'school',
+    group: 'Programmes',
+    icon: 'School',
+    description:
+      'Every school the Foundation works with, held once. Bursaries, Science Fair projects and mentees point at these records instead of each repeating the name, so a school can be counted across programmes.',
+    titleField: 'name',
+    searchHint: 'name, district, region, phone',
+    columns: [
+      { name: 'name', label: 'School' },
+      { name: 'level_display', label: 'Level', badge: true },
+      { name: 'district', label: 'District' },
+      { name: 'country_display', label: 'Country' },
+      { name: 'enrollment', label: 'On roll', numeric: true },
+      { name: 'scholarship_count', label: 'Bursaries', numeric: true },
+      { name: 'project_count', label: 'Projects', numeric: true },
+      { name: 'status_display', label: 'Status', badge: true },
+    ],
+    filters: [
+      { name: 'level', label: 'Level', type: 'select', options: SCHOOL_LEVEL_OPTIONS },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'region', label: 'Region', type: 'select', options: SCHOOL_REGION_OPTIONS },
+      { name: 'status', label: 'Status', type: 'select', options: SCHOOL_STATUS_OPTIONS },
+    ],
+    fields: [
+      { name: 'name', label: 'School name', type: 'text', required: true, wide: true },
+      { name: 'level', label: 'Level', type: 'select', options: SCHOOL_LEVEL_OPTIONS },
+      { name: 'status', label: 'Status', type: 'select', options: SCHOOL_STATUS_OPTIONS },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'region', label: 'Region', type: 'select', options: SCHOOL_REGION_OPTIONS },
+      { name: 'district', label: 'District', type: 'text' },
+      {
+        name: 'phone', label: 'School phone', type: 'tel',
+        help: "The school's number. A head teacher moves on and the number stays.",
+      },
+      { name: 'email', label: 'Email', type: 'email' },
+      { name: 'enrollment', label: 'Pupils on roll', type: 'number' },
+      { name: 'established_on', label: 'Established', type: 'date' },
+      {
+        name: 'bank_account', label: 'Where fees are paid', type: 'text', wide: true,
+        help: 'Kept so a transfer can be checked against it.',
+      },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+    ],
+  },
+  {
     key: 'scholarships',
     label: 'Bursaries',
     singular: 'bursary',
@@ -1343,7 +1416,7 @@ export const RESOURCES: Resource[] = [
         ],
       },
       {
-        name: 'school_level', label: 'Level', type: 'select',
+          name: 'school__level', label: 'Level', type: 'select',
         options: [
           { value: 'primary', label: 'Primary' },
           { value: 'secondary', label: 'Secondary' },
@@ -1384,23 +1457,16 @@ export const RESOURCES: Resource[] = [
       { name: 'date_of_birth', label: 'Date of birth', type: 'date' },
       { name: 'student_phone', label: 'Student phone', type: 'tel' },
 
-      { name: 'school_name', label: 'School', type: 'text', required: true, wide: true },
       {
-        name: 'school_level', label: 'Level', type: 'select',
-        options: [
-          { value: 'primary', label: 'Primary' },
-          { value: 'secondary', label: 'Secondary' },
-          { value: 'vocational', label: 'Vocational / technical' },
-          { value: 'tertiary', label: 'University / tertiary' },
-        ],
+        name: 'school', label: 'School', type: 'select', options: [], source: 'school',
+        required: true, wide: true,
+        help: 'Chosen from the schools list. The level, the phone number and the account fees are paid into describe the school, so they are recorded there rather than on each award.',
       },
       {
         name: 'class_at_award', label: 'Class when the bursary started', type: 'text',
         help: 'Never changes. It is what makes progress answerable years later.',
       },
       { name: 'current_class', label: 'Class now', type: 'text' },
-      { name: 'school_contact', label: 'School contact', type: 'text', wide: true, help: 'Bursar or head teacher, and how to reach them.' },
-      { name: 'school_account', label: 'Where fees are paid', type: 'text', wide: true, help: 'Kept so a transfer can be checked against it.' },
 
       { name: 'sponsor_name', label: 'Paid for by', type: 'text', wide: true, help: 'Who is funding this student.' },
       {
@@ -1533,6 +1599,7 @@ function optionsFor(
     staff?: { value: string; label: string }[];
     projects?: { value: string; label: string }[];
     scholarships?: { value: string; label: string }[];
+    schools?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -1544,6 +1611,7 @@ function optionsFor(
   if (source === 'staff') return options.staff ?? [];
   if (source === 'project') return options.projects ?? [];
   if (source === 'scholarship') return options.scholarships ?? [];
+  if (source === 'school') return options.schools ?? [];
   return options.countries;
 }
 
@@ -1559,6 +1627,7 @@ export function withOptions(
     staff?: { value: string; label: string }[];
     projects?: { value: string; label: string }[];
     scholarships?: { value: string; label: string }[];
+    schools?: { value: string; label: string }[];
   }
 ): Resource {
   return {

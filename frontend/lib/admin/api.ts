@@ -103,6 +103,8 @@ export type OptionLists = {
   projects: { value: string; label: string }[];
   /** Bursaries a payment can belong to. */
   scholarships: { value: string; label: string }[];
+  /** Schools, shared by every programme that records where a student is. */
+  schools: { value: string; label: string }[];
 };
 
 /**
@@ -123,7 +125,7 @@ export async function getOptionLists(): Promise<OptionLists> {
   } catch {
     return {
       countries: [], staff_scopes: [], currencies: [], offices: [],
-      countryIds: [], documents: [], staff: [], projects: [], scholarships: [],
+      countryIds: [], documents: [], staff: [], projects: [], scholarships: [], schools: [],
     };
   }
 }

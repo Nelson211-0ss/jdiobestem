@@ -29,6 +29,7 @@ router.register("magazine", admin_views.MagazineIssueViewSet, basename="magazine
 router.register("cohorts", admin_views.CohortViewSet, basename="cohort")
 router.register("mentors", admin_views.MentorViewSet, basename="mentor")
 router.register("mentees", admin_views.MenteeViewSet, basename="mentee")
+router.register("schools", admin_views.SchoolViewSet, basename="school")
 router.register("pairings", admin_views.MentorshipPairingViewSet, basename="pairing")
 router.register("projects", admin_views.ScienceFairProjectViewSet, basename="project")
 router.register("project-awards", admin_views.ProjectAwardViewSet, basename="project-award")

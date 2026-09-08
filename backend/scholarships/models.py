@@ -36,12 +36,6 @@ class Scholarship(TimeStampedModel):
         COMPLETED = "completed", "Completed"
         TERMINATED = "terminated", "Terminated"
 
-    class Level(models.TextChoices):
-        PRIMARY = "primary", "Primary"
-        SECONDARY = "secondary", "Secondary"
-        VOCATIONAL = "vocational", "Vocational / technical"
-        TERTIARY = "tertiary", "University / tertiary"
-
     class SponsorType(models.TextChoices):
         INDIVIDUAL = "individual", "Individual"
         ORGANISATION = "organisation", "Organisation"
@@ -78,17 +72,11 @@ class Scholarship(TimeStampedModel):
     student_phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
 
     # --- the school ------------------------------------------------------
-    school_name = models.CharField(max_length=200, db_index=True)
-    school_level = models.CharField(
-        max_length=20, choices=Level.choices, default=Level.SECONDARY, db_index=True
-    )
-    school_contact = models.CharField(
-        max_length=200, blank=True, help_text="Bursar or head teacher, and how to reach them."
-    )
-    school_account = models.CharField(
-        max_length=200,
-        blank=True,
-        help_text="Where fees are paid. Kept so a transfer can be checked against it.",
+    # One shared record rather than a name retyped for every award. The level,
+    # the phone number and the account fees are sent to describe the school,
+    # not the bursary, so they live on the school and are recorded once.
+    school = models.ForeignKey(
+        "programmes.School", on_delete=models.PROTECT, related_name="scholarships"
     )
 
     # The class they were in when the award started never changes, which is what
@@ -167,7 +155,7 @@ class Scholarship(TimeStampedModel):
         ordering = ["student_name"]
 
     def __str__(self):
-        return f"{self.student_name} — {self.school_name}"
+        return f"{self.student_name} — {self.school.name}"
 
     def save(self, *args, **kwargs):
         if not self.reference:

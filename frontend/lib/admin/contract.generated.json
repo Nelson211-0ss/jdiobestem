@@ -595,8 +595,7 @@
         "maxLength": 50
       },
       "school": {
-        "kind": "text",
-        "maxLength": 200
+        "allowNull": true
       }
     },
     "mentors": {
@@ -1040,8 +1039,6 @@
         "minValue": 0
       },
       "school": {
-        "kind": "text",
-        "maxLength": 200,
         "required": true
       },
       "stage": {
@@ -1273,26 +1270,7 @@
         "kind": "text",
         "maxLength": 500
       },
-      "school_account": {
-        "kind": "text",
-        "maxLength": 200
-      },
-      "school_contact": {
-        "kind": "text",
-        "maxLength": 200
-      },
-      "school_level": {
-        "choices": [
-          "primary",
-          "secondary",
-          "vocational",
-          "tertiary"
-        ],
-        "kind": "choice"
-      },
-      "school_name": {
-        "kind": "text",
-        "maxLength": 200,
+      "school": {
         "required": true
       },
       "sponsor_contact": {
@@ -1344,6 +1322,81 @@
         "allowNull": true,
         "decimals": 2,
         "kind": "number"
+      }
+    },
+    "schools": {
+      "bank_account": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "district": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "email": {
+        "kind": "email"
+      },
+      "enrollment": {
+        "allowNull": true,
+        "integer": true,
+        "kind": "number",
+        "maxValue": 2147483647,
+        "minValue": 0
+      },
+      "established_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "level": {
+        "choices": [
+          "primary",
+          "secondary",
+          "combined",
+          "vocational",
+          "tertiary"
+        ],
+        "kind": "choice"
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "region": {
+        "choices": [
+          "central",
+          "eastern",
+          "northern",
+          "western",
+          "bahr_el_ghazal",
+          "equatoria",
+          "upper_nile"
+        ],
+        "kind": "choice"
+      },
+      "status": {
+        "choices": [
+          "active",
+          "prospective",
+          "dormant"
+        ],
+        "kind": "choice"
       }
     },
     "stats": {

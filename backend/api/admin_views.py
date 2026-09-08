@@ -32,7 +32,15 @@ from content_cms.models import (
     TeamMember,
 )
 from donations.models import Donation
-from programmes.models import Cohort, Mentee, Mentor, MentorshipPairing, ProjectAward, ScienceFairProject
+from programmes.models import (
+    Cohort,
+    Mentee,
+    Mentor,
+    MentorshipPairing,
+    ProjectAward,
+    School,
+    ScienceFairProject,
+)
 from submissions.models import (
     ContactMessage,
     NewsletterSubscriber,
@@ -559,6 +567,16 @@ class MagazineIssueViewSet(StaffViewSet):
     ordering = ["order", "-issue_id"]
 
 
+class SchoolViewSet(StaffViewSet):
+    queryset = School.objects.all()
+    resource = "schools"
+    serializer_class = s.SchoolAdminSerializer
+    filterset_fields = ["level", "country", "region", "status"]
+    search_fields = ["name", "district", "region", "phone", "email", "notes"]
+    ordering_fields = ["name", "district", "enrollment", "created_at"]
+    ordering = ["name"]
+
+
 class CohortViewSet(StaffViewSet):
     queryset = Cohort.objects.all()
     resource = "cohorts"
@@ -580,11 +598,11 @@ class MentorViewSet(StaffViewSet):
 
 
 class MenteeViewSet(StaffViewSet):
-    queryset = Mentee.objects.all()
+    queryset = Mentee.objects.select_related("school", "office")
     resource = "mentees"
     serializer_class = s.MenteeAdminSerializer
     filterset_fields = ["is_active", "country", "district"]
-    search_fields = ["name", "email", "school", "district"]
+    search_fields = ["name", "email", "school__name", "district"]
     ordering_fields = ["name", "created_at"]
     ordering = ["name"]
 
@@ -600,11 +618,11 @@ class MentorshipPairingViewSet(StaffViewSet):
 
 
 class ScienceFairProjectViewSet(StaffViewSet):
-    queryset = ScienceFairProject.objects.select_related("cohort")
+    queryset = ScienceFairProject.objects.select_related("cohort", "school")
     resource = "projects"
     serializer_class = s.ScienceFairProjectAdminSerializer
     filterset_fields = ["stage", "category", "cohort", "district"]
-    search_fields = ["title", "school", "teacher_mentor", "notes"]
+    search_fields = ["title", "school__name", "teacher_mentor", "notes"]
     ordering_fields = ["created_at", "title", "review_score"]
     ordering = ["-created_at"]
 

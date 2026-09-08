@@ -12,8 +12,10 @@ checks, minimum commitment — is deliberately absent rather than guessed at.
 """
 
 from django.db import models
+from django.db.models.functions import Lower
 
 from core.models import TimeStampedModel
+from core.validators import phone_validator
 from submissions.models import ProjectProposal
 
 
@@ -35,6 +37,78 @@ class Cohort(TimeStampedModel):
 
 
 from core.countries import Country  # noqa: E402  (shared vocabulary)
+
+
+class School(TimeStampedModel):
+    """
+    A school the Foundation works with, recorded once.
+
+    Every programme touches the same schools: a bursary is paid to one, a
+    Science Fair project is entered by one, a mentee attends one. Each of those
+    used to keep its own free-text name, so one school could be spelled three
+    ways and nothing could be counted across programmes.
+
+    Public Science Fair registrations still capture the school as plain text.
+    An applicant may name a school the Foundation has never worked with, and
+    that must not require someone to create a record before the form will send.
+    """
+
+    class Level(models.TextChoices):
+        PRIMARY = "primary", "Primary"
+        SECONDARY = "secondary", "Secondary"
+        COMBINED = "combined", "Combined (Primary & Secondary)"
+        VOCATIONAL = "vocational", "Vocational / Technical"
+        TERTIARY = "tertiary", "Tertiary"
+
+    class Status(models.TextChoices):
+        ACTIVE = "active", "Active"
+        PROSPECTIVE = "prospective", "Prospective"
+        DORMANT = "dormant", "Dormant"
+
+    #: Uganda's four regions and South Sudan's three — the countries the
+    #: Foundation runs school programmes in. Not a scheme invented here.
+    class Region(models.TextChoices):
+        CENTRAL = "central", "Central"
+        EASTERN = "eastern", "Eastern"
+        NORTHERN = "northern", "Northern"
+        WESTERN = "western", "Western"
+        BAHR_EL_GHAZAL = "bahr_el_ghazal", "Bahr el Ghazal"
+        EQUATORIA = "equatoria", "Equatoria"
+        UPPER_NILE = "upper_nile", "Upper Nile"
+
+    name = models.CharField(max_length=200, db_index=True)
+    level = models.CharField(max_length=20, choices=Level.choices, blank=True)
+    country = models.CharField(max_length=2, choices=Country.choices, blank=True, db_index=True)
+    region = models.CharField(max_length=20, choices=Region.choices, blank=True)
+    district = models.CharField(max_length=120, blank=True)
+    # The school's number. A head teacher moves on and the number stays, which
+    # is why this is not named after whoever answers it.
+    phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
+    email = models.EmailField(blank=True)
+    enrollment = models.PositiveIntegerField(null=True, blank=True, help_text="Pupils on roll, if known.")
+    established_on = models.DateField(null=True, blank=True)
+    bank_account = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Where bursary fees are sent, so a transfer can be checked against it.",
+    )
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.ACTIVE, db_index=True
+    )
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["name"]
+        constraints = [
+            # One record per school. Two schools may share a name in different
+            # districts, which is common, so the district is part of the key.
+            models.UniqueConstraint(
+                Lower("name"), "district", name="unique_school_name_per_district"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.name}{f' — {self.district}' if self.district else ''}"
 
 
 class Mentor(TimeStampedModel):
@@ -91,7 +165,9 @@ class Mentee(TimeStampedModel):
     email = models.EmailField(blank=True)
     phone = models.CharField(max_length=50, blank=True)
     guardian_contact = models.CharField(max_length=255, blank=True)
-    school = models.CharField(max_length=200, blank=True, db_index=True)
+    school = models.ForeignKey(
+        School, null=True, blank=True, on_delete=models.PROTECT, related_name="mentees"
+    )
     class_stream = models.CharField("class / stream", max_length=100, blank=True)
     district = models.CharField(max_length=120, blank=True)
     country = models.CharField(max_length=2, choices=Country.choices, blank=True)
@@ -106,7 +182,7 @@ class Mentee(TimeStampedModel):
         ordering = ["name"]
 
     def __str__(self):
-        return f"{self.name}{f' — {self.school}' if self.school else ''}"
+        return f"{self.name}{f' — {self.school.name}' if self.school_id else ''}"
 
 
 class MentorshipPairing(TimeStampedModel):
@@ -171,7 +247,9 @@ class ScienceFairProject(TimeStampedModel):
 
     title = models.CharField(max_length=300)
     category = models.CharField(max_length=40, choices=ProjectProposal.CATEGORY_CHOICES)
-    school = models.CharField(max_length=200, db_index=True)
+    school = models.ForeignKey(
+        School, on_delete=models.PROTECT, related_name="science_fair_projects"
+    )
     district = models.CharField(max_length=120, blank=True)
     country = models.CharField(max_length=2, choices=Country.choices, blank=True, default="", db_index=True)
     cohort = models.ForeignKey(Cohort, null=True, blank=True, on_delete=models.SET_NULL, related_name="projects")
@@ -194,7 +272,7 @@ class ScienceFairProject(TimeStampedModel):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.title} — {self.school}"
+        return f"{self.title} — {self.school.name}"
 
 
 class ProjectAward(TimeStampedModel):

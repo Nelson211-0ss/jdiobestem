@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 from documents.models import Document
 from scholarships.models import Scholarship
-from programmes.models import ScienceFairProject
+from programmes.models import School, ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
 
@@ -184,12 +184,18 @@ def option_lists(request):
             # Ended awards are included: a final payment often lands after
             # the student has already finished.
             "scholarships": [
-                {"value": str(s.pk), "label": f"{s.reference} — {s.student_name} ({s.school_name})"[:140]}
-                for s in Scholarship.objects.order_by("student_name")
+                {"value": str(s.pk), "label": f"{s.reference} — {s.student_name} ({s.school.name})"[:140]}
+                for s in Scholarship.objects.select_related("school").order_by("student_name")
+            ],
+            # Every programme records the school a student is at, so the
+            # list is shared rather than retyped per form.
+            "schools": [
+                {"value": str(sc.pk), "label": f"{sc.name}{f' — {sc.district}' if sc.district else ''}"[:140]}
+                for sc in School.objects.order_by("name")
             ],
             "projects": [
-                {"value": str(p.pk), "label": f"{p.title} — {p.school}"[:120]}
-                for p in ScienceFairProject.objects.order_by("title")
+                {"value": str(p.pk), "label": f"{p.title} — {p.school.name}"[:120]}
+                for p in ScienceFairProject.objects.select_related("school").order_by("title")
             ],
             # Every staff account, not only the ones that can currently sign in.
             # "Inactive" here means "no password set yet" as often as it means

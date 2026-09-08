@@ -8,8 +8,9 @@ whose meaning is unambiguous.
 
 Two kinds of list here, and the difference matters.
 
-Currency is derived, not invented: it is built from the countries the
-Foundation actually operates in, so it cannot drift from the Operations tables.
+Country and Currency are derived, not invented: both are built from the
+countries the Foundation actually operates in, so they cannot drift from the
+Operations tables.
 
 The rest are conventional defaults. They are a starting point chosen so the
 forms work today, not a claim about how the Foundation categorises its
@@ -27,6 +28,24 @@ DEFAULTS: dict[str, list[str]] = {
     "Approval Status": ["Pending", "Approved", "Rejected", "Paid"],
     "Status": ["Not started", "Working on it", "Stuck", "Done"],
     "Payment Status": ["Unpaid", "Part paid", "Paid"],
+    "School Type": [
+        "Primary",
+        "Secondary",
+        "Combined (Primary & Secondary)",
+        "Vocational / Technical",
+        "Tertiary",
+    ],
+    # The Foundation's schools sit in Uganda and South Sudan; these are those
+    # countries' own regional divisions rather than a scheme invented here.
+    "Region": [
+        "Central",
+        "Eastern",
+        "Northern",
+        "Western",
+        "Bahr el Ghazal",
+        "Equatoria",
+        "Upper Nile",
+    ],
     "Category": [
         "Travel and transport",
         "Equipment and materials",
@@ -70,9 +89,14 @@ class Command(BaseCommand):
             f"{c.currency_code} — {c.name}"
             for c in OperatingCountry.objects.filter(is_active=True).order_by("order")
         ]
+        countries = [
+            c.name for c in OperatingCountry.objects.filter(is_active=True).order_by("order")
+        ]
         wanted = dict(DEFAULTS)
         if currencies:
             wanted["Currency"] = currencies
+        if countries:
+            wanted["Country"] = countries
 
         filled = skipped = 0
         for column in BoardColumn.objects.filter(column_type__in=("status", "dropdown")):
@@ -95,6 +119,7 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS(
                 f"{filled} column(s) given options, {skipped} left as they were. "
-                "Currency is built from the operating countries; the rest are defaults you can edit."
+                "Country and Currency are built from the operating countries; "
+                    "the rest are defaults you can edit."
             )
         )

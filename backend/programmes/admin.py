@@ -3,7 +3,17 @@ from django.contrib import admin
 from core.admin import ExportCsvMixin
 from core.admin_site import admin_site
 
-from .models import Cohort, Mentee, Mentor, MentorshipPairing, ScienceFairProject
+from .models import Cohort, Mentee, Mentor, MentorshipPairing, School, ScienceFairProject
+
+
+@admin.register(School, site=admin_site)
+class SchoolAdmin(ExportCsvMixin, admin.ModelAdmin):
+    csv_filename = "schools"
+    list_display = ("name", "level", "district", "region", "country", "status", "enrollment")
+    list_filter = ("level", "country", "region", "status")
+    # Required for the autocomplete pickers on the programme records below.
+    search_fields = ("name", "district", "region", "phone", "email")
+    actions = ["export_as_csv"]
 
 
 @admin.register(Cohort, site=admin_site)
@@ -35,7 +45,8 @@ class MenteeAdmin(ExportCsvMixin, admin.ModelAdmin):
     csv_filename = "mentees"
     list_display = ("name", "school", "class_stream", "district", "country", "is_active")
     list_filter = ("country", "is_active", "district")
-    search_fields = ("name", "email", "school", "district")
+    search_fields = ("name", "email", "school__name", "district")
+    autocomplete_fields = ("school",)
     actions = ["export_as_csv"]
     inlines = [PairingInline]
 
@@ -55,7 +66,7 @@ class ScienceFairProjectAdmin(ExportCsvMixin, admin.ModelAdmin):
     csv_filename = "science-fair-projects"
     list_display = ("title", "school", "district", "category", "stage", "review_score", "cohort")
     list_filter = ("stage", "category", "cohort", "district")
-    search_fields = ("title", "school", "teacher_mentor", "notes")
-    autocomplete_fields = ("registration", "cohort")
+    search_fields = ("title", "school__name", "teacher_mentor", "notes")
+    autocomplete_fields = ("registration", "cohort", "school")
     filter_horizontal = ("students",)
     actions = ["export_as_csv"]

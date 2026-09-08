@@ -23,26 +23,26 @@ class ScopedViewSet(LoggedViewSetMixin, viewsets.ModelViewSet):
 
 class ScholarshipViewSet(ScopedViewSet):
     queryset = (
-        Scholarship.objects.select_related("office", "managed_by")
+        Scholarship.objects.select_related("office", "managed_by", "school")
         .prefetch_related("benefits", "payments")
     )
     resource = "scholarships"
     serializer_class = ScholarshipSerializer
-    filterset_fields = ["status", "school_level", "country", "office", "sponsor_type"]
+    filterset_fields = ["status", "school__level", "country", "office", "sponsor_type"]
     search_fields = [
-        "reference", "student_name", "school_name", "sponsor_name", "guardian_name", "notes",
+        "reference", "student_name", "school__name", "sponsor_name", "guardian_name", "notes",
     ]
-    ordering_fields = ["student_name", "school_name", "started_on", "status", "created_at"]
+    ordering_fields = ["student_name", "school__name", "started_on", "status", "created_at"]
     ordering = ["student_name"]
 
 
 class ScholarshipPaymentViewSet(ScopedViewSet):
-    queryset = ScholarshipPayment.objects.select_related("scholarship", "recorded_by")
+    queryset = ScholarshipPayment.objects.select_related("scholarship", "scholarship__school", "recorded_by")
     resource = "scholarship-payments"
     serializer_class = ScholarshipPaymentSerializer
     filterset_fields = ["scholarship", "method", "academic_year"]
     search_fields = [
-        "term", "reference", "notes", "scholarship__student_name", "scholarship__school_name",
+        "term", "reference", "notes", "scholarship__student_name", "scholarship__school__name",
     ]
     ordering_fields = ["paid_on", "amount", "created_at"]
     ordering = ["-paid_on"]

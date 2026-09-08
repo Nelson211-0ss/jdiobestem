@@ -22,7 +22,15 @@ from content_cms.models import (
     TeamMember,
 )
 from donations.models import Donation
-from programmes.models import Cohort, Mentee, Mentor, MentorshipPairing, ProjectAward, ScienceFairProject
+from programmes.models import (
+    Cohort,
+    Mentee,
+    Mentor,
+    MentorshipPairing,
+    ProjectAward,
+    School,
+    ScienceFairProject,
+)
 from submissions.models import (
     ContactMessage,
     NewsletterSubscriber,
@@ -294,8 +302,22 @@ class MentorAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
         read_only_fields = ["created_at", "updated_at"]
 
 
+class SchoolAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
+    # What the Foundation actually does at this school, so the table answers
+    # "is this a live partnership?" without opening every row.
+    scholarship_count = serializers.IntegerField(source="scholarships.count", read_only=True)
+    project_count = serializers.IntegerField(source="science_fair_projects.count", read_only=True)
+    mentee_count = serializers.IntegerField(source="mentees.count", read_only=True)
+
+    class Meta:
+        model = School
+        fields = "__all__"
+        read_only_fields = ["created_at", "updated_at"]
+
+
 class MenteeAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     office_name = serializers.CharField(source="office.name", read_only=True, default="")
+    school_name = serializers.CharField(source="school.name", read_only=True, default="")
     pairing_count = serializers.IntegerField(source="pairings.count", read_only=True)
 
     class Meta:
@@ -317,7 +339,7 @@ class MentorshipPairingAdminSerializer(LabelledChoicesMixin, serializers.ModelSe
 
 class ProjectAwardAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     project_title = serializers.CharField(source="project.title", read_only=True)
-    student_school = serializers.CharField(source="project.school", read_only=True)
+    student_school = serializers.CharField(source="project.school.name", read_only=True)
 
     class Meta:
         model = ProjectAward
@@ -337,6 +359,7 @@ class ProjectAwardAdminSerializer(LabelledChoicesMixin, serializers.ModelSeriali
 
 class ScienceFairProjectAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     cohort_name = serializers.CharField(source="cohort.name", read_only=True, default="")
+    school_name = serializers.CharField(source="school.name", read_only=True, default="")
     # Summaries so the table answers "did this project lead to anything?"
     # without opening every row.
     award_count = serializers.SerializerMethodField()

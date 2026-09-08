@@ -24,6 +24,7 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
     )
     payment_count = serializers.IntegerField(source="payments.count", read_only=True)
     total_paid = serializers.SerializerMethodField()
+    school_name = serializers.CharField(source="school.name", read_only=True, default="")
 
     class Meta:
         model = Scholarship
@@ -87,7 +88,7 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
 
 class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     student_name = serializers.CharField(source="scholarship.student_name", read_only=True)
-    school_name = serializers.CharField(source="scholarship.school_name", read_only=True)
+    school_name = serializers.CharField(source="scholarship.school.name", read_only=True)
     recorded_by_name = serializers.CharField(
         source="recorded_by.get_full_name", read_only=True, default=""
     )
