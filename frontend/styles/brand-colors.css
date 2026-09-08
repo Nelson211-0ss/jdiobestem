@@ -104,6 +104,13 @@ body {
  */
 body:has(.hero-home) {
   --page: var(--cream);
+  /*
+   * The homepage is the one page whose hero starts at the very top of the
+   * viewport: the bar floats over it rather than sitting in a strip above it,
+   * so the offset typography.css adds for the fixed header is taken back here
+   * and `.hero-home` carries that clearance in its own padding instead.
+   */
+  padding-top: 0;
 }
 
 ::selection {
@@ -829,8 +836,16 @@ a.card:hover,
   box-shadow: 0 10px 26px -22px rgb(58 59 71 / 0.5);
 }
 
-/* The homepage bar sits on the cream ground, so it is cream too. */
-body:has(.hero-home) .site-nav,
+/*
+ * The homepage bar is transparent until the page moves, so the hero's cream
+ * and its orange field read as one uninterrupted surface behind the logo and
+ * links. Once scrolled it takes the cream ground the page runs on — not white,
+ * or the bar would read as a separate band sitting on top of the page.
+ */
+body:has(.hero-home) .site-nav {
+  background-color: transparent;
+}
+
 body:has(.hero-home) .site-nav.is-scrolled {
   background-color: var(--cream);
 }
@@ -1596,9 +1611,16 @@ body:has(.hero-home) .preloader {
 /* ============================================================ home hero */
 
 .hero-home {
-  /* The bar is fixed and the body already pads for it; the hero only needs its
-     own breathing room on top of that. */
-  padding-top: clamp(0.5rem, 0.2rem + 1.2vw, 1.5rem);
+  /* The body no longer offsets for the fixed bar on this page (see the
+     `body:has(.hero-home)` rule above), so the hero clears the bar itself and
+     adds its own breathing room on top. */
+  padding-top: calc(5.5rem + clamp(0.5rem, 0.2rem + 1.2vw, 1.5rem));
+}
+
+@media (min-width: 768px) {
+  .hero-home {
+    padding-top: calc(6rem + clamp(0.5rem, 0.2rem + 1.2vw, 1.5rem));
+  }
 }
 
 /* Soft orange wash behind the media column. Purely decorative, and sized in vw

@@ -178,7 +178,14 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <Link href="/donate" className="btn-primary hidden !px-5 !py-2.5 !text-sm sm:inline-flex">
+          {/* Shown at every width now, not just from sm up: on a phone the
+              donate path was otherwise two taps behind the hamburger. Tighter
+              padding below sm so the logo, the button and the hamburger still
+              fit on one line on a small handset. */}
+          <Link
+            href="/donate"
+            className="btn-primary !px-4 !py-2 !text-sm sm:!px-5 sm:!py-2.5"
+          >
             <span>Donate</span>
           </Link>
           <button

@@ -264,37 +264,31 @@ def me(request):
 
 def _schools_by_country(user):
     """
-    Schools live on an operations board rather than in a table of their own,
-    so they are counted by reading that board's Country column. Returns zeros
-    when the board is absent or the column has not been filled in — which is
-    honest, rather than quietly leaving schools off the map.
+    Schools per country, for the map on the overview.
+
+    They used to be counted by reading a monday board's Country column. They
+    are a table now, so this reads the table — through the same policy scope as
+    everything else, so a country-scoped person is not shown totals for rows
+    they could not open.
     """
     from accounts import policy
-    from operations.models import Board, Record
+    from programmes.models import School
 
-    if not policy.can(user, "boards", "view"):
+    if not policy.can(user, "schools", "view"):
         return {"UG": 0, "SS": 0, "US": 0}
 
-    board = Board.objects.filter(name__iexact="Schools", is_visible=True).first()
-    if not board:
-        return {"UG": 0, "SS": 0, "US": 0}
-
-    column = board.columns.filter(title__iexact="Country").first()
-    if not column:
-        return {"UG": 0, "SS": 0, "US": 0}
-
-    counts = {"UG": 0, "SS": 0, "US": 0}
-    for label, code in (("Uganda", "UG"), ("South Sudan", "SS"), ("United States", "US")):
-        counts[code] = Record.objects.filter(
-            board=board, **{f"values__{column.monday_id}__iexact": label}
-        ).count()
-    return counts
+    visible = policy.scope(user, School.objects.all(), "schools")
+    return {
+        code: visible.filter(country=code).count() for code in ("UG", "SS", "US")
+    }
 
 
 @api_view(["GET"])
 @permission_classes([IsStaff])
 def stats(request):
     """Counts for the dashboard overview, in one round trip."""
+    from scholarships.models import Scholarship
+
     now = timezone.now()
     last_30 = now - timezone.timedelta(days=30)
 
@@ -341,6 +335,8 @@ def stats(request):
                 "mentees": counted(Mentee, "mentees", is_active=True),
                 "pairings": counted(MentorshipPairing, "pairings", status="active"),
                 "projects": counted(ScienceFairProject, "projects"),
+                "schools": counted(School, "schools"),
+                "scholarships": counted(Scholarship, "scholarships"),
                 "news": counted(NewsStory, "news"),
                 "news_published": counted(NewsStory, "news", is_published=True),
                 "team": counted(TeamMember, "team", is_published=True),
@@ -365,6 +361,7 @@ def stats(request):
                     "mentors": counted(Mentor, "mentors", country=code, is_active=True),
                     "projects": counted(ScienceFairProject, "projects", country=code),
                     "volunteers": counted(VolunteerApplication, "volunteers", country=code),
+                    "scholarships": counted(Scholarship, "scholarships", country=code),
                 }
                 for code, label in (("UG", "Uganda"), ("SS", "South Sudan"), ("US", "United States"))
             ],

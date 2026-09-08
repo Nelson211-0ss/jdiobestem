@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Pencil } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import ExportMenu from '@/components/admin/ExportMenu';
 import RecordDetail from '@/components/admin/RecordDetail';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
@@ -31,6 +32,18 @@ export default async function RecordPage({
     notFound();
   }
 
+  // This one record as a document. A board record keeps its columns in one
+  // JSON blob, so each is addressed by path rather than by key.
+  const exportHref =
+    `/api/admin/boards/${boardId}/records/${recordId}/export` +
+    `?title=${encodeURIComponent(board.name)}` +
+    `&fields=${[
+      `name:${encodeURIComponent('Name')}`,
+      ...board.columns
+        .filter((c) => c.column_type !== 'subtasks')
+        .map((c) => `values.${c.monday_id}:${encodeURIComponent(c.title)}`),
+    ].join(',')}`;
+
   const editable = can(identity, 'boards', 'change');
 
   return (
@@ -40,13 +53,16 @@ export default async function RecordPage({
       eyebrow={board.name}
       title={record.name}
       actions={
-        editable ? (
-          <Button variant="outline" asChild>
-            <Link href={`/admin/operations/${boardId}/${recordId}/edit`}>
-              <Pencil /> Edit
-            </Link>
-          </Button>
-        ) : null
+        <div className="flex flex-wrap items-center gap-3">
+          <ExportMenu href={exportHref} label={record.name} />
+          {editable ? (
+            <Button variant="outline" asChild>
+              <Link href={`/admin/operations/${boardId}/${recordId}/edit`}>
+                <Pencil /> Edit
+              </Link>
+            </Button>
+          ) : null}
+        </div>
       }
     >
       <RecordDetail board={board} record={record} />

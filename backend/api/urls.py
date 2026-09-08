@@ -113,6 +113,13 @@ urlpatterns = [
         operations_views.RecordViewSet.as_view({"get": "export"}),
         name="record-export",
     ),
+    # One board record as a document. `<int:pk>` cannot match "export", so the
+    # list export above and this cannot shadow each other.
+    path(
+        "admin/boards/<str:board_monday_id>/records/<int:pk>/export/",
+        operations_views.RecordViewSet.as_view({"get": "export_record"}),
+        name="record-detail-export",
+    ),
     path(
         "admin/boards/<str:board_monday_id>/records/<int:pk>/",
         operations_views.RecordViewSet.as_view(

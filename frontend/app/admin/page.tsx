@@ -143,6 +143,8 @@ export default async function DashboardPage() {
               ['mentees', 'Active mentees', t.mentees],
               ['pairings', 'Active pairings', t.pairings],
               ['projects', 'Science Fair projects', t.projects],
+              ['schools', 'Schools', t.schools],
+              ['scholarships', 'Bursaries', t.scholarships],
               ['team', 'Team on the website', t.team],
               ['magazine', 'Magazine issues', t.issues],
             ] as const

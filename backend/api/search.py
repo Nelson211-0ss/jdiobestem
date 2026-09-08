@@ -87,7 +87,7 @@ def search(request):
                     "kind": record.board.name,
                     "id": record.pk,
                     "title": record.name,
-                    "href": f"/admin/boards/{record.board.monday_id}/{record.pk}",
+                    "href": f"/admin/operations/{record.board.slug}/{record.pk}",
                 }
             )
 

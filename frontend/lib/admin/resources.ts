@@ -670,7 +670,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'page-blocks',
-    label: 'Page copy',
+    label: 'Website copy',
     singular: 'block',
     group: 'Website',
     icon: 'FileText',

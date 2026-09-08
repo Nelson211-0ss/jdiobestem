@@ -35,6 +35,20 @@ class IsStaffOrServiceRead(BasePermission):
         return request.method in SAFE_METHODS and has_valid_service_key(request)
 
 
+#: What a resource is called when it is said out loud. Only needed where the
+#: key and the word differ — "boards" are pages to everyone who uses them.
+RESOURCE_NOUNS = {
+    "boards": "pages",
+    "page-blocks": "website copy",
+    "scholarships": "bursaries",
+    "school-payment-details": "school payment details",
+}
+
+
+def _noun(resource: str) -> str:
+    return RESOURCE_NOUNS.get(resource, resource.replace("-", " "))
+
+
 class ResourcePermission(BasePermission):
     """
     Attribute-based authorisation for a dashboard ViewSet.
@@ -71,6 +85,6 @@ class ResourcePermission(BasePermission):
             return True
 
         self.message = (
-            f"Your role does not allow you to {action} {resource.replace('-', ' ')}."
+            f"Your role does not allow you to {action} {_noun(resource)}."
         )
         return False
