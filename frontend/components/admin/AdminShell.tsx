@@ -218,10 +218,12 @@ export default function AdminShell({
         </div>
       </header>
 
-      <div className="flex">
+      {/* min-height so the nav column still reaches the bottom of the window
+          on a short page; the row is otherwise only as tall as its content. */}
+      <div className="flex min-h-[calc(100vh-4rem)]">
         <aside
           className={cn(
-            'fixed inset-y-16 left-0 z-30 w-64 bg-background transition-all lg:sticky lg:top-0 lg:h-screen lg:translate-x-0',
+            'fixed inset-y-16 left-0 z-30 w-64 bg-background transition-all lg:static lg:z-auto lg:translate-x-0',
             navOpen ? 'translate-x-0' : '-translate-x-full',
             // Narrow only from `lg` up. On a phone the nav is a drawer that is
             // either open or shut, and a 4rem drawer would be neither.

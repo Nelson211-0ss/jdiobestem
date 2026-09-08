@@ -172,6 +172,9 @@ export default function Sidebar({
     <nav
       className={cn(
         'flex h-full flex-col overflow-y-auto overflow-x-hidden',
+        // Sticks below the 4rem header while the column behind it stretches
+        // to the full page height.
+        'lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]',
         collapsed ? 'items-center gap-3 p-2' : 'gap-5 p-4'
       )}
     >
