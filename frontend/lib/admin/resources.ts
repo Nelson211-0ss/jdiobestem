@@ -1372,7 +1372,10 @@ export const RESOURCES: Resource[] = [
         name: 'phone', label: 'School phone', type: 'tel',
         help: "The school's number. A head teacher moves on and the number stays.",
       },
-      { name: 'established_on', label: 'Established', type: 'date' },
+      {
+        name: 'partnership_started_on', label: 'Partnership started', type: 'date',
+        help: 'When the Foundation began working with this school.',
+      },
     ],
   },
   {

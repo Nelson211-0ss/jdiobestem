@@ -1338,10 +1338,6 @@
         "kind": "text",
         "maxLength": 120
       },
-      "established_on": {
-        "allowNull": true,
-        "kind": "date"
-      },
       "level": {
         "choices": [
           "primary",
@@ -1356,6 +1352,10 @@
         "kind": "text",
         "maxLength": 200,
         "required": true
+      },
+      "partnership_started_on": {
+        "allowNull": true,
+        "kind": "date"
       },
       "phone": {
         "kind": "text",

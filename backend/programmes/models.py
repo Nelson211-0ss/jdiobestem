@@ -84,7 +84,9 @@ class School(TimeStampedModel):
     # The school's number. A head teacher moves on and the number stays, which
     # is why this is not named after whoever answers it.
     phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
-    established_on = models.DateField(null=True, blank=True)
+    # When the Foundation began working with this school, not when the school
+    # itself was founded.
+    partnership_started_on = models.DateField(null=True, blank=True)
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.ACTIVE, db_index=True
     )
