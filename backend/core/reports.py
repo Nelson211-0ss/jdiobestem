@@ -148,6 +148,10 @@ def _text(value, label: str = "") -> str:
         return ""
     if isinstance(value, bool):
         return "Yes" if value else "No"
+    # One field can hold several files. Rendering the Python list would put
+    # brackets and quotes on the page.
+    if isinstance(value, (list, tuple)):
+        return ", ".join(_text(item, label) for item in value if item not in (None, ""))
 
     text = str(value)
     if label and _looks_like_money(label):

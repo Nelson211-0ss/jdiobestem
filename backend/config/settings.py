@@ -266,6 +266,10 @@ SERVICE_API_KEY = env("SERVICE_API_KEY", "dev-service-key-change-me")
 # the Foundation controls: when somebody leaves, revoking the mailbox and
 # revoking dashboard access are the same act. Configurable so a rename does not
 # need a code change.
+#: Who the daily school-fees reminder goes to. Falls back to the shared
+#: address, so the reminder is never silently sent nowhere.
+FEE_REMINDER_TO = env("FEE_REMINDER_TO", "").strip()
+
 STAFF_EMAIL_DOMAIN = env("STAFF_EMAIL_DOMAIN", "jdiobestem.org").strip().lower().lstrip("@")
 
 if not DEBUG and SERVICE_API_KEY == "dev-service-key-change-me":

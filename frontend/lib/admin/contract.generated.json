@@ -1143,10 +1143,6 @@
       }
     },
     "scholarship-payments": {
-      "academic_year": {
-        "kind": "text",
-        "maxLength": 20
-      },
       "amount": {
         "decimals": 2,
         "kind": "number",
@@ -1189,8 +1185,35 @@
         "required": true
       },
       "term": {
+        "allowNull": true
+      }
+    },
+    "scholarship-terms": {
+      "academic_year": {
         "kind": "text",
-        "maxLength": 60
+        "maxLength": 20,
+        "required": true
+      },
+      "amount_due": {
+        "allowNull": true,
+        "decimals": 2,
+        "kind": "number"
+      },
+      "ends_on": {
+        "kind": "date",
+        "required": true
+      },
+      "label": {
+        "kind": "text",
+        "maxLength": 40,
+        "required": true
+      },
+      "scholarship": {
+        "required": true
+      },
+      "starts_on": {
+        "kind": "date",
+        "required": true
       }
     },
     "scholarships": {

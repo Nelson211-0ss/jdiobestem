@@ -19,7 +19,12 @@ from django.conf import settings
 logger = logging.getLogger(__name__)
 
 
-def send_notification(subject: str, lines: list[tuple[str, str]], reply_to: str = "") -> bool:
+def send_notification(
+    subject: str,
+    lines: list[tuple[str, str]],
+    reply_to: str = "",
+    to: str = "",
+) -> bool:
     """Send a plain 'label: value' notification. Returns whether it went out."""
     if not settings.RESEND_API_KEY:
         logger.info("RESEND_API_KEY not set — skipping notification %r", subject)
@@ -39,7 +44,9 @@ def send_notification(subject: str, lines: list[tuple[str, str]], reply_to: str 
 
     payload = {
         "from": settings.NOTIFY_FROM,
-        "to": [settings.NOTIFY_TO],
+        # Most notices go to the Foundation's shared address; a few are
+        # addressed to whoever has to act on them.
+        "to": [to or settings.NOTIFY_TO],
         "subject": subject,
         "text": text,
         "html": html,

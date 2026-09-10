@@ -6,8 +6,12 @@ from accounts import policy
 from activity.recorder import LoggedViewSetMixin
 from api.permissions import ResourcePermission
 
-from .models import Scholarship, ScholarshipPayment
-from .serializers import ScholarshipPaymentSerializer, ScholarshipSerializer
+from .models import Scholarship, ScholarshipPayment, ScholarshipTerm
+from .serializers import (
+    ScholarshipPaymentSerializer,
+    ScholarshipSerializer,
+    ScholarshipTermSerializer,
+)
 from core.exporting import ExportableMixin
 
 
@@ -38,17 +42,30 @@ class ScholarshipViewSet(ScopedViewSet):
 
     def export_detail_tables(self, obj):
         """A bursary report is only useful with the money on the same sheet."""
-        payments = obj.payments.select_related("recorded_by").order_by("-paid_on")
+        payments = obj.payments.select_related("recorded_by", "term").order_by("-paid_on")
         return [
             (
-                "Payments to the school",
-                [("paid_on", "Date"), ("academic_year", "Year"), ("term", "Term"),
-                 ("amount", "Amount"), ("method", "Method"), ("reference", "Reference")],
+                "Terms and what is owed",
+                [("term", "Term"), ("starts", "Begins"), ("ends", "Ends"),
+                 ("due", "Fees due"), ("paid", "Paid"), ("outstanding", "Outstanding")],
                 [
                     {
-                        "paid_on": p.paid_on, "academic_year": p.academic_year, "term": p.term,
+                        "term": str(t), "starts": t.starts_on, "ends": t.ends_on,
+                        "due": f"{t.due:,.0f}", "paid": f"{t.paid:,.0f}",
+                        "outstanding": f"{t.outstanding:,.0f}" if t.outstanding else "Settled",
+                    }
+                    for t in obj.terms.all()
+                ],
+            ),
+            (
+                "Payments to the school",
+                [("paid_on", "Date"), ("term", "Term"), ("amount", "Amount"),
+                 ("method", "Method"), ("reference", "Reference"), ("receipt", "Receipt")],
+                [
+                    {
+                        "paid_on": p.paid_on, "term": str(p.term) if p.term_id else "",
                         "amount": f"{p.amount:,.0f}", "method": p.get_method_display(),
-                        "reference": p.reference,
+                        "reference": p.reference, "receipt": p.receipt,
                     }
                     for p in payments
                 ],
@@ -61,13 +78,26 @@ class ScholarshipViewSet(ScopedViewSet):
         ]
 
 
+class ScholarshipTermViewSet(ScopedViewSet):
+    queryset = ScholarshipTerm.objects.select_related("scholarship", "scholarship__school")
+    resource = "scholarship-terms"
+    serializer_class = ScholarshipTermSerializer
+    filterset_fields = ["scholarship", "academic_year"]
+    search_fields = ["label", "academic_year", "scholarship__student_name"]
+    ordering_fields = ["starts_on", "ends_on", "label"]
+    ordering = ["-starts_on"]
+
+
 class ScholarshipPaymentViewSet(ScopedViewSet):
-    queryset = ScholarshipPayment.objects.select_related("scholarship", "scholarship__school", "recorded_by")
+    queryset = ScholarshipPayment.objects.select_related(
+        "scholarship", "scholarship__school", "term", "recorded_by"
+    )
     resource = "scholarship-payments"
     serializer_class = ScholarshipPaymentSerializer
-    filterset_fields = ["scholarship", "method", "academic_year"]
+    filterset_fields = ["scholarship", "method", "term"]
     search_fields = [
-        "term", "reference", "notes", "scholarship__student_name", "scholarship__school__name",
+        "reference", "notes", "term__label", "scholarship__student_name",
+        "scholarship__school__name",
     ]
     ordering_fields = ["paid_on", "amount", "created_at"]
     ordering = ["-paid_on"]

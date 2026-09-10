@@ -36,7 +36,8 @@ export type Field = {
     | 'staff'
     | 'project'
     | 'scholarship'
-    | 'school';
+    | 'school'
+    | 'term';
   label: string;
   type?: FieldType;
   options?: { value: string; label: string }[];
@@ -1449,6 +1450,8 @@ export const RESOURCES: Resource[] = [
       { name: 'school_name', label: 'School' },
       { name: 'current_class', label: 'Class' },
       { name: 'total_paid', label: 'Paid to date', numeric: true },
+      { name: 'outstanding', label: 'Outstanding', numeric: true },
+      { name: 'next_term_due', label: 'Next term due' },
       { name: 'status_display', label: 'Status', badge: true },
     ],
     filters: [
@@ -1544,6 +1547,46 @@ export const RESOURCES: Resource[] = [
     ],
   },
   {
+    key: 'scholarship-terms',
+    label: 'Terms and fees due',
+    singular: 'term',
+    group: 'Programmes',
+    parent: 'Scholarships',
+    icon: 'CalendarRange',
+    description:
+      'When each term runs and what it costs. Fees fall due term by term, so this is what makes "is anything owed right now" answerable — outstanding is the term\'s fees less the payments recorded against it.',
+    titleField: 'label',
+    searchHint: 'term, year, student',
+    columns: [
+      { name: 'student_name', label: 'Student' },
+      { name: 'reference', label: 'Ref' },
+      { name: 'label', label: 'Term' },
+      { name: 'academic_year', label: 'Year' },
+      { name: 'starts_on', label: 'Begins', date: true },
+      { name: 'ends_on', label: 'Ends', date: true },
+      { name: 'amount_due_effective', label: 'Fees due', numeric: true },
+      { name: 'paid', label: 'Paid', numeric: true },
+      { name: 'outstanding', label: 'Outstanding', numeric: true },
+    ],
+    filters: [
+      { name: 'scholarship', label: 'Bursary', type: 'select', options: [], source: 'scholarship' },
+    ],
+    fields: [
+      {
+        name: 'scholarship', label: 'Bursary', type: 'select', options: [], source: 'scholarship',
+        required: true, wide: true,
+      },
+      { name: 'label', label: 'Term', type: 'text', required: true, help: 'e.g. Term 1.' },
+      { name: 'academic_year', label: 'Academic year', type: 'text', help: 'e.g. 2026.' },
+      { name: 'starts_on', label: 'Term begins', type: 'date', required: true },
+      { name: 'ends_on', label: 'Term ends', type: 'date', required: true },
+      {
+        name: 'amount_due', label: 'Fees due this term', type: 'number', wide: true,
+        help: "Leave empty to use the bursary's amount per term.",
+      },
+    ],
+  },
+  {
     key: 'scholarship-payments',
     label: 'Payments to schools',
     singular: 'payment',
@@ -1552,13 +1595,13 @@ export const RESOURCES: Resource[] = [
     icon: 'Receipt',
     description:
       'Every transfer made to a school under a bursary, with its receipt. Kept as separate rows rather than a running total, so what was paid in a given term stays answerable.',
-    titleField: 'term',
+    titleField: 'term_label',
     searchHint: 'student, school, term, reference',
     columns: [
       { name: 'receipt', label: '', thumb: true },
       { name: 'student_name', label: 'Student' },
       { name: 'school_name', label: 'School' },
-      { name: 'term', label: 'Covers' },
+      { name: 'term_label', label: 'Covers' },
       { name: 'amount', label: 'Amount', numeric: true },
       { name: 'currency', label: 'Currency' },
       { name: 'paid_on', label: 'Paid', date: true },
@@ -1582,8 +1625,11 @@ export const RESOURCES: Resource[] = [
       { name: 'paid_on', label: 'Date paid', type: 'date', required: true },
       { name: 'amount', label: 'Amount', type: 'number', required: true },
       { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
-      { name: 'term', label: 'What it covers', type: 'text', help: 'e.g. Term 1 2026.' },
-      { name: 'academic_year', label: 'Academic year', type: 'text', help: 'e.g. 2026.' },
+      {
+        name: 'term', label: 'Term this settles', type: 'select', options: [], source: 'term',
+        wide: true,
+        help: 'What is still owed on a term is worked out from the payments against it.',
+      },
       {
         name: 'method', label: 'Method', type: 'select',
         options: [
@@ -1619,6 +1665,7 @@ function optionsFor(
     projects?: { value: string; label: string }[];
     scholarships?: { value: string; label: string }[];
     schools?: { value: string; label: string }[];
+    terms?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -1631,6 +1678,7 @@ function optionsFor(
   if (source === 'project') return options.projects ?? [];
   if (source === 'scholarship') return options.scholarships ?? [];
   if (source === 'school') return options.schools ?? [];
+  if (source === 'term') return options.terms ?? [];
   return options.countries;
 }
 
@@ -1647,6 +1695,7 @@ export function withOptions(
     projects?: { value: string; label: string }[];
     scholarships?: { value: string; label: string }[];
     schools?: { value: string; label: string }[];
+    terms?: { value: string; label: string }[];
   }
 ): Resource {
   return {

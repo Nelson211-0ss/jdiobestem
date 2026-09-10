@@ -16,6 +16,8 @@ The existing Scholarships board tracked something different: opportunities to
 apply for, with deadlines and reviewers. This is the student side of it.
 """
 
+from decimal import Decimal
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -168,7 +170,80 @@ class Scholarship(TimeStampedModel):
     @property
     def total_paid(self):
         """What has actually reached the school, summed from the payments."""
-        return sum((p.amount for p in self.payments.all()), start=0)
+        return sum((p.amount for p in self.payments.all()), start=Decimal("0"))
+
+    @property
+    def total_due(self):
+        """What the terms recorded against this bursary come to."""
+        return sum((t.due for t in self.terms.all()), start=Decimal("0"))
+
+    @property
+    def outstanding(self):
+        """Fees owed: what the terms come to, less what has been sent.
+
+        Never negative — an overpayment on one term is not a credit the school
+        owes back, and showing a minus here would read as though it were.
+        """
+        return max(self.total_due - self.total_paid, Decimal("0"))
+
+
+class ScholarshipTerm(TimeStampedModel):
+    """
+    One term of a bursary: when it runs, and what it costs.
+
+    A bursary is agreed once, but fees fall due term by term. Without the dates
+    the question the Foundation actually has — "is anything owed right now" —
+    cannot be answered at all, and without an amount per term "outstanding" has
+    no meaning. Payments point at the term they settle, so what is still owed
+    is arithmetic rather than someone's recollection.
+    """
+
+    scholarship = models.ForeignKey(
+        Scholarship, on_delete=models.CASCADE, related_name="terms"
+    )
+    academic_year = models.CharField(max_length=20, blank=True, help_text="e.g. 2026.")
+    label = models.CharField(max_length=40, help_text="e.g. Term 1.")
+    starts_on = models.DateField(db_index=True)
+    ends_on = models.DateField()
+    amount_due = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Left empty, the bursary's amount per term is used.",
+    )
+
+    class Meta:
+        ordering = ["-starts_on", "label"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["scholarship", "academic_year", "label"],
+                name="unique_term_per_bursary_year",
+            )
+        ]
+
+    def __str__(self):
+        year = f" {self.academic_year}" if self.academic_year else ""
+        return f"{self.label}{year}"
+
+    @property
+    def due(self):
+        """The term's own figure, or the bursary's standing one."""
+        if self.amount_due is not None:
+            return self.amount_due
+        return self.scholarship.amount_per_term or Decimal("0")
+
+    @property
+    def paid(self):
+        return sum((p.amount for p in self.payments.all()), start=Decimal("0"))
+
+    @property
+    def outstanding(self):
+        return max(self.due - self.paid, Decimal("0"))
+
+    @property
+    def is_settled(self):
+        return self.outstanding <= 0
 
 
 class ScholarshipPayment(TimeStampedModel):
@@ -193,11 +268,17 @@ class ScholarshipPayment(TimeStampedModel):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     currency = models.CharField(max_length=8, blank=True)
 
-    # Which term the money was for, which is not always the term it was sent in.
-    term = models.CharField(
-        max_length=60, blank=True, help_text="What the payment covers, e.g. Term 1 2026."
+    # Which term the money was for, which is not always the term it was sent
+    # in. A link rather than prose, so "what is still owed on Term 1" is a sum
+    # and not a text match.
+    term = models.ForeignKey(
+        "ScholarshipTerm",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="payments",
+        help_text="The term this payment settles.",
     )
-    academic_year = models.CharField(max_length=20, blank=True, help_text="e.g. 2026.")
 
     method = models.CharField(max_length=20, choices=Method.choices, default=Method.BANK)
     reference = models.CharField(

@@ -281,15 +281,18 @@ class ExportableMixin:
         shown_as_pictures = getattr(self, "embedded_values", set())
         # isinstance first: a serialized value can be a list or a dict, and
         # membership of a set is only defined for something hashable.
-        pairs = [
-            (
-                label,
-                "Shown below"
-                if isinstance(value, str) and value in shown_as_pictures
-                else value,
-            )
-            for label, value in pairs
-        ]
+        def without_urls(value):
+            """Replace anything already on the page as a picture."""
+            if isinstance(value, str):
+                return "Shown below" if value in shown_as_pictures else value
+            if isinstance(value, (list, tuple)) and value:
+                kept = [v for v in value if not (isinstance(v, str) and v in shown_as_pictures)]
+                if not kept:
+                    return f"{len(value)} shown below" if len(value) > 1 else "Shown below"
+                return kept
+            return value
+
+        pairs = [(label, without_urls(value)) for label, value in pairs]
 
         person = getattr(request, "user", None)
         report = RecordReport(

@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 
 from documents.models import Document
-from scholarships.models import Scholarship
+from scholarships.models import Scholarship, ScholarshipTerm
 from programmes.models import School, ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
@@ -247,6 +247,17 @@ def option_lists(request):
             "schools": [
                 {"value": str(sc.pk), "label": f"{sc.name}{f' — {sc.district}' if sc.district else ''}"[:140]}
                 for sc in School.objects.order_by("name")
+            ],
+            # A payment settles a term, so the form needs the list. Labelled
+            # with the student, because "Term 1 2026" alone belongs to nobody.
+            "terms": [
+                {
+                    "value": str(t.pk),
+                    "label": f"{t.scholarship.reference} {t.scholarship.student_name} — {t}"[:140],
+                }
+                for t in ScholarshipTerm.objects.select_related("scholarship").order_by(
+                    "-starts_on"
+                )
             ],
             "projects": [
                 {"value": str(p.pk), "label": f"{p.title} — {p.school.name}"[:120]}

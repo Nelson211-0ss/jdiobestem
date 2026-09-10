@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { displayValue, inputFor, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import { formatNumber, isMoneyLabel } from '@/lib/format';
 import FilePreview from './FilePreview';
+import { toFileList } from './MultiUploadField';
 import { DetailTable, DetailTableRow } from './Shell';
 
 /**
@@ -18,9 +19,19 @@ function Value({ column, record }: { column: BoardDetail['columns'][number]; rec
   const text = displayValue(raw);
 
   if (column.column_type === 'file') {
-    const url = String(raw ?? '');
-    return url ? (
-      <FilePreview url={url} alt={`${column.title} for ${record.name}`} />
+    // One field can hold several files; anything saved before that was a
+    // single string, so both shapes have to read.
+    const urls = toFileList(raw);
+    return urls.length ? (
+      <div className="flex flex-wrap gap-2">
+        {urls.map((url, index) => (
+          <FilePreview
+            key={`${url}-${index}`}
+            url={url}
+            alt={`${column.title} for ${record.name}`}
+          />
+        ))}
+      </div>
     ) : (
       <span className="font-normal text-muted-foreground">&mdash;</span>
     );

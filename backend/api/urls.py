@@ -50,6 +50,11 @@ router.register("job-applications", jobs_views.JobApplicationViewSet, basename="
 router.register("newsletters", newsletters_views.NewsletterViewSet, basename="newsletter")
 router.register("scholarships", scholarships_views.ScholarshipViewSet, basename="scholarship")
 router.register(
+    "scholarship-terms",
+    scholarships_views.ScholarshipTermViewSet,
+    basename="scholarship-term",
+)
+router.register(
     "scholarship-payments",
     scholarships_views.ScholarshipPaymentViewSet,
     basename="scholarship-payment",

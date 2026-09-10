@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { inputFor, validateColumn, type BoardColumn, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import NumberInput from '@/components/ui/number-input';
 import PhoneInput from './PhoneInput';
-import UploadField from './UploadField';
+import MultiUploadField, { toFileList } from './MultiUploadField';
 
 /**
  * Edit one record on any board.
@@ -326,22 +326,21 @@ export default function RecordForm({
                 </Select>
               ) : kind === 'file' ? (
                 <div className="space-y-3">
-                  <UploadField
+                  <MultiUploadField
                     id={id}
-                    value={String(value ?? '')}
+                    value={value}
                     folder="receipts"
                     disabled={!canChange}
-                    onChange={(v) => set(v)}
+                    onChange={(files) => set(files)}
                   />
-                  {String(value ?? '') ? (
-                    <a
-                      href={String(value)}
-                      target="_blank"
-                      rel="noopener"
-                      className="inline-block"
-                    >
-                      <FilePreview url={String(value)} />
-                    </a>
+                  {toFileList(value).length ? (
+                    <div className="flex flex-wrap gap-2">
+                      {toFileList(value).map((url) => (
+                        <a key={url} href={url} target="_blank" rel="noopener" className="inline-block">
+                          <FilePreview url={url} />
+                        </a>
+                      ))}
+                    </div>
                   ) : null}
                 </div>
               ) : kind === 'select' ? (

@@ -4,7 +4,12 @@ from rest_framework import serializers
 
 from api.admin_serializers import LabelledChoicesMixin, ThumbnailMixin
 
-from .models import Scholarship, ScholarshipBenefit, ScholarshipPayment
+from .models import (
+    Scholarship,
+    ScholarshipBenefit,
+    ScholarshipPayment,
+    ScholarshipTerm,
+)
 
 
 class ScholarshipBenefitSerializer(serializers.ModelSerializer):
@@ -21,6 +26,11 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
     office_name = serializers.CharField(source="office.name", read_only=True, default="")
     payment_count = serializers.IntegerField(source="payments.count", read_only=True)
     total_paid = serializers.SerializerMethodField()
+    # What is still owed is the number this table exists to answer.
+    outstanding = serializers.SerializerMethodField()
+    total_due = serializers.SerializerMethodField()
+    term_count = serializers.IntegerField(source="terms.count", read_only=True)
+    next_term_due = serializers.SerializerMethodField()
     school_name = serializers.CharField(source="school.name", read_only=True, default="")
 
     class Meta:
@@ -34,6 +44,25 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
         if not total:
             return ""
         return f"{obj.currency} {total:,.2f}".strip()
+
+    def _money(self, obj, total) -> str:
+        if not total:
+            return ""
+        return f"{obj.currency} {total:,.2f}".strip()
+
+    def get_outstanding(self, obj) -> str:
+        return self._money(obj, obj.outstanding)
+
+    def get_total_due(self, obj) -> str:
+        return self._money(obj, obj.total_due)
+
+    def get_next_term_due(self, obj) -> str:
+        """The soonest unsettled term, which is what a reminder is about."""
+        unsettled = [t for t in obj.terms.all() if not t.is_settled]
+        if not unsettled:
+            return ""
+        soonest = min(unsettled, key=lambda t: t.starts_on)
+        return f"{soonest} — starts {soonest.starts_on:%d %b %Y}"
 
     def validate(self, attrs):
         # An award that ended should say why and when. Checked together because
@@ -83,9 +112,45 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
         return scholarship
 
 
+class ScholarshipTermSerializer(serializers.ModelSerializer):
+    student_name = serializers.CharField(source="scholarship.student_name", read_only=True)
+    reference = serializers.CharField(source="scholarship.reference", read_only=True)
+    school_name = serializers.CharField(source="scholarship.school.name", read_only=True, default="")
+    amount_due_effective = serializers.SerializerMethodField()
+    paid = serializers.SerializerMethodField()
+    outstanding = serializers.SerializerMethodField()
+    is_settled = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = ScholarshipTerm
+        fields = "__all__"
+        read_only_fields = ["created_at", "updated_at"]
+
+    def _money(self, obj, total) -> str:
+        currency = obj.scholarship.currency
+        return f"{currency} {total:,.2f}".strip() if total else ""
+
+    def get_amount_due_effective(self, obj) -> str:
+        return self._money(obj, obj.due)
+
+    def get_paid(self, obj) -> str:
+        return self._money(obj, obj.paid)
+
+    def get_outstanding(self, obj) -> str:
+        return self._money(obj, obj.outstanding)
+
+    def validate(self, attrs):
+        starts = attrs.get("starts_on") or getattr(self.instance, "starts_on", None)
+        ends = attrs.get("ends_on") or getattr(self.instance, "ends_on", None)
+        if starts and ends and ends < starts:
+            raise serializers.ValidationError({"ends_on": "A term cannot end before it begins."})
+        return attrs
+
+
 class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     student_name = serializers.CharField(source="scholarship.student_name", read_only=True)
     school_name = serializers.CharField(source="scholarship.school.name", read_only=True)
+    term_label = serializers.CharField(source="term.__str__", read_only=True, default="")
     recorded_by_name = serializers.CharField(
         source="recorded_by.get_full_name", read_only=True, default=""
     )
