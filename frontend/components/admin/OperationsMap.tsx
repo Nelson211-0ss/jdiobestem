@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { GraduationCap, HeartHandshake, Rocket, School, Users } from 'lucide-react';
+import { BookOpen, GraduationCap, HeartHandshake, Rocket, School, Users } from 'lucide-react';
 
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -27,7 +27,9 @@ export type CountryFigures = {
   mentors: number;
   projects: number;
   volunteers: number;
-  /** Schools live on an operations board, so this is merged in by the page. */
+  /** Students the Foundation pays fees for. */
+  scholarships: number;
+  /** Counted from the Schools table, and merged in by the page. */
   schools: number;
 };
 
@@ -49,7 +51,12 @@ const CALLOUT_OFFSET: Record<string, { dx: number; dy: number }> = {
 
 /** What the map can be asked to show. Each reads one figure per country. */
 const METRICS = [
-  { key: 'mentees', label: 'Students', noun: 'student', icon: GraduationCap },
+  // "Students" was mentees alone, which read as though the Foundation had
+  // none while it was paying fees for several. They are separate records and
+  // separate questions, so they are separate figures rather than one sum that
+  // would double-count anyone who is both.
+  { key: 'scholarships', label: 'On bursary', noun: 'student on bursary', icon: GraduationCap },
+  { key: 'mentees', label: 'Mentees', noun: 'mentee', icon: BookOpen },
   { key: 'mentors', label: 'Mentors', noun: 'mentor', icon: Users },
   { key: 'schools', label: 'Schools', noun: 'school', icon: School },
   { key: 'projects', label: 'Projects', noun: 'project', icon: Rocket },
@@ -59,7 +66,7 @@ const METRICS = [
 type MetricKey = (typeof METRICS)[number]['key'];
 
 export default function OperationsMap({ countries }: { countries: CountryFigures[] }) {
-  const [metric, setMetric] = useState<MetricKey>('mentees');
+  const [metric, setMetric] = useState<MetricKey>('scholarships');
   const active = METRICS.find((m) => m.key === metric)!;
 
   const valueFor = (c: CountryFigures) => Number(c[metric] ?? 0);
