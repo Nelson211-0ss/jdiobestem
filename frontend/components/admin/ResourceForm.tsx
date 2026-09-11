@@ -7,6 +7,7 @@ import { Loader2, Plus, Save, Trash2, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import PhoneInput from './PhoneInput';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -422,18 +423,25 @@ export default function ResourceForm({
                 onChange={(raw) => set(field.name, raw)}
                 onBlur={() => check(field, values[field.name])}
               />
+            ) : field.type === 'tel' ? (
+              // The country code is picked, not typed. Typed, the same number
+              // gets stored four ways — 0700…, 256700…, +256 700…, (+256)700…
+              // — and none of them can be dialled from another country.
+              <PhoneInput
+                id={id}
+                value={String(value ?? '')}
+                disabled={!canChange}
+                invalid={Boolean(invalid)}
+                describedBy={describedBy}
+                onChange={(combined) => set(field.name, combined)}
+                onBlur={() => check(field, values[field.name])}
+              />
             ) : (
               <Input
                 id={id}
                 className="h-12"
                 type={
-                  field.type === 'date'
-                    ? 'date'
-                    : field.type === 'email'
-                      ? 'email'
-                      : field.type === 'tel'
-                        ? 'tel'
-                        : 'text'
+                  field.type === 'date' ? 'date' : field.type === 'email' ? 'email' : 'text'
                 }
                 value={String(value ?? '')}
                 required={required}

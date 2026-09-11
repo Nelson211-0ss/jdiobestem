@@ -820,7 +820,7 @@ export const RESOURCES: Resource[] = [
     fields: [
       { name: 'name', label: 'Applicant', type: 'text', required: true, wide: true },
       { name: 'email', label: 'Email', type: 'text', required: true },
-      { name: 'phone', label: 'Phone', type: 'text' },
+      { name: 'phone', label: 'Phone', type: 'tel' },
       { name: 'posting_title', label: 'Applied for', type: 'readonly', wide: true },
       { name: 'stage', label: 'Stage', type: 'select', required: true,
         options: [
