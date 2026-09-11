@@ -5,6 +5,7 @@ import { Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { formatNumber } from '@/lib/format';
+import { cn } from '@/lib/utils';
 
 /**
  * The entries a compound expense is made of.
@@ -13,9 +14,10 @@ import { formatNumber } from '@/lib/format';
  * as one figure it can only answer how much; entered as lines it answers what
  * on and when.
  *
- * There is deliberately no total to type. The figure below is the sum of the
- * rows and is read-only here and on the record — a total somebody can edit
- * independently of the lines beneath it starts disagreeing with them.
+ * The amount on the expense is what was spent; these say what it went on. They
+ * may cover less than all of it — not everything is itemised at once — but they
+ * cannot come to more, and the form says so before it is saved rather than
+ * leaving the server to refuse it.
  */
 
 export type ExpenseLine = { name: string; incurred_on: string; amount: string };
@@ -27,14 +29,20 @@ export function linesTotal(lines: ExpenseLine[]): number {
 export default function ExpenseLines({
   lines,
   currency,
+  total = 0,
   disabled,
   onChange,
 }: {
   lines: ExpenseLine[];
   currency?: string;
+  /** The amount recorded on the expense, which the entries break down. */
+  total?: number;
   disabled?: boolean;
   onChange: (lines: ExpenseLine[]) => void;
 }) {
+  const itemised = linesTotal(lines);
+  const remaining = total - itemised;
+  const over = total > 0 && itemised > total;
   const update = (index: number, patch: Partial<ExpenseLine>) =>
     onChange(lines.map((line, i) => (i === index ? { ...line, ...patch } : line)));
 
@@ -105,13 +113,30 @@ export default function ExpenseLines({
           <span />
         )}
         <p className="text-sm">
-          <span className="text-muted-foreground">Total</span>{' '}
-          <span className="font-bold tabular">
+          <span className="text-muted-foreground">Entries come to</span>{' '}
+          <span className={cn('font-bold tabular', over && 'text-destructive')}>
             {currency ? `${currency} ` : ''}
-            {formatNumber(String(linesTotal(lines)), { money: true })}
+            {formatNumber(String(itemised), { money: true })}
           </span>
         </p>
       </div>
+
+      {total > 0 ? (
+        <p className={cn('text-xs', over ? 'font-medium text-destructive' : 'text-muted-foreground')}>
+          {over
+            ? `That is ${currency ? `${currency} ` : ''}${formatNumber(String(itemised - total), {
+                money: true,
+              })} more than the ${formatNumber(String(total), { money: true })} recorded for this expense. Raise the amount or reduce an entry.`
+            : remaining > 0
+              ? `${formatNumber(String(remaining), { money: true })} of the ${formatNumber(
+                  String(total),
+                  { money: true }
+                )} recorded is not itemised yet.`
+              : `Every ${currency ? `${currency} ` : ''}${formatNumber(String(total), {
+                  money: true,
+                })} of this expense is accounted for.`}
+        </p>
+      ) : null}
     </div>
   );
 }

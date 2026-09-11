@@ -47,6 +47,20 @@ export default async function RecordPage({
         .map((c) => `values.${c.monday_id}:${encodeURIComponent(c.title)}`),
     ].join(',')}`;
 
+  // The entries panel belongs to a compound expense whether or not anything
+  // has been put in it yet — an empty one with a way in is the point.
+  const typeColumn = board.columns.find((c) => c.title === 'Expense type');
+  const amountColumn = board.columns.find((c) => c.title === 'Amount');
+  const typeLabel = typeColumn
+    ? (typeColumn.choices.find(
+        (o) => o.value === String(record.values?.[typeColumn.monday_id] ?? '')
+      )?.label ?? '')
+    : '';
+  const isCompound = typeLabel.trim().toLowerCase() === 'compound';
+  const recordedAmount = amountColumn
+    ? Number(record.values?.[amountColumn.monday_id] ?? 0) || 0
+    : 0;
+
   const editable = can(identity, 'boards', 'change');
 
   return (
@@ -57,7 +71,15 @@ export default async function RecordPage({
       title={record.name}
       // A compound expense is its entries, so they are read beside the
       // record rather than after it.
-      aside={record.expense_lines?.length ? <RecordEntries record={record} /> : null}
+      aside={
+        isCompound || record.expense_lines?.length ? (
+          <RecordEntries
+            record={record}
+            amount={recordedAmount}
+            editHref={editable ? `/admin/operations/${boardId}/${recordId}/edit` : undefined}
+          />
+        ) : null
+      }
       actions={
         <div className="flex flex-wrap items-center gap-3">
           <ExportMenu href={exportHref} label={record.name} />

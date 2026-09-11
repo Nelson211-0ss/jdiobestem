@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from rest_framework import serializers
 
@@ -51,6 +51,16 @@ class BoardDetailSerializer(BoardSerializer):
 
     class Meta(BoardSerializer.Meta):
         fields = BoardSerializer.Meta.fields + ["columns", "groups"]
+
+
+def _to_decimal(value):
+    """A board value as a number, or None when it is not one."""
+    if value in (None, ""):
+        return None
+    try:
+        return Decimal(str(value).replace(",", "").strip())
+    except (InvalidOperation, AttributeError, TypeError):
+        return None
 
 
 class ExpenseLineSerializer(serializers.ModelSerializer):
@@ -113,6 +123,26 @@ class RecordSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     {"expense_lines": "A compound expense needs at least one entry."}
                 )
+            # The recorded amount is the expense; the entries say what it was
+            # made up of. They may cover less than all of it — not everything is
+            # always itemised — but they cannot come to more than was spent.
+            amount_column = self._column(board, "Amount")
+            total = _to_decimal(values.get(amount_column.monday_id)) if amount_column else None
+            if total is not None and total > 0:
+                itemised = sum(
+                    (_to_decimal(line.get("amount")) or Decimal("0") for line in lines),
+                    start=Decimal("0"),
+                )
+                if itemised > total:
+                    raise serializers.ValidationError(
+                        {
+                            "expense_lines": (
+                                f"The entries come to {itemised:,.2f}, which is more than the "
+                                f"{total:,.2f} recorded for this expense. Raise the amount or "
+                                "reduce an entry."
+                            )
+                        }
+                    )
         elif lines and self._column(board, "Expense type"):
             raise serializers.ValidationError(
                 {"expense_lines": "Only a compound expense has entries. Change the type first."}
@@ -120,7 +150,8 @@ class RecordSerializer(serializers.ModelSerializer):
         return attrs
 
     def _apply_lines(self, record, lines):
-        """Replace the lines and write the total back onto the record."""
+        """Replace the lines. The recorded amount is left alone — it is what
+        was spent, and the entries only say what it went on."""
         record.expense_lines.all().delete()
         ExpenseLine.objects.bulk_create(
             [
@@ -134,13 +165,6 @@ class RecordSerializer(serializers.ModelSerializer):
                 for index, line in enumerate(lines)
             ]
         )
-        amount_column = self._column(record.board, "Amount")
-        if amount_column and self._is_compound(record.board, record.values):
-            total = sum((line["amount"] for line in lines), start=Decimal("0"))
-            values = dict(record.values or {})
-            values[amount_column.monday_id] = str(total)
-            record.values = values
-            record.save(update_fields=["values"])
 
     def create(self, validated_data):
         lines = validated_data.pop("expense_lines", [])

@@ -350,6 +350,7 @@ export default function RecordForm({
             <ExpenseLines
               lines={lines}
               currency={currencyLabel}
+              total={amountColumn ? Number(values[amountColumn.monday_id] ?? 0) || 0 : 0}
               disabled={!canChange}
               onChange={setLines}
             />
@@ -363,23 +364,6 @@ export default function RecordForm({
           const invalid = fieldErrors[column.monday_id];
           const describedBy = invalid ? `${id}-error` : undefined;
           const set = (v: unknown) => setValues((prev) => ({ ...prev, [column.monday_id]: v }));
-
-          // A compound expense has no total of its own: it is the sum of the
-          // entries below, so it is shown rather than offered for typing.
-          if (isCompound && amountColumn && column.monday_id === amountColumn.monday_id) {
-            return (
-              <div key={column.monday_id} className="space-y-2">
-                <Label>{column.title}</Label>
-                <p className="flex h-12 items-center rounded-md border bg-muted/40 px-3 font-bold tabular">
-                  {currencyLabel ? `${currencyLabel} ` : ''}
-                  {linesTotal(lines).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Added up from the entries below.
-                </p>
-              </div>
-            );
-          }
 
           if (kind === 'checkbox') {
             return (
