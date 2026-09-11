@@ -13,7 +13,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { inputFor, validateColumn, type BoardColumn, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import NumberInput from '@/components/ui/number-input';
 import PhoneInput from './PhoneInput';
-import MultiUploadField, { toFileList } from './MultiUploadField';
+import { toFileList } from '@/lib/files';
+import MultiUploadField from './MultiUploadField';
 
 /**
  * Edit one record on any board.

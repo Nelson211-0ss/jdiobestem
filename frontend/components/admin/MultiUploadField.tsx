@@ -3,6 +3,7 @@
 import { X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { toFileList } from '@/lib/files';
 import UploadField from './UploadField';
 
 /**
@@ -15,12 +16,6 @@ import UploadField from './UploadField';
  * Stored as a list. A value saved before this existed is a plain string, so
  * reading normalises either shape and writing always produces the list.
  */
-
-export function toFileList(value: unknown): string[] {
-  if (Array.isArray(value)) return value.map(String).filter(Boolean);
-  const single = String(value ?? '').trim();
-  return single ? [single] : [];
-}
 
 function nameOf(url: string) {
   try {

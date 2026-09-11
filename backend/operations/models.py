@@ -334,3 +334,44 @@ class Office(TimeStampedModel):
 
     def __str__(self):
         return f"{self.name}{' — main' if self.is_main else ''}"
+
+
+class ExchangeRate(models.Model):
+    """
+    A rate the Foundation has decided to use, for a date.
+
+    The accounting figures are grouped by their own currency and always will be:
+    an expense in UGX and a gift in USD are different facts. But somebody does
+    eventually have to ask "what did we spend in total", and answering it needs
+    a rate.
+
+    So the rate is a record rather than a constant or a live lookup. It is
+    entered by whoever reconciles the books, it carries the date it applies
+    from, and every converted figure says which rate produced it. A number
+    fetched from an API at render time cannot be audited a year later; this can.
+    """
+
+    base = models.CharField(max_length=8, help_text="The currency being converted from, e.g. UGX.")
+    quote = models.CharField(max_length=8, help_text="The currency being converted to, e.g. USD.")
+    rate = models.DecimalField(
+        max_digits=18,
+        decimal_places=6,
+        help_text="One unit of the base currency in the quote currency.",
+    )
+    effective_from = models.DateField(
+        db_index=True, help_text="The rate applies to money dated on or after this."
+    )
+    note = models.CharField(
+        max_length=200, blank=True, help_text="Where the rate came from, e.g. Bank of Uganda mid-rate."
+    )
+
+    class Meta:
+        ordering = ["-effective_from", "base", "quote"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["base", "quote", "effective_from"], name="unique_rate_per_day"
+            )
+        ]
+
+    def __str__(self):
+        return f"1 {self.base} = {self.rate:,.6f} {self.quote} from {self.effective_from:%d %b %Y}"

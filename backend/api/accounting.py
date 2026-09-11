@@ -31,7 +31,7 @@ from accounts import policy
 from api.permissions import IsStaff
 from core.countries import Country
 from donations.models import Donation
-from operations.models import Board, Record
+from operations.models import Board, ExchangeRate, Record
 
 #: Currencies are stored on the boards as "UGX — Uganda"; only the code matters.
 def shift_month(value: date, months: int) -> date:
@@ -43,6 +43,39 @@ def shift_month(value: date, months: int) -> date:
     """
     total = value.year * 12 + (value.month - 1) + months
     return date(total // 12, total % 12 + 1, 1)
+
+
+def rate_table() -> dict[tuple[str, str], list[tuple[date, float]]]:
+    """Every recorded rate, newest first per pair."""
+    table: dict[tuple[str, str], list[tuple[date, float]]] = defaultdict(list)
+    for row in ExchangeRate.objects.all():
+        table[(row.base.upper(), row.quote.upper())].append(
+            (row.effective_from, float(row.rate))
+        )
+    for pair in table.values():
+        pair.sort(key=lambda entry: entry[0], reverse=True)
+    return table
+
+
+def rate_for(table, source: str, target: str, when: date | None):
+    """
+    The rate to use, and the date it was set — or None if none was recorded.
+
+    Falls back to the inverse of the opposite pair, so recording UGX→USD is
+    enough to convert either way. Never invents a rate: an unconverted figure
+    is reported as unconverted rather than folded into a total at a number
+    nobody chose.
+    """
+    if source == target:
+        return 1.0, None
+    for (base, quote), entries in ((( source, target), table.get((source, target), [])),
+                                   ((target, source), table.get((target, source), []))):
+        for effective, value in entries:
+            if when is None or effective <= when:
+                if not value:
+                    continue
+                return (value, effective) if base == source else (1.0 / value, effective)
+    return None, None
 
 
 def currency_code(value: str) -> str:

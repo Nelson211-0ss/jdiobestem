@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { displayValue, inputFor, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import { formatNumber, isMoneyLabel } from '@/lib/format';
 import FilePreview from './FilePreview';
-import { toFileList } from './MultiUploadField';
+import { toFileList } from '@/lib/files';
 import { DetailTable, DetailTableRow } from './Shell';
 
 /**
