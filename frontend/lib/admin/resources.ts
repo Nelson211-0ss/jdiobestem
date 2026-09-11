@@ -1391,6 +1391,9 @@ export const RESOURCES: Resource[] = [
     label: 'School payment details',
     singular: 'payment route',
     group: 'Programmes',
+    // Filed under Scholarships: it is consulted when fees are being sent, not
+    // when a school is being set up.
+    parent: 'Scholarships',
     icon: 'Landmark',
     description:
       'Where money for a school is actually sent. One record per route, because a school often has a bank account and a School Pay code at the same time — which fields matter depends on the method.',
