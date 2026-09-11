@@ -126,3 +126,47 @@ def build_preview(reference: str, key_prefix: str) -> str:
     except Exception:  # noqa: BLE001
         logger.info("Could not store a PDF preview for %s", reference, exc_info=True)
         return ""
+
+
+def preview_url_for(source: str) -> str:
+    """
+    The first page of `source` as an image URL, rendering it once.
+
+    Remembered against the source URL, including when nothing could be made of
+    it: a file that fails to render should fail once, not on every save.
+    """
+    if not source or not source.lower().split("?")[0].endswith(".pdf"):
+        return ""
+
+    from core.models import FilePreview
+
+    known = FilePreview.objects.filter(source=source).first()
+    if known:
+        return known.image
+
+    image = build_preview(source, "attachment")
+    try:
+        FilePreview.objects.update_or_create(source=source, defaults={"image": image})
+    except Exception:  # noqa: BLE001 — a cache miss is not worth an error
+        logger.info("Could not remember the preview for %s", source, exc_info=True)
+    return image
+
+
+def previews_for(values) -> dict:
+    """Every PDF in a record's values, mapped to its preview."""
+    found = {}
+
+    def walk(value):
+        if isinstance(value, dict):
+            for nested in value.values():
+                walk(nested)
+        elif isinstance(value, (list, tuple)):
+            for nested in value:
+                walk(nested)
+        elif isinstance(value, str) and value.lower().split("?")[0].endswith(".pdf"):
+            image = preview_url_for(value)
+            if image:
+                found[value] = image
+
+    walk(values)
+    return found

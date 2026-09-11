@@ -44,6 +44,8 @@ export type BoardRecord = {
   is_local: boolean;
   created_by_name: string;
   monday_updated_at: string | null;
+  /** Rendered first pages, keyed by the file they came from. */
+  file_previews?: Record<string, string>;
   /** The entries a compound expense is made of. */
   expense_lines?: { id?: number; name: string; incurred_on: string; amount: string }[];
 };

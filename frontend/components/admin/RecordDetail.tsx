@@ -28,6 +28,7 @@ function Value({ column, record }: { column: BoardDetail['columns'][number]; rec
           <FilePreview
             key={`${url}-${index}`}
             url={url}
+            preview={record.file_previews?.[url]}
             alt={`${column.title} for ${record.name}`}
           />
         ))}

@@ -162,6 +162,7 @@ export default async function BoardPage({
                                 <FilePreview
                                   key={`${url}-${index}`}
                                   url={url}
+                                  preview={record.file_previews?.[url]}
                                   alt={`${c.title} ${index + 1} for ${record.name}`}
                                 />
                               ))}

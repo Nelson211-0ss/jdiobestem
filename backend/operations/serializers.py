@@ -74,17 +74,45 @@ class RecordSerializer(serializers.ModelSerializer):
     group_title = serializers.SerializerMethodField()
     office_name = serializers.CharField(source="office.name", read_only=True, default="")
     expense_lines = ExpenseLineSerializer(many=True, required=False)
+    # A PDF receipt reads as a file chip unless its first page is rendered.
+    # Only what has already been rendered is looked up here; building is
+    # done on save, so listing a page never waits on a download.
+    file_previews = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
         fields = [
             "id", "monday_id", "name", "group_id", "group_title", "values",
-            "country", "office", "office_name", "expense_lines",
+            "country", "office", "office_name", "expense_lines", "file_previews",
             "is_local", "created_by_name", "monday_updated_at", "created_at", "updated_at",
         ]
         read_only_fields = [
             "monday_id", "created_by_name", "monday_updated_at", "created_at", "updated_at",
         ]
+
+    def get_file_previews(self, obj) -> dict:
+        from core.models import FilePreview
+
+        urls = []
+
+        def walk(value):
+            if isinstance(value, dict):
+                for nested in value.values():
+                    walk(nested)
+            elif isinstance(value, (list, tuple)):
+                for nested in value:
+                    walk(nested)
+            elif isinstance(value, str) and value.lower().split("?")[0].endswith(".pdf"):
+                urls.append(value)
+
+        walk(obj.values or {})
+        if not urls:
+            return {}
+        return {
+            row.source: row.image
+            for row in FilePreview.objects.filter(source__in=urls)
+            if row.image
+        }
 
     def get_group_title(self, obj):
         group = obj.board.groups.filter(monday_id=obj.group_id).first()
@@ -167,11 +195,22 @@ class RecordSerializer(serializers.ModelSerializer):
             ]
         )
 
+    def _render_previews(self, record):
+        """Wrapped: an attachment that will not render must never cost
+        somebody the save that attached it."""
+        try:
+            from core.pdf_preview import previews_for
+
+            previews_for(record.values or {})
+        except Exception:  # noqa: BLE001
+            pass
+
     def create(self, validated_data):
         lines = validated_data.pop("expense_lines", [])
         record = super().create(validated_data)
         if lines:
             self._apply_lines(record, lines)
+        self._render_previews(record)
         return record
 
     def update(self, instance, validated_data):
@@ -179,6 +218,7 @@ class RecordSerializer(serializers.ModelSerializer):
         record = super().update(instance, validated_data)
         if lines is not None:
             self._apply_lines(record, lines)
+        self._render_previews(record)
         return record
 
 

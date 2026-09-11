@@ -24,11 +24,14 @@ export function FileThumb({
   alt = '',
   className,
   onOpen,
+  preview,
 }: {
   url: string;
   alt?: string;
   className?: string;
   onOpen?: () => void;
+  /** A rendered first page, for a file the browser cannot show itself. */
+  preview?: string;
 }) {
   const [src, setSrc] = useState(() => thumbFor(url));
 
@@ -44,6 +47,26 @@ export function FileThumb({
   }
 
   if (!isImage(url)) {
+    // A rendered first page where there is one: a wall of covers says far more
+    // than a wall of identical file chips.
+    if (preview) {
+      return (
+        <button
+          type="button"
+          onClick={onOpen}
+          title={fileNameFrom(url)}
+          className={cn('block', className)}
+        >
+          <img
+            src={preview}
+            alt={alt || fileNameFrom(url)}
+            loading="lazy"
+            decoding="async"
+            className="h-11 w-11 rounded-md border object-cover object-top"
+          />
+        </button>
+      );
+    }
     return (
       <button
         type="button"
@@ -216,15 +239,24 @@ export default function FilePreview({
   url,
   alt = '',
   className,
+  preview,
 }: {
   url: string;
   alt?: string;
   className?: string;
+  /** A rendered first page, for a file the browser cannot show itself. */
+  preview?: string;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <FileThumb url={url} alt={alt} className={className} onOpen={() => url && setOpen(true)} />
+      <FileThumb
+        url={url}
+        alt={alt}
+        className={className}
+        preview={preview}
+        onOpen={() => url && setOpen(true)}
+      />
       {open ? <FileLightbox url={url} alt={alt} onClose={() => setOpen(false)} /> : null}
     </>
   );
