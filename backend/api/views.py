@@ -12,6 +12,7 @@ Everything is behind the service key or a staff session; see api/auth.py.
 import logging
 
 from django.conf import settings
+from django.db.models import F
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -25,6 +26,7 @@ from content_cms.models import (
     PageBlock,
     Programme,
     SiteStat,
+    StoryDay,
     TeamMember,
 )
 from donations.models import Donation
@@ -351,3 +353,31 @@ class PageBlockList(ListAPIView):
             return Response({})
         blocks = self.get_queryset().filter(page=page)
         return Response({b.key: b.value for b in blocks})
+
+
+@api_view(["POST"])
+def story_read(request, slug):
+    """
+    Record that a story was opened, and whether it was finished.
+
+    Posted by the website rather than counted when the page renders: the story
+    pages are cached and served without touching this application, so counting
+    on render would report how often the cache was rebuilt.
+
+    Deliberately cheap and anonymous — one row per story per day, two counters
+    on it. Nothing about who, from where, or when within the day.
+    """
+    story = NewsStory.objects.filter(slug=slug, is_published=True).first()
+    if not story:
+        # Not an error worth reporting to a reader's browser: a retired story
+        # being requested is ordinary, and the page has already been served.
+        return Response(status=204)
+
+    finished = bool(request.data.get("read"))
+    day, _ = StoryDay.objects.get_or_create(story=story, day=timezone.localdate())
+    # F() rather than read-modify-write: several readers finish at once.
+    StoryDay.objects.filter(pk=day.pk).update(
+        opens=F("opens") + (0 if finished else 1),
+        reads=F("reads") + (1 if finished else 0),
+    )
+    return Response(status=204)

@@ -7,6 +7,9 @@ them apart means widening the dashboard can never accidentally widen the public
 endpoint.
 """
 
+from datetime import timedelta
+
+from django.utils import timezone
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
@@ -204,6 +207,16 @@ class NewsStoryAdminSerializer(ThumbnailMixin, serializers.ModelSerializer):
     gallery = NewsGalleryImageSerializer(many=True, required=False)
     links = NewsLinkSerializer(many=True, required=False)
 
+    # How it is being read. Two figures rather than one, because a story opened
+    # often and finished rarely says something a single count hides.
+    opens_total = serializers.SerializerMethodField()
+    reads_total = serializers.SerializerMethodField()
+    opens_30 = serializers.SerializerMethodField()
+    reads_30 = serializers.SerializerMethodField()
+    completion = serializers.SerializerMethodField()
+    last_read_on = serializers.SerializerMethodField()
+    reading_days = serializers.SerializerMethodField()
+
     class Meta:
         model = NewsStory
         fields = "__all__"
@@ -211,6 +224,56 @@ class NewsStoryAdminSerializer(ThumbnailMixin, serializers.ModelSerializer):
         # Left blank, the model makes one from the headline. Without this the
         # field is required and that never happens.
         extra_kwargs = {"slug": {"required": False, "allow_blank": True}}
+
+    # `opens` counts a view that did not reach the end, so the number of times
+    # the story was opened at all is opens + reads.
+    def _totals(self, obj, since=None):
+        days = obj.days.all()
+        if since:
+            days = [d for d in days if d.day >= since]
+        opened = sum(d.opens + d.reads for d in days)
+        finished = sum(d.reads for d in days)
+        return opened, finished
+
+    def _since(self, days_back=30):
+        return timezone.localdate() - timedelta(days=days_back)
+
+    def get_opens_total(self, obj) -> int:
+        return self._totals(obj)[0]
+
+    def get_reads_total(self, obj) -> int:
+        return self._totals(obj)[1]
+
+    def get_opens_30(self, obj) -> int:
+        return self._totals(obj, self._since())[0]
+
+    def get_reads_30(self, obj) -> int:
+        return self._totals(obj, self._since())[1]
+
+    def get_completion(self, obj) -> str:
+        opened, finished = self._totals(obj)
+        return f"{round(finished / opened * 100)}%" if opened else ""
+
+    def get_last_read_on(self, obj):
+        latest = max((d.day for d in obj.days.all()), default=None)
+        return latest.isoformat() if latest else ""
+
+    def get_reading_days(self, obj) -> list:
+        """The last thirty days, oldest first, so it can be drawn as a shape."""
+        by_day = {d.day: d for d in obj.days.all()}
+        today = timezone.localdate()
+        out = []
+        for back in range(29, -1, -1):
+            day = today - timedelta(days=back)
+            row = by_day.get(day)
+            out.append(
+                {
+                    "day": day.isoformat(),
+                    "opens": (row.opens + row.reads) if row else 0,
+                    "reads": row.reads if row else 0,
+                }
+            )
+        return out
 
     def _write_children(self, story, gallery, links):
         if gallery is not None:

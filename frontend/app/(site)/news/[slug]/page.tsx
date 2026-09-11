@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import NewsArticle from '@/content/news-article';
+import StoryEngagement from '@/components/StoryEngagement';
 import { getStories, getStory } from '@/lib/site-content';
 
 /**
@@ -33,5 +34,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const story = stories.find((s) => s.slug === slug);
   if (!story) notFound();
 
-  return <NewsArticle story={story} others={stories.filter((s) => s.slug !== slug)} />;
+  return (
+    <>
+      <NewsArticle story={story} others={stories.filter((s) => s.slug !== slug)} />
+      {/* Last on the page on purpose: it marks the story as finished when the
+          end of it comes into view. */}
+      <StoryEngagement slug={slug} />
+    </>
+  );
 }

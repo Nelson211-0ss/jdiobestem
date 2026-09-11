@@ -460,7 +460,7 @@ class DonationViewSet(StaffViewSet):
 
 
 class NewsStoryViewSet(StaffViewSet):
-    queryset = NewsStory.objects.prefetch_related("gallery", "links")
+    queryset = NewsStory.objects.prefetch_related("gallery", "links", "days")
     resource = "news"
     serializer_class = s.NewsStoryAdminSerializer
     filterset_fields = ["is_published", "category"]

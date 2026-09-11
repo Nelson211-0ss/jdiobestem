@@ -76,6 +76,10 @@ urlpatterns = [
 
     # --- the website reads published content --------------------------------
     path("content/news/", views.NewsStoryList.as_view(), name="news-list"),
+    # The website posts here when a story is opened or finished. Counted
+    # from the browser because the story pages are cached and never reach
+    # this application on a normal view.
+    path("content/news/<slug:slug>/read/", views.story_read, name="story-read"),
     path("content/team/", views.TeamMemberList.as_view(), name="team-list"),
     path("content/volunteers/", views.RecognisedVolunteerList.as_view(), name="recognised-volunteers"),
     path("content/jobs/", jobs_views.OpenPostingList.as_view(), name="open-postings"),

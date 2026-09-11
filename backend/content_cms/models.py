@@ -356,3 +356,33 @@ class PageBlock(TimeStampedModel):
 
     def __str__(self):
         return f"{self.page}.{self.key}"
+
+
+class StoryDay(models.Model):
+    """
+    How a story was read on one day.
+
+    A tally per day rather than a row per visit. The question the Foundation
+    asks is whether anyone is reading — which a count answers — and a row per
+    visit would accumulate times, addresses and devices to answer the same
+    thing no better. Nothing here identifies a reader.
+
+    Two figures, because they are different questions. `opens` is how many
+    times the page was opened; `reads` is how many of those reached the end of
+    the article. A headline that is opened often and finished rarely is telling
+    you something a single number hides.
+    """
+
+    story = models.ForeignKey(NewsStory, on_delete=models.CASCADE, related_name="days")
+    day = models.DateField(db_index=True)
+    opens = models.PositiveIntegerField(default=0)
+    reads = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["-day"]
+        constraints = [
+            models.UniqueConstraint(fields=["story", "day"], name="unique_story_day")
+        ]
+
+    def __str__(self):
+        return f"{self.story.slug} on {self.day}: {self.opens} opened, {self.reads} read"
