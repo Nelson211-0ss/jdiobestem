@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { api, can, type Identity, type Page } from '@/lib/admin/api';
 import { RESOURCE_BY_KEY, type Column, type Related } from '@/lib/admin/resources';
-import { DetailSection } from './Shell';
 
 /**
  * What hangs off a record, listed beneath it.
@@ -20,7 +19,10 @@ import { DetailSection } from './Shell';
  * there is no second way in to keep in step.
  */
 
-const PREVIEW = 8;
+/** A column beside the record, not a page of its own: enough rows to show
+ *  what is there, with a link to the full list when there is more. */
+const PREVIEW = 6;
+const COLUMNS = 3;
 
 function cell(row: Record<string, unknown>, column: Column) {
   // The readable form first, as on a detail page: `_display` for a choices
@@ -71,20 +73,24 @@ export default async function RelatedRecords({
     spec.columns
       ? target.columns.filter((c) => spec.columns!.includes(c.name))
       : target.columns.filter((c) => !c.thumb)
-  ).slice(0, 5);
+  ).slice(0, COLUMNS);
 
   const rows = page.results.slice(0, PREVIEW);
   const listHref = `/admin/${spec.resource}?${query.toString()}`;
 
   return (
-    <DetailSection title={spec.label ?? target.label}>
+    <section className="rounded-3xl bg-card p-5 shadow-sm">
+      <h2 className="px-1 text-sm font-semibold tracking-tight">{spec.label ?? target.label}</h2>
+      <p className="mb-3 px-1 text-xs text-muted-foreground">
+        {page.count} {page.count === 1 ? target.singular : target.label.toLowerCase()}
+      </p>
       {rows.length ? (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
                 {columns.map((c) => (
-                  <th key={c.name} className={`px-3 py-2 ${c.numeric ? 'text-right' : ''}`}>
+                  <th key={c.name} className={`px-1 py-1.5 ${c.numeric ? 'text-right' : ''}`}>
                     {c.label}
                   </th>
                 ))}
@@ -96,7 +102,7 @@ export default async function RelatedRecords({
                   {columns.map((c, index) => (
                     <td
                       key={c.name}
-                      className={`px-3 py-2 ${c.numeric ? 'text-right tabular' : ''}`}
+                      className={`px-1 py-1.5 ${c.numeric ? 'text-right tabular' : ''}`}
                     >
                       {index === 0 ? (
                         <Link
@@ -118,12 +124,12 @@ export default async function RelatedRecords({
           </table>
         </div>
       ) : (
-        <p className="px-3 py-2 text-sm text-muted-foreground">
+        <p className="px-1 py-2 text-sm text-muted-foreground">
           No {target.label.toLowerCase()} yet.
         </p>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center gap-3 px-3">
+      <div className="mt-3 flex flex-wrap items-center gap-3 px-1">
         {page.count > rows.length ? (
           <Link href={listHref} className="text-sm font-medium underline underline-offset-2">
             View all {page.count}
@@ -137,6 +143,6 @@ export default async function RelatedRecords({
           </Button>
         ) : null}
       </div>
-    </DetailSection>
+    </section>
   );
 }

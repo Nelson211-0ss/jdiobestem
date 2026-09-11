@@ -53,6 +53,7 @@ export function FormShell({
   footer,
   actions,
   wide = false,
+  aside,
 }: {
   backHref: string;
   backLabel: string;
@@ -64,6 +65,12 @@ export function FormShell({
   actions?: React.ReactNode;
   /** The story editor needs room for its preview; record forms do not. */
   wide?: boolean;
+  /**
+   * A column beside the record — what belongs to it, read alongside rather than
+   * after it. Its presence widens the page, since two columns in the reading
+   * width of one would leave neither enough room.
+   */
+  aside?: React.ReactNode;
 }) {
   return (
     <div className="pb-24">
@@ -77,13 +84,22 @@ export function FormShell({
         {actions}
       </div>
 
-      <div className={cn('mx-auto mt-8', wide ? 'max-w-6xl' : 'max-w-3xl')}>
+      <div className={cn('mx-auto mt-8', wide || aside ? 'max-w-6xl' : 'max-w-3xl')}>
         <div className="text-center">
           {eyebrow ? <p className="text-sm text-muted-foreground">{eyebrow}</p> : null}
           <h1 className="mt-1 text-3xl font-bold tracking-tight">{title}</h1>
         </div>
 
-        <div className="mt-8 rounded-3xl bg-card p-6 shadow-sm sm:p-8">{children}</div>
+        {aside ? (
+          // `items-start` so the side column keeps its own height instead of
+          // stretching to match a long record.
+          <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]">
+            <div className="rounded-3xl bg-card p-6 shadow-sm sm:p-8">{children}</div>
+            <div className="space-y-6">{aside}</div>
+          </div>
+        ) : (
+          <div className="mt-8 rounded-3xl bg-card p-6 shadow-sm sm:p-8">{children}</div>
+        )}
       </div>
 
       {footer ? (

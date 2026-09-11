@@ -41,6 +41,7 @@ export default async function ResourceDetailPage({
   // pressing Edit, rather than the state a page happens to open in — which is
   // what put a form in front of anyone who only wanted to read a donation.
   const editable = !resource.readOnly && can(identity, key, 'change');
+  const related = resource.related ?? [];
 
   // A full report for this one record: the fields as shown, plus whatever the
   // backend hangs off it — a bursary's payments, a school's projects.
@@ -56,6 +57,22 @@ export default async function ResourceDetailPage({
       backLabel={`Back to ${resource.label.toLowerCase()}`}
       eyebrow={resource.label}
       title={title}
+      // What belongs to this record, read beside it rather than after it, so
+      // the next question is answered without scrolling past the whole record.
+      aside={
+        related.length ? (
+          <>
+            {related.map((spec) => (
+              <RelatedRecords
+                key={`${spec.resource}-${spec.by}`}
+                spec={spec}
+                id={id}
+                identity={identity}
+              />
+            ))}
+          </>
+        ) : null
+      }
       actions={
         <div className="flex flex-wrap items-center gap-3">
           <ExportMenu href={exportHref} label={title} />
@@ -70,12 +87,6 @@ export default async function ResourceDetailPage({
       }
     >
       <ResourceDetail resource={resource} record={record} />
-
-      {/* What belongs to this record, so the page answers the next question
-          instead of sending someone to a list to filter it themselves. */}
-      {(resource.related ?? []).map((spec) => (
-        <RelatedRecords key={`${spec.resource}-${spec.by}`} spec={spec} id={id} identity={identity} />
-      ))}
     </FormShell>
   );
 }
