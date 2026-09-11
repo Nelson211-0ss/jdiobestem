@@ -1,6 +1,8 @@
 import { Badge } from '@/components/ui/badge';
 import type { Field, Resource } from '@/lib/admin/resources';
 import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
+import { fileNameFrom, isImage } from '@/lib/media';
+import FilePreview from './FilePreview';
 import { DetailSection, DetailTable, DetailTableRow } from './Shell';
 
 /**
@@ -35,6 +37,73 @@ function displayValue(field: Field, record: Record<string, unknown>): unknown {
     if (match) return match.label;
   }
   return raw;
+}
+
+/**
+ * An attached file, shown rather than named.
+ *
+ * A lead image printed as "/images/scholarships students/IMG_9416 - Copy.JPG"
+ * tells a reader the path and nothing about the picture — which is the one
+ * thing they opened the record to see.
+ */
+function attachment(value: unknown, label: string): React.ReactNode {
+  const raw = String(value ?? '').trim();
+  if (!raw) return <span className="font-normal text-muted-foreground">&mdash;</span>;
+
+  // A path under the website's own /public may contain spaces, which are fine
+  // in the database and not in an attribute.
+  const href = raw.startsWith('http') ? raw : encodeURI(raw);
+
+  if (isImage(raw)) {
+    return (
+      <a href={href} target="_blank" rel="noopener" className="block">
+        <img
+          src={href}
+          alt={label}
+          loading="lazy"
+          decoding="async"
+          className="max-h-56 w-auto max-w-full rounded-lg border object-contain"
+        />
+        <span className="mt-1.5 block text-xs font-normal text-muted-foreground">
+          {fileNameFrom(raw)}
+        </span>
+      </a>
+    );
+  }
+  return <FilePreview url={href} alt={label} />;
+}
+
+/** How much of a long value is shown before it has to be asked for. */
+const LONG_TEXT = 320;
+
+/**
+ * A long value, folded away.
+ *
+ * A story body is several hundred words, and printed in full it buries every
+ * field beneath it — the record becomes unreadable at exactly the point it
+ * holds the most. Built with <details>, so it needs no JavaScript and stays
+ * open where the reader put it.
+ */
+function collapsible(value: unknown, label: string): React.ReactNode {
+  const text = String(value ?? '');
+  if (!text.trim()) return <span className="font-normal text-muted-foreground">&mdash;</span>;
+  if (text.length <= LONG_TEXT) return <span className="whitespace-pre-wrap">{text}</span>;
+
+  const words = text.trim().split(/\s+/).length;
+  return (
+    <details className="group">
+      <summary className="cursor-pointer list-none">
+        <span className="whitespace-pre-wrap font-semibold">
+          {text.slice(0, LONG_TEXT).trimEnd()}…
+        </span>
+        <span className="mt-1.5 block text-xs font-medium text-muted-foreground underline underline-offset-2">
+          <span className="group-open:hidden">Show all {words.toLocaleString()} words</span>
+          <span className="hidden group-open:inline">Show less</span>
+        </span>
+      </summary>
+      <span className="mt-2 block whitespace-pre-wrap font-normal">{text}</span>
+    </details>
+  );
 }
 
 function formatValue(value: unknown, label = ''): React.ReactNode {
@@ -142,6 +211,10 @@ export default function ResourceDetail({
             <DetailTableRow key={field.name} label={field.label}>
               {field.name === 'action_display' && record[field.name] ? (
                 <Badge variant="secondary">{String(record[field.name])}</Badge>
+              ) : field.type === 'upload' ? (
+                attachment(record[field.name], field.label)
+              ) : field.type === 'textarea' ? (
+                collapsible(record[field.name], field.label)
               ) : (
                 formatValue(displayValue(field, record), field.label)
               )}
