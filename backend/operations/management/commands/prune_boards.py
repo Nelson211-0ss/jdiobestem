@@ -56,6 +56,13 @@ SUPERSEDED = [
     # Its subitem board goes with it; a subitem board whose parent is gone is
     # unreachable.
     "Subitems of Schools",
+    # People are the Team members resource now: one record per person, carrying
+    # both what the website shows and what employment needs. Both boards held
+    # these columns and never held a record.
+    "Employees",
+    "Subitems of Employees",
+    "Employee Roles",
+    "Subitems of Employee Roles",
 ]
 
 # Dropped on review of the dashboard: each was an empty board whose job is

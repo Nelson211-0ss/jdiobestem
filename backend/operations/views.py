@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 
 from documents.models import Document
 from scholarships.models import Scholarship, ScholarshipTerm
+from content_cms.models import TeamMember
 from programmes.models import School, ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
@@ -290,6 +291,12 @@ def option_lists(request):
                 for t in ScholarshipTerm.objects.select_related("scholarship").order_by(
                     "-starts_on"
                 )
+            ],
+            # People, for a field that names one — "reports to" is another
+            # team member, not a login account.
+            "team": [
+                {"value": str(t.pk), "label": f"{t.name} — {t.role}"[:140]}
+                for t in TeamMember.objects.order_by("name")
             ],
             "projects": [
                 {"value": str(p.pk), "label": f"{p.title} — {p.school.name}"[:120]}

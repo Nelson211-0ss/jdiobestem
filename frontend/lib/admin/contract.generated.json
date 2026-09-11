@@ -1124,8 +1124,35 @@
         ],
         "kind": "choice"
       },
+      "department": {
+        "choices": [
+          "executive",
+          "programmes",
+          "finance",
+          "operations",
+          "fundraising",
+          "communications",
+          "people"
+        ],
+        "kind": "choice"
+      },
       "email": {
         "kind": "email"
+      },
+      "employment_type": {
+        "choices": [
+          "full_time",
+          "part_time",
+          "contract",
+          "volunteer",
+          "intern",
+          "advisor"
+        ],
+        "kind": "choice"
+      },
+      "ended_on": {
+        "allowNull": true,
+        "kind": "date"
       },
       "focus": {
         "kind": "text",
@@ -1150,6 +1177,9 @@
       "linkedin": {
         "kind": "url"
       },
+      "manager": {
+        "allowNull": true
+      },
       "name": {
         "kind": "text",
         "maxLength": 200,
@@ -1161,10 +1191,27 @@
         "maxValue": 32767,
         "minValue": 0
       },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
       "role": {
         "kind": "text",
         "maxLength": 200,
         "required": true
+      },
+      "standing": {
+        "choices": [
+          "onboarding",
+          "active",
+          "on_leave",
+          "left"
+        ],
+        "kind": "choice"
+      },
+      "started_on": {
+        "allowNull": true,
+        "kind": "date"
       }
     },
     "scholarship-payments": {
@@ -1536,8 +1583,35 @@
         ],
         "kind": "choice"
       },
+      "department": {
+        "choices": [
+          "executive",
+          "programmes",
+          "finance",
+          "operations",
+          "fundraising",
+          "communications",
+          "people"
+        ],
+        "kind": "choice"
+      },
       "email": {
         "kind": "email"
+      },
+      "employment_type": {
+        "choices": [
+          "full_time",
+          "part_time",
+          "contract",
+          "volunteer",
+          "intern",
+          "advisor"
+        ],
+        "kind": "choice"
+      },
+      "ended_on": {
+        "allowNull": true,
+        "kind": "date"
       },
       "focus": {
         "kind": "text",
@@ -1562,6 +1636,9 @@
       "linkedin": {
         "kind": "url"
       },
+      "manager": {
+        "allowNull": true
+      },
       "name": {
         "kind": "text",
         "maxLength": 200,
@@ -1573,10 +1650,27 @@
         "maxValue": 32767,
         "minValue": 0
       },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
       "role": {
         "kind": "text",
         "maxLength": 200,
         "required": true
+      },
+      "standing": {
+        "choices": [
+          "onboarding",
+          "active",
+          "on_leave",
+          "left"
+        ],
+        "kind": "choice"
+      },
+      "started_on": {
+        "allowNull": true,
+        "kind": "date"
       }
     },
     "users": {

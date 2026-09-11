@@ -37,6 +37,7 @@ def unique_slug(model, base, limit, exclude_pk=None):
 
 from core.countries import Country, country_field
 from core.models import TimeStampedModel
+from core.validators import phone_validator
 
 
 class PublishedQuerySet(models.QuerySet):
@@ -119,7 +120,32 @@ class TeamMember(TimeStampedModel):
         # organisation, and a volunteer is not staff.
         VOLUNTEERS = "volunteers", "Outstanding volunteers"
 
+    class Department(models.TextChoices):
+        EXECUTIVE = "executive", "Executive"
+        PROGRAMMES = "programmes", "Programmes"
+        FINANCE = "finance", "Finance"
+        OPERATIONS = "operations", "Operations"
+        FUNDRAISING = "fundraising", "Fundraising"
+        COMMUNICATIONS = "communications", "Communications"
+        PEOPLE = "people", "People & HR"
+
+    class EmploymentType(models.TextChoices):
+        FULL_TIME = "full_time", "Full time"
+        PART_TIME = "part_time", "Part time"
+        CONTRACT = "contract", "Contract"
+        VOLUNTEER = "volunteer", "Volunteer"
+        INTERN = "intern", "Intern"
+        ADVISOR = "advisor", "Advisor or board member"
+
+    class Standing(models.TextChoices):
+        ONBOARDING = "onboarding", "Onboarding"
+        ACTIVE = "active", "Active"
+        ON_LEAVE = "on_leave", "On leave"
+        LEFT = "left", "Left"
+
     name = models.CharField(max_length=200)
+    # The job title as it reads on the website, so it stays free text: "Senior
+    # Civil Engineer" is not a value from a list anybody would maintain.
     role = models.CharField(max_length=200)
     group = models.CharField(max_length=20, choices=Group.choices, default=Group.LEADERSHIP, db_index=True)
     image = models.CharField(max_length=300, blank=True, help_text="Path under /public, or an uploaded file below.")
@@ -130,7 +156,38 @@ class TeamMember(TimeStampedModel):
     linkedin = models.URLField(blank=True)
     email = models.EmailField(blank=True)
     order = models.PositiveSmallIntegerField(default=0)
-    is_published = models.BooleanField(default=True, db_index=True)
+    is_published = models.BooleanField(
+        default=True, db_index=True, help_text="Show this person on the website's team page."
+    )
+
+    # --- employment ---------------------------------------------------------
+    #
+    # One record per person rather than a team page and a staff list that drift
+    # apart. Not everybody here is an employee — an advisor or a volunteer
+    # appears on the website too — and not every employee is shown on it, which
+    # is what `is_published` decides.
+    department = models.CharField(max_length=20, choices=Department.choices, blank=True)
+    employment_type = models.CharField(
+        max_length=20, choices=EmploymentType.choices, blank=True
+    )
+    standing = models.CharField(
+        max_length=20,
+        choices=Standing.choices,
+        blank=True,
+        db_index=True,
+        help_text="Where they are in their time with the Foundation.",
+    )
+    started_on = models.DateField(null=True, blank=True)
+    ended_on = models.DateField(null=True, blank=True)
+    phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
+    manager = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="reports",
+        help_text="Who they report to.",
+    )
     country = country_field()
 
     objects = PublishedQuerySet.as_manager()

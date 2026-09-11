@@ -37,7 +37,8 @@ export type Field = {
     | 'project'
     | 'scholarship'
     | 'school'
-    | 'term';
+    | 'term'
+    | 'team';
   label: string;
   type?: FieldType;
   options?: { value: string; label: string }[];
@@ -164,6 +165,32 @@ const SCHOOL_REGION_OPTIONS = [
   { value: 'bahr_el_ghazal', label: 'Bahr el Ghazal' },
   { value: 'equatoria', label: 'Equatoria' },
   { value: 'upper_nile', label: 'Upper Nile' },
+];
+
+const DEPARTMENT_OPTIONS = [
+  { value: 'executive', label: 'Executive' },
+  { value: 'programmes', label: 'Programmes' },
+  { value: 'finance', label: 'Finance' },
+  { value: 'operations', label: 'Operations' },
+  { value: 'fundraising', label: 'Fundraising' },
+  { value: 'communications', label: 'Communications' },
+  { value: 'people', label: 'People & HR' },
+];
+
+const EMPLOYMENT_TYPE_OPTIONS = [
+  { value: 'full_time', label: 'Full time' },
+  { value: 'part_time', label: 'Part time' },
+  { value: 'contract', label: 'Contract' },
+  { value: 'volunteer', label: 'Volunteer' },
+  { value: 'intern', label: 'Intern' },
+  { value: 'advisor', label: 'Advisor or board member' },
+];
+
+const STANDING_OPTIONS = [
+  { value: 'onboarding', label: 'Onboarding' },
+  { value: 'active', label: 'Active' },
+  { value: 'on_leave', label: 'On leave' },
+  { value: 'left', label: 'Left' },
 ];
 
 const SCHOOL_PAYMENT_METHOD_OPTIONS = [
@@ -974,15 +1001,19 @@ export const RESOURCES: Resource[] = [
     singular: 'team member',
     group: 'Website',
     icon: 'Contact',
+    description:
+      'Everyone who works with the Foundation: what the website shows about them, and what employment needs to record. One record per person, rather than a team page and a staff list that drift apart — being shown on the website is a setting here, not a separate list.',
     titleField: 'name',
-    searchHint: 'name, role, bio',
+    searchHint: 'name, role, department, bio',
     columns: [
       { name: 'thumbnail', label: '', thumb: true },
       { name: 'name', label: 'Name' },
       { name: 'role', label: 'Role' },
       { name: 'group_display', label: 'Group' },
-      { name: 'order', label: 'Order', numeric: true },
-      { name: 'is_published', label: 'Published' },
+      { name: 'department_display', label: 'Department' },
+      { name: 'employment_type_display', label: 'Basis' },
+      { name: 'standing_display', label: 'Standing', badge: true },
+      { name: 'is_published', label: 'On the website' },
     ],
     filters: [
       {
@@ -995,6 +1026,8 @@ export const RESOURCES: Resource[] = [
           { value: 'volunteers', label: 'Outstanding volunteers' },
         ],
       },
+      { name: 'department', label: 'Department', type: 'select', options: DEPARTMENT_OPTIONS },
+      { name: 'standing', label: 'Standing', type: 'select', options: STANDING_OPTIONS },
     ],
     fields: [
       { name: 'name', label: 'Name', type: 'text', required: true },
@@ -1018,6 +1051,21 @@ export const RESOURCES: Resource[] = [
       { name: 'email', label: 'Email', type: 'email' },
       { name: 'bio', label: 'Bio', type: 'textarea', wide: true },
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+
+      { name: 'department', label: 'Department', type: 'select', options: DEPARTMENT_OPTIONS },
+      {
+        name: 'employment_type', label: 'On what basis', type: 'select',
+        options: EMPLOYMENT_TYPE_OPTIONS,
+        help: 'An advisor or a volunteer belongs here too, not only paid staff.',
+      },
+      { name: 'standing', label: 'Standing', type: 'select', options: STANDING_OPTIONS },
+      { name: 'started_on', label: 'Started', type: 'date' },
+      { name: 'ended_on', label: 'Ended', type: 'date', help: 'Left blank while they are still here.' },
+      { name: 'phone', label: 'Phone', type: 'tel' },
+      {
+        name: 'manager', label: 'Reports to', type: 'select', options: [], source: 'team',
+        help: 'Who they report to.',
+      },
     ],
   },
   {
@@ -1775,6 +1823,7 @@ function optionsFor(
     scholarships?: { value: string; label: string }[];
     schools?: { value: string; label: string }[];
     terms?: { value: string; label: string }[];
+    team?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -1788,6 +1837,7 @@ function optionsFor(
   if (source === 'scholarship') return options.scholarships ?? [];
   if (source === 'school') return options.schools ?? [];
   if (source === 'term') return options.terms ?? [];
+  if (source === 'team') return options.team ?? [];
   return options.countries;
 }
 
@@ -1805,6 +1855,7 @@ export function withOptions(
     scholarships?: { value: string; label: string }[];
     schools?: { value: string; label: string }[];
     terms?: { value: string; label: string }[];
+    team?: { value: string; label: string }[];
   }
 ): Resource {
   return {
