@@ -1196,8 +1196,31 @@
         "maxLength": 50
       },
       "role": {
-        "kind": "text",
-        "maxLength": 200,
+        "choices": [
+          "Founder & Executive Director",
+          "Executive Director",
+          "Country Director",
+          "Programs Director",
+          "Projects Manager",
+          "Programs Coordinator",
+          "Project Coordinator",
+          "Finance Manager",
+          "Accountant",
+          "Administrator",
+          "Communications Officer",
+          "Fundraising Officer",
+          "Monitoring & Evaluation Officer",
+          "Field Officer",
+          "IT Officer",
+          "Senior Civil Engineer",
+          "Trainer",
+          "Mentor",
+          "Volunteer",
+          "Board Member",
+          "Advisor",
+          "Driver"
+        ],
+        "kind": "choice",
         "required": true
       },
       "standing": {
@@ -1212,6 +1235,46 @@
       "started_on": {
         "allowNull": true,
         "kind": "date"
+      }
+    },
+    "salaries": {
+      "amount": {
+        "decimals": 2,
+        "kind": "number",
+        "required": true
+      },
+      "bonus": {
+        "allowNull": true,
+        "decimals": 2,
+        "kind": "number"
+      },
+      "currency": {
+        "kind": "text",
+        "maxLength": 8
+      },
+      "paid_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "period": {
+        "kind": "text",
+        "maxLength": 60,
+        "required": true
+      },
+      "person": {
+        "required": true
+      },
+      "reference": {
+        "kind": "text",
+        "maxLength": 120
+      },
+      "status": {
+        "choices": [
+          "unpaid",
+          "part_paid",
+          "paid"
+        ],
+        "kind": "choice"
       }
     },
     "scholarship-payments": {
@@ -1655,8 +1718,31 @@
         "maxLength": 50
       },
       "role": {
-        "kind": "text",
-        "maxLength": 200,
+        "choices": [
+          "Founder & Executive Director",
+          "Executive Director",
+          "Country Director",
+          "Programs Director",
+          "Projects Manager",
+          "Programs Coordinator",
+          "Project Coordinator",
+          "Finance Manager",
+          "Accountant",
+          "Administrator",
+          "Communications Officer",
+          "Fundraising Officer",
+          "Monitoring & Evaluation Officer",
+          "Field Officer",
+          "IT Officer",
+          "Senior Civil Engineer",
+          "Trainer",
+          "Mentor",
+          "Volunteer",
+          "Board Member",
+          "Advisor",
+          "Driver"
+        ],
+        "kind": "choice",
         "required": true
       },
       "standing": {
