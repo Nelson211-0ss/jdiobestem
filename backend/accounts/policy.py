@@ -33,6 +33,7 @@ RESOURCES = (
     "scholarships", "scholarship-payments", "scholarship-terms",
     "boards",
     "countries",
+    "exchange-rates",
     "offices",
     "users",
 )
@@ -57,7 +58,12 @@ BURSARY_MONEY = ("scholarship-payments",)
 #: The monday.com operations boards, as one resource. Per-board permissions are
 #: a finer grain than the Foundation has asked for; this is deliberately all or
 #: nothing, and can be split later without changing how the engine works.
-OPERATIONS = ("boards", "countries", "offices", "documents", "document-editions")
+OPERATIONS = (
+    "boards", "countries", "offices", "documents", "document-editions",
+    # The rates used to convert the accounting figures: operational
+    # settings, kept beside the countries whose currencies they are.
+    "exchange-rates",
+)
 MENTORSHIP = ("cohorts", "mentors", "mentees", "pairings")
 SCIENCE_FAIR = ("cohorts", "projects", "proposals", "project-awards")
 

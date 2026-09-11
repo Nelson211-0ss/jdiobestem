@@ -16,10 +16,11 @@ from programmes.models import School, ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
 
-from .models import Board, Office, OperatingCountry, Record
+from .models import Board, ExchangeRate, Office, OperatingCountry, Record
 from .serializers import (
     BoardDetailSerializer,
     BoardSerializer,
+    ExchangeRateSerializer,
     OfficeSerializer,
     OperatingCountrySerializer,
     RecordSerializer,
@@ -164,6 +165,25 @@ class OperatingCountryViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.Mode
     serializer_class = OperatingCountrySerializer
     search_fields = ["name", "code", "currency_code", "offices__name"]
     ordering = ["order", "name"]
+
+
+class ExchangeRateViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
+    """
+    The rates the Foundation has decided to use.
+
+    Entered rather than fetched: a figure converted at a rate nobody recorded
+    cannot be checked a year later, and one fetched live at render time cannot
+    be checked at all.
+    """
+
+    permission_classes = [ResourcePermission]
+    resource = "exchange-rates"
+    queryset = ExchangeRate.objects.all()
+    serializer_class = ExchangeRateSerializer
+    filterset_fields = ["base", "quote"]
+    search_fields = ["base", "quote", "note"]
+    ordering_fields = ["effective_from", "base", "quote"]
+    ordering = ["-effective_from"]
 
 
 class OfficeViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):

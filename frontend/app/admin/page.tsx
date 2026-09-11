@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { api, can, getIdentity } from '@/lib/admin/api';
 import { RESOURCE_BY_KEY } from '@/lib/admin/resources';
 import OperationsMap, { type CountryFigures } from '@/components/admin/OperationsMap';
+import AccountingBreakdowns from '@/components/admin/AccountingBreakdowns';
 import AccountingDashboard, { type Accounting } from '@/components/admin/AccountingDashboard';
 
 export const dynamic = 'force-dynamic';
@@ -40,7 +41,16 @@ function Stat({ label, value, hint }: { label: string; value: string | number; h
   );
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  // Which currency to state everything in, if anyone has asked. The rate that
+  // applies depends on each figure's own date, so the conversion is the
+  // server's to do.
+  const sp = await searchParams;
+  const display = typeof sp.display === 'string' ? sp.display.slice(0, 3).toUpperCase() : '';
   const identity = await getIdentity();
   if (!identity) return null;
 
@@ -52,7 +62,9 @@ export default async function DashboardPage() {
   // A failure here must not take the whole overview down with it.
   const showAccounting = can(identity, 'boards', 'view');
   const accounts = showAccounting
-    ? await api.get<Accounting>('/accounting/').catch(() => null)
+    ? await api
+        .get<Accounting>(`/accounting/${display ? `?display=${display}` : ''}`)
+        .catch(() => null)
     : null;
 
   /** Only the queues this person may actually open. */
@@ -119,6 +131,7 @@ export default async function DashboardPage() {
       ) : null}
 
       {accounts ? <AccountingDashboard data={accounts} /> : null}
+      {accounts ? <AccountingBreakdowns data={accounts} /> : null}
 
       {can(identity, 'donations', 'view') ? (
         <section className="space-y-3">

@@ -346,6 +346,31 @@
         "kind": "choice"
       }
     },
+    "exchange-rates": {
+      "base": {
+        "kind": "text",
+        "maxLength": 8,
+        "required": true
+      },
+      "effective_from": {
+        "kind": "date",
+        "required": true
+      },
+      "note": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "quote": {
+        "kind": "text",
+        "maxLength": 8,
+        "required": true
+      },
+      "rate": {
+        "decimals": 6,
+        "kind": "number",
+        "required": true
+      }
+    },
     "job-applications": {
       "country": {
         "choices": [

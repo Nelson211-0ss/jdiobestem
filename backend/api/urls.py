@@ -42,6 +42,9 @@ router.register("users", admin_views.UserViewSet, basename="user")
 router.register("boards", operations_views.BoardViewSet, basename="board")
 router.register("countries", operations_views.OperatingCountryViewSet, basename="country")
 router.register("offices", operations_views.OfficeViewSet, basename="office")
+router.register(
+    "exchange-rates", operations_views.ExchangeRateViewSet, basename="exchange-rate"
+)
 router.register("documents", documents_views.DocumentViewSet, basename="document")
 router.register("document-editions", documents_views.DocumentEditionViewSet, basename="document-edition")
 router.register("activity", activity_views.ActivityLogViewSet, basename="activity")

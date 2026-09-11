@@ -125,7 +125,9 @@ def rows_from_board(user, name: str, amount_title: str, date_title: str, extra: 
 
     wanted = {key: ids.get(title) for key, title in (extra or {}).items()}
 
-    records = policy.scope(user, Record.objects.filter(board=board), "boards")
+    records = policy.scope(
+        user, Record.objects.filter(board=board).select_related("office"), "boards"
+    )
     out = []
     for record in records:
         values = record.values or {}
@@ -142,6 +144,7 @@ def rows_from_board(user, name: str, amount_title: str, date_title: str, extra: 
             "date": day,
             "board": board.monday_id,
             "country": record.country or "",
+            "office": record.office.name if record.office_id else "",
         }
         for key, column_id in wanted.items():
             row[key] = str(values.get(column_id) or "") if column_id else ""
@@ -285,6 +288,108 @@ def accounting(request):
         (r for r in expenses if r["date"]), key=lambda r: r["date"], reverse=True
     )[:6]
 
+    # --- breakdowns ---------------------------------------------------------
+    #
+    # Every one of these is grouped by currency as well as by whatever it is
+    # breaking down. Summing UGX and USD into one figure would be a number that
+    # looks authoritative and means nothing; the conversion below is the only
+    # place the two are ever added together, and it says at what rate.
+
+    labels_by_code = dict(Country.choices)
+
+    def tally(rows_in, rows_out, key):
+        """(key, currency) -> money in, money out."""
+        found: dict[tuple[str, str], dict[str, float]] = defaultdict(
+            lambda: {"in": 0.0, "out": 0.0}
+        )
+        for row in rows_in:
+            found[(key(row), row["currency"])]["in"] += row["amount"]
+        for row in rows_out:
+            found[(key(row), row["currency"])]["out"] += row["amount"]
+        return found
+
+    def shape(found, label_for=lambda k: k, key_name="key"):
+        out = []
+        for (key, currency), sums in found.items():
+            out.append(
+                {
+                    key_name: key,
+                    "label": label_for(key),
+                    "currency": currency,
+                    "in": round(sums["in"], 2),
+                    "out": round(sums["out"], 2),
+                    "net": round(sums["in"] - sums["out"], 2),
+                }
+            )
+        return sorted(out, key=lambda r: (r[key_name] or "", r["currency"]))
+
+    in_window = [r for r in money_in if r["month"] in key_set]
+    out_window = [r for r in expenses if r["month"] in key_set]
+
+    by_currency = shape(
+        tally(in_window, out_window, lambda r: r["currency"]), key_name="currency_key"
+    )
+    by_country = shape(
+        tally(in_window, out_window, lambda r: r["country"]),
+        label_for=lambda code: labels_by_code.get(code, code) or "Not set",
+        key_name="code",
+    )
+    by_year = shape(
+        tally(in_window, out_window, lambda r: (r["month"] or "")[:4]), key_name="year"
+    )
+    by_month = shape(
+        tally(in_window, out_window, lambda r: r["month"]), key_name="month"
+    )
+    # Only money out: a gift is credited to a country, never to an office.
+    by_office = shape(
+        tally([], out_window, lambda r: r.get("office") or ""),
+        label_for=lambda name: name or "No office",
+        key_name="office",
+    )
+
+    # --- conversion ---------------------------------------------------------
+    display = (request.query_params.get("display") or "").strip().upper()[:3]
+    converted = None
+    if display:
+        table = rate_table()
+        used: dict[tuple[str, str, str], dict] = {}
+        totals = {"in": 0.0, "out": 0.0}
+        missing: dict[str, dict[str, float]] = defaultdict(lambda: {"in": 0.0, "out": 0.0})
+
+        def add(rows, bucket):
+            for row in rows:
+                source = row["currency"] or display
+                when = date.fromisoformat(row["date"]) if row.get("date") else None
+                rate, effective = rate_for(table, source, display, when)
+                if rate is None:
+                    missing[source][bucket] += row["amount"]
+                    continue
+                totals[bucket] += row["amount"] * rate
+                if source != display:
+                    used[(source, display, str(effective))] = {
+                        "from": source,
+                        "to": display,
+                        "rate": round(rate, 6),
+                        "effective_from": str(effective) if effective else "",
+                    }
+
+        add(in_window, "in")
+        add(out_window, "out")
+        converted = {
+            "currency": display,
+            "in_total": round(totals["in"], 2),
+            "out_total": round(totals["out"], 2),
+            "net": round(totals["in"] - totals["out"], 2),
+            # Shown with the figures, so a converted total can be checked
+            # against the rate that produced it.
+            "rates": sorted(used.values(), key=lambda r: (r["from"], r["effective_from"])),
+            # Named rather than folded in at a rate nobody chose.
+            "unconverted": [
+                {"currency": code, "in": round(v["in"], 2), "out": round(v["out"], 2)}
+                for code, v in sorted(missing.items())
+            ],
+        }
+
     return Response(
         {
             "countries": countries,
@@ -292,5 +397,19 @@ def accounting(request):
             "series": series,
             "recent": recent,
             "has_any": bool(expenses or money_in),
+            "breakdowns": {
+                "by_currency": by_currency,
+                "by_country": by_country,
+                "by_office": by_office,
+                "by_year": by_year,
+                "by_month": by_month,
+            },
+            "converted": converted,
+            # What the Foundation has recorded, so the dashboard can say which
+            # conversions are possible at all.
+            "rates_available": sorted(
+                {r.quote.upper() for r in ExchangeRate.objects.all()}
+                | {r.base.upper() for r in ExchangeRate.objects.all()}
+            ),
         }
     )

@@ -6,6 +6,7 @@ from .models import (
     Board,
     BoardColumn,
     BoardGroup,
+    ExchangeRate,
     ExpenseLine,
     Office,
     OperatingCountry,
@@ -179,6 +180,24 @@ class RecordSerializer(serializers.ModelSerializer):
         if lines is not None:
             self._apply_lines(record, lines)
         return record
+
+
+class ExchangeRateSerializer(serializers.ModelSerializer):
+    summary = serializers.CharField(source="__str__", read_only=True)
+
+    class Meta:
+        model = ExchangeRate
+        fields = "__all__"
+
+    def validate(self, attrs):
+        base = (attrs.get("base") or getattr(self.instance, "base", "")).upper()
+        quote = (attrs.get("quote") or getattr(self.instance, "quote", "")).upper()
+        if base and quote and base == quote:
+            raise serializers.ValidationError(
+                {"quote": "A currency is worth one of itself; no rate is needed."}
+            )
+        attrs["base"], attrs["quote"] = base, quote
+        return attrs
 
 
 class OperatingCountrySerializer(serializers.ModelSerializer):

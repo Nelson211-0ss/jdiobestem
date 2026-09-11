@@ -23,6 +23,8 @@ OVERLAPS in sync_monday.py for where the two meet.
 """
 
 from django.contrib.auth.models import User
+from decimal import Decimal, InvalidOperation
+
 from django.db import models
 from django.utils.text import slugify
 
@@ -374,7 +376,15 @@ class ExchangeRate(models.Model):
         ]
 
     def __str__(self):
-        return f"1 {self.base} = {self.rate:,.6f} {self.quote} from {self.effective_from:%d %b %Y}"
+        # Coerced rather than formatted directly: an unsaved instance still
+        # holds whatever was handed to it, and a __str__ that raises takes the
+        # admin, the serializer and any report down with it.
+        try:
+            rate = Decimal(str(self.rate))
+        except (InvalidOperation, TypeError):
+            return f"{self.base} to {self.quote}"
+        when = f" from {self.effective_from:%d %b %Y}" if self.effective_from else ""
+        return f"1 {self.base} = {rate:,.6f} {self.quote}{when}"
 
 
 class ExpenseLine(models.Model):

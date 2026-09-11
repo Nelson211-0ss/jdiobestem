@@ -1255,6 +1255,41 @@ export const RESOURCES: Resource[] = [
     ],
   },
   {
+    key: 'exchange-rates',
+    label: 'Exchange rates',
+    singular: 'rate',
+    group: 'Operations',
+    parent: 'Countries & offices',
+    icon: 'ArrowLeftRight',
+    description:
+      'The rates used to state the accounting figures in one currency. Entered rather than fetched: a figure converted at a rate nobody recorded cannot be checked a year later.',
+    titleField: 'summary',
+    searchHint: 'currency, note',
+    columns: [
+      { name: 'base', label: 'From' },
+      { name: 'quote', label: 'To' },
+      { name: 'rate', label: 'Rate', numeric: true },
+      { name: 'effective_from', label: 'From', date: true },
+      { name: 'note', label: 'Source' },
+    ],
+    fields: [
+      { name: 'base', label: 'From currency', type: 'text', required: true, help: 'e.g. UGX.' },
+      { name: 'quote', label: 'To currency', type: 'text', required: true, help: 'e.g. USD.' },
+      {
+        name: 'rate', label: 'Rate', type: 'number', required: true, wide: true,
+        help: 'One unit of the from-currency, in the to-currency.',
+      },
+      {
+        name: 'effective_from', label: 'Applies from', type: 'date', required: true,
+        help: 'Money dated on or after this uses it.',
+      },
+      {
+        name: 'note', label: 'Where it came from', type: 'text', wide: true,
+        help: 'e.g. Bank of Uganda mid-rate. So the figure can be checked later.',
+      },
+    ],
+  },
+  {
     key: 'offices',
     related: [
       { resource: 'scholarships', by: 'office', label: 'Bursaries run from here' },

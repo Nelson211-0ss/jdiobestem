@@ -64,6 +64,37 @@ export type Accounting = {
     country: string;
   }[];
   has_any: boolean;
+  /**
+   * Every breakdown is grouped by currency as well as by what it breaks down.
+   * Adding UGX to USD would produce a figure that looks authoritative and
+   * means nothing; `converted` is the only place the two are put together,
+   * and it says at what rate.
+   */
+  breakdowns?: {
+    by_currency: Row[];
+    by_country: Row[];
+    by_office: Row[];
+    by_year: Row[];
+    by_month: Row[];
+  };
+  converted?: {
+    currency: string;
+    in_total: number;
+    out_total: number;
+    net: number;
+    rates: { from: string; to: string; rate: number; effective_from: string }[];
+    unconverted: { currency: string; in: number; out: number }[];
+  } | null;
+  rates_available?: string[];
+};
+
+/** One line of a breakdown: what it is, in which currency, and the two sums. */
+export type Row = {
+  label: string;
+  currency: string;
+  in: number;
+  out: number;
+  net: number;
 };
 
 /** Mid-tone, so one palette reads on both the light and the dark dashboard. */
