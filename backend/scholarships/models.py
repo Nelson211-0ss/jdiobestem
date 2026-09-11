@@ -71,6 +71,15 @@ class Scholarship(TimeStampedModel):
     school = models.ForeignKey(
         "programmes.School", on_delete=models.PROTECT, related_name="scholarships"
     )
+    # School Pay issues a code per pupil, not per school: it is how this
+    # student's fees are identified when money is sent. The school's own route
+    # may carry a general code as well, which is a different thing.
+    school_pay_code = models.CharField(
+        max_length=60,
+        blank=True,
+        db_index=True,
+        help_text="This student's own School Pay code, where their school uses one.",
+    )
 
     # The class they were in when the award started never changes, which is what
     # makes progress answerable years later; the current one moves with them.

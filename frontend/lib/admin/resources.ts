@@ -1613,7 +1613,7 @@ export const RESOURCES: Resource[] = [
       },
       {
         name: 'payment_code', label: 'Payment code', type: 'text',
-        help: 'The School Pay code, where the school uses one.',
+        help: "The school's own code. A pupil's individual School Pay code belongs on their bursary.",
       },
       { name: 'bank_name', label: 'Bank', type: 'text' },
       {
@@ -1653,6 +1653,7 @@ export const RESOURCES: Resource[] = [
       { name: 'student_name', label: 'Student' },
       { name: 'reference', label: 'Ref' },
       { name: 'school_name', label: 'School' },
+      { name: 'school_pay_code', label: 'School Pay' },
       { name: 'current_class', label: 'Class' },
       { name: 'total_paid', label: 'Paid to date', numeric: true },
       { name: 'outstanding', label: 'Outstanding', numeric: true },
@@ -1705,6 +1706,10 @@ export const RESOURCES: Resource[] = [
         name: 'school', label: 'School', type: 'select', options: [], source: 'school',
         required: true, wide: true,
         help: 'Chosen from the schools list. The level, the phone number and the account fees are paid into describe the school, so they are recorded there rather than on each award.',
+      },
+      {
+        name: 'school_pay_code', label: 'School Pay code', type: 'text', wide: true,
+        help: "This student's own code. The school's general code, if it has one, lives on its payment route.",
       },
       {
         name: 'class_at_award', label: 'Class when the bursary started', type: 'text',

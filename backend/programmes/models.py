@@ -132,7 +132,12 @@ class SchoolPaymentDetail(TimeStampedModel):
 
     # School Pay issues a code per school; nothing else here applies to it.
     payment_code = models.CharField(
-        max_length=60, blank=True, help_text="The School Pay code, where the school uses one."
+        max_length=60,
+        blank=True,
+        help_text=(
+            "The school's own code, where it has one. A pupil's individual "
+            "School Pay code belongs on their bursary, not here."
+        ),
     )
 
     bank_name = models.CharField(max_length=120, blank=True)
