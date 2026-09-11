@@ -293,6 +293,16 @@ class ScholarshipPayment(TimeStampedModel):
     reference = models.CharField(
         max_length=120, blank=True, help_text="Bank or mobile money reference."
     )
+    # What was actually quoted on this transfer. Recorded here as well as on
+    # the bursary because a pupil's code can be reissued or change with their
+    # school, and a payment has to say what was used at the time — the same
+    # reason the bank reference is kept beside the amount.
+    school_pay_code = models.CharField(
+        max_length=60,
+        blank=True,
+        db_index=True,
+        help_text="The School Pay code quoted on this payment.",
+    )
     receipt = models.CharField(
         max_length=500, blank=True, help_text="The school's receipt for this payment."
     )

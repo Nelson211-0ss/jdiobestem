@@ -1319,6 +1319,10 @@
       "scholarship": {
         "required": true
       },
+      "school_pay_code": {
+        "kind": "text",
+        "maxLength": 60
+      },
       "term": {
         "allowNull": true
       }

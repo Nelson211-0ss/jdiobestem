@@ -1807,7 +1807,7 @@ export const RESOURCES: Resource[] = [
     description:
       'Every transfer made to a school under a bursary, with its receipt. Kept as separate rows rather than a running total, so what was paid in a given term stays answerable.',
     titleField: 'term_label',
-    searchHint: 'student, school, term, reference',
+    searchHint: 'student, school, term, reference, code',
     columns: [
       { name: 'receipt', label: '', thumb: true },
       { name: 'student_name', label: 'Student' },
@@ -1816,6 +1816,7 @@ export const RESOURCES: Resource[] = [
       { name: 'amount', label: 'Amount', numeric: true },
       { name: 'currency', label: 'Currency' },
       { name: 'paid_on', label: 'Paid', date: true },
+      { name: 'school_pay_code', label: 'School Pay' },
       { name: 'method_display', label: 'Method', badge: true },
     ],
     filters: [
@@ -1850,6 +1851,10 @@ export const RESOURCES: Resource[] = [
           { value: 'cash', label: 'Cash' },
           { value: 'other', label: 'Other' },
         ],
+      },
+      {
+        name: 'school_pay_code', label: 'School Pay code used', type: 'text',
+        help: "What was quoted on this transfer — usually the student's own code.",
       },
       { name: 'reference', label: 'Reference', type: 'text', help: 'Bank or mobile money reference.' },
       { name: 'paid_to', label: 'Paid to', type: 'text', wide: true, help: 'Only if it did not go to the school\u2019s usual account.' },
