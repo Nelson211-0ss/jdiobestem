@@ -17,7 +17,14 @@ from programmes.models import School, ScienceFairProject
 
 from api.permissions import IsStaff, ResourcePermission
 
-from .models import Board, ExchangeRate, Office, OperatingCountry, Record
+from .models import (
+    Board,
+    ExchangeRate,
+    Office,
+    OperatingCountry,
+    Record,
+    SalaryPayment,
+)
 from .serializers import (
     BoardDetailSerializer,
     BoardSerializer,
@@ -25,6 +32,7 @@ from .serializers import (
     OfficeSerializer,
     OperatingCountrySerializer,
     RecordSerializer,
+    SalaryPaymentSerializer,
 )
 
 
@@ -166,6 +174,23 @@ class OperatingCountryViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.Mode
     serializer_class = OperatingCountrySerializer
     search_fields = ["name", "code", "currency_code", "offices__name"]
     ordering = ["order", "name"]
+
+
+class SalaryPaymentViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
+    """
+    What colleagues were paid. Granted to the Executive and Finance only —
+    see the access matrix, where it is deliberately absent from every other
+    role including the read-only one.
+    """
+
+    permission_classes = [ResourcePermission]
+    resource = "salaries"
+    queryset = SalaryPayment.objects.select_related("person")
+    serializer_class = SalaryPaymentSerializer
+    filterset_fields = ["person", "status", "currency"]
+    search_fields = ["person__name", "period", "reference"]
+    ordering_fields = ["paid_on", "amount", "period"]
+    ordering = ["-paid_on"]
 
 
 class ExchangeRateViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):

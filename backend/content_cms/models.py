@@ -143,10 +143,40 @@ class TeamMember(TimeStampedModel):
         ON_LEAVE = "on_leave", "On leave"
         LEFT = "left", "Left"
 
+    class Role(models.TextChoices):
+        """
+        Job titles, stored as the words themselves.
+
+        The value is the title rather than a slug so the six already in use
+        keep working untouched and the website goes on printing exactly what
+        it printed before. Adding one is a line here.
+        """
+
+        FOUNDER = "Founder & Executive Director", "Founder & Executive Director"
+        EXECUTIVE_DIRECTOR = "Executive Director", "Executive Director"
+        COUNTRY_DIRECTOR = "Country Director", "Country Director"
+        PROGRAMS_DIRECTOR = "Programs Director", "Programs Director"
+        PROJECTS_MANAGER = "Projects Manager", "Projects Manager"
+        PROGRAMS_COORDINATOR = "Programs Coordinator", "Programs Coordinator"
+        PROJECT_COORDINATOR = "Project Coordinator", "Project Coordinator"
+        FINANCE_MANAGER = "Finance Manager", "Finance Manager"
+        ACCOUNTANT = "Accountant", "Accountant"
+        ADMINISTRATOR = "Administrator", "Administrator"
+        COMMUNICATIONS = "Communications Officer", "Communications Officer"
+        FUNDRAISING = "Fundraising Officer", "Fundraising Officer"
+        MONITORING = "Monitoring & Evaluation Officer", "Monitoring & Evaluation Officer"
+        FIELD_OFFICER = "Field Officer", "Field Officer"
+        IT_OFFICER = "IT Officer", "IT Officer"
+        ENGINEER = "Senior Civil Engineer", "Senior Civil Engineer"
+        TRAINER = "Trainer", "Trainer"
+        MENTOR = "Mentor", "Mentor"
+        VOLUNTEER = "Volunteer", "Volunteer"
+        BOARD_MEMBER = "Board Member", "Board Member"
+        ADVISOR = "Advisor", "Advisor"
+        DRIVER = "Driver", "Driver"
+
     name = models.CharField(max_length=200)
-    # The job title as it reads on the website, so it stays free text: "Senior
-    # Civil Engineer" is not a value from a list anybody would maintain.
-    role = models.CharField(max_length=200)
+    role = models.CharField(max_length=200, choices=Role.choices)
     group = models.CharField(max_length=20, choices=Group.choices, default=Group.LEADERSHIP, db_index=True)
     image = models.CharField(max_length=300, blank=True, help_text="Path under /public, or an uploaded file below.")
     image_upload = models.ImageField(upload_to="team/", blank=True)

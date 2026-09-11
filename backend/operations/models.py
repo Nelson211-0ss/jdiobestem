@@ -415,3 +415,52 @@ class ExpenseLine(models.Model):
 
     def __str__(self):
         return f"{self.name} — {self.amount:,.2f}"
+
+
+class SalaryPayment(models.Model):
+    """
+    What a colleague was paid, for a period.
+
+    Kept as its own row per period rather than a salary figure on the person:
+    what somebody earns changes, and a record that is overwritten each month
+    cannot answer what was paid in March.
+
+    Sensitive in a way the rest of the dashboard is not — see the access
+    matrix, where it is granted to the Executive and Finance and to nobody
+    else, not even read-only.
+    """
+
+    class Status(models.TextChoices):
+        UNPAID = "unpaid", "Unpaid"
+        PART_PAID = "part_paid", "Part paid"
+        PAID = "paid", "Paid"
+
+    person = models.ForeignKey(
+        "content_cms.TeamMember", on_delete=models.PROTECT, related_name="salary_payments"
+    )
+    period = models.CharField(max_length=60, help_text="What it covers, e.g. July 2026.")
+    amount = models.DecimalField(max_digits=14, decimal_places=2)
+    bonus = models.DecimalField(max_digits=14, decimal_places=2, null=True, blank=True)
+    currency = models.CharField(max_length=8, blank=True, help_text="e.g. UGX.")
+    paid_on = models.DateField(null=True, blank=True)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.UNPAID, db_index=True
+    )
+    reference = models.CharField(
+        max_length=120, blank=True, help_text="Bank or mobile money reference."
+    )
+
+    class Meta:
+        ordering = ["-paid_on", "-id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["person", "period"], name="unique_salary_per_period"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.person.name} — {self.period}"
+
+    @property
+    def total(self):
+        return (self.amount or Decimal("0")) + (self.bonus or Decimal("0"))

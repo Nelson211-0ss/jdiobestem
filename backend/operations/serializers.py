@@ -11,6 +11,7 @@ from .models import (
     Office,
     OperatingCountry,
     Record,
+    SalaryPayment,
 )
 
 
@@ -220,6 +221,19 @@ class RecordSerializer(serializers.ModelSerializer):
             self._apply_lines(record, lines)
         self._render_previews(record)
         return record
+
+
+class SalaryPaymentSerializer(serializers.ModelSerializer):
+    person_name = serializers.CharField(source="person.name", read_only=True)
+    person_role = serializers.CharField(source="person.role", read_only=True)
+    total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = SalaryPayment
+        fields = "__all__"
+
+    def get_total(self, obj) -> str:
+        return f"{obj.currency} {obj.total:,.2f}".strip()
 
 
 class ExchangeRateSerializer(serializers.ModelSerializer):

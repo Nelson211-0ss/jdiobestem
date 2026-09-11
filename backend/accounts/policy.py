@@ -35,6 +35,8 @@ RESOURCES = (
     "countries",
     "exchange-rates",
     "offices",
+    # What colleagues are paid. Granted narrowly below.
+    "salaries",
     "users",
 )
 
@@ -71,6 +73,7 @@ SCIENCE_FAIR = ("cohorts", "projects", "proposals", "project-awards")
 MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
     Role.SUPERADMIN: {r: ALL_ACTIONS for r in RESOURCES},
     Role.DIRECTOR: {
+        "salaries": ALL_ACTIONS,
         **{r: NO_DELETE for r in INBOX},
         **{r: ALL_ACTIONS for r in CONTENT},
         **{r: ALL_ACTIONS for r in PROGRAMMES},
@@ -115,13 +118,17 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
         **{r: NO_DELETE for r in OPERATIONS},
     },
     Role.FINANCE: {
+        "salaries": NO_DELETE,
         "donations": NO_DELETE,
         "subscribers": READ_ONLY,
         "scholarships": READ_ONLY,
         **{r: NO_DELETE for r in BURSARY_MONEY},
         **{r: NO_DELETE for r in OPERATIONS},
     },
-    Role.VIEWER: {r: READ_ONLY for r in RESOURCES if r != "users"},
+    # Read-only everywhere except who may sign in — and except pay. A
+    # blanket read role is exactly how salaries end up in front of people
+    # who were never meant to see them.
+    Role.VIEWER: {r: READ_ONLY for r in RESOURCES if r not in ("users", "salaries")},
 }
 
 # The activity log is append-only for everyone, superusers included. It is

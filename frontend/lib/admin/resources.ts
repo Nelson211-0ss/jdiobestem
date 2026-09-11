@@ -167,6 +167,39 @@ const SCHOOL_REGION_OPTIONS = [
   { value: 'upper_nile', label: 'Upper Nile' },
 ];
 
+// The job titles the Foundation uses. The value is the title itself, so a
+// record keeps exactly the words it had and the website prints them unchanged.
+const ROLE_OPTIONS = [
+  'Founder & Executive Director',
+  'Executive Director',
+  'Country Director',
+  'Programs Director',
+  'Projects Manager',
+  'Programs Coordinator',
+  'Project Coordinator',
+  'Finance Manager',
+  'Accountant',
+  'Administrator',
+  'Communications Officer',
+  'Fundraising Officer',
+  'Monitoring & Evaluation Officer',
+  'Field Officer',
+  'IT Officer',
+  'Senior Civil Engineer',
+  'Trainer',
+  'Mentor',
+  'Volunteer',
+  'Board Member',
+  'Advisor',
+  'Driver',
+].map((title) => ({ value: title, label: title }));
+
+const SALARY_STATUS_OPTIONS = [
+  { value: 'unpaid', label: 'Unpaid' },
+  { value: 'part_paid', label: 'Part paid' },
+  { value: 'paid', label: 'Paid' },
+];
+
 const DEPARTMENT_OPTIONS = [
   { value: 'executive', label: 'Executive' },
   { value: 'programmes', label: 'Programmes' },
@@ -997,6 +1030,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'team',
+    related: [{ resource: 'salaries', by: 'person', label: 'Pay' }],
     label: 'Team members',
     singular: 'team member',
     group: 'Website',
@@ -1031,7 +1065,7 @@ export const RESOURCES: Resource[] = [
     ],
     fields: [
       { name: 'name', label: 'Name', type: 'text', required: true },
-      { name: 'role', label: 'Role', type: 'text', required: true },
+      { name: 'role', label: 'Role', type: 'select', options: ROLE_OPTIONS, required: true },
       {
         name: 'group',
         label: 'Group',
@@ -1300,6 +1334,44 @@ export const RESOURCES: Resource[] = [
       { name: 'order', label: 'Order', type: 'number' },
       { name: 'is_active', label: 'Active', type: 'boolean' },
       { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+    ],
+  },
+  {
+    key: 'salaries',
+    label: 'Salaries',
+    singular: 'payment',
+    group: 'Operations',
+    icon: 'Wallet',
+    description:
+      'What each colleague was paid, for a period. A row per period rather than a figure on the person: pay changes, and a record overwritten each month cannot answer what was paid in March. Visible to the Executive and Finance only.',
+    titleField: 'person_name',
+    searchHint: 'name, period, reference',
+    columns: [
+      { name: 'person_name', label: 'Person' },
+      { name: 'person_role', label: 'Role' },
+      { name: 'period', label: 'Covers' },
+      { name: 'amount', label: 'Salary', numeric: true },
+      { name: 'bonus', label: 'Bonus', numeric: true },
+      { name: 'total', label: 'Total', numeric: true },
+      { name: 'paid_on', label: 'Paid', date: true },
+      { name: 'status_display', label: 'Status', badge: true },
+    ],
+    filters: [
+      { name: 'person', label: 'Person', type: 'select', options: [], source: 'team' },
+      { name: 'status', label: 'Status', type: 'select', options: SALARY_STATUS_OPTIONS },
+    ],
+    fields: [
+      {
+        name: 'person', label: 'Person', type: 'select', options: [], source: 'team',
+        required: true, wide: true,
+      },
+      { name: 'period', label: 'What it covers', type: 'text', required: true, help: 'e.g. July 2026.' },
+      { name: 'amount', label: 'Salary', type: 'number', required: true },
+      { name: 'bonus', label: 'Bonus', type: 'number', help: 'Left empty when there is none.' },
+      { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
+      { name: 'status', label: 'Status', type: 'select', options: SALARY_STATUS_OPTIONS },
+      { name: 'paid_on', label: 'Paid on', type: 'date' },
+      { name: 'reference', label: 'Reference', type: 'text', wide: true, help: 'Bank or mobile money reference.' },
     ],
   },
   {

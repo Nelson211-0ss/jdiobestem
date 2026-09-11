@@ -63,6 +63,10 @@ SUPERSEDED = [
     "Subitems of Employees",
     "Employee Roles",
     "Subitems of Employee Roles",
+    # Pay is the Salaries resource now: a row per person per period,
+    # readable only by the Executive and Finance.
+    "Salary Management",
+    "Subitems of Salary Management",
 ]
 
 # Dropped on review of the dashboard: each was an empty board whose job is
