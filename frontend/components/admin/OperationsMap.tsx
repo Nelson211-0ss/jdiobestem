@@ -55,15 +55,32 @@ const METRICS = [
   // none while it was paying fees for several. They are separate records and
   // separate questions, so they are separate figures rather than one sum that
   // would double-count anyone who is both.
-  { key: 'scholarships', label: 'On bursary', noun: 'student on bursary', icon: GraduationCap },
-  { key: 'mentees', label: 'Mentees', noun: 'mentee', icon: BookOpen },
-  { key: 'mentors', label: 'Mentors', noun: 'mentor', icon: Users },
-  { key: 'schools', label: 'Schools', noun: 'school', icon: School },
-  { key: 'projects', label: 'Projects', noun: 'project', icon: Rocket },
-  { key: 'volunteers', label: 'Volunteers', noun: 'volunteer', icon: HeartHandshake },
+  {
+    key: 'scholarships',
+    label: 'On bursary',
+    one: 'student on bursary',
+    many: 'students on bursary',
+    icon: GraduationCap,
+  },
+  { key: 'mentees', label: 'Mentees', one: 'mentee', many: 'mentees', icon: BookOpen },
+  { key: 'mentors', label: 'Mentors', one: 'mentor', many: 'mentors', icon: Users },
+  { key: 'schools', label: 'Schools', one: 'school', many: 'schools', icon: School },
+  { key: 'projects', label: 'Projects', one: 'project', many: 'projects', icon: Rocket },
+  {
+    key: 'volunteers',
+    label: 'Volunteers',
+    one: 'volunteer',
+    many: 'volunteers',
+    icon: HeartHandshake,
+  },
 ] as const;
 
 type MetricKey = (typeof METRICS)[number]['key'];
+
+/** The callout box. Tall enough for a value that wraps onto a second line —
+ *  a foreignObject clips its content rather than growing with it. */
+const CALLOUT_W = 148;
+const CALLOUT_H = 70;
 
 export default function OperationsMap({ countries }: { countries: CountryFigures[] }) {
   const [metric, setMetric] = useState<MetricKey>('scholarships');
@@ -177,14 +194,14 @@ export default function OperationsMap({ countries }: { countries: CountryFigures
                   <line
                     x1={ax}
                     y1={ay}
-                    x2={x + 70}
-                    y2={y + 26}
+                    x2={x + CALLOUT_W / 2}
+                    y2={y + CALLOUT_H / 2}
                     className="stroke-muted-foreground/50"
                     strokeWidth={1}
                   />
                   <circle cx={ax} cy={ay} r={4} className="fill-accent" />
 
-                  <foreignObject x={x} y={y} width={148} height={54}>
+                  <foreignObject x={x} y={y} width={CALLOUT_W} height={CALLOUT_H}>
                     {/* Reads as the inverse of the map in both themes: a dark
                         chip on the light map, a pale one on the dark map. */}
                     <div className="rounded-lg bg-primary px-3 py-2 text-primary-foreground shadow-md">
@@ -192,7 +209,7 @@ export default function OperationsMap({ countries }: { countries: CountryFigures
                         {c.label}
                       </p>
                       <p className="text-sm font-bold leading-tight tabular">
-                        {valueFor(c)} {valueFor(c) === 1 ? active.noun : `${active.noun}s`}
+                        {valueFor(c)} {valueFor(c) === 1 ? active.one : active.many}
                       </p>
                     </div>
                   </foreignObject>
