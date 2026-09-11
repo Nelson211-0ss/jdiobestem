@@ -75,8 +75,11 @@ export type Accounting = {
     by_country: Row[];
     by_office: Row[];
     by_year: Row[];
+    by_financial_year: Row[];
     by_month: Row[];
   };
+  /** Which year the Foundation reports on, so a figure says what it covers. */
+  financial_year?: { start_month: number; current: string; range: string };
   converted?: {
     currency: string;
     in_total: number;

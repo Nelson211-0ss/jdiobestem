@@ -18,7 +18,8 @@ import type { Accounting, Row } from './AccountingDashboard';
 
 const CUTS = [
   { key: 'by_month', label: 'Month' },
-  { key: 'by_year', label: 'Year' },
+  { key: 'by_financial_year', label: 'Financial year' },
+  { key: 'by_year', label: 'Calendar year' },
   { key: 'by_currency', label: 'Currency' },
   { key: 'by_country', label: 'Country' },
   { key: 'by_office', label: 'Office' },
@@ -82,7 +83,18 @@ export default function AccountingBreakdowns({ data }: { data: Accounting }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm text-muted-foreground">Breakdowns</p>
-            <p className="mt-1 text-lg font-bold">The last twelve months</p>
+            <p className="mt-1 text-lg font-bold">
+              {cut === 'by_financial_year'
+                ? `Every financial year recorded`
+                : 'The last twelve months'}
+            </p>
+            {cut === 'by_financial_year' && data.financial_year ? (
+              // Said plainly, because July-to-June and a calendar year give
+              // different totals and the reader cannot tell which is which.
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Currently {data.financial_year.current} · {data.financial_year.range}
+              </p>
+            ) : null}
           </div>
           <div className="flex flex-wrap gap-1.5">
             {CUTS.map((c) => (

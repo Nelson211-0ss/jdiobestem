@@ -23,6 +23,7 @@ number — which is the failure worth having.
 from collections import defaultdict
 from datetime import date
 
+from django.conf import settings
 from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -76,6 +77,32 @@ def rate_for(table, source: str, target: str, when: date | None):
                     continue
                 return (value, effective) if base == source else (1.0 / value, effective)
     return None, None
+
+
+def financial_year(month_key: str, start_month: int) -> str:
+    """
+    The label of the financial year a month falls in.
+
+    July-to-June reads as "2026/27"; a year that starts in January is just the
+    year, because "2026/26" would be nonsense.
+    """
+    if not month_key:
+        return ""
+    year, month = int(month_key[:4]), int(month_key[5:7])
+    opening = year if month >= start_month else year - 1
+    if start_month == 1:
+        return str(opening)
+    return f"{opening}/{str(opening + 1)[-2:]}"
+
+
+def financial_year_range(label: str, start_month: int) -> str:
+    """"Jul 2026 – Jun 2027", so the label can never be read the wrong way."""
+    if not label:
+        return ""
+    opening = int(label.split("/")[0])
+    start = date(opening, start_month, 1)
+    end = shift_month(start, 11)
+    return f"{start:%b %Y} – {end:%b %Y}"
 
 
 def currency_code(value: str) -> str:
@@ -337,6 +364,17 @@ def accounting(request):
     by_year = shape(
         tally(in_window, out_window, lambda r: (r["month"] or "")[:4]), key_name="year"
     )
+    # Financial years are counted over everything recorded, not the rolling
+    # twelve months: a year that opened fourteen months ago is still the year
+    # somebody is reporting on.
+    fy_start = settings.FINANCIAL_YEAR_START_MONTH
+    by_financial_year = shape(
+        tally(money_in, expenses, lambda r: financial_year(r["month"], fy_start)),
+        label_for=lambda label: f"{label}  ({financial_year_range(label, fy_start)})"
+        if label
+        else "Undated",
+        key_name="financial_year",
+    )
     by_month = shape(
         tally(in_window, out_window, lambda r: r["month"]), key_name="month"
     )
@@ -402,11 +440,21 @@ def accounting(request):
                 "by_country": by_country,
                 "by_office": by_office,
                 "by_year": by_year,
+                "by_financial_year": by_financial_year,
                 "by_month": by_month,
             },
             "converted": converted,
             # What the Foundation has recorded, so the dashboard can say which
             # conversions are possible at all.
+            # Stated so the dashboard can say which year it means, and so a
+            # wrong setting is visible rather than silently misreported.
+            "financial_year": {
+                "start_month": fy_start,
+                "current": financial_year(timezone.localdate().strftime("%Y-%m"), fy_start),
+                "range": financial_year_range(
+                    financial_year(timezone.localdate().strftime("%Y-%m"), fy_start), fy_start
+                ),
+            },
             "rates_available": sorted(
                 {r.quote.upper() for r in ExchangeRate.objects.all()}
                 | {r.base.upper() for r in ExchangeRate.objects.all()}
