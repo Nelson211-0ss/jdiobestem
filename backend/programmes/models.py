@@ -144,6 +144,9 @@ class SchoolPaymentDetail(TimeStampedModel):
     # The person to ring about a payment. Kept on the route rather than on the
     # school: a school paying through both a bank and School Pay may well have
     # a different person answering for each.
+    bursar_name = models.CharField(
+        max_length=200, blank=True, help_text="Who to ask for."
+    )
     bursar_phone = models.CharField(
         max_length=50,
         blank=True,

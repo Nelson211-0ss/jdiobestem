@@ -1441,7 +1441,8 @@ export const RESOURCES: Resource[] = [
       { name: 'payment_code', label: 'Payment code' },
       { name: 'bank_name', label: 'Bank' },
       { name: 'bank_account_number', label: 'Account number' },
-      { name: 'bursar_phone', label: 'Bursar' },
+      { name: 'bursar_name', label: 'Bursar' },
+      { name: 'bursar_phone', label: 'Phone' },
       { name: 'is_primary', label: 'Default' },
       { name: 'is_active', label: 'Active' },
     ],
@@ -1466,9 +1467,10 @@ export const RESOURCES: Resource[] = [
       },
       { name: 'bank_account_number', label: 'Account number', type: 'text' },
       {
-        name: 'bursar_phone', label: 'Bursar phone', type: 'tel',
-        help: 'Whoever answers about fees for this route.',
+        name: 'bursar_name', label: 'Bursar', type: 'text',
+        help: 'Who to ask for about fees on this route.',
       },
+      { name: 'bursar_phone', label: 'Bursar phone', type: 'tel' },
       {
         name: 'is_primary', label: 'Use this route by default', type: 'boolean',
         help: 'Where the money goes unless someone says otherwise.',

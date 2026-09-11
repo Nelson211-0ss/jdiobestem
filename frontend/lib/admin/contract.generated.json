@@ -1335,6 +1335,10 @@
         "kind": "text",
         "maxLength": 120
       },
+      "bursar_name": {
+        "kind": "text",
+        "maxLength": 200
+      },
       "bursar_phone": {
         "kind": "text",
         "maxLength": 50
