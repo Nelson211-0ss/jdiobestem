@@ -61,7 +61,7 @@ export function FormShell({
   title: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
-  /** Sits beside the back link — where Edit goes on a record being read. */
+  /** Shown at the top of the card — Export and Edit on a record being read. */
   actions?: React.ReactNode;
   /** The story editor needs room for its preview; record forms do not. */
   wide?: boolean;
@@ -72,33 +72,51 @@ export function FormShell({
    */
   aside?: React.ReactNode;
 }) {
+  // The record's own controls sit on the record, not floating above the page:
+  // Export and Edit act on what is inside the card, so they belong at the top
+  // of it. The way back sits beside the title, which is what the page is about.
+  const header = (
+    <div className="flex items-start gap-3">
+      <Link
+        href={backHref}
+        aria-label={backLabel}
+        title={backLabel}
+        className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" />
+      </Link>
+      <div className="min-w-0">
+        {eyebrow ? <p className="text-sm text-muted-foreground">{eyebrow}</p> : null}
+        <h1 className="mt-0.5 text-3xl font-bold tracking-tight">{title}</h1>
+      </div>
+    </div>
+  );
+
+  const card = (
+    <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
+      {actions ? (
+        <div className="mb-6 flex flex-wrap items-center justify-end gap-3 border-b pb-5">
+          {actions}
+        </div>
+      ) : null}
+      {children}
+    </div>
+  );
+
   return (
     <div className="pb-24">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link
-          href={backHref}
-          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" /> {backLabel}
-        </Link>
-        {actions}
-      </div>
-
-      <div className={cn('mx-auto mt-8', wide || aside ? 'max-w-6xl' : 'max-w-3xl')}>
-        <div className="text-center">
-          {eyebrow ? <p className="text-sm text-muted-foreground">{eyebrow}</p> : null}
-          <h1 className="mt-1 text-3xl font-bold tracking-tight">{title}</h1>
-        </div>
+      <div className={cn('mx-auto', wide || aside ? 'max-w-6xl' : 'max-w-3xl')}>
+        {header}
 
         {aside ? (
           // `items-start` so the side column keeps its own height instead of
           // stretching to match a long record.
-          <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]">
-            <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">{children}</div>
+          <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]">
+            {card}
             <div className="space-y-6">{aside}</div>
           </div>
         ) : (
-          <div className="mt-8 rounded-3xl border bg-card p-6 shadow-sm sm:p-8">{children}</div>
+          <div className="mt-6">{card}</div>
         )}
       </div>
 
