@@ -78,6 +78,26 @@ export type Column = {
   className?: string;
 };
 
+/**
+ * Records belonging to this one, listed on its detail page.
+ *
+ * Described as data rather than fetched by each page: a bursary is not usefully
+ * read without the terms it runs over and the money sent under it, and the same
+ * is true of a school and its students, or a project and its awards. The list
+ * is fetched through the related resource's own endpoint, so this person's role
+ * and country scope apply to it exactly as they do to that resource's own page.
+ */
+export type Related = {
+  /** The resource to list. */
+  resource: string;
+  /** Its query parameter that points back at this record. */
+  by: string;
+  /** Heading. Defaults to the related resource's label. */
+  label?: string;
+  /** Column names to show. Defaults to the first few of its own. */
+  columns?: string[];
+};
+
 export type Resource = {
   key: string;
   label: string;
@@ -94,6 +114,8 @@ export type Resource = {
   columns: Column[];
   fields: Field[];
   filters?: Field[];
+  /** What hangs off one record, shown beneath it. */
+  related?: Related[];
   searchHint?: string;
   /** A record of what someone sent — creating one by hand makes no sense. */
   noCreate?: boolean;
@@ -274,6 +296,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'projects',
+    related: [{ resource: 'project-awards', by: 'project', label: 'Awards' }],
     label: 'Projects',
     singular: 'project',
     group: 'Programmes',
@@ -1093,6 +1116,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'documents',
+    related: [{ resource: 'document-editions', by: 'document', label: 'Editions' }],
     label: 'All documents',
     singular: 'document',
     group: 'Operations',
@@ -1229,6 +1253,10 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'offices',
+    related: [
+      { resource: 'scholarships', by: 'office', label: 'Bursaries run from here' },
+      { resource: 'documents', by: 'office', label: 'Documents' },
+    ],
     label: 'Offices',
     singular: 'office',
     group: 'Operations',
@@ -1346,6 +1374,11 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'schools',
+    related: [
+      { resource: 'scholarships', by: 'school', label: 'Students on bursary here' },
+      { resource: 'projects', by: 'school', label: 'Science Fair projects' },
+      { resource: 'school-payment-details', by: 'school', label: 'Where money is sent' },
+    ],
     label: 'Schools',
     singular: 'school',
     group: 'Programmes',
@@ -1437,6 +1470,10 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarships',
+    related: [
+      { resource: 'scholarship-terms', by: 'scholarship', label: 'Terms and fees due' },
+      { resource: 'scholarship-payments', by: 'scholarship', label: 'Payments to the school' },
+    ],
     label: 'Bursaries',
     singular: 'bursary',
     group: 'Programmes',
@@ -1551,6 +1588,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-terms',
+    related: [{ resource: 'scholarship-payments', by: 'term', label: 'Payments against this term' }],
     label: 'Terms and fees due',
     singular: 'term',
     group: 'Programmes',

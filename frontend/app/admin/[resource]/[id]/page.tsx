@@ -5,6 +5,7 @@ import { Pencil } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import ExportMenu from '@/components/admin/ExportMenu';
+import RelatedRecords from '@/components/admin/RelatedRecords';
 import ResourceDetail from '@/components/admin/ResourceDetail';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
@@ -69,6 +70,12 @@ export default async function ResourceDetailPage({
       }
     >
       <ResourceDetail resource={resource} record={record} />
+
+      {/* What belongs to this record, so the page answers the next question
+          instead of sending someone to a list to filter it themselves. */}
+      {(resource.related ?? []).map((spec) => (
+        <RelatedRecords key={`${spec.resource}-${spec.by}`} spec={spec} id={id} identity={identity} />
+      ))}
     </FormShell>
   );
 }

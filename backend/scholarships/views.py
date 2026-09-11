@@ -33,7 +33,7 @@ class ScholarshipViewSet(ScopedViewSet):
     )
     resource = "scholarships"
     serializer_class = ScholarshipSerializer
-    filterset_fields = ["status", "school__level", "country", "office"]
+    filterset_fields = ["status", "school", "school__level", "country", "office"]
     search_fields = [
         "reference", "student_name", "school__name", "guardian_name",
     ]

@@ -646,7 +646,7 @@ class MenteeViewSet(StaffViewSet):
     queryset = Mentee.objects.select_related("school", "office")
     resource = "mentees"
     serializer_class = s.MenteeAdminSerializer
-    filterset_fields = ["is_active", "country", "district"]
+    filterset_fields = ["is_active", "country", "district", "school"]
     search_fields = ["name", "email", "school__name", "district"]
     ordering_fields = ["name", "created_at"]
     ordering = ["name"]
@@ -656,7 +656,7 @@ class MentorshipPairingViewSet(StaffViewSet):
     queryset = MentorshipPairing.objects.select_related("mentor", "mentee", "cohort")
     resource = "pairings"
     serializer_class = s.MentorshipPairingAdminSerializer
-    filterset_fields = ["status", "cohort"]
+    filterset_fields = ["status", "cohort", "mentor", "mentee"]
     search_fields = ["mentor__name", "mentee__name", "notes"]
     ordering_fields = ["created_at", "started_on"]
     ordering = ["-created_at"]
@@ -666,7 +666,7 @@ class ScienceFairProjectViewSet(StaffViewSet):
     queryset = ScienceFairProject.objects.select_related("cohort", "school")
     resource = "projects"
     serializer_class = s.ScienceFairProjectAdminSerializer
-    filterset_fields = ["stage", "category", "cohort", "district"]
+    filterset_fields = ["stage", "category", "cohort", "district", "school"]
     search_fields = ["title", "school__name", "teacher_mentor", "notes"]
     ordering_fields = ["created_at", "title", "review_score"]
     ordering = ["-created_at"]
