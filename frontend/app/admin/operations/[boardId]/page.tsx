@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import ClickableRow from '@/components/admin/ClickableRow';
 import FilePreview from '@/components/admin/FilePreview';
+import { toFileList } from '@/lib/files';
 import { api, can, getIdentity, type Page } from '@/lib/admin/api';
 import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import { formatNumber, isMoneyLabel } from '@/lib/format';
@@ -149,10 +150,30 @@ export default async function BoardPage({
                     // A file column is the attachment itself, so the cell shows
                     // it rather than a URL nobody can read at a glance.
                     if (c.column_type === 'file') {
-                      const url = String(record.values?.[c.monday_id] ?? '');
+                      // One field can hold several receipts, so show them all.
+                      // String() on a list would have produced "a.jpg,b.jpg"
+                      // and rendered as one broken thumbnail.
+                      const urls = toFileList(record.values?.[c.monday_id]);
                       return (
-                        <TableCell key={c.monday_id} className="w-14 pr-0">
-                          <FilePreview url={url} alt={`${c.title} for ${record.name}`} />
+                        <TableCell key={c.monday_id} className="pr-0">
+                          {urls.length ? (
+                            <div className="flex items-center gap-1">
+                              {urls.slice(0, 3).map((url, index) => (
+                                <FilePreview
+                                  key={`${url}-${index}`}
+                                  url={url}
+                                  alt={`${c.title} ${index + 1} for ${record.name}`}
+                                />
+                              ))}
+                              {urls.length > 3 ? (
+                                <span className="text-xs text-muted-foreground">
+                                  +{urls.length - 3}
+                                </span>
+                              ) : null}
+                            </div>
+                          ) : (
+                            <FilePreview url="" alt={`${c.title} for ${record.name}`} />
+                          )}
                         </TableCell>
                       );
                     }
