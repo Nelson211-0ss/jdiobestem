@@ -141,6 +141,16 @@ class SchoolPaymentDetail(TimeStampedModel):
     )
     bank_account_number = models.CharField(max_length=60, blank=True)
 
+    # The person to ring about a payment. Kept on the route rather than on the
+    # school: a school paying through both a bank and School Pay may well have
+    # a different person answering for each.
+    bursar_phone = models.CharField(
+        max_length=50,
+        blank=True,
+        validators=[phone_validator],
+        help_text="Whoever answers about fees for this route.",
+    )
+
     is_primary = models.BooleanField(
         default=False, help_text="Use this route unless told otherwise."
     )
