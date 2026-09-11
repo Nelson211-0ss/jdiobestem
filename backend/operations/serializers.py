@@ -8,6 +8,7 @@ from .models import (
     BoardGroup,
     ExchangeRate,
     ExpenseLine,
+    Invoice,
     Office,
     OperatingCountry,
     Record,
@@ -221,6 +222,60 @@ class RecordSerializer(serializers.ModelSerializer):
             self._apply_lines(record, lines)
         self._render_previews(record)
         return record
+
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    status_display = serializers.CharField(source="get_status_display", read_only=True)
+    office_name = serializers.CharField(source="office.name", read_only=True, default="")
+    expense_name = serializers.CharField(source="expense.name", read_only=True, default="")
+    # Derived on the model, not stored: see the note there on why "paid" is
+    # not something anybody ticks.
+    standing = serializers.CharField(read_only=True)
+    outstanding = serializers.DecimalField(max_digits=14, decimal_places=2, read_only=True)
+    is_settled = serializers.BooleanField(read_only=True)
+    days_overdue = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Invoice
+        fields = "__all__"
+        # DRF builds a unique-together validator from the model constraint, and
+        # that validator makes every field in it required — which would force an
+        # invoice number onto bills that arrive without one. The constraint is
+        # still enforced by the database; the check below is the readable half.
+        validators = []
+
+    def validate(self, attrs):
+        def value(name):
+            if name in attrs:
+                return attrs[name]
+            return getattr(self.instance, name, None)
+
+        issued, due, paid = value("issued_on"), value("due_on"), value("paid_on")
+        if issued and due and due < issued:
+            raise serializers.ValidationError(
+                {"due_on": "An invoice cannot fall due before it was issued."}
+            )
+        if issued and paid and paid < issued:
+            raise serializers.ValidationError(
+                {"paid_on": "This is before the invoice was issued — check the date."}
+            )
+        amount = value("amount")
+        if amount is not None and amount <= 0:
+            raise serializers.ValidationError({"amount": "An invoice is for more than nothing."})
+
+        # The same bill entered twice is how a supplier gets paid twice. Matched
+        # without regard to case, because "Royal Park" and "royal park" are the
+        # same supplier to everyone except a database.
+        supplier, number = value("supplier"), value("number")
+        if supplier and number:
+            clash = Invoice.objects.filter(supplier__iexact=supplier, number__iexact=number)
+            if self.instance is not None:
+                clash = clash.exclude(pk=self.instance.pk)
+            if clash.exists():
+                raise serializers.ValidationError(
+                    {"number": f"Invoice {number} from {supplier} is already recorded."}
+                )
+        return attrs
 
 
 class SalaryPaymentSerializer(serializers.ModelSerializer):

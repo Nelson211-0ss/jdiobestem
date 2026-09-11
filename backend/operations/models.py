@@ -417,6 +417,131 @@ class ExpenseLine(models.Model):
         return f"{self.name} — {self.amount:,.2f}"
 
 
+class Invoice(TimeStampedModel):
+    """
+    A bill the Foundation has received, and whether it has been settled.
+
+    An expense is money that has already gone out. An invoice is the part
+    before that: somebody has billed us, it falls due on a date, and until it
+    is paid it is a commitment nobody can see by reading the expenses — because
+    an unpaid bill has no expense to read. Tracking them is how "what do we owe,
+    and what is late" stops being a question for whoever remembers.
+
+    Settled is derived rather than typed. An invoice is paid when a payment
+    date is on it or when the expense that paid it is linked; a status field
+    somebody ticks separately from the expense is a status field that ends up
+    disagreeing with the books. What `status` carries is only the part a person
+    decides — whether it has been approved, queried or withdrawn — and it
+    deliberately has no "paid" option for that reason.
+    """
+
+    class Status(models.TextChoices):
+        RECEIVED = "received", "Received"
+        APPROVED = "approved", "Approved for payment"
+        QUERIED = "queried", "Queried"
+        CANCELLED = "cancelled", "Cancelled"
+
+    supplier = models.CharField(max_length=200, db_index=True, help_text="Who billed us.")
+    number = models.CharField(
+        max_length=80, blank=True, db_index=True, help_text="The supplier's own invoice number."
+    )
+    description = models.CharField(max_length=300, blank=True, help_text="What it is for.")
+    issued_on = models.DateField(db_index=True, help_text="The date on the invoice.")
+    due_on = models.DateField(
+        null=True, blank=True, db_index=True, help_text="When it has to be paid by."
+    )
+    amount = models.DecimalField(max_digits=14, decimal_places=2)
+    currency = models.CharField(max_length=8, blank=True, help_text="e.g. UGX.")
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=Status.RECEIVED, db_index=True
+    )
+    paid_on = models.DateField(
+        null=True, blank=True, help_text="Left empty, the invoice counts as outstanding."
+    )
+    # SET_NULL rather than CASCADE: deleting an expense that was entered by
+    # mistake must not also delete the bill it was entered against. The
+    # invoice goes back to outstanding, which is the truth at that point.
+    expense = models.ForeignKey(
+        Record,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="invoices",
+        help_text="The expense that settled it, once it has been paid.",
+    )
+    document = models.URLField(max_length=500, blank=True, help_text="The invoice itself.")
+    country = country_field()
+    office = models.ForeignKey(
+        "operations.Office",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="invoices",
+        help_text="Which office it belongs to, where that is narrower than the country.",
+    )
+    notes = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-issued_on", "-id"]
+        constraints = [
+            # The same number from the same supplier twice is nearly always the
+            # same bill entered twice, which is how a supplier gets paid twice.
+            # Conditional, because not every invoice arrives with a number on it.
+            models.UniqueConstraint(
+                fields=["supplier", "number"],
+                condition=models.Q(number__gt=""),
+                name="unique_invoice_per_supplier",
+            )
+        ]
+
+    def __str__(self):
+        number = f" {self.number}" if self.number else ""
+        return f"{self.supplier}{number}"
+
+    @property
+    def is_cancelled(self) -> bool:
+        return self.status == self.Status.CANCELLED
+
+    @property
+    def is_settled(self) -> bool:
+        """Paid, or pointed at the expense that paid it."""
+        return self.paid_on is not None or self.expense_id is not None
+
+    @property
+    def outstanding(self):
+        if self.is_settled or self.is_cancelled:
+            return Decimal("0")
+        return self.amount or Decimal("0")
+
+    @property
+    def days_overdue(self) -> int:
+        """How late it is, in days. Zero when it is settled or not yet due."""
+        from django.utils import timezone
+
+        if self.is_settled or self.is_cancelled or not self.due_on:
+            return 0
+        late = (timezone.localdate() - self.due_on).days
+        return late if late > 0 else 0
+
+    @property
+    def standing(self) -> str:
+        """Where it stands today, in the words somebody chasing it would use."""
+        from django.utils import timezone
+
+        if self.is_cancelled:
+            return "Cancelled"
+        if self.is_settled:
+            return f"Paid {self.paid_on:%d %b %Y}" if self.paid_on else "Paid"
+        if not self.due_on:
+            return "Outstanding"
+        days = (self.due_on - timezone.localdate()).days
+        if days < 0:
+            return f"Overdue by {-days} day{'' if days == -1 else 's'}"
+        if days == 0:
+            return "Due today"
+        return f"Due in {days} day{'' if days == 1 else 's'}"
+
+
 class SalaryPayment(models.Model):
     """
     What a colleague was paid, for a period.

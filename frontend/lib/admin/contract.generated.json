@@ -371,6 +371,72 @@
         "required": true
       }
     },
+    "invoices": {
+      "amount": {
+        "decimals": 2,
+        "kind": "number",
+        "required": true
+      },
+      "country": {
+        "choices": [
+          "GL",
+          "UG",
+          "SS",
+          "US"
+        ],
+        "kind": "choice"
+      },
+      "currency": {
+        "kind": "text",
+        "maxLength": 8
+      },
+      "description": {
+        "kind": "text",
+        "maxLength": 300
+      },
+      "document": {
+        "kind": "url"
+      },
+      "due_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "expense": {
+        "allowNull": true
+      },
+      "issued_on": {
+        "kind": "date",
+        "required": true
+      },
+      "notes": {
+        "kind": "text"
+      },
+      "number": {
+        "kind": "text",
+        "maxLength": 80
+      },
+      "office": {
+        "allowNull": true
+      },
+      "paid_on": {
+        "allowNull": true,
+        "kind": "date"
+      },
+      "status": {
+        "choices": [
+          "received",
+          "approved",
+          "queried",
+          "cancelled"
+        ],
+        "kind": "choice"
+      },
+      "supplier": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      }
+    },
     "job-applications": {
       "country": {
         "choices": [

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Pencil, Plus } from 'lucide-react';
+import { FileText, Pencil, Plus } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -89,6 +89,13 @@ export default async function BoardPage({
 
   const canEdit = can(identity, 'boards', 'change');
 
+  // Bills received live beside the expenses that settle them, so the way to
+  // them is from here rather than only from the sidebar. Outstanding first:
+  // the reason to open the list is almost always what is still owed.
+  const showsInvoices =
+    (boardId === 'expenses' || board.name.toLowerCase() === 'expenses') &&
+    can(identity, 'invoices', 'view');
+
   return (
     <div>
       <ListCard>
@@ -97,6 +104,13 @@ export default async function BoardPage({
         subtitle={board.description}
         actions={
           <div className="flex flex-wrap items-center gap-3">
+            {showsInvoices ? (
+              <Button variant="outline" asChild>
+                <Link href="/admin/invoices?settled=false">
+                  <FileText /> Invoices
+                </Link>
+              </Button>
+            ) : null}
             <ExportMenu href={exportHref} label={board.name} />
             {can(identity, 'boards', 'add') ? (
               <Button variant="accent" asChild>

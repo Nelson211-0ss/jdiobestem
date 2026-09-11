@@ -37,6 +37,7 @@ FOLDERS = {
     "documents": "documents",
     "cv": "cv",
     "receipts": "receipts",
+    "invoices": "invoices",
     "programmes": "programmes",
     "misc": "misc",
 }

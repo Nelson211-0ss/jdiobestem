@@ -1,6 +1,8 @@
 """Board and record endpoints for the dashboard."""
 
+import django_filters
 from django.db.models import Q
+from django.utils import timezone
 from django.http import Http404
 from activity.recorder import LoggedViewSetMixin
 from core.exporting import ExportableMixin
@@ -20,6 +22,7 @@ from api.permissions import IsStaff, ResourcePermission
 from .models import (
     Board,
     ExchangeRate,
+    Invoice,
     Office,
     OperatingCountry,
     Record,
@@ -29,6 +32,7 @@ from .serializers import (
     BoardDetailSerializer,
     BoardSerializer,
     ExchangeRateSerializer,
+    InvoiceSerializer,
     OfficeSerializer,
     OperatingCountrySerializer,
     RecordSerializer,
@@ -193,6 +197,85 @@ class SalaryPaymentViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelVi
     ordering = ["-paid_on"]
 
 
+class InvoiceFilter(django_filters.FilterSet):
+    """
+    The two questions anybody opens this screen to ask.
+
+    Settled and overdue are derived from dates rather than stored, so they
+    cannot be plain field filters — but they are the only filters that matter
+    for chasing a bill, so they are spelled out here rather than left to
+    whoever is reading the list to work out by eye.
+    """
+
+    settled = django_filters.BooleanFilter(method="filter_settled")
+    overdue = django_filters.BooleanFilter(method="filter_overdue")
+    supplier = django_filters.CharFilter(lookup_expr="icontains")
+
+    class Meta:
+        model = Invoice
+        fields = ["status", "currency", "country", "office", "expense", "supplier"]
+
+    def _settled(self):
+        return Q(paid_on__isnull=False) | Q(expense__isnull=False)
+
+    def filter_settled(self, queryset, name, value):
+        return queryset.filter(self._settled()) if value else queryset.exclude(self._settled())
+
+    def filter_overdue(self, queryset, name, value):
+        late = (
+            Q(due_on__isnull=False)
+            & Q(due_on__lt=timezone.localdate())
+            & ~Q(status=Invoice.Status.CANCELLED)
+        ) & ~self._settled()
+        return queryset.filter(late) if value else queryset.exclude(late)
+
+
+class InvoiceViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
+    """
+    Bills received, and whether they have been settled.
+
+    Ordered by due date rather than by when they were entered: the useful
+    reading of this list is "what is late and what is next", and that is the
+    order somebody chasing payments works in.
+    """
+
+    permission_classes = [ResourcePermission]
+    resource = "invoices"
+    queryset = Invoice.objects.select_related("office", "expense")
+    serializer_class = InvoiceSerializer
+    filterset_class = InvoiceFilter
+    search_fields = ["supplier", "number", "description", "notes"]
+    ordering_fields = ["issued_on", "due_on", "amount", "supplier"]
+    ordering = ["-issued_on"]
+
+    def export_detail_tables(self, obj):
+        """What settled it, so a report of one invoice answers that too."""
+        expense = obj.expense
+        if expense is None:
+            return []
+        amount = next(
+            (
+                (expense.values or {}).get(c.monday_id)
+                for c in expense.board.columns.all()
+                if c.title == "Amount"
+            ),
+            None,
+        )
+        return [
+            (
+                "Settled by",
+                [("expense", "Expense"), ("amount", "Amount"), ("paid", "Paid")],
+                [
+                    {
+                        "expense": expense.name,
+                        "amount": amount or "",
+                        "paid": obj.paid_on.strftime("%d %b %Y") if obj.paid_on else "",
+                    }
+                ],
+            )
+        ]
+
+
 class ExchangeRateViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     """
     The rates the Foundation has decided to use.
@@ -250,6 +333,28 @@ class OfficeViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     filterset_fields = ["country", "is_main", "is_active"]
     search_fields = ["name", "city", "region", "email"]
     ordering = ["country__order", "-is_main", "order", "name"]
+
+
+def _expense_options():
+    """Recent expenses, labelled the way somebody holding the bill would read
+    them — what it was, when, and for how much."""
+    board = Board.objects.filter(slug="expenses").prefetch_related("columns").first()
+    if board is None:
+        return []
+    by_title = {c.title: c.monday_id for c in board.columns.all()}
+    date_id, amount_id = by_title.get("Date Incurred"), by_title.get("Amount")
+    rows = []
+    for record in board.records.order_by("-created_at")[:300]:
+        values = record.values or {}
+        bits = [record.name]
+        when = str(values.get(date_id) or "")[:10] if date_id else ""
+        if when:
+            bits.append(when)
+        spent = values.get(amount_id) if amount_id else None
+        if spent:
+            bits.append(str(spent))
+        rows.append({"value": str(record.pk), "label": " — ".join(bits)[:140]})
+    return rows
 
 
 @api_view(["GET"])
@@ -317,6 +422,11 @@ def option_lists(request):
                     "-starts_on"
                 )
             ],
+            # The expenses an invoice can be settled by. Only the expenses
+            # page, and only the most recent few hundred: a select listing
+            # every expense the Foundation has ever recorded is a select
+            # nobody can find anything in.
+            "expenses": _expense_options(),
             # People, for a field that names one — "reports to" is another
             # team member, not a login account.
             "team": [

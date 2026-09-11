@@ -39,6 +39,9 @@ const CATEGORY_ICON: Record<string, string> = {
 
 /** Icon for a nested resource group, keyed by its `parent` name. */
 const PARENT_ICON: Record<string, string> = {
+  // Shared with CATEGORY_ICON: Finance is both a board category and a group
+  // holding Invoices, and the two are drawn as one row.
+  Finance: 'Wallet',
   Newsletter: 'Mail',
   Documents: 'FileStack',
   Hiring: 'Briefcase',

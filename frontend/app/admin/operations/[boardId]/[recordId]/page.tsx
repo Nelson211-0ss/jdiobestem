@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import ExportMenu from '@/components/admin/ExportMenu';
 import RecordDetail from '@/components/admin/RecordDetail';
 import RecordEntries from '@/components/admin/RecordEntries';
+import RelatedRecords from '@/components/admin/RelatedRecords';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
 import type { BoardDetail, BoardRecord } from '@/lib/admin/boards';
@@ -63,6 +64,10 @@ export default async function RecordPage({
 
   const editable = can(identity, 'boards', 'change');
 
+  // The bills this expense settled, read beside it. Only on the expenses page:
+  // an invoice is a thing a payment answers, and no other page records one.
+  const showsInvoices = boardId === 'expenses' || board.name.toLowerCase() === 'expenses';
+
   return (
     <FormShell
       backHref={`/admin/operations/${boardId}`}
@@ -72,12 +77,28 @@ export default async function RecordPage({
       // A compound expense is its entries, so they are read beside the
       // record rather than after it.
       aside={
-        isCompound || record.expense_lines?.length ? (
-          <RecordEntries
-            record={record}
-            amount={recordedAmount}
-            editHref={editable ? `/admin/operations/${boardId}/${recordId}/edit` : undefined}
-          />
+        isCompound || record.expense_lines?.length || showsInvoices ? (
+          <>
+            {isCompound || record.expense_lines?.length ? (
+              <RecordEntries
+                record={record}
+                amount={recordedAmount}
+                editHref={editable ? `/admin/operations/${boardId}/${recordId}/edit` : undefined}
+              />
+            ) : null}
+            {showsInvoices ? (
+              <RelatedRecords
+                spec={{
+                  resource: 'invoices',
+                  by: 'expense',
+                  label: 'Invoices this settled',
+                  columns: ['supplier', 'number', 'amount'],
+                }}
+                id={String(record.id)}
+                identity={identity}
+              />
+            ) : null}
+          </>
         ) : null
       }
       actions={

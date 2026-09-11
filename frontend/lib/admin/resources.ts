@@ -38,7 +38,8 @@ export type Field = {
     | 'scholarship'
     | 'school'
     | 'term'
-    | 'team';
+    | 'team'
+    | 'expense';
   label: string;
   type?: FieldType;
   options?: { value: string; label: string }[];
@@ -193,6 +194,13 @@ const ROLE_OPTIONS = [
   'Advisor',
   'Driver',
 ].map((title) => ({ value: title, label: title }));
+
+const INVOICE_STATUS_OPTIONS = [
+  { value: 'received', label: 'Received' },
+  { value: 'approved', label: 'Approved for payment' },
+  { value: 'queried', label: 'Queried' },
+  { value: 'cancelled', label: 'Cancelled' },
+];
 
 const SALARY_STATUS_OPTIONS = [
   { value: 'unpaid', label: 'Unpaid' },
@@ -1337,6 +1345,76 @@ export const RESOURCES: Resource[] = [
     ],
   },
   {
+    key: 'invoices',
+    label: 'Invoices',
+    singular: 'invoice',
+    // Filed with the finance pages rather than beside them: an invoice is read
+    // next to the expenses that settle it, and the sidebar folds a resource and
+    // a board category of the same name into one group.
+    group: 'Giving',
+    parent: 'Finance',
+    icon: 'FileText',
+    description:
+      'Bills the Foundation has received, and whether they have been settled. An expense is money that has already gone out; an unpaid invoice has no expense to read, so without this there is nowhere to see what is owed or what is late.',
+    titleField: 'supplier',
+    searchHint: 'supplier, number, what it is for',
+    columns: [
+      { name: 'supplier', label: 'Supplier' },
+      { name: 'number', label: 'Invoice no.' },
+      { name: 'description', label: 'For' },
+      { name: 'issued_on', label: 'Issued', date: true },
+      { name: 'due_on', label: 'Due', date: true },
+      { name: 'currency', label: 'Cur.' },
+      { name: 'amount', label: 'Amount', numeric: true },
+      { name: 'standing', label: 'Standing', badge: true },
+      { name: 'status_display', label: 'Status', badge: true },
+    ],
+    filters: [
+      // The two readings anybody opens this screen for, first.
+      {
+        name: 'settled', label: 'Settled', type: 'select',
+        options: [
+          { value: 'false', label: 'Outstanding' },
+          { value: 'true', label: 'Paid' },
+        ],
+      },
+      {
+        name: 'overdue', label: 'Overdue', type: 'select',
+        options: [
+          { value: 'true', label: 'Past its due date' },
+          { value: 'false', label: 'Not yet due' },
+        ],
+      },
+      { name: 'status', label: 'Status', type: 'select', options: INVOICE_STATUS_OPTIONS },
+      { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+    ],
+    fields: [
+      { name: 'supplier', label: 'Supplier', type: 'text', required: true, help: 'Who billed us.' },
+      { name: 'number', label: 'Invoice number', type: 'text', help: "The supplier's own number, as printed on it." },
+      { name: 'description', label: 'What it is for', type: 'text', wide: true },
+      { name: 'issued_on', label: 'Date on the invoice', type: 'date', required: true },
+      { name: 'due_on', label: 'Due by', type: 'date', help: 'What makes an invoice show as late.' },
+      { name: 'amount', label: 'Amount', type: 'number', required: true },
+      { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
+      { name: 'status', label: 'Status', type: 'select', options: INVOICE_STATUS_OPTIONS, help: 'There is no "paid" here: an invoice counts as paid once it carries a payment date or the expense that settled it.' },
+      { name: 'paid_on', label: 'Paid on', type: 'date', help: 'Leave empty while it is still owed.' },
+      {
+        name: 'expense', label: 'Settled by this expense', type: 'select', options: [], source: 'expense',
+        wide: true,
+        help: 'The expense the payment was recorded as. Linking it marks the invoice paid.',
+      },
+      // Worked out from the dates rather than typed, so they are read here and
+      // never offered on the form.
+      { name: 'standing', label: 'Standing', type: 'readonly' },
+      { name: 'outstanding', label: 'Still owed', type: 'readonly' },
+      { name: 'document', label: 'The invoice itself', type: 'upload', folder: 'invoices', wide: true },
+      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
+    ],
+  },
+  {
     key: 'salaries',
     label: 'Salaries',
     singular: 'payment',
@@ -1906,6 +1984,7 @@ function optionsFor(
     schools?: { value: string; label: string }[];
     terms?: { value: string; label: string }[];
     team?: { value: string; label: string }[];
+    expenses?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -1920,6 +1999,7 @@ function optionsFor(
   if (source === 'school') return options.schools ?? [];
   if (source === 'term') return options.terms ?? [];
   if (source === 'team') return options.team ?? [];
+  if (source === 'expense') return options.expenses ?? [];
   return options.countries;
 }
 
@@ -1938,6 +2018,7 @@ export function withOptions(
     schools?: { value: string; label: string }[];
     terms?: { value: string; label: string }[];
     team?: { value: string; label: string }[];
+    expenses?: { value: string; label: string }[];
   }
 ): Resource {
   return {

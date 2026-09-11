@@ -35,6 +35,8 @@ RESOURCES = (
     "countries",
     "exchange-rates",
     "offices",
+    # Bills received from suppliers. Financial, so granted where the money is.
+    "invoices",
     # What colleagues are paid. Granted narrowly below.
     "salaries",
     "users",
@@ -57,6 +59,10 @@ PROGRAMMES = (
 #: on a bursary; what was actually paid to a school is Finance's to write,
 #: which is why the payments are a separate resource from the bursary itself.
 BURSARY_MONEY = ("scholarship-payments",)
+#: Money owed to suppliers. Deliberately not part of OPERATIONS: a content
+#: editor has no business recording what the Foundation has been billed, and
+#: OPERATIONS is granted to nearly everyone.
+SUPPLIER_MONEY = ("invoices",)
 #: The monday.com operations boards, as one resource. Per-board permissions are
 #: a finer grain than the Foundation has asked for; this is deliberately all or
 #: nothing, and can be split later without changing how the engine works.
@@ -74,6 +80,7 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
     Role.SUPERADMIN: {r: ALL_ACTIONS for r in RESOURCES},
     Role.DIRECTOR: {
         "salaries": ALL_ACTIONS,
+        **{r: ALL_ACTIONS for r in SUPPLIER_MONEY},
         **{r: NO_DELETE for r in INBOX},
         **{r: ALL_ACTIONS for r in CONTENT},
         **{r: ALL_ACTIONS for r in PROGRAMMES},
@@ -83,6 +90,7 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
         "users": READ_ONLY,  # can see who has access, cannot grant it
     },
     Role.COUNTRY_DIRECTOR: {
+        **{r: NO_DELETE for r in SUPPLIER_MONEY},
         **{r: NO_DELETE for r in INBOX},
         **{r: NO_DELETE for r in PROGRAMMES},
         **{r: READ_ONLY for r in CONTENT},
@@ -92,6 +100,9 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
         "users": READ_ONLY,
     },
     Role.PROGRAMME_MANAGER: {
+        # Read-only: a programme manager needs to know whether the supplier
+        # for their activity has been paid, not to record the bill.
+        **{r: READ_ONLY for r in SUPPLIER_MONEY},
         **{r: NO_DELETE for r in INBOX},
         **{r: NO_DELETE for r in PROGRAMMES},
         **{r: READ_ONLY for r in BURSARY_MONEY},
@@ -119,6 +130,7 @@ MATRIX: dict[str, dict[str, tuple[str, ...]]] = {
     },
     Role.FINANCE: {
         "salaries": NO_DELETE,
+        **{r: NO_DELETE for r in SUPPLIER_MONEY},
         "donations": NO_DELETE,
         "subscribers": READ_ONLY,
         "scholarships": READ_ONLY,
@@ -182,6 +194,7 @@ COUNTRY_FIELD = {
     "scholarships": "country",
     "scholarship-payments": "scholarship__country",
     "scholarship-terms": "scholarship__country",
+    "invoices": "country",
     "pairings": "mentee__country",
 }
 
