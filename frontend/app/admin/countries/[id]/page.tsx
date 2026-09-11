@@ -3,10 +3,11 @@ import { notFound } from 'next/navigation';
 import { Pencil } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import RelatedRecords from '@/components/admin/RelatedRecords';
 import ResourceDetail from '@/components/admin/ResourceDetail';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
-import { RESOURCE_BY_KEY, withOptions } from '@/lib/admin/resources';
+import { RESOURCE_BY_KEY, relatedFor, withOptions } from '@/lib/admin/resources';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,6 +40,20 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       backLabel={`Back to ${resource.label.toLowerCase()}`}
       eyebrow={resource.label}
       title={title}
+      // The offices in this country, and what has been done to it, read
+      // beside the record rather than after it.
+      aside={
+        <>
+          {relatedFor('countries').map((spec) => (
+            <RelatedRecords
+              key={`${spec.resource}-${spec.by}`}
+              spec={spec}
+              id={id}
+              identity={identity}
+            />
+          ))}
+        </>
+      }
       actions={
         can(identity, 'countries', 'change') ? (
           <Button variant="outline" asChild>

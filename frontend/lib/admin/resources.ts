@@ -1226,6 +1226,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'countries',
+    related: [{ resource: 'offices', by: 'country', label: 'Offices' }],
     label: 'Countries',
     singular: 'country',
     group: 'Operations',
@@ -1693,6 +1694,29 @@ export const RESOURCES: Resource[] = [
 ];
 
 export const RESOURCE_BY_KEY = Object.fromEntries(RESOURCES.map((r) => [r.key, r]));
+
+/**
+ * What to list beside a record: whatever the resource declares, and its own
+ * history.
+ *
+ * The history needs no declaration — the log is one table keyed by resource
+ * and id — but it does have to be added in the same place for every page, or
+ * the bespoke detail pages quietly lack what the generic one has.
+ */
+export function relatedFor(key: string): Related[] {
+  const declared = RESOURCE_BY_KEY[key]?.related ?? [];
+  if (key === 'activity') return declared;
+  return [
+    ...declared,
+    {
+      resource: 'activity',
+      by: 'object_id',
+      extra: { resource: key },
+      label: 'History',
+      columns: ['created_at', 'action_display', 'actor_name'],
+    },
+  ];
+}
 
 type OptionSource = NonNullable<Field['source']>;
 
