@@ -14,6 +14,7 @@ import { inputFor, validateColumn, type BoardColumn, type BoardDetail, type Boar
 import NumberInput from '@/components/ui/number-input';
 import PhoneInput from './PhoneInput';
 import { toFileList } from '@/lib/files';
+import ExpenseLines, { linesTotal, type ExpenseLine } from './ExpenseLines';
 import MultiUploadField from './MultiUploadField';
 
 /**
@@ -96,6 +97,13 @@ export default function RecordForm({
   });
   const [country, setCountry] = useState(record?.country ?? 'GL');
   const [office, setOffice] = useState(record?.office ? String(record.office) : '');
+  const [lines, setLines] = useState<ExpenseLine[]>(() =>
+    (record?.expense_lines ?? []).map((l) => ({
+      name: l.name ?? '',
+      incurred_on: String(l.incurred_on ?? '').slice(0, 10),
+      amount: String(l.amount ?? ''),
+    }))
+  );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -103,6 +111,25 @@ export default function RecordForm({
   // Offices belong to a country, so the list follows the country above it. A
   // Global record has no single office, so the picker stands down.
   const officeChoices = options.offices.filter((o) => o.country === country);
+
+  // An expense is either one figure or a set of entries. When it is compound
+  // the amount is the sum of them, so it is shown rather than typed.
+  const typeColumn = board.columns.find((c) => c.title === 'Expense type');
+  const amountColumn = board.columns.find((c) => c.title === 'Amount');
+  const isCompound = (() => {
+    if (!typeColumn) return false;
+    const raw = String(values[typeColumn.monday_id] ?? '');
+    const label = typeColumn.choices.find((o) => o.value === raw)?.label ?? raw;
+    return label.trim().toLowerCase() === 'compound';
+  })();
+  const currencyColumn = board.columns.find((c) => c.title === 'Currency');
+  const currencyLabel = currencyColumn
+    ? (currencyColumn.choices.find(
+        (o) => o.value === String(values[currencyColumn.monday_id] ?? '')
+      )?.label ?? '')
+        .split('—')[0]
+        .trim()
+    : '';
 
   const editable = board.columns.filter(
     (c) => c.monday_id !== 'name' && inputFor(c) !== 'readonly'
@@ -149,6 +176,17 @@ export default function RecordForm({
       group_id: groupId,
       country,
       office: office ? Number(office) : null,
+      // Sent whenever the page has the type column, so switching a record back
+      // to a single expense clears the entries it no longer has.
+      ...(typeColumn
+        ? {
+            expense_lines: isCompound
+              ? lines
+                  .filter((l) => l.name && l.incurred_on && l.amount !== '')
+                  .map((l, order) => ({ ...l, order }))
+              : [],
+          }
+        : {}),
       values: Object.fromEntries(
         editable.map((c) => {
           const raw = values[c.monday_id];
@@ -284,6 +322,18 @@ export default function RecordForm({
           </div>
         ) : null}
 
+        {typeColumn && isCompound ? (
+          <div className="space-y-2 sm:col-span-2">
+            <Label>Entries</Label>
+            <ExpenseLines
+              lines={lines}
+              currency={currencyLabel}
+              disabled={!canChange}
+              onChange={setLines}
+            />
+          </div>
+        ) : null}
+
         {editable.map((column) => {
           const kind = inputFor(column);
           const id = `c-${column.monday_id}`;
@@ -291,6 +341,23 @@ export default function RecordForm({
           const invalid = fieldErrors[column.monday_id];
           const describedBy = invalid ? `${id}-error` : undefined;
           const set = (v: unknown) => setValues((prev) => ({ ...prev, [column.monday_id]: v }));
+
+          // A compound expense has no total of its own: it is the sum of the
+          // entries below, so it is shown rather than offered for typing.
+          if (isCompound && amountColumn && column.monday_id === amountColumn.monday_id) {
+            return (
+              <div key={column.monday_id} className="space-y-2">
+                <Label>{column.title}</Label>
+                <p className="flex h-12 items-center rounded-md border bg-muted/40 px-3 font-bold tabular">
+                  {currencyLabel ? `${currencyLabel} ` : ''}
+                  {linesTotal(lines).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Added up from the entries below.
+                </p>
+              </div>
+            );
+          }
 
           if (kind === 'checkbox') {
             return (

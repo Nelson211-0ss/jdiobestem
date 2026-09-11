@@ -102,8 +102,20 @@ class RecordViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
 
         return qs
 
+    def board_in_scope(self):
+        """The board this request is about, by either address."""
+        key = self.kwargs.get("board_monday_id")
+        return Board.objects.filter(Q(slug=key) | Q(monday_id=key)).first()
+
+    def get_serializer_context(self):
+        # The serializer needs the board to know whether an expense is
+        # compound, and on create there is no instance to read it from.
+        return {**super().get_serializer_context(), "board": self.board_in_scope()}
+
     def perform_create(self, serializer):
-        board = Board.objects.get(monday_id=self.kwargs["board_monday_id"])
+        board = self.board_in_scope()
+        if board is None:
+            raise Http404("No such page.")
         user = self.request.user
         # Created here, not yet in monday. The sync command leaves these alone.
         # The name is stored alongside the reference so the attribution reads

@@ -111,7 +111,11 @@ html[data-admin-theme='dark'] .admin-shell {
   --background: 240 8% 9%;
   --foreground: 33 22% 91%;
 
-  --card: 240 8% 12%;
+  /* Lighter than the page, not level with it. The shell tints the page
+     with muted at 40%, which in dark comes out near 11% — a card at 12%
+     then had no edge at all. In light the same rule works because muted
+     is darker than white; only the dark value has to be lifted. */
+  --card: 240 8% 17%;
   --card-foreground: 33 22% 91%;
 
   --popover: 240 8% 13%;

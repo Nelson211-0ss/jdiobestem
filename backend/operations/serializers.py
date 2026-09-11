@@ -1,6 +1,16 @@
+from decimal import Decimal
+
 from rest_framework import serializers
 
-from .models import Board, BoardColumn, BoardGroup, Office, OperatingCountry, Record
+from .models import (
+    Board,
+    BoardColumn,
+    BoardGroup,
+    ExpenseLine,
+    Office,
+    OperatingCountry,
+    Record,
+)
 
 
 class BoardColumnSerializer(serializers.ModelSerializer):
@@ -43,15 +53,22 @@ class BoardDetailSerializer(BoardSerializer):
         fields = BoardSerializer.Meta.fields + ["columns", "groups"]
 
 
+class ExpenseLineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExpenseLine
+        fields = ["id", "name", "incurred_on", "amount", "order"]
+
+
 class RecordSerializer(serializers.ModelSerializer):
     group_title = serializers.SerializerMethodField()
     office_name = serializers.CharField(source="office.name", read_only=True, default="")
+    expense_lines = ExpenseLineSerializer(many=True, required=False)
 
     class Meta:
         model = Record
         fields = [
             "id", "monday_id", "name", "group_id", "group_title", "values",
-            "country", "office", "office_name",
+            "country", "office", "office_name", "expense_lines",
             "is_local", "created_by_name", "monday_updated_at", "created_at", "updated_at",
         ]
         read_only_fields = [
@@ -61,6 +78,83 @@ class RecordSerializer(serializers.ModelSerializer):
     def get_group_title(self, obj):
         group = obj.board.groups.filter(monday_id=obj.group_id).first()
         return group.title if group else ""
+
+    # --- compound expenses -------------------------------------------------
+    #
+    # A compound expense has no total of its own: it is the sum of its lines,
+    # written back onto the record so everything that reads the board — the
+    # table, the accounting figures, the reports — keeps reading one field and
+    # needs to know nothing about this.
+
+    def _column(self, board, title):
+        return next((c for c in board.columns.all() if c.title == title), None)
+
+    def _is_compound(self, board, values) -> bool:
+        column = self._column(board, "Expense type")
+        if not column:
+            return False
+        chosen = str((values or {}).get(column.monday_id) or "")
+        label = {c["value"]: c["label"] for c in column.choices}.get(chosen, chosen)
+        return label.strip().lower() == "compound"
+
+    def validate(self, attrs):
+        board = (self.instance.board if self.instance else None) or self.context.get("board")
+        if board is None:
+            return attrs
+
+        values = attrs.get("values", getattr(self.instance, "values", {}) or {})
+        lines = attrs.get("expense_lines")
+        if lines is None and self.instance is not None:
+            lines = [{"name": l.name} for l in self.instance.expense_lines.all()]
+        lines = lines or []
+
+        if self._is_compound(board, values):
+            if not lines:
+                raise serializers.ValidationError(
+                    {"expense_lines": "A compound expense needs at least one entry."}
+                )
+        elif lines and self._column(board, "Expense type"):
+            raise serializers.ValidationError(
+                {"expense_lines": "Only a compound expense has entries. Change the type first."}
+            )
+        return attrs
+
+    def _apply_lines(self, record, lines):
+        """Replace the lines and write the total back onto the record."""
+        record.expense_lines.all().delete()
+        ExpenseLine.objects.bulk_create(
+            [
+                ExpenseLine(
+                    record=record,
+                    name=line["name"],
+                    incurred_on=line["incurred_on"],
+                    amount=line["amount"],
+                    order=line.get("order", index),
+                )
+                for index, line in enumerate(lines)
+            ]
+        )
+        amount_column = self._column(record.board, "Amount")
+        if amount_column and self._is_compound(record.board, record.values):
+            total = sum((line["amount"] for line in lines), start=Decimal("0"))
+            values = dict(record.values or {})
+            values[amount_column.monday_id] = str(total)
+            record.values = values
+            record.save(update_fields=["values"])
+
+    def create(self, validated_data):
+        lines = validated_data.pop("expense_lines", [])
+        record = super().create(validated_data)
+        if lines:
+            self._apply_lines(record, lines)
+        return record
+
+    def update(self, instance, validated_data):
+        lines = validated_data.pop("expense_lines", None)
+        record = super().update(instance, validated_data)
+        if lines is not None:
+            self._apply_lines(record, lines)
+        return record
 
 
 class OperatingCountrySerializer(serializers.ModelSerializer):

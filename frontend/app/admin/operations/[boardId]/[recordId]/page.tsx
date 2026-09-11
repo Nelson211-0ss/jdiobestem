@@ -6,6 +6,7 @@ import { Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ExportMenu from '@/components/admin/ExportMenu';
 import RecordDetail from '@/components/admin/RecordDetail';
+import RecordEntries from '@/components/admin/RecordEntries';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
 import type { BoardDetail, BoardRecord } from '@/lib/admin/boards';
@@ -54,6 +55,9 @@ export default async function RecordPage({
       backLabel={`Back to ${board.name.toLowerCase()}`}
       eyebrow={board.name}
       title={record.name}
+      // A compound expense is its entries, so they are read beside the
+      // record rather than after it.
+      aside={record.expense_lines?.length ? <RecordEntries record={record} /> : null}
       actions={
         <div className="flex flex-wrap items-center gap-3">
           <ExportMenu href={exportHref} label={record.name} />

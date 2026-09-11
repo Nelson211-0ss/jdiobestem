@@ -59,7 +59,7 @@ export default async function RelatedRecords({
   // "there are none", which is a different and wrong answer.
   if (!target || !can(identity, spec.resource, 'view')) return null;
 
-  const query = new URLSearchParams({ [spec.by]: id });
+  const query = new URLSearchParams({ ...(spec.extra ?? {}), [spec.by]: id });
   let page: Page<Record<string, unknown>>;
   try {
     page = await api.get<Page<Record<string, unknown>>>(
@@ -79,7 +79,7 @@ export default async function RelatedRecords({
   const listHref = `/admin/${spec.resource}?${query.toString()}`;
 
   return (
-    <section className="rounded-3xl bg-card p-5 shadow-sm">
+    <section className="rounded-3xl border bg-card p-5 shadow-sm">
       <h2 className="px-1 text-sm font-semibold tracking-tight">{spec.label ?? target.label}</h2>
       <p className="mb-3 px-1 text-xs text-muted-foreground">
         {page.count} {page.count === 1 ? target.singular : target.label.toLowerCase()}

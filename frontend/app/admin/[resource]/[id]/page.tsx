@@ -9,7 +9,7 @@ import RelatedRecords from '@/components/admin/RelatedRecords';
 import ResourceDetail from '@/components/admin/ResourceDetail';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity, getOptionLists } from '@/lib/admin/api';
-import { RESOURCE_BY_KEY, withOptions } from '@/lib/admin/resources';
+import { RESOURCE_BY_KEY, withOptions, type Related } from '@/lib/admin/resources';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,7 +41,23 @@ export default async function ResourceDetailPage({
   // pressing Edit, rather than the state a page happens to open in — which is
   // what put a form in front of anyone who only wanted to read a donation.
   const editable = !resource.readOnly && can(identity, key, 'change');
-  const related = resource.related ?? [];
+  // Every record can say what has been done to it. The log is one table
+  // keyed by resource and id, so this needs no declaration per resource — and
+  // a person who may not read the log simply sees no such panel.
+  const related: Related[] = [
+    ...(resource.related ?? []),
+    ...(key === 'activity'
+      ? []
+      : [
+          {
+            resource: 'activity',
+            by: 'object_id',
+            extra: { resource: key },
+            label: 'History',
+            columns: ['created_at', 'action_display', 'actor_name'],
+          },
+        ]),
+  ];
 
   // A full report for this one record: the fields as shown, plus whatever the
   // backend hangs off it — a bursary's payments, a school's projects.

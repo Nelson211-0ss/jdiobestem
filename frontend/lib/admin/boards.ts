@@ -44,6 +44,8 @@ export type BoardRecord = {
   is_local: boolean;
   created_by_name: string;
   monday_updated_at: string | null;
+  /** The entries a compound expense is made of. */
+  expense_lines?: { id?: number; name: string; incurred_on: string; amount: string }[];
 };
 
 export type BoardIndex = {

@@ -96,6 +96,8 @@ export type Related = {
   label?: string;
   /** Column names to show. Defaults to the first few of its own. */
   columns?: string[];
+  /** Further fixed filters, for a list that needs more than one to narrow. */
+  extra?: Record<string, string>;
 };
 
 export type Resource = {

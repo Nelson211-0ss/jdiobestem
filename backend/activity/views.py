@@ -24,7 +24,9 @@ class ActivityLogViewSet(ExportableMixin, viewsets.ReadOnlyModelViewSet):
     resource = "activity"
     queryset = ActivityLog.objects.select_related("actor")
     serializer_class = ActivityLogSerializer
-    filterset_fields = ["action", "resource", "actor", "country"]
+    # object_id as well, so a record can show its own history rather than
+    # sending somebody to the whole log to find it.
+    filterset_fields = ["action", "resource", "actor", "country", "object_id"]
     search_fields = ["actor_name", "object_label", "detail", "resource"]
     ordering_fields = ["created_at", "actor_name", "action"]
     ordering = ["-created_at"]

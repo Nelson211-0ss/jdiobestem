@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 /** A list page: one white card holding the title, controls and table. */
 export function ListCard({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn('rounded-3xl bg-card p-6 shadow-sm sm:p-8', className)}>{children}</div>
+    <div className={cn('rounded-3xl border bg-card p-6 shadow-sm sm:p-8', className)}>{children}</div>
   );
 }
 
@@ -94,11 +94,11 @@ export function FormShell({
           // `items-start` so the side column keeps its own height instead of
           // stretching to match a long record.
           <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]">
-            <div className="rounded-3xl bg-card p-6 shadow-sm sm:p-8">{children}</div>
+            <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">{children}</div>
             <div className="space-y-6">{aside}</div>
           </div>
         ) : (
-          <div className="mt-8 rounded-3xl bg-card p-6 shadow-sm sm:p-8">{children}</div>
+          <div className="mt-8 rounded-3xl border bg-card p-6 shadow-sm sm:p-8">{children}</div>
         )}
       </div>
 

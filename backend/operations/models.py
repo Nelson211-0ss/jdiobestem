@@ -375,3 +375,33 @@ class ExchangeRate(models.Model):
 
     def __str__(self):
         return f"1 {self.base} = {self.rate:,.6f} {self.quote} from {self.effective_from:%d %b %Y}"
+
+
+class ExpenseLine(models.Model):
+    """
+    One line of a compound expense.
+
+    A trip is not an amount, it is a fare, a night's lodging and a meal, each on
+    its own day. Recorded as one figure, the only question it can answer is how
+    much was spent; recorded as lines, it answers what on, and when — which is
+    what anybody checking the books actually asks.
+
+    So a compound expense carries no typed total at all: its amount is the sum
+    of these, and is written back onto the record whenever they change. A total
+    somebody can edit independently of the lines beneath it starts disagreeing
+    with them, and the disagreement is always found late.
+    """
+
+    record = models.ForeignKey(
+        Record, on_delete=models.CASCADE, related_name="expense_lines"
+    )
+    name = models.CharField(max_length=200)
+    incurred_on = models.DateField()
+    amount = models.DecimalField(max_digits=14, decimal_places=2)
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["incurred_on", "order", "id"]
+
+    def __str__(self):
+        return f"{self.name} — {self.amount:,.2f}"
