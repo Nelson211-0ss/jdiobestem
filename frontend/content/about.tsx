@@ -2,7 +2,6 @@ import Link from 'next/link';
 import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
 import { text } from '@/lib/blocks';
-import SocialIcon from '@/components/SocialIcon';
 
 /**
  * About.
