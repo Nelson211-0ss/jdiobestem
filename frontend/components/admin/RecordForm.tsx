@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FileText, Loader2, Save, Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -122,6 +122,28 @@ export default function RecordForm({
     const label = typeColumn.choices.find((o) => o.value === raw)?.label ?? raw;
     return label.trim().toLowerCase() === 'compound';
   })();
+  const dateColumn = board.columns.find((c) => c.title === 'Date Incurred');
+
+  // Turning an expense that already has a total into a compound one must not
+  // throw that total away. It becomes the first entry, so the figure is kept
+  // and the record still says the same thing — the split into more entries is
+  // then somebody's edit rather than a number they have to remember and retype.
+  useEffect(() => {
+    if (!isCompound || lines.length || !amountColumn) return;
+    const existing = Number(values[amountColumn.monday_id] ?? 0) || 0;
+    if (!existing) return;
+    setLines([
+      {
+        name: name || 'Recorded total',
+        incurred_on: String((dateColumn && values[dateColumn.monday_id]) || '').slice(0, 10),
+        amount: String(existing),
+      },
+    ]);
+    // Only on the switch: re-running as the entries are edited would put the
+    // old total back every time somebody removed the last one.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCompound]);
+
   const currencyColumn = board.columns.find((c) => c.title === 'Currency');
   const currencyLabel = currencyColumn
     ? (currencyColumn.choices.find(
