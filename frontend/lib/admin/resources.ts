@@ -1583,6 +1583,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'activity',
+    unlisted: true,
     plural: 'entries',
     label: 'Activity log',
     singular: 'entry',
@@ -1764,6 +1765,10 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarships',
+    related: [
+      { resource: 'scholarship-terms', by: 'scholarship', label: 'Terms and fees due' },
+      { resource: 'scholarship-payments', by: 'scholarship', label: 'Payments to the school' },
+    ],
     plural: 'bursaries',
     label: 'Bursaries',
     singular: 'bursary',
@@ -1895,6 +1900,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-terms',
+    detailsAt: { resource: 'scholarships', field: 'scholarship' },
     plural: 'terms',
     label: 'Terms and fees due',
     singular: 'term',

@@ -107,11 +107,11 @@ export default function AdminShell({
                 beside it, so the wordmark, the first nav label and the card's
                 edge all start from one line — and the account never sits
                 against the window. */}
-          <div className="flex items-center gap-3 px-5 pb-5 pt-5 sm:px-6 sm:pr-8 lg:px-8 lg:pb-6 lg:pr-12 lg:pt-9 xl:pr-16">
+          <div className="flex items-center gap-1.5 px-4 pb-5 pt-5 sm:gap-3 sm:px-6 sm:pr-8 lg:px-8 lg:pb-6 lg:pr-12 lg:pt-9 xl:pr-16">
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="h-11 w-11 shrink-0 [&_svg]:h-6 [&_svg]:w-6 lg:hidden"
             aria-label={navOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setNavOpen((o) => !o)}
           >
@@ -126,10 +126,13 @@ export default function AdminShell({
             aria-label="Jdiobe STEM Foundation dashboard"
             className="shrink-0 lg:hidden"
           >
-            <Logo className="h-7 w-auto text-foreground" />
+            <Logo className="h-6 w-auto text-foreground" />
           </Link>
 
-          <div className="min-w-0 flex-1">
+          {/* `flex-1` only from `sm`: collapsed to an icon the search needs its
+              own width and nothing more, and claiming the whole row put it
+              underneath the bell. */}
+          <div className="min-w-0 sm:flex-1">
             <HeaderSearch />
           </div>
 
@@ -164,7 +167,7 @@ export default function AdminShell({
                     {identity.role_display}
                   </span>
                 </span>
-                <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+                <ChevronDown className="hidden h-4 w-4 shrink-0 text-muted-foreground sm:block" />
               </button>
             </DropdownMenuTrigger>
 

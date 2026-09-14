@@ -39,26 +39,34 @@ PORTRAIT = pymupdf.paper_rect("a4")        # one record reads as a document
 #: The Foundation's mark, converted from SVG once and reused on every page.
 #: A failure to load must never cost a report — the rule and wordmark carry the
 #: branding on their own — so this returns None rather than raising.
-_LOGO: "pymupdf.Document | None" = None
-_LOGO_TRIED = False
+_LOGO: dict = {}
+_LOGO_TRIED: set = set()
 
 
-def _logo():
+def _logo(name: str = "logo-lockup"):
+    """The Foundation's mark, as a one-page PDF to stamp onto a report.
+
+    The lockup — mark and wordmark together — rather than the mark beside
+    typeset capitals: the words in the logo are drawn, kerned and weighted, and
+    a font approximating them is a different mark that happens to say the same
+    thing. Cached per file, and a failure returns None rather than raising,
+    because a logo that will not load must never cost somebody their report.
+    """
     global _LOGO, _LOGO_TRIED
-    if _LOGO_TRIED:
-        return _LOGO
-    _LOGO_TRIED = True
+    if name in _LOGO_TRIED:
+        return _LOGO.get(name)
+    _LOGO_TRIED.add(name)
     try:
         from pathlib import Path
 
         from django.conf import settings
 
-        path = Path(settings.BASE_DIR) / "static" / "brand" / "logo-mark.svg"
+        path = Path(settings.BASE_DIR) / "static" / "brand" / f"{name}.svg"
         svg = pymupdf.open("svg", path.read_bytes())
-        _LOGO = pymupdf.open("pdf", svg.convert_to_pdf())
+        _LOGO[name] = pymupdf.open("pdf", svg.convert_to_pdf())
     except Exception:
-        _LOGO = None
-    return _LOGO
+        _LOGO[name] = None
+    return _LOGO.get(name)
 MARGIN = 36
 HEADER_H = 74
 FOOTER_H = 30
@@ -343,35 +351,45 @@ def _brand(doc: pymupdf.Document, report, page_rect=PAGE) -> None:
     total_pages = doc.page_count
 
     for index, page in enumerate(doc, start=1):
-        # A solid rule in the brand orange, rather than a logo the backend does
-        # not hold: recognisable, and it cannot render as a broken image.
+        # Read as a letterhead: the lockup at the top of the sheet, the rule
+        # under it, and only then what this particular sheet is.
+        lockup = _logo()
+        if lockup is not None:
+            # 5.625:1 in the artwork; stated rather than measured so a redrawn
+            # file cannot silently stretch the wordmark.
+            page.show_pdf_page(
+                pymupdf.Rect(MARGIN, MARGIN - 18, MARGIN + 124, MARGIN + 4), lockup, 0
+            )
+        else:
+            # The mark alone, with the name set in type. Only reached when the
+            # artwork will not load, which must not cost anybody a report.
+            mark = _logo("logo-mark")
+            if mark is not None:
+                page.show_pdf_page(
+                    pymupdf.Rect(MARGIN, MARGIN - 18, MARGIN + 22, MARGIN + 4), mark, 0
+                )
+            page.insert_text(
+                (MARGIN + 30 if mark is not None else MARGIN, MARGIN - 2),
+                "JDIOBE STEM FOUNDATION",
+                fontname="hebo", fontsize=9, color=ORANGE, render_mode=0,
+            )
+
         page.draw_rect(
-            pymupdf.Rect(MARGIN, MARGIN - 6, page_rect.width - MARGIN, MARGIN - 2),
+            pymupdf.Rect(MARGIN, MARGIN + 12, page_rect.width - MARGIN, MARGIN + 15),
             color=None, fill=ORANGE,
         )
-        mark = _logo()
-        text_x = MARGIN
-        if mark is not None:
-            page.show_pdf_page(
-                pymupdf.Rect(MARGIN, MARGIN + 4, MARGIN + 26, MARGIN + 31), mark, 0
-            )
-            text_x = MARGIN + 34
 
         page.insert_text(
-            (text_x, MARGIN + 16), "JDIOBE STEM FOUNDATION",
-            fontname="hebo", fontsize=9, color=ORANGE, render_mode=0,
-        )
-        page.insert_text(
-            (text_x, MARGIN + 38), report.title,
+            (MARGIN, MARGIN + 38), report.title,
             fontname="hebo", fontsize=16, color=CHARCOAL,
         )
         page.insert_text(
-            (text_x, MARGIN + 54), report.subtitle(),
+            (MARGIN, MARGIN + 54), report.subtitle(),
             fontname="helv", fontsize=8, color=MUTED,
         )
         if report.note:
             page.insert_text(
-                (text_x, MARGIN + 66), report.note,
+                (MARGIN, MARGIN + 66), report.note,
                 fontname="helv", fontsize=7.5, color=ORANGE,
             )
 
