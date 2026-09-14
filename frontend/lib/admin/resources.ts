@@ -1345,7 +1345,7 @@ export const RESOURCES: Resource[] = [
     label: 'Countries',
     singular: 'country',
     group: 'Operations',
-    parent: 'Countries & offices',
+    parent: 'Governance & compliance',
     icon: 'Globe',
     description:
       'Where the Foundation operates. Country and currency choices everywhere else are drawn from here.',
@@ -1483,7 +1483,7 @@ export const RESOURCES: Resource[] = [
     label: 'Exchange rates',
     singular: 'rate',
     group: 'Operations',
-    parent: 'Countries & offices',
+    parent: 'Governance & compliance',
     icon: 'ArrowLeftRight',
     description:
       'The rates used to state the accounting figures in one currency. Entered rather than fetched: a figure converted at a rate nobody recorded cannot be checked a year later.',
@@ -1522,7 +1522,7 @@ export const RESOURCES: Resource[] = [
     label: 'Offices',
     singular: 'office',
     group: 'Operations',
-    parent: 'Countries & offices',
+    parent: 'Governance & compliance',
     icon: 'Building2',
     description: 'Where the Foundation works from. One main office per country, plus any others.',
     titleField: 'name',

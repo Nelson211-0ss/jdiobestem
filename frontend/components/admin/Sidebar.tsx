@@ -40,6 +40,9 @@ const CATEGORY_ICON: Record<string, string> = {
 /** Icon for a nested resource group, keyed by its `parent` path. */
 const PARENT_ICON: Record<string, string> = {
   Website: 'LayoutTemplate',
+  // Shared with CATEGORY_ICON: this is both a board category and a group
+  // holding the countries, offices and rates, drawn as one row.
+  'Governance & compliance': 'ShieldCheck',
   // Shared with CATEGORY_ICON: People & HR is both a board category and a
   // group holding the team and what they are paid, drawn as one row.
   'People & HR': 'Users',
@@ -51,7 +54,6 @@ const PARENT_ICON: Record<string, string> = {
   Newsletter: 'Mail',
   Documents: 'FileStack',
   Hiring: 'Briefcase',
-  'Countries & offices': 'Globe',
   Volunteers: 'HeartHandshake',
   Scholarships: 'GraduationCap',
 };
