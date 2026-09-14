@@ -1825,6 +1825,16 @@ export const RESOURCES: Resource[] = [
         options: [], source: 'schoolClass', narrowBy: 'school',
         help: 'The classes this school teaches. Move it up as the student does.',
       },
+      // What they are actually studying. The class alone does not say it:
+      // "Year 2" is not an education, and neither is "S5".
+      {
+        name: 'course', label: 'Course', type: 'text', wide: true,
+        help: 'For a student at a university or technical institute — the programme they are on.',
+      },
+      {
+        name: 'combination', label: 'A-level combination', type: 'text',
+        help: 'S5 and S6 only, e.g. PCM or HEG.',
+      },
 
 
       { name: 'amount_per_term', label: 'Amount per term', type: 'number' },

@@ -90,6 +90,29 @@ class Scholarship(TimeStampedModel):
     )
     current_class = models.CharField(max_length=60, blank=True)
 
+    # What a student is actually studying, which the class alone does not say.
+    # "Year 2" is not an education and neither is "S5": what the Foundation is
+    # paying for is a degree in something, or three named subjects, and a
+    # report that cannot say which cannot show what the bursary produced.
+    #
+    # Two fields rather than one, because they are not the same fact and do not
+    # belong to the same students: a course is awarded by an institution and
+    # runs for years, a combination is chosen for the last two years of school
+    # and is a set of subjects. Held as text because neither is a list anybody
+    # could write down in full — a new degree programme appears every year, and
+    # a combination the dropdown had never heard of is a student who could not
+    # be recorded at all.
+    course = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="What they are studying, at a university or technical institute.",
+    )
+    combination = models.CharField(
+        max_length=60,
+        blank=True,
+        help_text="A-level subject combination, e.g. PCM. S5 and S6 only.",
+    )
+
     # --- the award -------------------------------------------------------
     amount_per_term = models.DecimalField(
         max_digits=12,

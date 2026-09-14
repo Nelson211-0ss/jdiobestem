@@ -1428,6 +1428,10 @@
         "kind": "text",
         "maxLength": 60
       },
+      "combination": {
+        "kind": "text",
+        "maxLength": 60
+      },
       "country": {
         "choices": [
           "GL",
@@ -1436,6 +1440,10 @@
           "US"
         ],
         "kind": "choice"
+      },
+      "course": {
+        "kind": "text",
+        "maxLength": 200
       },
       "currency": {
         "kind": "text",
