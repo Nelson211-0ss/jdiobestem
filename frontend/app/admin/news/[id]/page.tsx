@@ -37,9 +37,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   return (
     <FormShell
-      backHref="/admin/news"
-      backLabel={`Back to ${resource.label.toLowerCase()}`}
-      eyebrow={resource.label}
       title={title}
       // How it is being read, and what has been done to it, beside the story
       // rather than after it.

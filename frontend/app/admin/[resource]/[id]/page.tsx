@@ -64,9 +64,6 @@ export default async function ResourceDetailPage({
 
   return (
     <FormShell
-      backHref={`/admin/${key}`}
-      backLabel={`Back to ${resource.label.toLowerCase()}`}
-      eyebrow={resource.label}
       title={title}
       // What belongs to this record, read beside it rather than after it, so
       // the next question is answered without scrolling past the whole record.

@@ -36,9 +36,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   return (
     <FormShell
-      backHref="/admin/countries"
-      backLabel={`Back to ${resource.label.toLowerCase()}`}
-      eyebrow={resource.label}
       title={title}
       // The offices in this country, and what has been done to it, read
       // beside the record rather than after it.

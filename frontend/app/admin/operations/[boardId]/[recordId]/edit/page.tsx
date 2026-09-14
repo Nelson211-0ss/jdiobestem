@@ -31,9 +31,6 @@ export default async function RecordPage({
 
   return (
     <FormShell
-      backHref={`/admin/operations/${boardId}/${recordId}`}
-      backLabel={`Back to ${record.name}`}
-      eyebrow={`Editing · ${board.name}`}
       title={record.name}
     >
       <RecordForm

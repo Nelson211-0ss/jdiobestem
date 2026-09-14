@@ -37,9 +37,6 @@ export default async function ResourceEditPage({
 
   return (
     <FormShell
-      backHref={`/admin/${key}/${id}`}
-      backLabel={`Back to ${title}`}
-      eyebrow={`Editing · ${resource.label}`}
       title={title}
       // A form with the website beside it needs the room.
       wide={Boolean(resource.preview)}

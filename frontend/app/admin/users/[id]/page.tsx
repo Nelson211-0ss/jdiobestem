@@ -38,9 +38,6 @@ export default async function StaffAccessDetailPage({ params }: { params: Promis
 
   return (
     <FormShell
-      backHref="/admin/users"
-      backLabel="Back to staff access"
-      eyebrow="Staff access"
       title={name}
       actions={
         identity.is_superuser ? (

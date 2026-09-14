@@ -19,9 +19,6 @@ export default async function AccountPage() {
 
   return (
     <FormShell
-      backHref="/admin"
-      backLabel="Back to overview"
-      eyebrow="Your account"
       title={identity.name || identity.username}
     >
       <div className="space-y-10">

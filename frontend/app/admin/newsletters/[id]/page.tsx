@@ -35,9 +35,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   return (
     <FormShell
-      backHref="/admin/newsletters"
-      backLabel={`Back to ${resource.label.toLowerCase()}`}
-      eyebrow={resource.label}
       title={title}
       actions={
         can(identity, 'newsletters', 'change') ? (

@@ -22,9 +22,6 @@ export default async function ResourceCreatePage({
 
   return (
     <FormShell
-      backHref={`/admin/${key}`}
-      backLabel={`Back to ${resource.label.toLowerCase()}`}
-      eyebrow={`New ${resource.singular}`}
       title={resource.label}
     >
       <ResourceForm resource={resource} record={null} canChange canDelete={false} />

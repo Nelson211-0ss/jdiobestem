@@ -13,9 +13,6 @@ export default async function NewStoryPage() {
 
   return (
     <FormShell
-      backHref="/admin/news"
-      backLabel="Back to news stories"
-      eyebrow="New story"
       title="Write a story"
       wide
     >

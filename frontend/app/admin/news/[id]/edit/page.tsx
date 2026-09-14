@@ -21,9 +21,6 @@ export default async function EditStoryPage({ params }: { params: Promise<{ id: 
 
   return (
     <FormShell
-      backHref="/admin/news"
-      backLabel="Back to news stories"
-      eyebrow="News story"
       title={String(story.title ?? 'Untitled')}
       wide
     >

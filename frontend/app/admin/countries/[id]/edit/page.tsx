@@ -51,9 +51,6 @@ export default async function CountryPage({ params }: { params: Promise<{ id: st
 
   return (
     <FormShell
-      backHref="/admin/countries"
-      backLabel="Back to countries"
-      eyebrow="Country"
       title={String(country.name ?? 'Country')}
     >
       <ResourceForm

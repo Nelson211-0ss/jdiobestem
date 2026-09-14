@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
@@ -39,9 +38,6 @@ export function ListHeader({ title, actions }: { title: string; actions?: React.
  * of a long record.
  */
 export function FormShell({
-  backHref,
-  backLabel,
-  eyebrow,
   title,
   children,
   footer,
@@ -49,9 +45,6 @@ export function FormShell({
   wide = false,
   aside,
 }: {
-  backHref: string;
-  backLabel: string;
-  eyebrow?: string;
   title: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
@@ -66,25 +59,11 @@ export function FormShell({
    */
   aside?: React.ReactNode;
 }) {
-  // The record's own controls sit on the record, not floating above the page:
-  // Export and Edit act on what is inside the card, so they belong at the top
-  // of it. The way back sits beside the title, which is what the page is about.
-  const header = (
-    <div className="flex items-start gap-3">
-      <Link
-        href={backHref}
-        aria-label={backLabel}
-        title={backLabel}
-        className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" />
-      </Link>
-      <div className="min-w-0">
-        {eyebrow ? <p className="text-sm text-muted-foreground">{eyebrow}</p> : null}
-        <h1 className="mt-0.5 text-3xl font-bold tracking-tight">{title}</h1>
-      </div>
-    </div>
-  );
+  // The name of the record, and nothing above it. There used to be a back
+  // tile and the resource's name in small grey type over every title — a
+  // breadcrumb two levels deep, on a dashboard whose nav is always on screen
+  // and already says where you are.
+  const header = <h1 className="text-3xl font-bold tracking-tight">{title}</h1>;
 
   const card = (
     <div className="rounded-2xl border border-border/40 bg-card p-6 sm:p-8">

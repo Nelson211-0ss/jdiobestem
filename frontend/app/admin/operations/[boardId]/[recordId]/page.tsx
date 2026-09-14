@@ -70,9 +70,6 @@ export default async function RecordPage({
 
   return (
     <FormShell
-      backHref={`/admin/operations/${boardId}`}
-      backLabel={`Back to ${board.name.toLowerCase()}`}
-      eyebrow={board.name}
       title={record.name}
       // A compound expense is its entries, so they are read beside the
       // record rather than after it.

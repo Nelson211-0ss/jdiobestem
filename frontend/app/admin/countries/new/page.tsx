@@ -20,9 +20,6 @@ export default async function NewCountryPage() {
 
   return (
     <FormShell
-      backHref="/admin/countries"
-      backLabel="Back to countries"
-      eyebrow="New country"
       title="Countries"
     >
       <ResourceForm

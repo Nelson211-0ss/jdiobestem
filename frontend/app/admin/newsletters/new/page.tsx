@@ -26,9 +26,6 @@ export default async function NewNewsletterPage() {
 
   return (
     <FormShell
-      backHref="/admin/newsletters"
-      backLabel="Back to newsletters"
-      eyebrow="New newsletter"
       title="Newsletters"
     >
       <ResourceForm resource={resource} record={null} canChange canDelete={false} />

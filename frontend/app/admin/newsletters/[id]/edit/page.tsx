@@ -33,9 +33,6 @@ export default async function NewsletterPage({ params }: { params: Promise<{ id:
 
   return (
     <FormShell
-      backHref="/admin/newsletters"
-      backLabel="Back to newsletters"
-      eyebrow="Newsletter"
       title={String(record.subject ?? 'Untitled')}
     >
       <ResourceForm

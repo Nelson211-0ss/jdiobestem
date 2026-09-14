@@ -38,9 +38,6 @@ export default async function StaffAccessPage({ params }: { params: Promise<{ id
 
   return (
     <FormShell
-      backHref={`/admin/users/${id}`}
-      backLabel={`Back to ${name}`}
-      eyebrow="Editing · Staff access"
       title={name}
     >
       <div className="space-y-8">
