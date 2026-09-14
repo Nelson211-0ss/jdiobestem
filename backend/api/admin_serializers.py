@@ -63,12 +63,26 @@ class LabelledChoicesMixin:
 
 class VolunteerApplicationAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
     office_name = serializers.CharField(source="office.name", read_only=True, default="")
+
+    #: What the volunteer themselves said. Writable while the record is being
+    #: created, because a volunteer recognised for a day's help never filled in
+    #: the form and somebody has to type their name; sealed afterwards, because
+    #: from then on it is a record of what that person sent and editing it
+    #: would quietly rewrite their words.
+    THEIRS = ("name", "email", "phone", "interest", "message")
+
     class Meta:
         model = VolunteerApplication
         fields = "__all__"
-        # The submission itself is a record of what someone sent. Only the
-        # triage fields are writable.
-        read_only_fields = ["name", "email", "phone", "interest", "message", "created_at", "updated_at", "notified_at"]
+        read_only_fields = ["created_at", "updated_at", "notified_at"]
+
+    def get_fields(self):
+        fields = super().get_fields()
+        if self.instance is not None:
+            for name in self.THEIRS:
+                if name in fields:
+                    fields[name].read_only = True
+        return fields
 
 
 class ContactMessageAdminSerializer(LabelledChoicesMixin, serializers.ModelSerializer):

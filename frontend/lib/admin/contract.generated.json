@@ -1173,136 +1173,6 @@
         "kind": "choice"
       }
     },
-    "recognised-volunteers": {
-      "alt": {
-        "kind": "text",
-        "maxLength": 300
-      },
-      "bio": {
-        "kind": "text"
-      },
-      "country": {
-        "choices": [
-          "GL",
-          "UG",
-          "SS",
-          "US"
-        ],
-        "kind": "choice"
-      },
-      "department": {
-        "choices": [
-          "executive",
-          "programmes",
-          "finance",
-          "operations",
-          "fundraising",
-          "communications",
-          "people"
-        ],
-        "kind": "choice"
-      },
-      "email": {
-        "kind": "email"
-      },
-      "employment_type": {
-        "choices": [
-          "full_time",
-          "part_time",
-          "contract",
-          "volunteer",
-          "intern",
-          "advisor"
-        ],
-        "kind": "choice"
-      },
-      "ended_on": {
-        "allowNull": true,
-        "kind": "date"
-      },
-      "focus": {
-        "kind": "text",
-        "maxLength": 60
-      },
-      "group": {
-        "choices": [
-          "leadership",
-          "mentors",
-          "volunteers"
-        ],
-        "kind": "choice"
-      },
-      "image": {
-        "kind": "text",
-        "maxLength": 300
-      },
-      "image_upload": {},
-      "is_published": {
-        "kind": "boolean"
-      },
-      "linkedin": {
-        "kind": "url"
-      },
-      "manager": {
-        "allowNull": true
-      },
-      "name": {
-        "kind": "text",
-        "maxLength": 200,
-        "required": true
-      },
-      "order": {
-        "integer": true,
-        "kind": "number",
-        "maxValue": 32767,
-        "minValue": 0
-      },
-      "phone": {
-        "kind": "text",
-        "maxLength": 50
-      },
-      "role": {
-        "choices": [
-          "Founder & Executive Director",
-          "Executive Director",
-          "Country Director",
-          "Programs Director",
-          "Projects Manager",
-          "Programs Coordinator",
-          "Project Coordinator",
-          "Finance Manager",
-          "Accountant",
-          "Administrator",
-          "Communications Officer",
-          "Fundraising Officer",
-          "Monitoring & Evaluation Officer",
-          "Field Officer",
-          "IT Officer",
-          "Senior Civil Engineer",
-          "Trainer",
-          "Mentor",
-          "Volunteer",
-          "Board Member",
-          "Advisor",
-          "Driver"
-        ],
-        "kind": "choice",
-        "required": true
-      },
-      "standing": {
-        "choices": [
-          "onboarding",
-          "active",
-          "on_leave",
-          "left"
-        ],
-        "kind": "choice"
-      },
-      "started_on": {
-        "allowNull": true,
-        "kind": "date"
-      }
-    },
     "salaries": {
       "amount": {
         "decimals": 2,
@@ -1761,8 +1631,7 @@
       "group": {
         "choices": [
           "leadership",
-          "mentors",
-          "volunteers"
+          "mentors"
         ],
         "kind": "choice"
       },
@@ -1865,6 +1734,13 @@
       }
     },
     "volunteers": {
+      "alt": {
+        "kind": "text",
+        "maxLength": 200
+      },
+      "bio": {
+        "kind": "text"
+      },
       "country": {
         "choices": [
           "GL",
@@ -1874,8 +1750,54 @@
         ],
         "kind": "choice"
       },
+      "email": {
+        "kind": "email"
+      },
+      "interest": {
+        "choices": [
+          "mentorship",
+          "event",
+          "tutoring",
+          "outreach",
+          "other"
+        ],
+        "kind": "choice"
+      },
+      "is_published": {
+        "kind": "boolean"
+      },
+      "linkedin": {
+        "kind": "url"
+      },
+      "message": {
+        "kind": "text",
+        "maxLength": 4000
+      },
+      "name": {
+        "kind": "text",
+        "maxLength": 200,
+        "required": true
+      },
       "office": {
         "allowNull": true
+      },
+      "order": {
+        "integer": true,
+        "kind": "number",
+        "maxValue": 32767,
+        "minValue": 0
+      },
+      "phone": {
+        "kind": "text",
+        "maxLength": 50
+      },
+      "photo": {
+        "kind": "text",
+        "maxLength": 500
+      },
+      "role": {
+        "kind": "text",
+        "maxLength": 150
       },
       "staff_notes": {
         "kind": "text"
@@ -2072,8 +1994,7 @@
     },
     "volunteer": {
       "email": {
-        "kind": "email",
-        "required": true
+        "kind": "email"
       },
       "interest": {
         "choices": [
@@ -2083,13 +2004,11 @@
           "outreach",
           "other"
         ],
-        "kind": "choice",
-        "required": true
+        "kind": "choice"
       },
       "message": {
         "kind": "text",
-        "maxLength": 4000,
-        "required": true
+        "maxLength": 4000
       },
       "name": {
         "kind": "text",

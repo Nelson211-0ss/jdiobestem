@@ -33,7 +33,6 @@ RESOURCE_LABELS = {
     "donations": "Donations",
     "news": "News stories",
     "team": "Team members",
-    "recognised-volunteers": "Recognised volunteers",
     "magazine": "Magazine issues",
     "cohorts": "Cohorts",
     "mentors": "Mentors",
@@ -60,7 +59,7 @@ RESOURCE_GROUPS = [
     (
         "From the website",
         [
-            "volunteers", "recognised-volunteers", "contact-messages",
+            "volunteers", "contact-messages",
             "proposals", "subscribers", "job-applications",
         ],
     ),

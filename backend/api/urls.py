@@ -21,7 +21,6 @@ router.register("subscribers", admin_views.NewsletterSubscriberViewSet, basename
 router.register("donations", admin_views.DonationViewSet, basename="donation")
 router.register("news", admin_views.NewsStoryViewSet, basename="news")
 router.register("team", admin_views.TeamMemberViewSet, basename="team")
-router.register("recognised-volunteers", admin_views.RecognisedVolunteerViewSet, basename="recognised-volunteer")
 router.register("programmes", admin_views.ProgrammeViewSet, basename="programme")
 router.register("page-blocks", admin_views.PageBlockViewSet, basename="page-block")
 router.register("stats", admin_views.SiteStatViewSet, basename="stat")

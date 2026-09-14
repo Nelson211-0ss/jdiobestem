@@ -401,9 +401,9 @@ class VolunteerApplicationViewSet(StaffViewSet):
     queryset = VolunteerApplication.objects.all()
     resource = "volunteers"
     serializer_class = s.VolunteerApplicationAdminSerializer
-    filterset_fields = ["status", "interest"]
-    search_fields = ["name", "email", "phone", "message"]
-    ordering_fields = ["created_at", "name", "status"]
+    filterset_fields = ["status", "interest", "is_published", "country"]
+    search_fields = ["name", "email", "phone", "message", "role", "bio"]
+    ordering_fields = ["created_at", "name", "status", "order"]
     ordering = ["-created_at"]
 
 
@@ -526,34 +526,6 @@ class TeamMemberViewSet(StaffViewSet):
     search_fields = ["name", "role", "bio"]
     ordering_fields = ["order", "name", "group"]
     ordering = ["group", "order", "name"]
-
-
-class RecognisedVolunteerViewSet(StaffViewSet):
-    """
-    Volunteers the Foundation names publicly.
-
-    The same table as team members, narrowed to the volunteers group. It gets a
-    page of its own because it is a different job: the team page is who runs the
-    organisation, and this is who gave their time — and whoever is thanking a
-    volunteer should not have to scroll past the executive director to do it.
-
-    The group is set here rather than left to the form, so a record created on
-    this page cannot accidentally become a staff profile.
-    """
-
-    queryset = TeamMember.objects.filter(group=TeamMember.Group.VOLUNTEERS)
-    resource = "recognised-volunteers"
-    serializer_class = s.TeamMemberAdminSerializer
-    filterset_fields = ["is_published", "country"]
-    search_fields = ["name", "role", "bio"]
-    ordering_fields = ["order", "name"]
-    ordering = ["order", "name"]
-
-    def perform_create(self, serializer):
-        super().perform_create(serializer)
-        if serializer.instance.group != TeamMember.Group.VOLUNTEERS:
-            serializer.instance.group = TeamMember.Group.VOLUNTEERS
-            serializer.instance.save(update_fields=["group"])
 
 
 class MagazineIssueViewSet(StaffViewSet):

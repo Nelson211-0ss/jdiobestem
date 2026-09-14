@@ -27,7 +27,7 @@ RESOURCES = (
     "volunteers", "contact-messages", "proposals", "subscribers", "donations",
     "news", "team", "magazine", "stats", "newsletters", "programmes", "page-blocks",
     "documents", "document-editions", "activity",
-    "job-postings", "job-applications", "recognised-volunteers", "project-awards",
+    "job-postings", "job-applications", "project-awards",
     "cohorts", "mentors", "mentees", "pairings", "projects", "schools",
     "school-payment-details",
     "scholarships", "scholarship-payments", "scholarship-terms",
@@ -46,7 +46,7 @@ RESOURCES = (
 INBOX = ("volunteers", "contact-messages", "proposals", "subscribers", "job-applications")
 CONTENT = (
     "news", "team", "magazine", "stats", "newsletters", "programmes",
-    "page-blocks", "job-postings", "recognised-volunteers",
+    "page-blocks", "job-postings",
 )
 PROGRAMMES = (
     "cohorts", "mentors", "mentees", "pairings", "projects", "project-awards",
@@ -182,7 +182,6 @@ COUNTRY_FIELD = {
     "donations": "country",
     "news": "country",
     "team": "country",
-    "recognised-volunteers": "country",
     "magazine": "country",
     "boards": "country",
     "mentors": "country",

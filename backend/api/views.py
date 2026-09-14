@@ -30,7 +30,7 @@ from content_cms.models import (
     TeamMember,
 )
 from donations.models import Donation
-from submissions.models import NewsletterSubscriber
+from submissions.models import NewsletterSubscriber, VolunteerApplication
 
 from . import notifications
 from .serializers import (
@@ -233,10 +233,10 @@ def _person(m):
 
 
 class TeamMemberList(ListAPIView):
-    """Who runs the organisation. Recognised volunteers are deliberately not
+    """Who runs the organisation. Volunteers are deliberately not
     here — they are not staff, and the team page says who the staff are."""
 
-    queryset = TeamMember.objects.published().exclude(group=TeamMember.Group.VOLUNTEERS)
+    queryset = TeamMember.objects.published()
     pagination_class = None
 
     def list(self, request, *args, **kwargs):
@@ -244,13 +244,36 @@ class TeamMemberList(ListAPIView):
 
 
 class RecognisedVolunteerList(ListAPIView):
-    """The volunteers named on /volunteers, in the order the Foundation sets."""
+    """The volunteers named on /volunteers, in the order the Foundation sets.
 
-    queryset = TeamMember.objects.published().filter(group=TeamMember.Group.VOLUNTEERS)
+    Read from the volunteers themselves rather than from the team table. They
+    used to be team members filed under a "volunteers" group, which made the
+    person who applied and the person who was thanked two unrelated records.
+    """
+
+    queryset = VolunteerApplication.objects.filter(is_published=True).order_by("order", "name")
     pagination_class = None
 
     def list(self, request, *args, **kwargs):
-        return Response([_person(m) for m in self.get_queryset()])
+        return Response(
+            [
+                {
+                    "name": v.name,
+                    "role": v.role,
+                    "group": "volunteers",
+                    "img": v.photo or None,
+                    "alt": v.alt,
+                    "focus": None,
+                    "bio": v.bio or None,
+                    "links": [
+                        {"kind": kind, "href": href}
+                        for kind, href in (("linkedin", v.linkedin), ("email", v.email))
+                        if href
+                    ],
+                }
+                for v in self.get_queryset()
+            ]
+        )
 
 
 class MagazineIssueList(ListAPIView):

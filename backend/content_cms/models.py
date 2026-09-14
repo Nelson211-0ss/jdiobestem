@@ -115,10 +115,10 @@ class TeamMember(TimeStampedModel):
     class Group(models.TextChoices):
         LEADERSHIP = "leadership", "Leadership"
         MENTORS = "mentors", "Mentors"
-        # Volunteers the Foundation wants to recognise by name. They appear on
-        # /volunteers rather than /team: the team page is who runs the
-        # organisation, and a volunteer is not staff.
-        VOLUNTEERS = "volunteers", "Outstanding volunteers"
+        # There was a "volunteers" group here. A volunteer is not staff — this
+        # record carries a department, a manager and the pay against it — so
+        # they are their own table now, from application through to being
+        # named on the volunteers page.
 
     class Department(models.TextChoices):
         EXECUTIVE = "executive", "Executive"

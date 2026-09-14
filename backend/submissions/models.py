@@ -59,7 +59,25 @@ class SubmissionBase(TimeStampedModel):
 
 
 class VolunteerApplication(SubmissionBase):
-    """From /volunteers. The five fields are exactly what the form collects."""
+    """
+    Somebody who offered their time, from the first message to the thank-you.
+
+    This was two tables. Applications arrived here; the volunteers the
+    Foundation names publicly were rows in the team table, filtered to a
+    "volunteers" group. That made the person who applied and the person who
+    was thanked two unrelated records, so recognising somebody meant typing
+    their name a second time into a different screen, and nothing connected
+    the two — the list of who has helped could not be read off either one.
+
+    One row now, from application to recognition. The triage status says where
+    the Foundation has got to with them; `is_published` says whether they are
+    named on the volunteers page. They are separate questions: a volunteer can
+    be thanked publicly long after their application was closed.
+
+    A volunteer is not staff, which is why they are not in the team table. The
+    team record carries a department, a manager and the salary paid against it;
+    none of that is true of somebody who gave a Saturday.
+    """
 
     class Interest(models.TextChoices):
         MENTORSHIP = "mentorship", "Mentorship"
@@ -69,16 +87,42 @@ class VolunteerApplication(SubmissionBase):
         OTHER = "other", "Other"
 
     name = models.CharField(max_length=200)
-    email = models.EmailField()
+    # Optional, because not every volunteer arrives through the form. Somebody
+    # recognised for a day's help at a science fair may have given a phone
+    # number and nothing else, and a record that cannot be written without an
+    # address is a record that does not get written. The public form still
+    # requires both; see the serializer it posts to.
+    email = models.EmailField(blank=True)
     phone = models.CharField(max_length=50, blank=True, validators=[phone_validator])
-    interest = models.CharField(max_length=20, choices=Interest.choices)
-    message = models.TextField(max_length=MESSAGE_MAX, help_text="Why do you want to volunteer?")
+    interest = models.CharField(max_length=20, choices=Interest.choices, blank=True)
+    message = models.TextField(
+        max_length=MESSAGE_MAX, blank=True, help_text="Why do you want to volunteer?"
+    )
+
+    # --- naming them on the website --------------------------------------
+    #
+    # Separate from the triage status on purpose: closing an application and
+    # thanking somebody publicly are different decisions, taken at different
+    # times by different people.
+    is_published = models.BooleanField(
+        default=False, db_index=True, help_text="Named on the volunteers page."
+    )
+    role = models.CharField(
+        max_length=150, blank=True, help_text="What they did, e.g. Science Fair judge."
+    )
+    bio = models.TextField(blank=True, help_text="Why they are recognised.")
+    photo = models.CharField(max_length=500, blank=True)
+    alt = models.CharField(max_length=200, blank=True, help_text="Describes the photograph.")
+    linkedin = models.URLField(blank=True)
+    order = models.PositiveSmallIntegerField(
+        default=0, help_text="Lower numbers come first on the page."
+    )
 
     class Meta(SubmissionBase.Meta):
-        verbose_name = "volunteer application"
+        verbose_name = "volunteer"
 
     def __str__(self):
-        return f"{self.name} — {self.get_interest_display()}"
+        return f"{self.name} — {self.get_interest_display()}" if self.interest else self.name
 
 
 class NewsletterSubscriber(TimeStampedModel):

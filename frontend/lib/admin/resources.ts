@@ -314,74 +314,65 @@ const triageFields: Field[] = [
 export const RESOURCES: Resource[] = [
   {
     key: 'volunteers',
-    label: 'Applications',
-    parent: 'Volunteers',
-    singular: 'volunteer application',
-    group: 'Inbox',
-    icon: 'UserPlus',
-    description: 'People offering time through the volunteer form.',
+    label: 'Volunteers',
+    parent: 'People & HR',
+    singular: 'volunteer',
+    group: 'Operations',
+    icon: 'HeartHandshake',
+    description:
+      'Everyone who has offered their time, from the form they sent to the page that thanks them. One record rather than two: recognising somebody used to mean typing their name again on a different screen, and nothing tied the two together.',
     titleField: 'name',
-    noCreate: true,
     searchHint: 'name, email, phone, message',
     columns: [
+      { name: 'photo', label: '', thumb: true },
       { name: 'name', label: 'Name' },
       { name: 'email', label: 'Email' },
       { name: 'interest_display', label: 'Interest' },
-      { name: 'country', label: 'Country' },
+      { name: 'role', label: 'What they did' },
       { name: 'status_display', label: 'Status', badge: true },
+      { name: 'is_published', label: 'Named publicly' },
       { name: 'created_at', label: 'Received', date: true },
     ],
     filters: [
       { name: 'status', label: 'Status', type: 'select', options: TRIAGE_OPTIONS },
       { name: 'interest', label: 'Interest', type: 'select', options: INTEREST_OPTIONS },
-    ],
-    fields: [
-      { name: 'name', label: 'Name', type: 'readonly' },
-      { name: 'email', label: 'Email', type: 'readonly' },
-      { name: 'phone', label: 'Phone', type: 'readonly' },
-      { name: 'interest_display', label: 'Area of interest', type: 'readonly' },
-      { name: 'message', label: 'Why they want to volunteer', type: 'readonly', wide: true },
-      ...triageFields,
-    ],
-  },
-  {
-    key: 'recognised-volunteers',
-    label: 'Recognised',
-    singular: 'volunteer',
-    group: 'Inbox',
-    parent: 'Volunteers',
-    icon: 'Award',
-    description:
-      'Volunteers named on the volunteers page. Kept apart from the team, who are staff — these are people who gave their time.',
-    titleField: 'name',
-    searchHint: 'name, role, note',
-    columns: [
-      { name: 'thumbnail', label: '', thumb: true },
-      { name: 'name', label: 'Volunteer' },
-      { name: 'role', label: 'What they did' },
-      { name: 'order', label: 'Order', numeric: true },
-      { name: 'is_published', label: 'Shown' },
-    ],
-    filters: [
       {
-        name: 'is_published', label: 'Shown', type: 'select',
+        name: 'is_published', label: 'On the website', type: 'select',
         options: [
-          { value: 'true', label: 'Shown' },
-          { value: 'false', label: 'Hidden' },
+          { value: 'true', label: 'Named publicly' },
+          { value: 'false', label: 'Not named' },
         ],
       },
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
     ],
     fields: [
-      { name: 'name', label: 'Name', type: 'text', required: true, wide: true },
-      { name: 'role', label: 'What they did', type: 'text', required: true, wide: true, help: 'e.g. STEM tutoring, or Science fair judge.' },
-      { name: 'image', label: 'Photograph', type: 'upload', folder: 'team', wide: true },
-      { name: 'alt', label: 'Photograph alt text', type: 'text', wide: true },
+      // What the volunteer themselves said. Typed here only when somebody is
+      // being added by hand; once the record exists it is what that person
+      // sent, and the API stops accepting changes to it.
+      { name: 'name', label: 'Name', type: 'text', required: true, wide: true, lockedAfterCreate: true },
+      { name: 'email', label: 'Email', type: 'email', lockedAfterCreate: true },
+      { name: 'phone', label: 'Phone', type: 'tel', lockedAfterCreate: true },
+      {
+        name: 'interest', label: 'Area of interest', type: 'select', options: INTEREST_OPTIONS,
+        lockedAfterCreate: true,
+      },
+      {
+        name: 'message', label: 'Why they want to volunteer', type: 'textarea', wide: true,
+        lockedAfterCreate: true,
+      },
+
+      // Thanking them. Separate from the triage status below: closing an
+      // application and naming somebody on the website are different
+      // decisions, often taken months apart.
+      { name: 'is_published', label: 'Name them on the volunteers page', type: 'boolean', wide: true },
+      { name: 'role', label: 'What they did', type: 'text', wide: true, help: 'e.g. STEM tutoring, or Science fair judge.' },
       { name: 'bio', label: 'Why they are recognised', type: 'textarea', wide: true },
+      { name: 'photo', label: 'Photograph', type: 'upload', folder: 'team', wide: true },
+      { name: 'alt', label: 'Photograph alt text', type: 'text', wide: true },
       { name: 'linkedin', label: 'LinkedIn', type: 'text' },
-      { name: 'order', label: 'Order', type: 'number' },
-      { name: 'is_published', label: 'Shown on the volunteers page', type: 'boolean' },
-      { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
+      { name: 'order', label: 'Order on the page', type: 'number', help: 'Lower numbers come first.' },
+
+      ...triageFields,
     ],
   },
   {
