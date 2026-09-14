@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Check, ChevronLeft, ChevronRight, FileText, ImageOff, Pencil, Search, X } from 'lucide-react';
-import { useState, useTransition } from 'react';
+import { Fragment, useState, useTransition } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -231,7 +231,12 @@ export default function DataTable({
         ) : null}
       </div>
 
-      <div>
+      {/* A ten-column table on a 390px screen shows three of them and hides
+          the rest behind a sideways scroll inside the page — the reader cannot
+          see that there is more, and the columns that matter (what is owed,
+          what state it is in) are the ones off the edge. Below `sm` each row
+          is stacked instead, so every field is on screen. */}
+      <div className="hidden sm:block">
         <Table>
           <TableHeader>
             <TableRow>
@@ -306,6 +311,61 @@ export default function DataTable({
           </TableBody>
         </Table>
       </div>
+
+      <ul className="space-y-3 sm:hidden">
+        {rows.length === 0 ? (
+          <li className="py-12 text-center text-muted-foreground">Nothing here yet.</li>
+        ) : (
+          rows.map((row) => {
+            const href = `/admin/${resource.key}/${row.id}`;
+            const named = resource.columns.filter((c) => !c.thumb);
+            const [lead, ...rest] = named;
+            const picture = resource.columns.find((c) => c.thumb);
+            return (
+              <li key={String(row.id)} className="rounded-xl border bg-card p-3.5 shadow-sm">
+                <div className="flex items-start gap-3">
+                  {picture ? <span className="shrink-0">{renderCell(row, picture)}</span> : null}
+                  <Link href={href} className="min-w-0 flex-1 font-semibold underline-offset-4 hover:underline">
+                    {lead ? renderCell(row, lead) : `#${String(row.id)}`}
+                  </Link>
+                  {canEdit ? (
+                    <Link
+                      href={`${href}/edit`}
+                      aria-label="Edit"
+                      title="Edit"
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Link>
+                  ) : null}
+                </div>
+
+                {/* Only the fields this record actually has. A stack of a
+                    dozen em-dashes is longer to read past than the row it
+                    replaced and says nothing. */}
+                <dl className="mt-2.5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1.5 text-sm">
+                  {rest
+                    .filter((c) => {
+                      const v = row[c.name];
+                      return v !== null && v !== undefined && v !== '' &&
+                        !(Array.isArray(v) && v.length === 0);
+                    })
+                    .map((c) => (
+                      <Fragment key={c.name}>
+                        <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+                          {c.label || c.name}
+                        </dt>
+                        <dd className={cn('min-w-0', c.numeric && 'tabular')}>
+                          {renderCell(row, c)}
+                        </dd>
+                      </Fragment>
+                    ))}
+                </dl>
+              </li>
+            );
+          })
+        )}
+      </ul>
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-sm text-muted-foreground">
         <p aria-live="polite">

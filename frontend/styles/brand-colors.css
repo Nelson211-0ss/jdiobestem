@@ -3752,3 +3752,35 @@ main > section.bg-white {
 .on-dark-surface .feature-ico {
   color: #ffffff;
 }
+
+/* ------------------------------------------------------------------------
+ * Centred on a phone.
+ *
+ * The site is read one column wide below `md`, and at that width a left rag
+ * and a centred heading above it fight each other. So text centres — asked
+ * for, and it holds because alignment inherits: this sets it on the body and
+ * anything that states its own alignment, including every Tailwind
+ * `text-left` and `text-right` already in the markup, still wins.
+ *
+ * Scoped away from the dashboard, which is a tool rather than a page and is
+ * read in columns: `.admin-shell` is the same hook the dark theme uses.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 767px) {
+  body:not(:has(.admin-shell)) {
+    text-align: center;
+  }
+
+  /* What centring would break rather than restyle. A field's value belongs
+   * against the edge the reader types from, a table column has to line up with
+   * the one above it, and code is whitespace-significant. */
+  body:not(:has(.admin-shell)) :is(input, textarea, select, option, th, td, pre, code) {
+    text-align: start;
+  }
+
+  /* A bullet hangs outside its text, so a centred list leaves its markers
+   * stranded against the margin. Brought inside, they travel with the line.
+   * Lists already styled with their own marks keep theirs. */
+  body:not(:has(.admin-shell)) :is(ul, ol):not([class*='list-none']) {
+    list-style-position: inside;
+  }
+}

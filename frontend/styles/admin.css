@@ -391,3 +391,19 @@ html[data-admin-theme='dark'] .admin-shell {
   font-size: 0.75rem;
   color: hsl(var(--muted-foreground));
 }
+
+/*
+ * Grid and flex children keep to their track.
+ *
+ * Both default to `min-width: auto`, which lets a child's content push it
+ * wider than the column it was placed in. On a wide screen nothing shows; on a
+ * phone it is the difference between a card that fits and a whole page that
+ * scrolls sideways — the overview's spending cards were 489px inside a 358px
+ * column, and every truncation inside them was therefore never applied.
+ *
+ * Scoped to the dashboard. An element that genuinely needs its own width still
+ * states one, and an explicit width outranks this.
+ */
+.admin-shell :is(.grid, .flex) > * {
+  min-width: 0;
+}

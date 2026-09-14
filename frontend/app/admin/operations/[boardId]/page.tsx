@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
 import { FileText, Pencil, Plus } from 'lucide-react';
 
@@ -11,6 +12,7 @@ import { toFileList } from '@/lib/files';
 import { api, can, getIdentity, type Page } from '@/lib/admin/api';
 import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 import { formatNumber, isMoneyLabel } from '@/lib/format';
+import { cn } from '@/lib/utils';
 import SiteFavicon from '@/components/admin/SiteFavicon';
 import BoardFilters from '@/components/admin/BoardFilters';
 import ExportMenu from '@/components/admin/ExportMenu';
@@ -26,6 +28,96 @@ export async function generateMetadata({ params }: { params: Promise<{ boardId: 
   } catch {
     return { title: 'Board' };
   }
+}
+
+/**
+ * One column's value, as it reads in a table cell.
+ *
+ * Pulled out of the table so the stacked phone view below renders a value by
+ * exactly the same rules. Two copies of "how a date looks" is two copies that
+ * drift, and the one nobody is looking at is the one that goes wrong.
+ */
+function BoardValue({
+  column,
+  record,
+}: {
+  column: BoardDetail['columns'][number];
+  record: BoardRecord;
+}) {
+  // A file column is the attachment itself, so it shows rather than printing a
+  // URL nobody can read at a glance.
+  if (column.column_type === 'file') {
+    // One field can hold several receipts, so show them all. String() on a
+    // list would have produced "a.jpg,b.jpg" and one broken thumbnail.
+    const urls = toFileList(record.values?.[column.monday_id]);
+    return urls.length ? (
+      <div className="flex items-center gap-1">
+        {urls.slice(0, 3).map((url, index) => (
+          <FilePreview
+            key={`${url}-${index}`}
+            url={url}
+            preview={record.file_previews?.[url]}
+            alt={`${column.title} ${index + 1} for ${record.name}`}
+          />
+        ))}
+        {urls.length > 3 ? (
+          <span className="text-xs text-muted-foreground">+{urls.length - 3}</span>
+        ) : null}
+      </div>
+    ) : (
+      <FilePreview url="" alt={`${column.title} for ${record.name}`} />
+    );
+  }
+
+  // A website shows as the site's own icon and its host. The full URL is
+  // unreadable in a cell and the same for every row until the very end of it.
+  if (column.column_type === 'link') {
+    const url = String(record.values?.[column.monday_id] ?? '');
+    let host = '';
+    try {
+      host = url ? new URL(url).hostname.replace(/^www\./, '') : '';
+    } catch {
+      host = url;
+    }
+    return url ? (
+      <span className="flex items-center gap-2">
+        <SiteFavicon url={url} name={record.name} />
+        <span className="truncate">{host}</span>
+      </span>
+    ) : (
+      <span className="text-muted-foreground">&mdash;</span>
+    );
+  }
+
+  const raw = displayValue(record.values?.[column.monday_id]);
+  // Dates are stored as `2026-11-30`, which is right for sorting and wrong for
+  // reading. Shown the way every other table in the dashboard shows one.
+  const shown =
+    column.column_type === 'date' && /^\d{4}-\d{2}-\d{2}/.test(raw)
+      ? new Date(`${raw.slice(0, 10)}T00:00:00Z`).toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          timeZone: 'UTC',
+        })
+      : raw;
+
+  if (!shown) return <span className="text-muted-foreground">&mdash;</span>;
+  if (column.column_type === 'status') return <Badge variant="secondary">{shown}</Badge>;
+  if (column.column_type === 'numbers') {
+    return (
+      <span className="tabular whitespace-nowrap">
+        {formatNumber(shown, { money: isMoneyLabel(column.title) })}
+      </span>
+    );
+  }
+  return <span>{shown}</span>;
+}
+
+/** Whether a column has anything to say for this record. */
+function hasValue(column: BoardDetail['columns'][number], record: BoardRecord) {
+  if (column.column_type === 'file') return toFileList(record.values?.[column.monday_id]).length > 0;
+  return Boolean(displayValue(record.values?.[column.monday_id]));
 }
 
 export default async function BoardPage({
@@ -125,7 +217,10 @@ export default async function BoardPage({
 
       <BoardFilters board={board} />
 
-      <div className="mt-5">
+      {/* Wide boards show three of their columns on a phone and hide the
+          rest behind a scroll inside the page. Below `sm` each record is
+          stacked instead — see the list after this table. */}
+      <div className="mt-5 hidden sm:block">
         <Table>
           <TableHeader>
             <TableRow>
@@ -170,104 +265,17 @@ export default async function BoardPage({
                       {record.name}
                     </Link>
                   </TableCell>
-                  {columns.map((c) => {
-                    // A file column is the attachment itself, so the cell shows
-                    // it rather than a URL nobody can read at a glance.
-                    if (c.column_type === 'file') {
-                      // One field can hold several receipts, so show them all.
-                      // String() on a list would have produced "a.jpg,b.jpg"
-                      // and rendered as one broken thumbnail.
-                      const urls = toFileList(record.values?.[c.monday_id]);
-                      return (
-                        <TableCell key={c.monday_id} className="pr-0">
-                          {urls.length ? (
-                            <div className="flex items-center gap-1">
-                              {urls.slice(0, 3).map((url, index) => (
-                                <FilePreview
-                                  key={`${url}-${index}`}
-                                  url={url}
-                                  preview={record.file_previews?.[url]}
-                                  alt={`${c.title} ${index + 1} for ${record.name}`}
-                                />
-                              ))}
-                              {urls.length > 3 ? (
-                                <span className="text-xs text-muted-foreground">
-                                  +{urls.length - 3}
-                                </span>
-                              ) : null}
-                            </div>
-                          ) : (
-                            <FilePreview url="" alt={`${c.title} for ${record.name}`} />
-                          )}
-                        </TableCell>
-                      );
-                    }
-                    // A website shows as the site's own icon and its host.
-                    // The full URL is unreadable in a cell and the same for
-                    // every row until the very end of it.
-                    if (c.column_type === 'link') {
-                      const url = String(record.values?.[c.monday_id] ?? '');
-                      let host = '';
-                      try {
-                        host = url ? new URL(url).hostname.replace(/^www\./, '') : '';
-                      } catch {
-                        host = url;
-                      }
-                      return (
-                        <TableCell key={c.monday_id}>
-                          {url ? (
-                            <span className="flex items-center gap-2">
-                              <SiteFavicon url={url} name={record.name} />
-                              <span className="truncate">{host}</span>
-                            </span>
-                          ) : (
-                            <span className="text-muted-foreground">&mdash;</span>
-                          )}
-                        </TableCell>
-                      );
-                    }
-                    const raw = displayValue(record.values?.[c.monday_id]);
-                    // Dates are stored as `2026-11-30`, which is right for
-                    // sorting and wrong for reading. Shown the way every other
-                    // table in the dashboard shows one.
-                    const shown =
-                      c.column_type === 'date' && /^\d{4}-\d{2}-\d{2}/.test(raw)
-                        ? new Date(`${raw.slice(0, 10)}T00:00:00Z`).toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric',
-                            timeZone: 'UTC',
-                          })
-                        : raw;
-                    const isStatus = c.column_type === 'status';
-                    return (
-                      <TableCell
-                        key={c.monday_id}
-                        className={c.column_type === 'numbers' ? 'text-right' : undefined}
-                      >
-                        {shown ? (
-                          isStatus ? (
-                            <Badge variant="secondary">{shown}</Badge>
-                          ) : (
-                            <span
-                              className={
-                                c.column_type === 'numbers'
-                                  ? 'tabular whitespace-nowrap'
-                                  : undefined
-                              }
-                            >
-                              {c.column_type === 'numbers'
-                                ? formatNumber(shown, { money: isMoneyLabel(c.title) })
-                                : shown}
-                            </span>
-                          )
-                        ) : (
-                          <span className="text-muted-foreground">&mdash;</span>
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                  {board.groups.length > 1 ? (
+                  {columns.map((c) => (
+                    <TableCell
+                      key={c.monday_id}
+                      className={cn(
+                        c.column_type === 'numbers' && 'text-right',
+                        c.column_type === 'file' && 'pr-0'
+                      )}
+                    >
+                      <BoardValue column={c} record={record} />
+                    </TableCell>
+                  ))}                  {board.groups.length > 1 ? (
                     <TableCell className="text-muted-foreground">{record.group_title}</TableCell>
                   ) : null}
                   <TableCell className="w-px whitespace-nowrap text-right">
@@ -293,6 +301,59 @@ export default async function BoardPage({
           </TableBody>
         </Table>
       </div>
+
+      <ul className="mt-5 space-y-3 sm:hidden">
+        {data.results.length === 0 ? (
+          <li className="py-12 text-center text-muted-foreground">No records match.</li>
+        ) : (
+          data.results.map((record) => (
+            <li key={record.id} className="rounded-xl border bg-card p-3.5 shadow-sm">
+              <div className="flex items-start gap-3">
+                <Link
+                  href={`/admin/operations/${boardId}/${record.id}`}
+                  className="min-w-0 flex-1 font-semibold underline-offset-4 hover:underline"
+                >
+                  {record.name}
+                </Link>
+                {canEdit ? (
+                  <Link
+                    href={`/admin/operations/${boardId}/${record.id}/edit`}
+                    aria-label={`Edit ${record.name}`}
+                    title="Edit"
+                    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </Link>
+                ) : null}
+              </div>
+
+              {/* Only the columns this record has filled in. A stack of a
+                  dozen em-dashes is longer to read past than the row it
+                  replaced and says nothing. */}
+              <dl className="mt-2.5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1.5 text-sm">
+                {columns
+                  .filter((c) => hasValue(c, record))
+                  .map((c) => (
+                    <Fragment key={c.monday_id}>
+                      <dt className="text-xs uppercase tracking-wide text-muted-foreground">
+                        {c.title}
+                      </dt>
+                      <dd className="min-w-0">
+                        <BoardValue column={c} record={record} />
+                      </dd>
+                    </Fragment>
+                  ))}
+                {board.groups.length > 1 && record.group_title ? (
+                  <Fragment>
+                    <dt className="text-xs uppercase tracking-wide text-muted-foreground">Group</dt>
+                    <dd className="min-w-0">{record.group_title}</dd>
+                  </Fragment>
+                ) : null}
+              </dl>
+            </li>
+          ))
+        )}
+      </ul>
 
       <p className="pt-4 text-sm text-muted-foreground">
         {data.count === 0

@@ -62,7 +62,7 @@ export function FileThumb({
             alt={alt || fileNameFrom(url)}
             loading="lazy"
             decoding="async"
-            className="h-11 w-11 rounded-md border object-cover object-top"
+            className="h-11 w-11 overflow-hidden rounded-md border object-cover object-top"
           />
         </button>
       );
@@ -94,7 +94,7 @@ export function FileThumb({
         decoding="async"
         // The small copy may not exist for older files; the original always does.
         onError={() => setSrc((current) => (current === url ? current : url))}
-        className="h-11 w-11 rounded-md object-cover transition hover:opacity-85"
+        className="h-11 w-11 overflow-hidden rounded-md object-cover transition hover:opacity-85"
       />
     </button>
   );
