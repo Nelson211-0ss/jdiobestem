@@ -125,6 +125,10 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
 
 class ScholarshipTermSerializer(serializers.ModelSerializer):
     student_name = serializers.CharField(source="scholarship.student_name", read_only=True)
+    # The student's photograph, so a term is read as a child's term rather than
+    # as a row of dates. Taken from the bursary rather than stored again here:
+    # there is one picture of a student and it belongs on the bursary.
+    thumbnail = serializers.CharField(source="scholarship.photo", read_only=True, default="")
     reference = serializers.CharField(source="scholarship.reference", read_only=True)
     school_name = serializers.CharField(source="scholarship.school.name", read_only=True, default="")
     amount_due_effective = serializers.SerializerMethodField()
@@ -172,6 +176,9 @@ class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerial
 
     student_name = serializers.CharField(source="scholarship.student_name", read_only=True)
     school_name = serializers.CharField(source="scholarship.school.name", read_only=True)
+    # Whose fees this paid, as a face. Same source as the bursary's own
+    # picture — there is one photograph of a student, on their bursary.
+    thumbnail = serializers.CharField(source="scholarship.photo", read_only=True, default="")
     term_label = serializers.CharField(source="term.__str__", read_only=True, default="")
     recorded_by_name = serializers.CharField(
         source="recorded_by.get_full_name", read_only=True, default=""

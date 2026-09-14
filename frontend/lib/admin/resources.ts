@@ -139,6 +139,17 @@ export type Resource = {
   /** A record of what someone sent — creating one by hand makes no sense. */
   noCreate?: boolean;
   /**
+   * Drop the Open link at the end of each row and make the first text cell the
+   * link instead.
+   *
+   * The row is already clickable, so a column repeating "Open" on every line
+   * is noise. It cannot simply be deleted, though: ClickableRow relies on
+   * there being a real anchor somewhere in the row — that is what a screen
+   * reader announces and what the keyboard reaches — so the link moves rather
+   * than going away.
+   */
+  linkFirstCell?: boolean;
+  /**
    * Written by the application, never by a person. Its detail page is shown as
    * a record rather than as a form nobody may submit, and it offers no create.
    */
@@ -1857,6 +1868,7 @@ export const RESOURCES: Resource[] = [
   {
     key: 'scholarship-terms',
     related: [{ resource: 'scholarship-payments', by: 'term', label: 'Payments against this term' }],
+    linkFirstCell: true,
     label: 'Terms and fees due',
     singular: 'term',
     group: 'Programmes',
@@ -1867,6 +1879,7 @@ export const RESOURCES: Resource[] = [
     titleField: 'label',
     searchHint: 'term, year, student',
     columns: [
+      { name: 'thumbnail', label: '', thumb: true },
       { name: 'student_name', label: 'Student' },
       { name: 'reference', label: 'Ref' },
       { name: 'label', label: 'Term' },
@@ -1914,7 +1927,8 @@ export const RESOURCES: Resource[] = [
     titleField: 'term_label',
     searchHint: 'student, school, term, reference',
     columns: [
-      { name: 'receipts', label: '', thumb: true },
+      // Who it was for, then what was paid, then the proof.
+      { name: 'thumbnail', label: '', thumb: true },
       { name: 'student_name', label: 'Student' },
       { name: 'school_name', label: 'School' },
       { name: 'term_label', label: 'Covers' },
@@ -1923,6 +1937,7 @@ export const RESOURCES: Resource[] = [
       { name: 'paid_on', label: 'Paid', date: true },
       { name: 'paid_by_name', label: 'Paid by' },
       { name: 'method_display', label: 'Method', badge: true },
+      { name: 'receipts', label: 'Receipt', thumb: true },
     ],
     filters: [
       { name: 'scholarship', label: 'Bursary', type: 'select', options: [], source: 'scholarship' },

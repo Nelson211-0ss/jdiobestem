@@ -256,6 +256,12 @@ export default function DataTable({
             ) : (
               rows.map((row) => {
                 const href = `/admin/${resource.key}/${row.id}`;
+                // Which cell carries the row's link, when it is not the Open
+                // column at the end. A picture is not a name, so the link goes
+                // on the first cell that reads as one.
+                const linkedCell = resource.linkFirstCell
+                  ? resource.columns.find((c) => !c.thumb)?.name
+                  : undefined;
                 return (
                   <ClickableRow key={String(row.id)} href={href} className="group/row">
                     {resource.columns.map((c) => (
@@ -263,7 +269,16 @@ export default function DataTable({
                         key={c.name}
                         className={cn(c.numeric && 'text-right', c.thumb && 'w-14 pr-0')}
                       >
-                        {renderCell(row, c)}
+                        {c.name === linkedCell ? (
+                          <Link
+                            href={href}
+                            className="font-medium underline-offset-4 hover:underline"
+                          >
+                            {renderCell(row, c)}
+                          </Link>
+                        ) : (
+                          renderCell(row, c)
+                        )}
                       </TableCell>
                     ))}
                     <TableCell className="w-px whitespace-nowrap text-right">
@@ -272,12 +287,14 @@ export default function DataTable({
                             a link is what a screen reader announces, what
                             cmd-click opens in a tab, and what a crawler
                             follows. */}
-                        <Link
-                          href={href}
-                          className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
-                        >
-                          Open
-                        </Link>
+                        {linkedCell ? null : (
+                          <Link
+                            href={href}
+                            className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
+                          >
+                            Open
+                          </Link>
+                        )}
                         {/* Revealed on hover, and on keyboard focus — a control
                             that only exists under a pointer is a control nobody
                             navigating by keyboard can reach. */}
