@@ -176,6 +176,9 @@ class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerial
     recorded_by_name = serializers.CharField(
         source="recorded_by.get_full_name", read_only=True, default=""
     )
+    paid_by_name = serializers.CharField(
+        source="paid_by.get_full_name", read_only=True, default=""
+    )
 
     class Meta:
         model = ScholarshipPayment

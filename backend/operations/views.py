@@ -378,6 +378,26 @@ def _term_options():
     return rows
 
 
+def _period_options():
+    """What a term can be called, per bursary.
+
+    The periods that student's school runs, plus anything already in use on
+    that bursary — a school with an unusual calendar has its wording kept
+    rather than replaced the next time somebody edits the term.
+    """
+    from scholarships.models import Scholarship
+
+    rows = []
+    for bursary in Scholarship.objects.select_related("school").prefetch_related("terms"):
+        who = str(bursary.pk)
+        names = list(TERM_PERIODS.get(bursary.school.level, DEFAULT_PERIODS))
+        for term in bursary.terms.all():
+            if term.label and term.label not in names:
+                names.append(term.label)
+        rows.extend({"value": n, "label": n, "scholarship": who} for n in names)
+    return rows
+
+
 def _expense_options():
     """Recent expenses, labelled the way somebody holding the bill would read
     them — what it was, when, and for how much."""
@@ -459,6 +479,10 @@ def option_lists(request):
             # The periods a bursary has not been given yet are offered too; see
             # _term_options.
             "terms": _term_options(),
+            # What to call a term, for the form that sets one up. Same
+            # vocabulary as the payment select and drawn from the same place,
+            # so the two can never start offering different words.
+            "periods": _period_options(),
             # The expenses an invoice can be settled by. Only the expenses
             # page, and only the most recent few hundred: a select listing
             # every expense the Foundation has ever recorded is a select

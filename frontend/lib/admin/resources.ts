@@ -40,7 +40,8 @@ export type Field = {
     | 'school'
     | 'term'
     | 'team'
-    | 'expense';
+    | 'expense'
+    | 'period';
   label: string;
   type?: FieldType;
   /** Options may carry extra keys — see `narrowBy`. */
@@ -1878,7 +1879,11 @@ export const RESOURCES: Resource[] = [
         name: 'scholarship', label: 'Bursary', type: 'select', options: [], source: 'scholarship',
         required: true, wide: true,
       },
-      { name: 'label', label: 'Term', type: 'text', required: true, help: 'e.g. Term 1.' },
+      {
+        name: 'label', label: 'Term', type: 'select', options: [], source: 'period',
+        narrowBy: 'scholarship', required: true,
+        help: 'The periods this student\u2019s school runs — three terms, or two semesters at a university.',
+      },
       { name: 'academic_year', label: 'Academic year', type: 'text', help: 'e.g. 2026.' },
       {
         name: 'starts_on', label: 'Term begins', type: 'date',
@@ -1910,6 +1915,7 @@ export const RESOURCES: Resource[] = [
       { name: 'amount', label: 'Amount', numeric: true },
       { name: 'currency', label: 'Currency' },
       { name: 'paid_on', label: 'Paid', date: true },
+      { name: 'paid_by_name', label: 'Paid by' },
       { name: 'method_display', label: 'Method', badge: true },
     ],
     filters: [
@@ -1944,6 +1950,10 @@ export const RESOURCES: Resource[] = [
           { value: 'cash', label: 'Cash' },
           { value: 'other', label: 'Other' },
         ],
+      },
+      {
+        name: 'paid_by', label: 'Paid by', type: 'select', options: [], source: 'staff',
+        help: 'The colleague who actually sent it — not necessarily whoever types the record.',
       },
       { name: 'reference', label: 'Reference', type: 'text', help: 'Bank or mobile money reference.' },
       { name: 'paid_to', label: 'Paid to', type: 'text', wide: true, help: 'Only if it did not go to the school\u2019s usual account.' },
@@ -1999,6 +2009,7 @@ function optionsFor(
     terms?: ({ value: string; label: string } & Record<string, unknown>)[];
     team?: { value: string; label: string }[];
     expenses?: { value: string; label: string }[];
+    periods?: ({ value: string; label: string } & Record<string, unknown>)[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -2014,6 +2025,7 @@ function optionsFor(
   if (source === 'term') return options.terms ?? [];
   if (source === 'team') return options.team ?? [];
   if (source === 'expense') return options.expenses ?? [];
+  if (source === 'period') return options.periods ?? [];
   return options.countries;
 }
 
@@ -2033,6 +2045,7 @@ export function withOptions(
     terms?: ({ value: string; label: string } & Record<string, unknown>)[];
     team?: { value: string; label: string }[];
     expenses?: { value: string; label: string }[];
+    periods?: ({ value: string; label: string } & Record<string, unknown>)[];
   }
 ): Resource {
   return {

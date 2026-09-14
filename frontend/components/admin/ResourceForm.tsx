@@ -334,10 +334,21 @@ export default function ResourceForm({
     const options = field.options ?? [];
     if (!field.narrowBy) return options;
     const against = String(values[field.narrowBy] ?? '');
-    if (!against || against === 'GL') return options;
-    return options.filter((o) => {
-      const key = o[field.narrowBy as string];
-      return key === undefined || key === null || String(key) === against;
+    const kept =
+      !against || against === 'GL'
+        ? options
+        : options.filter((o) => {
+            const key = o[field.narrowBy as string];
+            return key === undefined || key === null || String(key) === against;
+          });
+    // One value, one row. The same period is offered for every bursary, so
+    // before one is chosen the list would otherwise repeat "Term 1" seven
+    // times — and two <SelectItem>s sharing a value collide as React keys.
+    const seen = new Set<string>();
+    return kept.filter((o) => {
+      if (seen.has(o.value)) return false;
+      seen.add(o.value);
+      return true;
     });
   };
 

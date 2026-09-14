@@ -42,7 +42,7 @@ class ScholarshipViewSet(ScopedViewSet):
 
     def export_detail_tables(self, obj):
         """A bursary report is only useful with the money on the same sheet."""
-        payments = obj.payments.select_related("recorded_by", "term").order_by("-paid_on")
+        payments = obj.payments.select_related("recorded_by", "paid_by", "term").order_by("-paid_on")
         return [
             (
                 "Terms and what is owed",
@@ -60,11 +60,13 @@ class ScholarshipViewSet(ScopedViewSet):
             (
                 "Payments to the school",
                 [("paid_on", "Date"), ("term", "Term"), ("amount", "Amount"),
-                 ("method", "Method"), ("reference", "Reference"), ("receipts", "Receipts")],
+                 ("method", "Method"), ("by", "Paid by"), ("reference", "Reference"),
+                 ("receipts", "Receipts")],
                 [
                     {
                         "paid_on": p.paid_on, "term": str(p.term) if p.term_id else "",
                         "amount": f"{p.amount:,.0f}", "method": p.get_method_display(),
+                        "by": p.paid_by.get_full_name() if p.paid_by_id else "",
                         "reference": p.reference, "receipts": p.receipts,
                     }
                     for p in payments
@@ -90,11 +92,11 @@ class ScholarshipTermViewSet(ScopedViewSet):
 
 class ScholarshipPaymentViewSet(ScopedViewSet):
     queryset = ScholarshipPayment.objects.select_related(
-        "scholarship", "scholarship__school", "term", "recorded_by"
+        "scholarship", "scholarship__school", "term", "recorded_by", "paid_by"
     )
     resource = "scholarship-payments"
     serializer_class = ScholarshipPaymentSerializer
-    filterset_fields = ["scholarship", "method", "term"]
+    filterset_fields = ["scholarship", "method", "term", "paid_by"]
     search_fields = [
         "reference", "notes", "term__label", "scholarship__student_name",
         "scholarship__school__name",

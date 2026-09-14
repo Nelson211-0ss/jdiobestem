@@ -310,6 +310,17 @@ class ScholarshipPayment(TimeStampedModel):
         blank=True,
         help_text="Who received it, if not the school's usual account.",
     )
+    # Who sent the money, which is not always who typed the record. Kept apart
+    # from `recorded_by` for exactly that reason: an administrator entering a
+    # week of transfers would otherwise be shown as having made them all.
+    paid_by = models.ForeignKey(
+        User,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="scholarship_payments_made",
+        help_text="The colleague who actually sent it.",
+    )
     notes = models.TextField(blank=True)
 
     recorded_by = models.ForeignKey(

@@ -1366,6 +1366,9 @@
       "notes": {
         "kind": "text"
       },
+      "paid_by": {
+        "allowNull": true
+      },
       "paid_on": {
         "kind": "date",
         "required": true
