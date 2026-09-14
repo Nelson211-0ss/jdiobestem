@@ -24,10 +24,12 @@ export default function StoryReading({ story }: { story: Record<string, unknown>
 
   return (
     <section className="rounded-2xl border border-border/40 bg-card p-5">
-      <h2 className="px-1 text-sm font-semibold tracking-tight">Reading</h2>
-      <p className="mb-4 px-1 text-xs text-muted-foreground">
-        {openedTotal ? `Since it was published` : 'Nobody has opened this yet'}
-      </p>
+      <div className="mb-4 flex flex-wrap items-baseline gap-x-2 px-1">
+        <h2 className="text-sm font-semibold tracking-tight">Reading</h2>
+        <p className="text-xs text-muted-foreground">
+          {openedTotal ? `Since it was published` : 'Nobody has opened this yet'}
+        </p>
+      </div>
 
       {openedTotal ? (
         <>

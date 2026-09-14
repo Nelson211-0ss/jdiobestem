@@ -148,12 +148,12 @@ export default function AdminShell({
                   <img
                     src={identity.avatar}
                     alt=""
-                    className="h-8 w-8 shrink-0 rounded-full object-cover"
+                    className="h-9 w-9 shrink-0 rounded-full object-cover"
                   />
                 ) : (
                   <span
                     aria-hidden="true"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground"
                   >
                     {initials}
                   </span>

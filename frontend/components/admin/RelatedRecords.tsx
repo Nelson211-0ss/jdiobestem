@@ -80,10 +80,12 @@ export default async function RelatedRecords({
 
   return (
     <section className="rounded-2xl border border-border/40 bg-card p-5">
-      <h2 className="px-1 text-sm font-semibold tracking-tight">{spec.label ?? target.label}</h2>
-      <p className="mb-3 px-1 text-xs text-muted-foreground">
-        {page.count} {page.count === 1 ? target.singular : target.label.toLowerCase()}
-      </p>
+      <div className="mb-3 flex flex-wrap items-baseline gap-x-2 px-1">
+        <h2 className="text-sm font-semibold tracking-tight">{spec.label ?? target.label}</h2>
+        <p className="text-xs text-muted-foreground">
+          {page.count} {page.count === 1 ? target.singular : (target.plural ?? target.label.toLowerCase())}
+        </p>
+      </div>
       {rows.length ? (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

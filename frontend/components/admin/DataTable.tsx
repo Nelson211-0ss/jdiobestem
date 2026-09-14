@@ -386,8 +386,8 @@ export default function DataTable({
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-sm text-muted-foreground">
         <p aria-live="polite">
           {count === 0
-            ? `No ${resource.singular}s`
-            : `Showing ${from} to ${to} of ${count} ${count === 1 ? resource.singular : `${resource.singular}s`}`}
+            ? `No ${resource.plural ?? `${resource.singular}s`}`
+            : `Showing ${from} to ${to} of ${count} ${count === 1 ? resource.singular : (resource.plural ?? `${resource.singular}s`)}`}
           {pending ? ' · loading…' : ''}
         </p>
 

@@ -78,9 +78,9 @@ export default function ActivityPanel({
         onClick={() => setOpen(true)}
         aria-label={waiting ? `Activity — ${waiting} waiting` : 'Activity'}
         title="Activity"
-        className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
-        <Bell className="h-[1.1rem] w-[1.1rem]" />
+        <Bell className="h-[1.35rem] w-[1.35rem]" />
         {waiting > 0 ? (
           // A count, not a dot: three waiting and thirty waiting are different
           // days, and the dot said the same thing for both.

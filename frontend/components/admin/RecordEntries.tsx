@@ -34,12 +34,14 @@ export default function RecordEntries({
 
   return (
     <section className="rounded-2xl border border-border/40 bg-card p-5">
-      <h2 className="px-1 text-sm font-semibold tracking-tight">Entries</h2>
-      <p className="mb-3 px-1 text-xs text-muted-foreground">
-        {lines.length
+      <div className="mb-3 flex flex-wrap items-baseline gap-x-2 px-1">
+        <h2 className="text-sm font-semibold tracking-tight">Entries</h2>
+        <p className="text-xs text-muted-foreground">
+          {lines.length
           ? `${lines.length} ${lines.length === 1 ? 'entry' : 'entries'} making up the amount`
           : 'Nothing itemised yet'}
-      </p>
+        </p>
+      </div>
 
       {lines.length ? (
       <table className="w-full text-sm">

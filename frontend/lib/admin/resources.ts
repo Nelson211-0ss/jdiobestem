@@ -122,6 +122,14 @@ export type Resource = {
   key: string;
   label: string;
   singular: string;
+  /**
+   * More than one of them, where adding an "s" gets it wrong.
+   *
+   * "5 activity log" and "7 bursarys" were both printed, from two different
+   * naive rules — one using the label, one adding a letter. Neither is a plural
+   * of anything.
+   */
+  plural?: string;
   group: 'Inbox' | 'Giving' | 'Programmes' | 'Website' | 'Operations' | 'Access';
   /**
    * Nests this resource under a named, expandable sidebar row alongside its
@@ -1575,7 +1583,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'activity',
-    unlisted: true,
+    plural: 'entries',
     label: 'Activity log',
     singular: 'entry',
     group: 'Access',
@@ -1756,10 +1764,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarships',
-    related: [
-      { resource: 'scholarship-terms', by: 'scholarship', label: 'Terms and fees due' },
-      { resource: 'scholarship-payments', by: 'scholarship', label: 'Payments to the school' },
-    ],
+    plural: 'bursaries',
     label: 'Bursaries',
     singular: 'bursary',
     group: 'Programmes',
@@ -1890,7 +1895,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-terms',
-    detailsAt: { resource: 'scholarships', field: 'scholarship' },
+    plural: 'terms',
     label: 'Terms and fees due',
     singular: 'term',
     group: 'Programmes',
@@ -1935,6 +1940,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-payments',
+    plural: 'payments',
     label: 'Payments to schools',
     singular: 'payment',
     group: 'Programmes',

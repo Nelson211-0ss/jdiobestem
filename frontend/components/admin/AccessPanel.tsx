@@ -75,8 +75,10 @@ export default function AccessPanel({
 
   return (
     <section className="rounded-2xl border border-border/40 bg-card p-5">
-      <h2 className="px-1 text-sm font-semibold tracking-tight">Dashboard access</h2>
-      <p className="mb-3 px-1 text-xs text-muted-foreground">What their login lets them open</p>
+      <div className="mb-3 flex flex-wrap items-baseline gap-x-2 px-1">
+        <h2 className="text-sm font-semibold tracking-tight">Dashboard access</h2>
+        <p className="text-xs text-muted-foreground">What their login lets them open</p>
+      </div>
 
       <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-2 px-1 text-sm">
         {rows.map(([label, value]) => (

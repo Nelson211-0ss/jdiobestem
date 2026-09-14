@@ -60,15 +60,15 @@ export default function ThemeToggle() {
       /* Both icons are rendered and cross-faded rather than swapped, so the
          button does not resize or flicker on press. Before mount, neither is
          shown and the button keeps its space. */
-      className="relative shrink-0"
+      className="relative h-10 w-10 shrink-0"
     >
       <Sun
-        className={`h-[1.15rem] w-[1.15rem] transition-all ${
+        className={`h-[1.35rem] w-[1.35rem] transition-all ${
           theme === 'light' ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
         }`}
       />
       <Moon
-        className={`absolute h-[1.15rem] w-[1.15rem] transition-all ${
+        className={`absolute h-[1.35rem] w-[1.35rem] transition-all ${
           theme === 'dark' ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
         }`}
       />

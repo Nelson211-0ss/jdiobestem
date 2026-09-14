@@ -98,9 +98,9 @@ export default function HeaderSearch() {
             // The field is only shown once expanded, so focus waits a tick.
             window.setTimeout(() => inputRef.current?.focus(), 0);
           }}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:hidden"
         >
-          <Search className="h-[1.1rem] w-[1.1rem]" />
+          <Search className="h-[1.35rem] w-[1.35rem]" />
         </button>
       ) : null}
 
