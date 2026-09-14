@@ -1060,10 +1060,11 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'team',
+    parent: 'People & HR',
     related: [{ resource: 'salaries', by: 'person', label: 'Pay' }],
     label: 'Team members',
     singular: 'team member',
-    group: 'Website',
+    group: 'Operations',
     icon: 'Contact',
     description:
       'Everyone who works with the Foundation: what the website shows about them, and what employment needs to record. One record per person, rather than a team page and a staff list that drift apart — being shown on the website is a setting here, not a separate list.',
@@ -1440,6 +1441,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'salaries',
+    parent: 'People & HR',
     label: 'Salaries',
     singular: 'payment',
     group: 'Operations',
