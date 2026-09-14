@@ -59,19 +59,19 @@ export function FormShell({
    */
   aside?: React.ReactNode;
 }) {
-  // The name of the record, and nothing above it. There used to be a back
-  // tile and the resource's name in small grey type over every title — a
-  // breadcrumb two levels deep, on a dashboard whose nav is always on screen
-  // and already says where you are.
-  const header = <h1 className="text-3xl font-bold tracking-tight">{title}</h1>;
-
+  // The title sits inside the card with the actions beside it, the same row a
+  // list page opens with. Floating above the card it belonged to nothing: the
+  // card was the record, and its name was somewhere else.
+  //
+  // There used to be a back tile and the resource's name in small grey type
+  // over it as well — a breadcrumb two levels deep, on a dashboard whose nav is
+  // always on screen and already says where you are.
   const card = (
     <div className="rounded-2xl border border-border/40 bg-card p-6 sm:p-8">
-      {actions ? (
-        <div className="mb-6 flex flex-wrap items-center justify-end gap-3">
-          {actions}
-        </div>
-      ) : null}
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+        {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
+      </div>
       {children}
     </div>
   );
@@ -79,17 +79,15 @@ export function FormShell({
   return (
     <div className="pb-24">
       <div className={cn('mx-auto', wide || aside ? 'max-w-6xl' : 'max-w-3xl')}>
-        {header}
-
         {aside ? (
           // `items-start` so the side column keeps its own height instead of
           // stretching to match a long record.
-          <div className="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]">
+          <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]">
             {card}
             <div className="space-y-6">{aside}</div>
           </div>
         ) : (
-          <div className="mt-6">{card}</div>
+          <div>{card}</div>
         )}
       </div>
 
