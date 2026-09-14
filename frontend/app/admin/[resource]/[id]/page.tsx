@@ -5,6 +5,7 @@ import { Pencil } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import ExportMenu from '@/components/admin/ExportMenu';
+import BoardActivity from '@/components/admin/BoardActivity';
 import RelatedRecords from '@/components/admin/RelatedRecords';
 import ResourceDetail from '@/components/admin/ResourceDetail';
 import { FormShell } from '@/components/admin/Shell';
@@ -43,6 +44,11 @@ export default async function ResourceDetailPage({
   const editable = !resource.readOnly && can(identity, key, 'change');
   const related = relatedFor(key);
 
+  // A record may name a page where its work is recorded — a programme and the
+  // page of outreach activity under it. Read beside the record rather than on
+  // a screen somebody has to know to go and find.
+  const activityBoard = typeof record.board === 'string' ? record.board : '';
+
   // A full report for this one record: the fields as shown, plus whatever the
   // backend hangs off it — a bursary's payments, a school's projects.
   const exportHref =
@@ -60,8 +66,9 @@ export default async function ResourceDetailPage({
       // What belongs to this record, read beside it rather than after it, so
       // the next question is answered without scrolling past the whole record.
       aside={
-        related.length ? (
+        related.length || activityBoard ? (
           <>
+            {activityBoard ? <BoardActivity slug={activityBoard} identity={identity} /> : null}
             {related.map((spec) => (
               <RelatedRecords
                 key={`${spec.resource}-${spec.by}`}

@@ -539,6 +539,11 @@ def option_lists(request):
             # vocabulary as the payment select and drawn from the same place,
             # so the two can never start offering different words.
             "periods": _period_options(),
+            # The pages a programme's activity can be recorded on.
+            "boards": [
+                {"value": b.slug, "label": b.name}
+                for b in Board.objects.filter(is_visible=True, is_subitem_board=False).order_by("name")
+            ],
             # What class a student can be in, which depends on the school they
             # are at — see _class_options.
             "classes": _class_options(),

@@ -111,6 +111,8 @@ export type OptionLists = {
   periods: { value: string; label: string; scholarship: string }[];
   /** What class a student can be in, per school. */
   classes: { value: string; label: string; school: string }[];
+  /** The pages a programme's activity can be recorded on. */
+  boards: { value: string; label: string }[];
   /** Bursary terms a payment can settle. */
   terms: { value: string; label: string }[];
   /** People, for a field naming one — a manager is a team member. */
@@ -136,7 +138,7 @@ export async function getOptionLists(): Promise<OptionLists> {
     return {
       countries: [], staff_scopes: [], currencies: [], offices: [],
       countryIds: [], documents: [], staff: [], projects: [], scholarships: [], schools: [],
-      terms: [], team: [], expenses: [], periods: [], classes: [],
+      terms: [], team: [], expenses: [], periods: [], classes: [], boards: [],
     };
   }
 }

@@ -42,7 +42,8 @@ export type Field = {
     | 'team'
     | 'expense'
     | 'period'
-    | 'schoolClass';
+    | 'schoolClass'
+    | 'board';
   label: string;
   type?: FieldType;
   /** Options may carry extra keys — see `narrowBy`. */
@@ -758,6 +759,11 @@ export const RESOURCES: Resource[] = [
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
     ],
     fields: [
+      {
+        name: 'board', label: 'Where its work is recorded', type: 'select', options: [], source: 'board',
+        wide: true,
+        help: 'The page that holds activity under this programme. Its records are then read on this page.',
+      },
       { name: 'name', label: 'Programme name', type: 'text', required: true, wide: true },
       { name: 'slug', label: 'Slug', type: 'text', help: 'Left blank, it is made from the name.' },
       { name: 'tagline', label: 'Tagline', type: 'text', wide: true, help: 'The short line under the title on the card.' },
@@ -2032,6 +2038,7 @@ function optionsFor(
     expenses?: { value: string; label: string }[];
     periods?: ({ value: string; label: string } & Record<string, unknown>)[];
     classes?: ({ value: string; label: string } & Record<string, unknown>)[];
+    boards?: { value: string; label: string }[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -2049,6 +2056,7 @@ function optionsFor(
   if (source === 'expense') return options.expenses ?? [];
   if (source === 'period') return options.periods ?? [];
   if (source === 'schoolClass') return options.classes ?? [];
+  if (source === 'board') return options.boards ?? [];
   return options.countries;
 }
 
@@ -2070,6 +2078,7 @@ export function withOptions(
     expenses?: { value: string; label: string }[];
     periods?: ({ value: string; label: string } & Record<string, unknown>)[];
     classes?: ({ value: string; label: string } & Record<string, unknown>)[];
+    boards?: { value: string; label: string }[];
   }
 ): Resource {
   return {

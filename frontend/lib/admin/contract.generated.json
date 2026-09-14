@@ -976,6 +976,10 @@
       }
     },
     "programmes": {
+      "board": {
+        "kind": "text",
+        "maxLength": 120
+      },
       "country": {
         "choices": [
           "GL",

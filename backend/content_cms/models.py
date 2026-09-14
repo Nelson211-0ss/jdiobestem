@@ -369,6 +369,22 @@ class Programme(TimeStampedModel):
     )
     image_upload = models.ImageField(upload_to="programmes/", blank=True)
     image_alt = models.CharField(max_length=300, blank=True)
+
+    # Where the work under this programme is recorded.
+    #
+    # The Community Outreach page and the Community STEM Outreach programme
+    # were two screens describing one thing: the programme said what it is, the
+    # page held what has actually been done under it, and nothing linked them —
+    # so "how is this programme going" meant knowing which of the forty-odd
+    # pages to open. Named here rather than derived from the slug, because the
+    # two are not always spelled the same and a guess that is usually right is
+    # the worst kind.
+    board = models.CharField(
+        max_length=120,
+        blank=True,
+        db_index=True,
+        help_text="The page that records activity under this programme.",
+    )
     icon = models.CharField(
         max_length=60, blank=True, help_text="Icon name, e.g. users, globe, book-open, award."
     )
