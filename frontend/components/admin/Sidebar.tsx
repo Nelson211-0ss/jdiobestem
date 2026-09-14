@@ -352,14 +352,20 @@ export default function Sidebar({
         if (!resources.length && !parents.length && !categories.length) return null;
 
         return (
-          <div key={section} className={collapsed ? 'w-full' : undefined}>
+          // The section name is still announced, but no longer printed. Six
+          // lines of shouting uppercase separated six groups that the space
+          // between them already separates — and the groups inside them now
+          // say what they hold. Kept in the accessibility tree, because a nav
+          // read aloud as one undifferentiated list is worse than one read in
+          // sections.
+          <section
+            key={section}
+            aria-label={section}
+            className={collapsed ? 'w-full' : undefined}
+          >
             {collapsed ? (
               <hr className="mx-auto mb-2 w-6 border-t border-border" aria-hidden="true" />
-            ) : (
-              <p className="px-3 pb-1.5 text-[0.6875rem] font-medium uppercase tracking-wider text-muted-foreground">
-                {section}
-              </p>
-            )}
+            ) : null}
 
             <div className={cn('space-y-0.5', collapsed && 'flex flex-col items-center')}>
               {resources.map((r) => {
@@ -457,7 +463,7 @@ export default function Sidebar({
                 );
               })}
             </div>
-          </div>
+          </section>
         );
       })}
 
