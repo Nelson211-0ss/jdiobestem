@@ -5,6 +5,7 @@ import { Pencil } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import ExportMenu from '@/components/admin/ExportMenu';
+import AccessPanel from '@/components/admin/AccessPanel';
 import BoardActivity from '@/components/admin/BoardActivity';
 import RelatedRecords from '@/components/admin/RelatedRecords';
 import ResourceDetail from '@/components/admin/ResourceDetail';
@@ -49,6 +50,10 @@ export default async function ResourceDetailPage({
   // a screen somebody has to know to go and find.
   const activityBoard = typeof record.board === 'string' ? record.board : '';
 
+  // A colleague's own record is where their access is read. See AccessPanel
+  // for why it is read here and changed on the access form.
+  const showsAccess = key === 'team';
+
   // A full report for this one record: the fields as shown, plus whatever the
   // backend hangs off it — a bursary's payments, a school's projects.
   const exportHref =
@@ -66,8 +71,9 @@ export default async function ResourceDetailPage({
       // What belongs to this record, read beside it rather than after it, so
       // the next question is answered without scrolling past the whole record.
       aside={
-        related.length || activityBoard ? (
+        related.length || activityBoard || showsAccess ? (
           <>
+            {showsAccess ? <AccessPanel record={record} identity={identity} /> : null}
             {activityBoard ? <BoardActivity slug={activityBoard} identity={identity} /> : null}
             {related.map((spec) => (
               <RelatedRecords

@@ -1092,6 +1092,11 @@ export const RESOURCES: Resource[] = [
       { name: 'standing', label: 'Standing', type: 'select', options: STANDING_OPTIONS },
     ],
     fields: [
+      {
+        name: 'account', label: 'Dashboard account', type: 'select', options: [], source: 'staff',
+        wide: true,
+        help: 'The login this person signs in with. Linking one only joins the two records — what they may open is set on the access record itself.',
+      },
       { name: 'name', label: 'Name', type: 'text', required: true },
       { name: 'role', label: 'Role', type: 'select', options: ROLE_OPTIONS, required: true },
       {
@@ -1614,6 +1619,8 @@ export const RESOURCES: Resource[] = [
     titleField: 'username',
     searchHint: 'username, email, name',
     columns: [
+      // An access row leads to the person, not to a username.
+      { name: 'team_member_name', label: 'Colleague' },
       { name: 'username', label: 'Username' },
       { name: 'email', label: 'Email' },
       { name: 'first_name', label: 'First name' },

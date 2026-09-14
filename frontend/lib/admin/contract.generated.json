@@ -1582,6 +1582,9 @@
       }
     },
     "team": {
+      "account": {
+        "allowNull": true
+      },
       "alt": {
         "kind": "text",
         "maxLength": 300

@@ -218,6 +218,25 @@ class TeamMember(TimeStampedModel):
         related_name="reports",
         help_text="Who they report to.",
     )
+
+    # The login this person signs in with, where they have one.
+    #
+    # A colleague and their dashboard account were two records that happened to
+    # share a name: the team page said what somebody does, Staff access said
+    # what they may open, and neither mentioned the other. Linked, a person is
+    # one person — their access is read on their own record.
+    #
+    # Not every colleague has an account and not every account has to be a
+    # colleague, so it is optional on both sides. SET_NULL rather than CASCADE:
+    # revoking somebody's login must not delete the record of who they are.
+    account = models.OneToOneField(
+        "auth.User",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="team_profile",
+        help_text="The dashboard account this person signs in with.",
+    )
     country = country_field()
 
     objects = PublishedQuerySet.as_manager()

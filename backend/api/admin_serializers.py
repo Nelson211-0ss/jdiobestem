@@ -319,10 +319,44 @@ class NewsStoryAdminSerializer(ThumbnailMixin, serializers.ModelSerializer):
 
 
 class TeamMemberAdminSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.ModelSerializer):
+    # What their login lets them do, read on their own record rather than on a
+    # separate screen. Read-only here on purpose: granting access is a
+    # different permission from editing a colleague's job title, and a form
+    # that could quietly raise somebody's role would dissolve that.
+    account_role = serializers.SerializerMethodField()
+    account_country = serializers.SerializerMethodField()
+    account_can_sign_in = serializers.SerializerMethodField()
+    account_last_login = serializers.DateTimeField(
+        source="account.last_login", read_only=True, default=None
+    )
+    account_email = serializers.CharField(source="account.email", read_only=True, default="")
+
     class Meta:
         model = TeamMember
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at"]
+
+    def get_account_role(self, obj) -> str:
+        if not obj.account_id:
+            return ""
+        from accounts.policy import role_of
+
+        profile = getattr(obj.account, "staff_profile", None)
+        role = role_of(obj.account)
+        if profile is not None:
+            return profile.get_role_display()
+        return str(role).replace("_", " ").title()
+
+    def get_account_country(self, obj) -> str:
+        if not obj.account_id:
+            return ""
+        profile = getattr(obj.account, "staff_profile", None)
+        if profile is None or not profile.country:
+            return "All countries"
+        return profile.get_country_display()
+
+    def get_account_can_sign_in(self, obj) -> bool:
+        return bool(obj.account_id and obj.account.is_active and obj.account.has_usable_password())
 
 
 class MagazineStorySerializer(serializers.ModelSerializer):
@@ -465,9 +499,19 @@ class ScienceFairProjectAdminSerializer(LabelledChoicesMixin, serializers.ModelS
 
 
 class UserAdminSerializer(serializers.ModelSerializer):
+    # Who this account belongs to, so an access row leads to the person rather
+    # than stopping at a username.
+    team_member = serializers.IntegerField(source="team_profile.id", read_only=True, default=None)
+    team_member_name = serializers.CharField(source="team_profile.name", read_only=True, default="")
+    team_member_role = serializers.CharField(source="team_profile.role", read_only=True, default="")
+
     class Meta:
         model = User
-        fields = ["id", "username", "email", "first_name", "last_name", "is_staff", "is_superuser", "is_active", "last_login", "date_joined"]
+        fields = [
+            "id", "username", "email", "first_name", "last_name", "is_staff", "is_superuser",
+            "is_active", "last_login", "date_joined",
+            "team_member", "team_member_name", "team_member_role",
+        ]
         read_only_fields = ["last_login", "date_joined"]
 
 
