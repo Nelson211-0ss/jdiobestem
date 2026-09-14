@@ -24,6 +24,8 @@ export default function HeaderSearch() {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [active, setActive] = useState(0);
+  // Collapsed to an icon below `sm`; see the note where it is drawn.
+  const [expanded, setExpanded] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -77,7 +79,32 @@ export default function HeaderSearch() {
   };
 
   return (
-    <div ref={boxRef} className="relative w-full max-w-md">
+    <div
+      ref={boxRef}
+      className={cn(
+        'relative max-w-md',
+        // On a phone a full-width field leaves no room for the wordmark, the
+        // bell and the account, so it is an icon until it is wanted. From `sm`
+        // up there is room and it is simply there.
+        expanded ? 'w-full' : 'w-auto sm:w-full'
+      )}
+    >
+      {!expanded ? (
+        <button
+          type="button"
+          aria-label="Search the dashboard"
+          onClick={() => {
+            setExpanded(true);
+            // The field is only shown once expanded, so focus waits a tick.
+            window.setTimeout(() => inputRef.current?.focus(), 0);
+          }}
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:hidden"
+        >
+          <Search className="h-[1.1rem] w-[1.1rem]" />
+        </button>
+      ) : null}
+
+      <div className={cn('relative', expanded ? 'block' : 'hidden sm:block')}>
       <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         ref={inputRef}
@@ -90,6 +117,7 @@ export default function HeaderSearch() {
         className="h-10 rounded-full border-0 bg-muted pl-9 pr-9"
         onChange={(e) => setTerm(e.target.value)}
         onFocus={() => hits.length && setOpen(true)}
+        onBlur={() => { if (!term) setExpanded(false); }}
         onKeyDown={(e) => {
           if (!open || !hits.length) return;
           if (e.key === 'ArrowDown') {
@@ -142,6 +170,7 @@ export default function HeaderSearch() {
           )}
         </div>
       ) : null}
+      </div>
     </div>
   );
 }

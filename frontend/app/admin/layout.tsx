@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation';
 
 import '@/styles/admin.css';
 import AdminShell from '@/components/admin/AdminShell';
-import { api, can, getIdentity } from '@/lib/admin/api';
+import type { Entry, Queue } from '@/components/admin/ActivityPanel';
+import { api, can, getIdentity, type Page } from '@/lib/admin/api';
 import type { BoardIndex } from '@/lib/admin/boards';
 
 export const metadata: Metadata = {
@@ -38,6 +39,40 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     boardIndex = await api.get<BoardIndex>('/admin/board-index/').catch(() => ({ categories: [] }));
   }
 
+  // What is waiting, and what has just happened. Fetched here rather than on
+  // the overview, because the bell is in the header of every page and a count
+  // that is only right on one screen is worse than no count at all.
+  let queues: Queue[] = [];
+  let entries: Entry[] = [];
+  if (identity) {
+    const [stats, log] = await Promise.all([
+      api.get<{ inbox: Record<string, number> }>('/admin/stats/').catch(() => null),
+      can(identity, 'activity', 'view')
+        ? api.get<Page<Record<string, unknown>>>('/admin/activity/?page=1').catch(() => null)
+        : null,
+    ]);
+
+    if (stats?.inbox) {
+      queues = (
+        [
+          ['volunteers', 'Volunteers waiting', stats.inbox.volunteers],
+          ['contact-messages', 'Contact messages', stats.inbox.contact],
+          ['proposals', 'Science Fair registrations', stats.inbox.proposals],
+        ] as const
+      )
+        .filter(([key]) => can(identity, key, 'view'))
+        .map(([key, label, count]) => ({ key, label, count: count ?? 0, href: `/admin/${key}` }));
+    }
+
+    entries = (log?.results ?? []).slice(0, 25).map((row) => ({
+      id: String(row.id),
+      when: String(row.created_at ?? ''),
+      who: String(row.actor_name ?? ''),
+      what: String(row.action_display ?? 'Changed'),
+      where: String(row.object_label ?? row.resource ?? ''),
+    }));
+  }
+
   if (!identity) {
     // Reached when the cookie exists but the token was revoked or expired.
     // Middleware catches the no-cookie case before a page ever renders.
@@ -53,7 +88,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <>
       <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       <div className="admin-shell">
-        <AdminShell identity={identity} boardIndex={boardIndex}>
+          <AdminShell
+            identity={identity}
+            boardIndex={boardIndex}
+            queues={queues}
+            entries={entries}
+          >
           {children}
         </AdminShell>
       </div>

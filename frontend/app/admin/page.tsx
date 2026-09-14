@@ -67,15 +67,6 @@ export default async function DashboardPage({
         .catch(() => null)
     : null;
 
-  /** Only the queues this person may actually open. */
-  const queues = (
-    [
-      ['volunteers', 'Volunteer applications', stats.inbox.volunteers],
-      ['contact-messages', 'Contact messages', stats.inbox.contact],
-      ['proposals', 'Science Fair registrations', stats.inbox.proposals],
-    ] as const
-  ).filter(([key]) => can(identity, key, 'view'));
-
   return (
     <div className="space-y-8">
       <div>
@@ -88,38 +79,6 @@ export default async function DashboardPage({
         </p>
       </div>
 
-      {queues.length ? (
-        <section className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Inbox className="h-4 w-4 text-muted-foreground" />
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-              Needs attention
-            </h2>
-            {stats.inbox.total > 0 ? <Badge variant="accent">{stats.inbox.total} new</Badge> : null}
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {queues.map(([key, label, count]) => (
-              <Link key={key} href={`/admin/${key}`} className="group">
-                <Card className="transition-shadow group-hover:shadow-md">
-                  <CardHeader className="pb-2">
-                    <CardDescription>{label}</CardDescription>
-                    <CardTitle className="flex items-baseline gap-2 text-3xl tabular">
-                      {count}
-                      <span className="text-sm font-normal text-muted-foreground">new</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground group-hover:text-foreground">
-                      Open <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ) : null}
 
       {stats.by_country?.length ? (
         <OperationsMap

@@ -25,6 +25,7 @@ import {
 import Logo from '@/components/Logo';
 import LogoMark from '@/components/LogoMark';
 import HeaderSearch from './HeaderSearch';
+import ActivityPanel, { type Entry, type Queue } from './ActivityPanel';
 import Sidebar from './Sidebar';
 import ThemeToggle from './ThemeToggle';
 import { cn } from '@/lib/utils';
@@ -41,10 +42,14 @@ const DESKTOP = '(min-width: 1024px)';
 export default function AdminShell({
   identity,
   boardIndex,
+  queues = [],
+  entries = [],
   children,
 }: {
   identity: Identity;
   boardIndex: BoardIndex;
+  queues?: Queue[];
+  entries?: Entry[];
   children: React.ReactNode;
 }) {
   const [navOpen, setNavOpen] = useState(false);
@@ -102,7 +107,7 @@ export default function AdminShell({
                 beside it, so the wordmark, the first nav label and the card's
                 edge all start from one line — and the account never sits
                 against the window. */}
-          <div className="flex h-16 items-center gap-3 px-5 py-4 sm:px-6 sm:pr-8 lg:px-8 lg:pr-12 xl:pr-16">
+          <div className="flex items-center gap-3 px-5 pb-5 pt-5 sm:px-6 sm:pr-8 lg:px-8 lg:pb-6 lg:pr-12 lg:pt-9 xl:pr-16">
           <Button
             variant="ghost"
             size="icon"
@@ -128,6 +133,7 @@ export default function AdminShell({
             <HeaderSearch />
           </div>
 
+          <ActivityPanel queues={queues} entries={entries} />
           <ThemeToggle />
 
           <DropdownMenu>

@@ -57,13 +57,16 @@ function attachment(value: unknown, label: string): React.ReactNode {
 
   if (isImage(raw)) {
     return (
-      <a href={href} target="_blank" rel="noopener" className="block">
+      // Centred: the picture spans the card now that it carries no label, and
+      // a portrait pinned to the left edge of a full-width row reads as an
+      // accident rather than a choice.
+      <a href={href} target="_blank" rel="noopener" className="flex justify-center">
         <img
           src={href}
           alt={label}
           loading="lazy"
           decoding="async"
-          className="max-h-56 w-auto max-w-full rounded-lg border object-contain"
+          className="max-h-72 w-auto max-w-full rounded-xl object-contain"
         />
       </a>
     );
