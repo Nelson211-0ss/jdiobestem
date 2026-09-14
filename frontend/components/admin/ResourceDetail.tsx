@@ -3,6 +3,7 @@ import type { Field, Resource } from '@/lib/admin/resources';
 import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
 import { fileNameFrom, isImage } from '@/lib/media';
 import FilePreview from './FilePreview';
+import { toFileList } from '@/lib/files';
 import { DetailSection, DetailTable, DetailTableRow } from './Shell';
 
 /**
@@ -211,6 +212,23 @@ export default function ResourceDetail({
             <DetailTableRow key={field.name} label={field.label}>
               {field.name === 'action_display' && record[field.name] ? (
                 <Badge variant="secondary">{String(record[field.name])}</Badge>
+              ) : field.type === 'uploads' ? (
+                // Every file, not a count: the reason to open a payment is
+                // usually to look at the receipt.
+                (() => {
+                  const files = toFileList(record[field.name]);
+                  return files.length ? (
+                    <div className="flex flex-wrap gap-3">
+                      {files.map((url, index) => (
+                        <span key={`${url}-${index}`}>
+                          {attachment(url, `${field.label} ${index + 1}`)}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="font-normal text-muted-foreground">&mdash;</span>
+                  );
+                })()
               ) : field.type === 'upload' ? (
                 attachment(record[field.name], field.label)
               ) : field.type === 'textarea' ? (

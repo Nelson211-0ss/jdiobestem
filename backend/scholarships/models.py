@@ -212,8 +212,13 @@ class ScholarshipTerm(TimeStampedModel):
     )
     academic_year = models.CharField(max_length=20, blank=True, help_text="e.g. 2026.")
     label = models.CharField(max_length=40, help_text="e.g. Term 1.")
-    starts_on = models.DateField(db_index=True)
-    ends_on = models.DateField()
+    # Optional, because a term is often known before its dates are. A payment
+    # has to be able to say which term it settles the day it goes out, and the
+    # school calendar frequently arrives later. A term without dates still
+    # answers what is owed; it is only the reminders that need them, and those
+    # simply pass it over until somebody fills them in.
+    starts_on = models.DateField(null=True, blank=True, db_index=True)
+    ends_on = models.DateField(null=True, blank=True)
     amount_due = models.DecimalField(
         max_digits=12,
         decimal_places=2,
@@ -293,18 +298,12 @@ class ScholarshipPayment(TimeStampedModel):
     reference = models.CharField(
         max_length=120, blank=True, help_text="Bank or mobile money reference."
     )
-    # What was actually quoted on this transfer. Recorded here as well as on
-    # the bursary because a pupil's code can be reissued or change with their
-    # school, and a payment has to say what was used at the time — the same
-    # reason the bank reference is kept beside the amount.
-    school_pay_code = models.CharField(
-        max_length=60,
-        blank=True,
-        db_index=True,
-        help_text="The School Pay code quoted on this payment.",
-    )
-    receipt = models.CharField(
-        max_length=500, blank=True, help_text="The school's receipt for this payment."
+    # A list, because one transfer often comes back with more than one piece of
+    # paper — the bank slip, the school's own receipt, a stamped fee card — and
+    # a single slot meant the second one either replaced the first or was left
+    # out of the record entirely.
+    receipts = models.JSONField(
+        default=list, blank=True, help_text="The receipts for this payment."
     )
     paid_to = models.CharField(
         max_length=200,

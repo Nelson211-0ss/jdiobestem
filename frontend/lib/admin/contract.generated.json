@@ -1374,20 +1374,13 @@
         "kind": "text",
         "maxLength": 200
       },
-      "receipt": {
-        "kind": "text",
-        "maxLength": 500
-      },
+      "receipts": {},
       "reference": {
         "kind": "text",
         "maxLength": 120
       },
       "scholarship": {
         "required": true
-      },
-      "school_pay_code": {
-        "kind": "text",
-        "maxLength": 60
       },
       "term": {
         "allowNull": true
@@ -1405,8 +1398,8 @@
         "kind": "number"
       },
       "ends_on": {
-        "kind": "date",
-        "required": true
+        "allowNull": true,
+        "kind": "date"
       },
       "label": {
         "kind": "text",
@@ -1417,8 +1410,8 @@
         "required": true
       },
       "starts_on": {
-        "kind": "date",
-        "required": true
+        "allowNull": true,
+        "kind": "date"
       }
     },
     "scholarships": {

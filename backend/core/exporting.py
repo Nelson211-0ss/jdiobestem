@@ -293,6 +293,13 @@ class ExportableMixin:
             return value
 
         pairs = [(label, without_urls(value)) for label, value in pairs]
+        # Table cells too: a payments table with three receipt addresses in one
+        # cell is a column of unreadable storage paths above the pictures they
+        # point at.
+        tables = [
+            (heading, columns, [{k: without_urls(v) for k, v in row.items()} for row in rows])
+            for heading, columns, rows in tables
+        ]
 
         person = getattr(request, "user", None)
         report = RecordReport(

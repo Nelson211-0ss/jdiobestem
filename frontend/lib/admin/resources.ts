@@ -21,6 +21,7 @@ export type FieldType =
   | 'select'
   | 'boolean'
   | 'upload'
+  | 'uploads'
   | 'list'
   | 'readonly';
 
@@ -42,7 +43,19 @@ export type Field = {
     | 'expense';
   label: string;
   type?: FieldType;
-  options?: { value: string; label: string }[];
+  /** Options may carry extra keys — see `narrowBy`. */
+  options?: ({ value: string; label: string } & Record<string, unknown>)[];
+  /**
+   * Show only the options that belong to another field's value.
+   *
+   * The option carries a key of this same name — an office's `country`, a
+   * term's `scholarship` — and only those matching the form's current value
+   * are offered. Without it a term select is every term in the Foundation,
+   * which is a list nobody can find their student's term in.
+   *
+   * An empty value, or Global, narrows nothing.
+   */
+  narrowBy?: string;
   help?: string;
   /** upload fields only: which folder in object storage to put the file in. */
   folder?: string;
@@ -287,7 +300,7 @@ const STAGE_OPTIONS = [
 const triageFields: Field[] = [
   { name: 'status', label: 'Status', type: 'select', options: TRIAGE_OPTIONS },
   { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
-  { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+  { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', narrowBy: 'country', help: 'Narrows to the chosen country.' },
   { name: 'staff_notes', label: 'Internal notes', type: 'textarea', wide: true, help: 'Never shown on the website.' },
 ];
 
@@ -868,7 +881,7 @@ export const RESOURCES: Resource[] = [
         ],
       },
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
-      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', narrowBy: 'country', help: 'Narrows to the chosen country.' },
       { name: 'summary', label: 'Summary', type: 'textarea', wide: true, required: true, help: 'One or two sentences. This is the card on the careers page.' },
       { name: 'description', label: 'Full description', type: 'textarea', wide: true },
       { name: 'responsibilities', label: 'What the role involves', type: 'textarea', wide: true, help: 'One per line. Shown as a list.' },
@@ -1268,7 +1281,7 @@ export const RESOURCES: Resource[] = [
       },
       { name: 'description', label: 'What it is for', type: 'textarea', wide: true },
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
-      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', narrowBy: 'country', help: 'Narrows to the chosen country.' },
       { name: 'owner', label: 'Owner', type: 'select', options: [], source: 'staff', help: 'Who keeps this current.' },
       { name: 'is_public', label: 'Published on the website', type: 'boolean', help: 'Leave off for anything internal.' },
       { name: 'is_archived', label: 'Archived', type: 'boolean', help: 'Keeps it out of the way without destroying it.' },
@@ -1410,7 +1423,7 @@ export const RESOURCES: Resource[] = [
       { name: 'outstanding', label: 'Still owed', type: 'readonly' },
       { name: 'document', label: 'The invoice itself', type: 'upload', folder: 'invoices', wide: true },
       { name: 'country', label: 'Country', type: 'select', options: COUNTRY_OPTIONS, source: 'country' },
-      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', narrowBy: 'country', help: 'Narrows to the chosen country.' },
       { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
     ],
   },
@@ -1831,7 +1844,7 @@ export const RESOURCES: Resource[] = [
       { name: 'guardian_phone', label: 'Guardian phone', type: 'tel' },
       { name: 'guardian_address', label: 'Guardian address', type: 'text', wide: true },
 
-      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', help: 'Narrows to the chosen country.' },
+      { name: 'office', label: 'Office', type: 'select', options: [], source: 'office', narrowBy: 'country', help: 'Narrows to the chosen country.' },
     ],
   },
   {
@@ -1867,8 +1880,11 @@ export const RESOURCES: Resource[] = [
       },
       { name: 'label', label: 'Term', type: 'text', required: true, help: 'e.g. Term 1.' },
       { name: 'academic_year', label: 'Academic year', type: 'text', help: 'e.g. 2026.' },
-      { name: 'starts_on', label: 'Term begins', type: 'date', required: true },
-      { name: 'ends_on', label: 'Term ends', type: 'date', required: true },
+      {
+        name: 'starts_on', label: 'Term begins', type: 'date',
+        help: 'Left empty until the school publishes its calendar. Fee reminders need it.',
+      },
+      { name: 'ends_on', label: 'Term ends', type: 'date' },
       {
         name: 'amount_due', label: 'Fees due this term', type: 'number', wide: true,
         help: "Leave empty to use the bursary's amount per term.",
@@ -1883,18 +1899,17 @@ export const RESOURCES: Resource[] = [
     parent: 'Scholarships',
     icon: 'Receipt',
     description:
-      'Every transfer made to a school under a bursary, with its receipt. Kept as separate rows rather than a running total, so what was paid in a given term stays answerable.',
+      'Every transfer made to a school under a bursary, with its receipts. Kept as separate rows rather than a running total, so what was paid in a given term stays answerable.',
     titleField: 'term_label',
-    searchHint: 'student, school, term, reference, code',
+    searchHint: 'student, school, term, reference',
     columns: [
-      { name: 'receipt', label: '', thumb: true },
+      { name: 'receipts', label: '', thumb: true },
       { name: 'student_name', label: 'Student' },
       { name: 'school_name', label: 'School' },
       { name: 'term_label', label: 'Covers' },
       { name: 'amount', label: 'Amount', numeric: true },
       { name: 'currency', label: 'Currency' },
       { name: 'paid_on', label: 'Paid', date: true },
-      { name: 'school_pay_code', label: 'School Pay' },
       { name: 'method_display', label: 'Method', badge: true },
     ],
     filters: [
@@ -1917,8 +1932,8 @@ export const RESOURCES: Resource[] = [
       { name: 'currency', label: 'Currency', type: 'select', options: CURRENCY_OPTIONS, source: 'currency' },
       {
         name: 'term', label: 'Term this settles', type: 'select', options: [], source: 'term',
-        wide: true,
-        help: 'What is still owed on a term is worked out from the payments against it.',
+        narrowBy: 'scholarship', wide: true,
+        help: 'Only this student\u2019s terms, and the periods their school runs — three terms, or two semesters at a university. Choosing one marked "not set up yet" creates it against the year of this payment; its dates can be filled in later.',
       },
       {
         name: 'method', label: 'Method', type: 'select',
@@ -1930,13 +1945,12 @@ export const RESOURCES: Resource[] = [
           { value: 'other', label: 'Other' },
         ],
       },
-      {
-        name: 'school_pay_code', label: 'School Pay code used', type: 'text',
-        help: "What was quoted on this transfer — usually the student's own code.",
-      },
       { name: 'reference', label: 'Reference', type: 'text', help: 'Bank or mobile money reference.' },
       { name: 'paid_to', label: 'Paid to', type: 'text', wide: true, help: 'Only if it did not go to the school\u2019s usual account.' },
-      { name: 'receipt', label: 'Receipt', type: 'upload', folder: 'receipts', wide: true },
+      {
+        name: 'receipts', label: 'Receipts', type: 'uploads', folder: 'receipts', wide: true,
+        help: 'The bank slip, the school\u2019s receipt, a stamped fee card — add as many as came back.',
+      },
       { name: 'notes', label: 'Notes', type: 'textarea', wide: true },
       { name: 'recorded_by_name', label: 'Recorded by', type: 'readonly' },
     ],
@@ -1982,7 +1996,7 @@ function optionsFor(
     projects?: { value: string; label: string }[];
     scholarships?: { value: string; label: string }[];
     schools?: { value: string; label: string }[];
-    terms?: { value: string; label: string }[];
+    terms?: ({ value: string; label: string } & Record<string, unknown>)[];
     team?: { value: string; label: string }[];
     expenses?: { value: string; label: string }[];
   }
@@ -2016,7 +2030,7 @@ export function withOptions(
     projects?: { value: string; label: string }[];
     scholarships?: { value: string; label: string }[];
     schools?: { value: string; label: string }[];
-    terms?: { value: string; label: string }[];
+    terms?: ({ value: string; label: string } & Record<string, unknown>)[];
     team?: { value: string; label: string }[];
     expenses?: { value: string; label: string }[];
   }

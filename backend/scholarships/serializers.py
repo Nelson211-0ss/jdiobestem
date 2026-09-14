@@ -1,5 +1,7 @@
 """Bursaries for the dashboard."""
 
+from django.utils import timezone
+from django.utils.dateparse import parse_date
 from rest_framework import serializers
 
 from api.admin_serializers import LabelledChoicesMixin, ThumbnailMixin
@@ -10,6 +12,13 @@ from .models import (
     ScholarshipPayment,
     ScholarshipTerm,
 )
+
+
+#: What the term select sends for a period the bursary has not been given yet.
+#: A prefix rather than a separate field, because the person filling the form
+#: is answering one question — which term is this for — and should not have to
+#: know whether the answer already exists in the database.
+NEW_TERM_PREFIX = "new:"
 
 
 class ScholarshipBenefitSerializer(serializers.ModelSerializer):
@@ -58,7 +67,9 @@ class ScholarshipSerializer(ThumbnailMixin, LabelledChoicesMixin, serializers.Mo
 
     def get_next_term_due(self, obj) -> str:
         """The soonest unsettled term, which is what a reminder is about."""
-        unsettled = [t for t in obj.terms.all() if not t.is_settled]
+        # A term whose dates nobody has filled in yet cannot be the soonest
+        # anything, so it is passed over rather than sorted against None.
+        unsettled = [t for t in obj.terms.all() if not t.is_settled and t.starts_on]
         if not unsettled:
             return ""
         soonest = min(unsettled, key=lambda t: t.starts_on)
@@ -148,6 +159,17 @@ class ScholarshipTermSerializer(serializers.ModelSerializer):
 
 
 class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerializer):
+    """
+    One transfer to a school.
+
+    The term it settles can be chosen before anyone has set that term up. Most
+    bursaries are entered long before the school publishes a calendar, and a
+    payment that cannot say what it is for until somebody else does paperwork
+    is a payment recorded against nothing. So the term select also offers the
+    periods that school level runs — three terms, or two semesters at a
+    university — and picking one here creates it.
+    """
+
     student_name = serializers.CharField(source="scholarship.student_name", read_only=True)
     school_name = serializers.CharField(source="scholarship.school.name", read_only=True)
     term_label = serializers.CharField(source="term.__str__", read_only=True, default="")
@@ -160,7 +182,50 @@ class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerial
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at", "recorded_by"]
 
+    def to_internal_value(self, data):
+        """Resolve a term that does not exist yet.
+
+        The select sends `new:Term 2` for a period the bursary has not been
+        given. It is created against the year the money was sent, with its
+        dates left for whoever has the school calendar — see the note on
+        ScholarshipTerm about why those are optional.
+        """
+        raw = (data or {}).get("term")
+        if isinstance(raw, str) and raw.startswith(NEW_TERM_PREFIX):
+            data = data.copy() if hasattr(data, "copy") else dict(data)
+            data["term"] = self._term_for(data, raw[len(NEW_TERM_PREFIX):].strip())
+        return super().to_internal_value(data)
+
+    def _term_for(self, data, label):
+        bursary_id = data.get("scholarship") or getattr(self.instance, "scholarship_id", None)
+        try:
+            bursary = Scholarship.objects.get(pk=bursary_id)
+        except (Scholarship.DoesNotExist, ValueError, TypeError):
+            raise serializers.ValidationError(
+                {"term": "Choose the bursary first — a term belongs to one student."}
+            )
+        if not label:
+            raise serializers.ValidationError({"term": "That term has no name."})
+
+        paid_on = parse_date(str(data.get("paid_on") or "")) or timezone.localdate()
+        term, _ = ScholarshipTerm.objects.get_or_create(
+            scholarship=bursary,
+            academic_year=str(paid_on.year),
+            label=label[:40],
+        )
+        return term.pk
+
     def validate_amount(self, value):
         if value is not None and value <= 0:
             raise serializers.ValidationError("A payment has to be more than zero.")
         return value
+
+    def validate_receipts(self, value):
+        """Stored as a list of addresses, whatever shape it arrived in."""
+        if value in (None, ""):
+            return []
+        if isinstance(value, str):
+            return [value]
+        if not isinstance(value, list) or any(not isinstance(v, str) for v in value):
+            raise serializers.ValidationError("Receipts are a list of uploaded files.")
+        return [v for v in value if v.strip()]

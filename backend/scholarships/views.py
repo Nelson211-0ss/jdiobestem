@@ -60,14 +60,12 @@ class ScholarshipViewSet(ScopedViewSet):
             (
                 "Payments to the school",
                 [("paid_on", "Date"), ("term", "Term"), ("amount", "Amount"),
-                 ("method", "Method"), ("code", "School Pay"), ("reference", "Reference"),
-                 ("receipt", "Receipt")],
+                 ("method", "Method"), ("reference", "Reference"), ("receipts", "Receipts")],
                 [
                     {
                         "paid_on": p.paid_on, "term": str(p.term) if p.term_id else "",
                         "amount": f"{p.amount:,.0f}", "method": p.get_method_display(),
-                        "code": p.school_pay_code, "reference": p.reference,
-                        "receipt": p.receipt,
+                        "reference": p.reference, "receipts": p.receipts,
                     }
                     for p in payments
                 ],
@@ -98,7 +96,7 @@ class ScholarshipPaymentViewSet(ScopedViewSet):
     serializer_class = ScholarshipPaymentSerializer
     filterset_fields = ["scholarship", "method", "term"]
     search_fields = [
-        "reference", "school_pay_code", "notes", "term__label", "scholarship__student_name",
+        "reference", "notes", "term__label", "scholarship__student_name",
         "scholarship__school__name",
     ]
     ordering_fields = ["paid_on", "amount", "created_at"]

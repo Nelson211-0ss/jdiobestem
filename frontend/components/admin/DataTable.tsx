@@ -21,6 +21,7 @@ import { formatNumber, isMoneyLabel } from '@/lib/format';
 import type { Column, Resource } from '@/lib/admin/resources';
 import ClickableRow from './ClickableRow';
 import FilePreview from './FilePreview';
+import { toFileList } from '@/lib/files';
 
 type Row = Record<string, unknown>;
 
@@ -90,7 +91,18 @@ function renderCell(row: Row, column: Column) {
   const value = row[column.name];
 
   if (column.thumb) {
-    return <FilePreview url={typeof value === 'string' ? value : ''} />;
+    // One column can hold several files now. The first stands for the row —
+    // a strip of thumbnails in a table cell is noise, and the rest are one
+    // click away on the record.
+    const files = toFileList(value);
+    return (
+      <span className="flex items-center gap-1">
+        <FilePreview url={files[0] ?? ''} />
+        {files.length > 1 ? (
+          <span className="text-xs tabular text-muted-foreground">+{files.length - 1}</span>
+        ) : null}
+      </span>
+    );
   }
 
   if (value === null || value === undefined || value === '') {

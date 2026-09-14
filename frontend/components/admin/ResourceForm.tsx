@@ -31,6 +31,7 @@ import NumberInput from '@/components/ui/number-input';
 import { DetailRow } from './Shell';
 import PreviewFrame from './PreviewFrame';
 import UploadField from './UploadField';
+import MultiUploadField from './MultiUploadField';
 import type { Field, Resource } from '@/lib/admin/resources';
 
 type Values = Record<string, unknown>;
@@ -317,6 +318,29 @@ export default function ResourceForm({
     );
   };
 
+  /**
+   * The options this select should actually offer.
+   *
+   * A field with `narrowBy` only offers options belonging to another field's
+   * value — a term belongs to one student, an office to one country. Options
+   * that carry no such key are always kept, so a list that was never tagged
+   * behaves exactly as before.
+   *
+   * Global and an unanswered field narrow nothing: there is no "all countries"
+   * office, and hiding every option before the controlling field is filled in
+   * reads as an empty list rather than as a question asked in the wrong order.
+   */
+  const choicesFor = (field: Field) => {
+    const options = field.options ?? [];
+    if (!field.narrowBy) return options;
+    const against = String(values[field.narrowBy] ?? '');
+    if (!against || against === 'GL') return options;
+    return options.filter((o) => {
+      const key = o[field.narrowBy as string];
+      return key === undefined || key === null || String(key) === against;
+    });
+  };
+
   const renderField = (field: Field) => {
     // Locked once the record exists: shown as its value rather than as a
     // disabled box, because a greyed-out field invites people to try to type
@@ -364,6 +388,14 @@ export default function ResourceForm({
                 disabled={!canChange}
                 onChange={(rows) => set(field.name, rows)}
               />
+            ) : field.type === 'uploads' ? (
+              <MultiUploadField
+                id={id}
+                value={value}
+                folder={field.folder ?? 'misc'}
+                disabled={!canChange}
+                onChange={(v) => set(field.name, v)}
+              />
             ) : field.type === 'upload' ? (
               <UploadField
                 id={id}
@@ -404,7 +436,7 @@ export default function ResourceForm({
                   <SelectValue placeholder={required ? 'Choose one' : 'Choose one (optional)'} />
                 </SelectTrigger>
                 <SelectContent>
-                  {(field.options ?? []).map((o) => (
+                  {choicesFor(field).map((o) => (
                     <SelectItem key={o.value || '__blank__'} value={o.value || '__blank__'}>
                       {o.label}
                     </SelectItem>

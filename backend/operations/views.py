@@ -335,6 +335,49 @@ class OfficeViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet):
     ordering = ["country__order", "-is_main", "order", "name"]
 
 
+#: What a school year is divided into, by the level the school teaches. A
+#: university student sits semesters and a secondary student sits terms, and
+#: offering "Term 3" against a degree is how a record ends up meaning nothing.
+TERM_PERIODS = {
+    "tertiary": ["Semester 1", "Semester 2"],
+}
+DEFAULT_PERIODS = ["Term 1", "Term 2", "Term 3"]
+
+
+def _term_options():
+    """
+    Every term a payment could settle, per bursary.
+
+    Two kinds of entry. The terms that exist carry their id. The periods the
+    bursary has not been given yet carry `new:` and their name — choosing one
+    creates it, so a payment can say what it is for on the day it goes out
+    rather than waiting on somebody to set the year up first.
+    """
+    from scholarships.models import Scholarship
+
+    rows = []
+    bursaries = Scholarship.objects.select_related("school").prefetch_related("terms")
+    for bursary in bursaries:
+        who = str(bursary.pk)
+        named = set()
+        for term in sorted(
+            bursary.terms.all(), key=lambda t: (t.starts_on is None, t.starts_on or "", t.label)
+        ):
+            named.add(term.label.strip().lower())
+            rows.append({"value": str(term.pk), "label": str(term)[:140], "scholarship": who})
+        for period in TERM_PERIODS.get(bursary.school.level, DEFAULT_PERIODS):
+            if period.strip().lower() in named:
+                continue
+            rows.append(
+                {
+                    "value": f"new:{period}",
+                    "label": f"{period} — not set up yet",
+                    "scholarship": who,
+                }
+            )
+    return rows
+
+
 def _expense_options():
     """Recent expenses, labelled the way somebody holding the bill would read
     them — what it was, when, and for how much."""
@@ -411,17 +454,11 @@ def option_lists(request):
                 {"value": str(sc.pk), "label": f"{sc.name}{f' — {sc.district}' if sc.district else ''}"[:140]}
                 for sc in School.objects.order_by("name")
             ],
-            # A payment settles a term, so the form needs the list. Labelled
-            # with the student, because "Term 1 2026" alone belongs to nobody.
-            "terms": [
-                {
-                    "value": str(t.pk),
-                    "label": f"{t.scholarship.reference} {t.scholarship.student_name} — {t}"[:140],
-                }
-                for t in ScholarshipTerm.objects.select_related("scholarship").order_by(
-                    "-starts_on"
-                )
-            ],
+            # A payment settles a term, so the form needs the list — narrowed
+            # to the bursary it belongs to, which is what `scholarship` is for.
+            # The periods a bursary has not been given yet are offered too; see
+            # _term_options.
+            "terms": _term_options(),
             # The expenses an invoice can be settled by. Only the expenses
             # page, and only the most recent few hundred: a select listing
             # every expense the Foundation has ever recorded is a select
