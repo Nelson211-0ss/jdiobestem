@@ -41,7 +41,8 @@ export type Field = {
     | 'term'
     | 'team'
     | 'expense'
-    | 'period';
+    | 'period'
+    | 'schoolClass';
   label: string;
   type?: FieldType;
   /** Options may carry extra keys — see `narrowBy`. */
@@ -1804,10 +1805,15 @@ export const RESOURCES: Resource[] = [
         help: "This student's own code. The school's general code, if it has one, lives on its payment route.",
       },
       {
-        name: 'class_at_award', label: 'Class when the bursary started', type: 'text',
+        name: 'class_at_award', label: 'Class when the bursary started', type: 'select',
+        options: [], source: 'schoolClass', narrowBy: 'school',
         help: 'Never changes. It is what makes progress answerable years later.',
       },
-      { name: 'current_class', label: 'Class now', type: 'text' },
+      {
+        name: 'current_class', label: 'Class now', type: 'select',
+        options: [], source: 'schoolClass', narrowBy: 'school',
+        help: 'The classes this school teaches. Move it up as the student does.',
+      },
 
 
       { name: 'amount_per_term', label: 'Amount per term', type: 'number' },
@@ -2010,6 +2016,7 @@ function optionsFor(
     team?: { value: string; label: string }[];
     expenses?: { value: string; label: string }[];
     periods?: ({ value: string; label: string } & Record<string, unknown>)[];
+    classes?: ({ value: string; label: string } & Record<string, unknown>)[];
   }
 ) {
   if (source === 'currency') return options.currencies;
@@ -2026,6 +2033,7 @@ function optionsFor(
   if (source === 'team') return options.team ?? [];
   if (source === 'expense') return options.expenses ?? [];
   if (source === 'period') return options.periods ?? [];
+  if (source === 'schoolClass') return options.classes ?? [];
   return options.countries;
 }
 
@@ -2046,6 +2054,7 @@ export function withOptions(
     team?: { value: string; label: string }[];
     expenses?: { value: string; label: string }[];
     periods?: ({ value: string; label: string } & Record<string, unknown>)[];
+    classes?: ({ value: string; label: string } & Record<string, unknown>)[];
   }
 ): Resource {
   return {

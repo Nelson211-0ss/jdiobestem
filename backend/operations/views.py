@@ -378,6 +378,62 @@ def _term_options():
     return rows
 
 
+#: How far each stage runs, by country. Uganda takes seven years of primary
+#: and six of secondary; South Sudan takes eight and four. A single list would
+#: be wrong in one country or the other, and P8 quietly missing is a South
+#: Sudanese pupil who cannot be recorded in the class they are actually in.
+STAGES = {
+    "UG": {"primary": 7, "secondary": 6},
+    "SS": {"primary": 8, "secondary": 4},
+}
+DEFAULT_STAGES = {"primary": 7, "secondary": 6}
+
+
+def _classes_for(level: str, country: str) -> list[str]:
+    stages = STAGES.get(country, DEFAULT_STAGES)
+    if level == "tertiary":
+        return [f"Year {n}" for n in range(1, 6)]
+    if level == "vocational":
+        return [f"Year {n}" for n in range(1, 4)]
+    primary = [f"P{n}" for n in range(1, stages["primary"] + 1)]
+    secondary = [f"S{n}" for n in range(1, stages["secondary"] + 1)]
+    if level == "primary":
+        return primary
+    if level == "secondary":
+        return secondary
+    # Combined, or a school whose level nobody has filled in: offer both rather
+    # than nothing, because an empty select is worse than a long one.
+    return primary + secondary
+
+
+def _class_options():
+    """The classes a bursary can name, per school.
+
+    Tagged with the school rather than the bursary because the bursary form
+    asks for the school first and the class after it, so that is the answer
+    already on the screen when this list is needed.
+    """
+    from programmes.models import School
+    from scholarships.models import Scholarship
+
+    in_use: dict[int, set[str]] = {}
+    for school_id, at_award, now in Scholarship.objects.values_list(
+        "school_id", "class_at_award", "current_class"
+    ):
+        for value in (at_award, now):
+            if value:
+                in_use.setdefault(school_id, set()).add(value)
+
+    rows = []
+    for school in School.objects.all():
+        names = _classes_for(school.level, school.country)
+        # Whatever is already recorded stays offered, so editing a bursary
+        # cannot silently drop a class this school actually uses.
+        names += sorted(n for n in in_use.get(school.pk, set()) if n not in names)
+        rows.extend({"value": n, "label": n, "school": str(school.pk)} for n in names)
+    return rows
+
+
 def _period_options():
     """What a term can be called, per bursary.
 
@@ -483,6 +539,9 @@ def option_lists(request):
             # vocabulary as the payment select and drawn from the same place,
             # so the two can never start offering different words.
             "periods": _period_options(),
+            # What class a student can be in, which depends on the school they
+            # are at — see _class_options.
+            "classes": _class_options(),
             # The expenses an invoice can be settled by. Only the expenses
             # page, and only the most recent few hundred: a select listing
             # every expense the Foundation has ever recorded is a select
