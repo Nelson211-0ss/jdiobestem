@@ -126,6 +126,11 @@ export type Resource = {
    * Nests this resource under a named, expandable sidebar row alongside its
    * siblings — the way Newsletters and Subscribers are two halves of one job.
    * It changes navigation only; routes and permissions are unaffected.
+   *
+   * A `/` nests one group inside another: `Website/Newsletter` puts the
+   * newsletter pair inside the website group rather than beside it. Two levels
+   * is the limit, which is as deep as a nav can go before nobody can find
+   * anything in it.
    */
   parent?: string;
   icon: string;
@@ -579,7 +584,7 @@ export const RESOURCES: Resource[] = [
     label: 'Subscribers',
     singular: 'subscriber',
     group: 'Website',
-    parent: 'Newsletter',
+    parent: 'Website/Newsletter',
     icon: 'AtSign',
     titleField: 'email',
     searchHint: 'email, source',
@@ -779,6 +784,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'page-blocks',
+    parent: 'Website',
     label: 'Website copy',
     singular: 'block',
     group: 'Website',
@@ -838,7 +844,7 @@ export const RESOURCES: Resource[] = [
     label: 'Positions',
     singular: 'position',
     group: 'Website',
-    parent: 'Hiring',
+    parent: 'Website/Hiring',
     icon: 'Briefcase',
     description:
       'Vacancies on the careers page. Closing a position takes it off the site; it is never deleted, because applications on file refer to it.',
@@ -898,7 +904,7 @@ export const RESOURCES: Resource[] = [
     label: 'Applications',
     singular: 'application',
     group: 'Website',
-    parent: 'Hiring',
+    parent: 'Website/Hiring',
     icon: 'UserSearch',
     description:
       'Everyone who has applied, and how far they have got. Every stage change is recorded in the activity log.',
@@ -954,7 +960,7 @@ export const RESOURCES: Resource[] = [
     label: 'Newsletters',
     singular: 'newsletter',
     group: 'Website',
-    parent: 'Newsletter',
+    parent: 'Website/Newsletter',
     icon: 'Mail',
     description:
       'The newsletter is a PDF; the email is a covering note pointing at it. A campaign is frozen once anyone has received it.',
@@ -1012,6 +1018,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'news',
+    parent: 'Website',
     label: 'News stories',
     singular: 'story',
     group: 'Website',
@@ -1127,6 +1134,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'magazine',
+    parent: 'Website',
     label: 'Magazine issues',
     singular: 'issue',
     group: 'Website',
@@ -1196,6 +1204,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'stats',
+    parent: 'Website',
     label: 'Home page figures',
     singular: 'figure',
     group: 'Website',
