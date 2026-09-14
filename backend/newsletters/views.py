@@ -222,7 +222,7 @@ def unsubscribe(request, token):
         """<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Unsubscribed</title></head>
-<body style="margin:0;background:#fff1e0;font-family:Arial,Helvetica,sans-serif">
+<body style="margin:0;background:#f5f5f5;font-family:Arial,Helvetica,sans-serif">
 <div style="max-width:520px;margin:12vh auto;background:#fff;border-radius:14px;padding:40px;text-align:center">
   <p style="font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#fe5c00;font-weight:bold;margin:0 0 18px">
     Jdiobe STEM Foundation</p>

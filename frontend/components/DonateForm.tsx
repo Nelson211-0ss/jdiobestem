@@ -145,16 +145,16 @@ export default function DonateForm() {
     <form id="donation-form" className="mt-9 max-w-xl" onSubmit={onSubmit}>
       <div
         id="donate-mock-banner"
-        className={`${mockMode ? '' : 'hidden '}mb-6 rounded-xl bg-cream-200 px-4 py-3 text-sm text-charcoal-800`}
+        className={`${mockMode ? '' : 'hidden '}mb-6 rounded-xl bg-smoke-200 px-4 py-3 text-sm text-charcoal-800`}
         role="status"
       >
         <strong className="font-semibold">Local practice mode.</strong> No card charge. Remove{' '}
-        <code className="rounded bg-cream-300/80 px-1 text-xs">?mock_checkout=1</code> and{' '}
-        <code className="rounded bg-cream-300/80 px-1 text-xs">
+        <code className="rounded bg-smoke-300/80 px-1 text-xs">?mock_checkout=1</code> and{' '}
+        <code className="rounded bg-smoke-300/80 px-1 text-xs">
           localStorage jdiobe_donate_mock
         </code>{' '}
         to test real Stripe checkout. (Only available on{' '}
-        <code className="rounded bg-cream-300/80 px-1 text-xs">localhost</code>.)
+        <code className="rounded bg-smoke-300/80 px-1 text-xs">localhost</code>.)
       </div>
 
       {/* Amount — the first decision, the way the reference orders it. */}

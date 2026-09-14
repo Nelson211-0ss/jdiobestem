@@ -7,7 +7,7 @@ import Icon from './Icon';
 /**
  * Home hero.
  *
- * Asymmetric composition on cream: the headline column carries the weight and
+ * Asymmetric composition on smoke white: the headline column carries the weight and
  * the carousel sits opposite it, cropped with one squared corner so it reads as
  * a designed block rather than a floating photo. Orange is spent on the sketch
  * underline and the primary button only — the slab of brand colour it replaces
@@ -95,7 +95,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="hero-home relative overflow-hidden bg-cream-100">
+    <section className="hero-home relative overflow-hidden bg-smoke-100">
       {/* Decorative field, held well back so it never fights the headline. */}
       <div className="hero-blob" aria-hidden="true" />
 

@@ -95,7 +95,7 @@ export default function VolunteersContent({
       </section>
 
       {/* What it means to volunteer */}
-      <section className="section-tight bg-cream-100">
+      <section className="section-tight bg-smoke-100">
         <div className="container-page">
           <div className="split">
             <div>
@@ -204,7 +204,7 @@ export default function VolunteersContent({
           named — an empty "our outstanding volunteers" heading would say the
           opposite of what it is for. */}
       {recognised.length > 0 ? (
-        <section className="section-tight bg-cream-100">
+        <section className="section-tight bg-smoke-100">
           <div className="container-page">
             <div className="section-head">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
@@ -290,7 +290,7 @@ export default function VolunteersContent({
       </section>
 
       {/* Application */}
-      <section id="apply" className="section-tight bg-cream-100">
+      <section id="apply" className="section-tight bg-smoke-100">
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
             <div className="section-head">

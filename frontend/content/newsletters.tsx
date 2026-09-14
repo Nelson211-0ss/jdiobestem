@@ -92,7 +92,7 @@ export default function NewslettersContent({
             </div>
           )}
 
-          <div className="mx-auto mt-16 max-w-2xl rounded-2xl bg-cream-100 p-6 text-center sm:p-9">
+          <div className="mx-auto mt-16 max-w-2xl rounded-2xl bg-smoke-100 p-6 text-center sm:p-9">
             <h2 className="text-2xl">Get the next one</h2>
             <p className="mt-3 text-charcoal-600">
               One email, when there is something worth sending.

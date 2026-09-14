@@ -71,7 +71,7 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
       </section>
 
       {/* Two sides */}
-      <section className="section-tight bg-cream-100">
+      <section className="section-tight bg-smoke-100">
         <div className="container-page">
           <div className="section-head">
             <h2>{text(blocks, "h2.two-sides-of-the-same", "Two sides of the same pairing")}</h2>
@@ -211,7 +211,7 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
       </section>
 
       {/* Where it runs */}
-      <section className="section-tight bg-cream-100">
+      <section className="section-tight bg-smoke-100">
         <div className="container-page">
           <div className="section-head">
             <h2>{text(blocks, "h2.where-it-runs", "Where it runs")}</h2>

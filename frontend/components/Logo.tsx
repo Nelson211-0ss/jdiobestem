@@ -2,7 +2,7 @@
  * Full Jdiobe STEM Foundation lockup, inlined from public/icons/full logo.svg.
  *
  * Inlined rather than loaded as an <img> so the wordmark can follow
- * `currentColor` — the same asset then serves the charcoal-on-cream header and
+ * `currentColor` — the same asset then serves the charcoal-on-smoke header and
  * the white-on-charcoal footer, with the orange mark held constant. Override
  * `--logo-mark` if the mark ever needs to change with it.
  */

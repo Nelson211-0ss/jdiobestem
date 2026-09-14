@@ -8,7 +8,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
     <>
         <main>
           {/* Intro */}
-          <section className="bg-cream-100">
+          <section className="bg-smoke-100">
             <div className="mx-auto grid max-w-6xl items-center gap-9 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
               <div className="text-center md:text-left">
                 <h1 className="sr-fade-up text-4xl">{text(blocks, "h1.measuring-progress-toward-a-future", "Measuring progress toward a future where more students can access STEM opportunity.")}</h1>
@@ -80,7 +80,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
 
           {/* Impact Story — headline leads the section, images sit in a staggered
                pair, and the quote is pulled out full width as the closing beat. */}
-          <section className="relative overflow-hidden bg-cream-100 py-14 md:py-16">
+          <section className="relative overflow-hidden bg-smoke-100 py-14 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <header className="sr-fade-up max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.impact-story", "Impact Story")}</p>
@@ -176,11 +176,11 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.evidence-of-activity", "Evidence of Activity")}</p>
                   <h2 className="mt-3 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{text(blocks, "h2.impact-grows-through-consistent-visible", "Impact grows through consistent, visible action.")}</h2>
                   <p className="mt-4 text-base leading-relaxed text-stone-600">{text(blocks, "p.from-scholarships-and-mentorship-to", "From scholarships and mentorship to hands-on STEM learning, our programs create progress students and partners can see and measure.")}</p>
-                  <p className="mt-6 rounded-xl bg-cream-200 px-4 py-3 text-sm leading-relaxed text-stone-700">{text(blocks, "p.each-area-below-reflects-work", "Each area below reflects work already underway — not future plans — as we build toward broader reach across Uganda.")}</p>
+                  <p className="mt-6 rounded-xl bg-smoke-200 px-4 py-3 text-sm leading-relaxed text-stone-700">{text(blocks, "p.each-area-below-reflects-work", "Each area below reflects work already underway — not future plans — as we build toward broader reach across Uganda.")}</p>
                 </header>
 
                 <div className="sr-stagger mt-10 space-y-4 lg:col-span-8 lg:mt-0">
-                  <article className="sr-fade-up flex gap-4 bg-cream-100 p-5 sm:gap-5 sm:p-6">
+                  <article className="sr-fade-up flex gap-4 bg-smoke-100 p-5 sm:gap-5 sm:p-6">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                       <Icon name="award" className="h-5 w-5"/>
                     </span>
@@ -189,7 +189,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
                       <p className="mt-2 text-sm leading-relaxed text-stone-600">{text(blocks, "p.financial-assistance-for-stem-focused", "Financial assistance for STEM-focused students covering tuition, materials, and related costs so education stays within reach.")}</p>
                     </div>
                   </article>
-                  <article className="sr-fade-up flex gap-4 bg-cream-100 p-5 sm:gap-5 sm:p-6">
+                  <article className="sr-fade-up flex gap-4 bg-smoke-100 p-5 sm:gap-5 sm:p-6">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                       <Icon name="users" className="h-5 w-5"/>
                     </span>
@@ -198,7 +198,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
                       <p className="mt-2 text-sm leading-relaxed text-stone-600">{text(blocks, "p.one-on-one-and-group", "One-on-one and group mentorship connecting underserved learners with educators and professionals who help shape their academic path.")}</p>
                     </div>
                   </article>
-                  <article className="sr-fade-up flex gap-4 bg-cream-100 p-5 sm:gap-5 sm:p-6">
+                  <article className="sr-fade-up flex gap-4 bg-smoke-100 p-5 sm:gap-5 sm:p-6">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                       <Icon name="cpu" className="h-5 w-5"/>
                     </span>
@@ -207,7 +207,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
                       <p className="mt-2 text-sm leading-relaxed text-stone-600">{text(blocks, "p.targeted-support-for-students-pursuing", "Targeted support for students pursuing engineering, science, and technology — from coursework guidance to exposure to real-world STEM work.")}</p>
                     </div>
                   </article>
-                  <article className="sr-fade-up flex gap-4 bg-cream-100 p-5 sm:gap-5 sm:p-6">
+                  <article className="sr-fade-up flex gap-4 bg-smoke-100 p-5 sm:gap-5 sm:p-6">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-orange-500 text-white" aria-hidden="true">
                       <Icon name="globe" className="h-5 w-5"/>
                     </span>

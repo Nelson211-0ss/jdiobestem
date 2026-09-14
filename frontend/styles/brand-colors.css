@@ -3,10 +3,10 @@
  * Jdiobe STEM Foundation — design system
  * ============================================================================
  *
- * Five colours: cream, charcoal, orange, white, black.
+ * Five colours: smoke white, charcoal, orange, white, black.
  *
  * The layout language borrows from two references:
- *  - a cream page carrying white cards, fully-rounded orange pill buttons, heavy
+ *  - a smoke-white page carrying white cards, fully-rounded orange pill buttons, heavy
  *    uppercase section headings, and full-bleed orange CTA panels;
  *  - very large display headings with tight leading, generous section rhythm,
  *    asymmetric hero composition, and a hand-drawn underline on a key word.
@@ -22,16 +22,16 @@
 
 :root {
   /* --- the five ------------------------------------------------------- */
-  --cream: #fff1e0;
+  --smoke: #f5f5f5;
   --charcoal: #3a3b47;
   --brand-orange: #fe5c00;
   --white: #ffffff;
   --black: #000000;
 
   /* --- working tints (all derived from the five) ----------------------- */
-  --cream-soft: #fffbf6;
-  --cream-deep: #fbe6cf;
-  --cream-line: #f3d6b8;
+  --smoke-soft: #fcfcfc;
+  --smoke-deep: #e9e9e9;
+  --smoke-line: #dcdcdc;
 
   --charcoal-900: #1c1d23;
   --charcoal-800: #2b2c35;
@@ -42,7 +42,7 @@
   --charcoal-100: #edeae6;
 
   --brand-orange-hover: #e04f00;
-  --brand-orange-text: #c2410c; /* 4.85 on cream — smallest passing orange text */
+  --brand-orange-text: #c2410c; /* 4.75 on smoke white — smallest passing orange text */
   --brand-orange-soft: #ffe4d1;
   --brand-orange-300: #ffa26e; /* the soft accent tint the feature icons use */
   --brand-orange-wash: #fff4ec;
@@ -54,7 +54,7 @@
   --ink-strong: var(--charcoal);
   --ink-muted: var(--charcoal-500);
   --line: var(--charcoal-200);
-  --line-soft: var(--cream-line);
+  --line-soft: var(--smoke-line);
 
   /*
    * Ink on an orange fill.
@@ -97,13 +97,13 @@ body {
 }
 
 /*
- * Cream is the homepage's ground. Every other page runs on white and spends
- * cream only where a band needs to warm up — the site reads lighter, and the
+ * Smoke white is the homepage's ground. Every other page runs on white and
+ * spends smoke white only where a band needs to settle — the site reads lighter, and the
  * white cards that carry most of the content stop competing with the page.
  * `.hero-home` marks the homepage; no other page renders it.
  */
 body:has(.hero-home) {
-  --page: var(--cream);
+  --page: var(--smoke);
   /*
    * The homepage is the one page whose hero starts at the very top of the
    * viewport: the bar floats over it rather than sitting in a strip above it,
@@ -258,9 +258,9 @@ p a:not([class]):hover {
   color: var(--on-dark);
 }
 
-/* .surface-cream / .surface-white — the two page bands. */
-.surface-cream {
-  background-color: var(--cream);
+/* .surface-smoke / .surface-white — the two page bands. */
+.surface-smoke {
+  background-color: var(--smoke);
 }
 
 .surface-white {
@@ -343,7 +343,7 @@ p a:not([class]):hover {
 }
 
 /*
- * Surface-aware pair. The same two classes appear on cream sections and on
+ * Surface-aware pair. The same two classes appear on smoke-white sections and on
  * orange/charcoal/photographic ones, so rather than auditing every call site
  * they resolve by context: on a light surface they are an orange fill and a
  * charcoal outline; inside a dark surface they invert to white.
@@ -496,7 +496,7 @@ p a:not([class]):hover {
 /* ============================================================ cards */
 
 /*
- * White card on the cream page. Image flush at the top, padded body, action at
+ * White card on the smoke-white page. Image flush at the top, padded body, action at
  * the bottom. The whole card lifts on hover when it is a link.
  */
 .card {
@@ -524,7 +524,7 @@ a.card:hover,
   aspect-ratio: 16 / 10;
   width: 100%;
   overflow: hidden;
-  background-color: var(--cream-deep);
+  background-color: var(--smoke-deep);
 }
 
 .card-media img {
@@ -695,7 +695,7 @@ a.card:hover,
 .media-shape {
   border-radius: var(--r-panel) var(--r-panel) var(--r-panel) 0;
   overflow: hidden;
-  background-color: var(--cream-deep);
+  background-color: var(--smoke-deep);
 }
 
 .media-shape img {
@@ -730,9 +730,9 @@ a.card:hover,
   padding: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
 }
 
-.panel-cream {
+.panel-smoke {
   border-radius: var(--r-panel);
-  background-color: var(--cream);
+  background-color: var(--smoke);
   padding: clamp(1.75rem, 1.3rem + 2vw, 3rem);
 }
 
@@ -770,7 +770,7 @@ a.card:hover,
 /* Checkerboard band — a divider between sections. */
 .pattern-band {
   height: 2.25rem;
-  background-color: var(--cream);
+  background-color: var(--smoke);
   background-image:
     linear-gradient(45deg, var(--brand-orange) 25%, transparent 25%, transparent 75%, var(--brand-orange) 75%),
     linear-gradient(45deg, var(--brand-orange) 25%, transparent 25%, transparent 75%, var(--brand-orange) 75%);
@@ -824,7 +824,7 @@ a.card:hover,
 /*
  * The bar is opaque from the start — a translucent header over a light page
  * has nothing to contrast against. White everywhere except the homepage, which
- * runs on cream. It gains a shadow once the page scrolls.
+ * runs on smoke white. It gains a shadow once the page scrolls.
  */
 .site-nav {
   background-color: var(--white);
@@ -837,9 +837,9 @@ a.card:hover,
 }
 
 /*
- * The homepage bar is transparent until the page moves, so the hero's cream
+ * The homepage bar is transparent until the page moves, so the hero's smoke-white
  * and its orange field read as one uninterrupted surface behind the logo and
- * links. Once scrolled it takes the cream ground the page runs on — not white,
+ * links. Once scrolled it takes the smoke-white ground the page runs on — not white,
  * or the bar would read as a separate band sitting on top of the page.
  */
 body:has(.hero-home) .site-nav {
@@ -850,7 +850,7 @@ body:has(.hero-home) .site-nav {
 }
 
 body:has(.hero-home) .site-nav.is-scrolled {
-  background-color: var(--cream);
+  background-color: var(--smoke);
 }
 
 /* With a panel open, bar and panel are one continuous white surface. */
@@ -989,7 +989,7 @@ body:has(.hero-home) .site-nav.is-mega-open {
 }
 
 .mega-link:hover {
-  background-color: var(--cream);
+  background-color: var(--smoke);
   color: var(--brand-orange-text);
 }
 
@@ -1019,7 +1019,7 @@ body:has(.hero-home) .site-nav.is-mega-open {
   display: block;
   border-radius: var(--r-media);
   overflow: hidden;
-  background-color: var(--cream);
+  background-color: var(--smoke);
   transition:
     box-shadow 0.2s ease,
     transform 0.2s ease;
@@ -1090,7 +1090,7 @@ body:has(.hero-home) .site-nav.is-mega-open {
   display: block;
   border-radius: var(--r-media);
   overflow: hidden;
-  background-color: var(--cream);
+  background-color: var(--smoke);
   transition:
     box-shadow 0.2s ease,
     transform 0.2s ease;
@@ -1152,7 +1152,7 @@ body:has(.hero-home) .site-nav.is-mega-open {
 }
 
 body:has(.hero-home) .mobile-menu {
-  background-color: var(--cream);
+  background-color: var(--smoke);
 }
 
 .mobile-menu.is-open {
@@ -1346,7 +1346,7 @@ body:has(.hero-home) .mobile-menu {
   width: 100%;
   border: 0;
   border-radius: 0.875rem;
-  background-color: var(--cream);
+  background-color: var(--smoke);
   padding: 0.8125rem 1rem;
   font-size: 1rem;
   font-family: inherit;
@@ -1372,9 +1372,9 @@ body:has(.hero-home) .mobile-menu {
   box-shadow: 0 0 0 3px var(--brand-orange);
 }
 
-/* A cream well would vanish on the cream page, so fields sitting directly on it
+/* A smoke-white well would vanish on the smoke-white page, so fields sitting directly on it
    (rather than inside a white card) take the white fill instead. */
-.surface-cream .field,
+.surface-smoke .field,
 .page-hero .field {
   background-color: var(--white);
 }
@@ -1485,7 +1485,7 @@ footer .field-error {
 }
 
 body:has(.hero-home) .preloader {
-  background-color: var(--cream);
+  background-color: var(--smoke);
 }
 
 .preloader.is-hidden {
@@ -1648,7 +1648,7 @@ body:has(.hero-home) .preloader {
   width: 100%;
   aspect-ratio: 4 / 3;
   border-radius: var(--r-panel) var(--r-panel) var(--r-panel) 0;
-  background-color: var(--cream-deep);
+  background-color: var(--smoke-deep);
   box-shadow: var(--shadow-panel);
 }
 
@@ -1789,7 +1789,7 @@ main > section + header {
 }
 
 /*
- * Sections that declare no ground of their own alternate onto cream. White is
+ * Sections that declare no ground of their own alternate onto smoke white. White is
  * the page now, so an unbroken run of transparent sections would leave the
  * shadow-only white cards sitting on their own colour with nothing to read
  * against. Anything that sets its own background — a utility, a surface — is
@@ -1797,7 +1797,7 @@ main > section + header {
  * alternation holds however many coloured sections sit between them.
  */
 main > section:nth-of-type(even):not([class*='bg-']):not([class*='surface-']):not([class*='hero']) {
-  background-color: var(--cream);
+  background-color: var(--smoke);
 }
 
 /* No seam directly under the home hero — it ends on its own change of
@@ -1815,7 +1815,7 @@ main > section:first-child + section {
   box-shadow: 0 -18px 28px -26px rgb(58 59 71 / 0.2);
 }
 
-/* Full-width bands lift off the cream page rather than butting against it. */
+/* Full-width bands lift off the smoke-white page rather than butting against it. */
 .surface-white,
 main > section.bg-white {
   box-shadow: 0 -22px 36px -30px rgb(58 59 71 / 0.2);
@@ -1824,7 +1824,7 @@ main > section.bg-white {
 /* ============================================================ team */
 
 /*
- * Profile cards. Each is a cream tile holding one arch of brand orange with a
+ * Profile cards. Each is a smoke-white tile holding one arch of brand orange with a
  * cut-out portrait standing in it, then the name, the role, and a row of links.
  *
  * The arch and the shared crop do the work: the source photos were shot at
@@ -1841,7 +1841,7 @@ main > section.bg-white {
   display: flex;
   flex-direction: column;
   border-radius: var(--r-card);
-  background-color: var(--cream);
+  background-color: var(--smoke);
   padding: 0.875rem;
   height: 100%;
   transition:
@@ -1994,7 +1994,7 @@ main > section.bg-white {
   width: min(34rem, calc(100vw - 2rem));
   border: 0;
   border-radius: var(--r-card);
-  background-color: var(--cream);
+  background-color: var(--smoke);
   padding: 0;
   color: var(--ink);
   box-shadow: var(--shadow-panel);
@@ -2182,7 +2182,7 @@ main > section.bg-white {
   display: block;
   overflow: hidden;
   border-radius: var(--r-media);
-  background-color: var(--cream-deep);
+  background-color: var(--smoke-deep);
   /* Story photography here is portrait-orientation; a 16:10 crop slices heads
      in half, so the tile is squarer and biased toward the top of the frame. */
   aspect-ratio: 4 / 3;
@@ -2804,7 +2804,7 @@ main > section.bg-white {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--cream-200);
+  background-color: var(--smoke-deep);
   color: var(--brand-orange-text);
   font-size: 0.75rem;
   font-weight: 800;
@@ -2814,7 +2814,7 @@ main > section.bg-white {
 }
 
 .news-item-media.is-plain:hover {
-  background-color: var(--cream-300, #f3d6b8);
+  background-color: var(--smoke-line);
 }
 
 /* Further photographs below an article body. */
@@ -3124,7 +3124,7 @@ main > section.bg-white {
   margin-top: 2rem;
   padding: 1.1rem 1.25rem;
   border-radius: var(--r-media);
-  background-color: var(--cream);
+  background-color: var(--smoke);
 }
 
 .proposal-status {
@@ -3281,7 +3281,7 @@ main > section.bg-white {
   padding: 0.5rem 0.75rem;
   border: 0;
   border-radius: var(--r-media);
-  background-color: var(--cream);
+  background-color: var(--smoke);
   box-shadow: inset 0 0 0 2px transparent;
   font-family: inherit;
   font-size: 1.125rem;
@@ -3297,7 +3297,7 @@ main > section.bg-white {
 
 .amount-chip:hover {
   color: var(--ink-strong);
-  background-color: var(--cream-deep, #f7e3cd);
+  background-color: var(--smoke-deep);
 }
 
 .amount-chip.is-selected {
@@ -3346,7 +3346,7 @@ main > section.bg-white {
   justify-content: space-between;
   gap: 1rem;
   border-radius: var(--r-media);
-  background-color: var(--cream);
+  background-color: var(--smoke);
   padding: 0.9rem 1.15rem;
 }
 
@@ -3719,7 +3719,7 @@ main > section.bg-white {
   width: 4rem;
   height: 4rem;
   border-radius: 999px;
-  background-color: var(--cream);
+  background-color: var(--smoke);
   color: var(--brand-orange-text);
 }
 

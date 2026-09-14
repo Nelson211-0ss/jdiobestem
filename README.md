@@ -30,7 +30,7 @@ Five colours and one typeface.
 
 | Token | Hex | Role |
 | --- | --- | --- |
-| cream | `#FFF1E0` | the page |
+| smoke white | `#F5F5F5` | the page |
 | charcoal | `#3A3B47` | body ink, dark surfaces, ink on orange fills |
 | orange | `#FE5C00` | the single accent: CTAs, eyebrows, rules, icons |
 | white | `#FFFFFF` | cards and alternating bands |
@@ -187,7 +187,7 @@ A static-only host (GitHub Pages) cannot run the donation route handlers; deploy
 - `content/*.tsx` — the page bodies, one per route. Mostly plain markup.
 - `components/Logo.tsx` — the full lockup, inlined from
   `public/icons/full logo.svg` so the wordmark follows `currentColor` and one
-  asset serves both the cream header and the charcoal footer.
+  asset serves both the smoke-white header and the charcoal footer.
 - `components/TeamDirectory.tsx` — the tabbed team grid on `/team`.
 - `components/PartnerMarquee.tsx` — the monochrome partner strip. `scale` per
   logo optically balances files that crop very differently.
@@ -200,7 +200,7 @@ A static-only host (GitHub Pages) cannot run the donation route handlers; deploy
   `public/icons/mega-menu`; their colours come from `--mega-ico-*` variables.
 - `components/Logo.tsx` / `components/MagazineLogo.tsx` — the foundation and
   magazine wordmarks, inlined so they follow `currentColor` and work on both
-  cream and charcoal.
+  smoke white and charcoal.
 - `content/` — one component per route, taking its data as props. News stories,
   magazine issues, team members, programmes, site figures and the editable copy
   on the hand-built pages all come from the CMS through `lib/site-content.ts`;

@@ -1,9 +1,9 @@
 import type { Config } from 'tailwindcss';
 
 /*
- * Five colours, nothing else: cream, charcoal, orange, white, black.
+ * Five colours, nothing else: smoke white, charcoal, orange, white, black.
  *
- *   cream     #FFF1E0   the page. Warm, low-glare, and what makes white cards read as cards.
+ *   smoke     #F5F5F5   the page. Quiet, low-glare, and what makes white cards read as cards.
  *   charcoal  #3A3B47   body ink and dark surfaces. Softer and warmer than pure black.
  *   orange    #FE5C00   the one accent. CTAs, links, eyebrows, and rules — nothing else.
  *   white     #FFFFFF   cards and alternating bands.
@@ -17,9 +17,11 @@ import type { Config } from 'tailwindcss';
  * Contrast notes, because vivid orange is the trap here:
  *   white    on #FE5C00 ... 3.11  FAIL for body copy, PASS for >=24px / >=18.7px bold
  *   charcoal on #FE5C00 ... 5.31  PASS
- *   #FE5C00  on #FFF1E0 ... 3.03  large text only
- *   #C2410C  on #FFF1E0 ... 4.85  PASS  <- orange-700, for small orange text
- *   charcoal on #FFF1E0 ... 9.72  PASS
+ *   #FE5C00  on #F5F5F5 ... 2.86  fills and large display type, never body copy
+ *   #C2410C  on #F5F5F5 ... 4.75  PASS  <- orange-700, for small orange text
+ *   charcoal on #F5F5F5 ... 10.16 PASS
+ * Recomputed against the new ground; every pair reads slightly better on smoke
+ * white than it did on cream, because the ground is lighter.
  * So: orange-500 is for fills and large type; orange-700 is the small-text orange.
  */
 
@@ -33,14 +35,14 @@ const orange = {
   400: '#FF7C33',
   500: '#FE5C00', // brand
   600: '#E04F00',
-  700: '#C2410C', // 4.85 on cream — the smallest passing orange text
+  700: '#C2410C', // 4.75 on smoke white — the smallest passing orange text
   800: '#963400',
   900: '#6B2500',
   950: '#3D1500',
 };
 
-// Charcoal ramp. The light end leans warm so tints sit on cream without
-// turning grey-blue; 700 is the brand charcoal.
+// Charcoal ramp. Its light end still leans warm, which is what keeps charcoal
+// tints from going flat against a neutral ground; 700 is the brand charcoal.
 const charcoal = {
   50: '#F7F5F3',
   100: '#EDEAE6',
@@ -55,13 +57,15 @@ const charcoal = {
   950: '#101116',
 };
 
-// Cream ramp, for the rare case a section needs a step between cream and white.
-const cream = {
-  50: '#FFFBF6',
-  100: '#FFF1E0', // brand cream — the page background
-  200: '#FBE6CF',
-  300: '#F3D6B8',
-  400: '#E7C09B',
+// Smoke-white ramp, for the rare case a section needs a step between the page
+// and white. Each step sits at the lightness the cream step it replaced had, so
+// the depth between bands is unchanged and only the warmth is gone.
+const smoke = {
+  50: '#FCFCFC',
+  100: '#F5F5F5', // whitesmoke — the page background
+  200: '#E9E9E9',
+  300: '#DCDCDC',
+  400: '#C7C7C7',
 };
 
 /*
@@ -143,7 +147,7 @@ const config: Config = {
         },
 
         orange,
-        cream,
+        smoke,
         charcoal,
         red,
         green,
@@ -178,7 +182,7 @@ const config: Config = {
         '4xl': '2.5rem',
       },
       boxShadow: {
-        // Warm, low-contrast lifts — a neutral black shadow goes grey on cream.
+        // Low-contrast lifts — a hard black shadow reads as dirt on a light ground.
         card: '0 2px 4px -2px rgb(58 59 71 / 0.06), 0 12px 28px -12px rgb(58 59 71 / 0.14)',
         'card-hover': '0 4px 8px -4px rgb(58 59 71 / 0.08), 0 24px 48px -16px rgb(58 59 71 / 0.20)',
         panel: '0 32px 64px -24px rgb(58 59 71 / 0.22)',

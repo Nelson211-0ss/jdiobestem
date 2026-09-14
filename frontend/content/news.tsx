@@ -6,7 +6,7 @@ import type { SiteStory } from '@/lib/site-content';
  * News index.
  *
  * The newest story runs full-bleed as a feature; the rest sit in a card grid
- * below it. Cards are image-plus-text straight on the cream page rather than in
+ * below it. Cards are image-plus-text straight on the smoke-white page rather than in
  * a white box — with photography this varied, a container round every one adds
  * clutter without adding structure.
  */

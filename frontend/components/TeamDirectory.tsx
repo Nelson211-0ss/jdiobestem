@@ -10,7 +10,7 @@ import SocialIcon from './SocialIcon';
  * foundation, the other who you would be joining — so they get a tab each
  * rather than one long grid where the second half never gets read.
  *
- * Each card is a cream tile holding a brand-orange arch with the person cut out
+ * Each card is a smoke-white tile holding a brand-orange arch with the person cut out
  * and standing in it. That means every portrait here has to be a transparent
  * cut-out; an opaque photo hides the orange and the set stops reading as one
  * group. Bios open in a dialog rather than expanding in place, so opening one

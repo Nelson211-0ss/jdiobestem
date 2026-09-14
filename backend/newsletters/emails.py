@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 BATCH_SIZE = 100
 BATCH_URL = "https://api.resend.com/emails/batch"
 
-CREAM = "#fff1e0"
+SMOKE = "#f5f5f5"
 CHARCOAL = "#3a3b47"
 ORANGE = "#fe5c00"
 
@@ -191,9 +191,9 @@ def wrap_email(
     pdf_html = pdf_block(pdf_url, cover_url, issue_label)
 
     return f"""<!doctype html>
-<html><body style="margin:0;padding:0;background:{CREAM}">
+<html><body style="margin:0;padding:0;background:{SMOKE}">
 {hidden_preheader}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{CREAM};padding:24px 12px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{SMOKE};padding:24px 12px">
   <tr><td align="center">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;padding:32px">
       <tr><td>

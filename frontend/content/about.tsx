@@ -62,7 +62,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
               </div>
 
               {/* Closing belief */}
-              <p className="sr-fade-up mt-10 max-w-4xl rounded-xl bg-cream-200 px-6 py-4 text-lg font-semibold leading-8 text-gray-900 sm:text-xl sm:leading-9">{text(blocks, "origin.para3", "We believe that when students are given access to opportunity, they can become engineers, scientists, researchers, entrepreneurs, educators, and problem solvers who strengthen their communities and contribute to global progress.")}</p>
+              <p className="sr-fade-up mt-10 max-w-4xl rounded-xl bg-smoke-200 px-6 py-4 text-lg font-semibold leading-8 text-gray-900 sm:text-xl sm:leading-9">{text(blocks, "origin.para3", "We believe that when students are given access to opportunity, they can become engineers, scientists, researchers, entrepreneurs, educators, and problem solvers who strengthen their communities and contribute to global progress.")}</p>
 
               {/* Focus areas as inline pills rather than a boxed list */}
               <div className="sr-fade-up mt-9 pt-8">
@@ -207,7 +207,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
           {/* Where We Work — place-led. The locations are the subject, so they are
                the layout rather than a sidebar list, and the two that have their own
                pages link straight through. */}
-          <section className="relative overflow-hidden bg-cream-100 py-12 md:py-16">
+          <section className="relative overflow-hidden bg-smoke-100 py-12 md:py-16">
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
               <header className="sr-fade-up max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "where.eyebrow", "Where We Work")}</p>

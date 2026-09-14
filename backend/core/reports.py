@@ -29,7 +29,7 @@ import pymupdf
 # The Foundation's palette, from brand-colors.css.
 ORANGE = (0xFE / 255, 0x5C / 255, 0x00 / 255)
 CHARCOAL = (0x3A / 255, 0x3B / 255, 0x47 / 255)
-CREAM = (0xFF / 255, 0xF1 / 255, 0xE0 / 255)
+SMOKE = (0xF5 / 255, 0xF5 / 255, 0xF5 / 255)
 MUTED = (0x6B / 255, 0x6C / 255, 0x78 / 255)
 RULE = (0xE2 / 255, 0xE0 / 255, 0xDC / 255)
 
@@ -204,7 +204,7 @@ def _css(column_count: int) -> str:
     body {{ font-family: sans-serif; font-size: {size}pt; color: #3a3b47; }}
     table {{ width: 100%; border-collapse: collapse; }}
     th {{
-      background-color: #fff1e0; color: #3a3b47; text-align: left;
+      background-color: #f5f5f5; color: #3a3b47; text-align: left;
       padding: 5px 6px; font-size: {size}pt; border-bottom: 1.2px solid #fe5c00;
     }}
     td {{ padding: 4px 6px; border-bottom: 0.6px solid #e2e0dc; vertical-align: top; }}
@@ -244,7 +244,7 @@ def record_to_pdf(report: RecordReport) -> bytes:
     p.lbl { font-size: 7.5pt; color: #6b6c78; margin: 7px 0 0 0; }
     p.val { font-size: 10pt; color: #3a3b47; margin: 0 0 1px 0; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-    th { background-color: #fff1e0; text-align: left; padding: 5px 7px;
+    th { background-color: #f5f5f5; text-align: left; padding: 5px 7px;
          font-size: 8pt; border-bottom: 0.8px solid #fe5c00; }
     td { padding: 5px 7px; font-size: 8pt; border-bottom: 0.6px solid #e2e0dc;
          vertical-align: top; }

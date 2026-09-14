@@ -5,7 +5,7 @@
  * variables in the Foundation's palette so the subdomain reads as part of the
  * same site. No layout is overridden — that is what breaks on Django upgrades.
  *
- * Charcoal #3A3B47, orange #FE5C00, cream #FFF1E0. Actions on orange use
+ * Charcoal #3A3B47, orange #FE5C00, smoke white #F5F5F5. Actions on orange use
  * charcoal text: white on this orange is 3.11:1 and fails AA, charcoal is
  * 5.31:1 and passes.
  */
@@ -21,7 +21,7 @@ html[data-theme="light"] {
   --header-branding-color: #fe5c00;
   --header-link-color: #ffffff;
 
-  --breadcrumbs-bg: #fff1e0;
+  --breadcrumbs-bg: #f5f5f5;
   --breadcrumbs-fg: #3a3b47;
   --breadcrumbs-link-fg: #c2410c;
 
@@ -40,8 +40,8 @@ html[data-theme="light"] {
   --default-button-hover-bg: #e05100;
   --close-button-bg: #6b6a73;
 
-  --selected-bg: #fff1e0;
-  --selected-row: #fff1e0;
+  --selected-bg: #f5f5f5;
+  --selected-row: #f5f5f5;
   --darkened-bg: #fbe6cf;
 
   --object-tools-bg: #3a3b47;

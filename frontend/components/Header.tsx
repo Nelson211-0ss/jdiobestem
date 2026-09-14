@@ -9,7 +9,7 @@ import MegaIcon from './MegaIcon';
 /**
  * Site navigation.
  *
- * A cream bar that is opaque from the top — on a cream page there is nothing
+ * A smoke-white bar that is opaque from the top — on a smoke-white page there is nothing
  * for a translucent header to sit over — and picks up a hairline plus a soft
  * shadow once the page scrolls. Desktop mega panels open on hover/focus with a
  * short grace period so the pointer can cross the gap into them; the mobile menu

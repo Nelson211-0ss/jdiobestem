@@ -25,7 +25,7 @@ export default function NewsletterForm({
   cta?: string;
   doneMessage?: string;
   id?: string;
-  /** `dark` for the charcoal footer, `light` for a cream or white surface. */
+  /** `dark` for the charcoal footer, `light` for a smoke-white or white surface. */
   tone?: 'dark' | 'light';
 } = {}) {
   const [email, setEmail] = useState('');

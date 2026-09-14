@@ -54,7 +54,7 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
                   width="800"
                   height="1000"
                 />
-                <figcaption className="bg-cream-100 px-5 py-4 text-sm leading-relaxed text-slate-600">
+                <figcaption className="bg-smoke-100 px-5 py-4 text-sm leading-relaxed text-slate-600">
                   Everything that keeps this aircraft in the air — the aerodynamics, the structures,
                   the maintenance discipline — is what the institute will teach.
                 </figcaption>
@@ -65,7 +65,7 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
       </section>
 
       {/* What students will study — the curriculum shape, stated as intent. */}
-      <section className="surface-cream py-12 md:py-16">
+      <section className="surface-smoke py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="max-w-2xl">
             <h2 className="sr-fade-up rule-brand text-3xl">{text(blocks, "h2.what-students-will-study", "What students will study")}</h2>
@@ -108,7 +108,7 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
 
           <div className="sr-stagger grid gap-6 md:grid-cols-3">
             <article className="sr-fade-up group overflow-hidden rounded-2xl bg-white shadow-card">
-              <div className="aspect-[4/3] overflow-hidden bg-cream-100">
+              <div className="aspect-[4/3] overflow-hidden bg-smoke-100">
                 <img src="/images/catapilar.jpeg" alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" width="800" height="600" />
               </div>
               <div className="p-7">
@@ -118,7 +118,7 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
               </div>
             </article>
             <article className="sr-fade-up group overflow-hidden rounded-2xl bg-white shadow-card">
-              <div className="aspect-[4/3] overflow-hidden bg-cream-100">
+              <div className="aspect-[4/3] overflow-hidden bg-smoke-100">
                 <img src="/images/robot.jpeg" alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" width="800" height="600" />
               </div>
               <div className="p-7">
@@ -128,7 +128,7 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
               </div>
             </article>
             <article className="sr-fade-up group overflow-hidden rounded-2xl bg-white shadow-card">
-              <div className="aspect-[4/3] overflow-hidden bg-cream-100">
+              <div className="aspect-[4/3] overflow-hidden bg-smoke-100">
                 <img src="/images/inspect.jpeg" alt="" className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]" width="800" height="600" />
               </div>
               <div className="p-7">
@@ -147,7 +147,7 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
         credibility than one we never gave. Replace with real milestones only
         when they are committed.
       */}
-      <section className="surface-cream py-12 md:py-16">
+      <section className="surface-smoke py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="section-head">
             <p className="sr-fade-up eyebrow">{text(blocks, "p.the-road-there", "The road there")}</p>

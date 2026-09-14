@@ -8,7 +8,7 @@
  * cannot restyle a single public page.
  *
  * The palette is the Foundation's, translated to HSL: charcoal #3A3B47 as the
- * ink, orange #FE5C00 as the accent, cream #FFF1E0 as the muted surface.
+ * ink, orange #FE5C00 as the accent, smoke white #F5F5F5 as the muted surface.
  */
 
 /*
@@ -48,10 +48,10 @@ html:has(.admin-shell) {
   --primary: 234 10% 25%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 33 100% 94%; /* cream #FFF1E0 */
+  --secondary: 0 0% 96%; /* whitesmoke #F5F5F5 */
   --secondary-foreground: 234 10% 25%;
 
-  --muted: 33 60% 96%;
+  --muted: 0 0% 98%;  /* the step above whitesmoke */
   --muted-foreground: 240 4% 44%;
 
   --accent: 22 100% 50%; /* brand orange #FE5C00 */
@@ -94,7 +94,7 @@ html:has(.admin-shell) {
  * Only the token values change — no component in the dashboard uses a `dark:`
  * utility, so the whole theme is this one block. Values are the same hues as
  * the light palette with the lightness inverted, rather than a neutral grey
- * ramp: keeping the charcoal's warm cast and the cream's hue stops the dark
+ * ramp: keeping the charcoal's warm cast against a neutral ground stops the dark
  * dashboard reading as a different product from the light one.
  *
  * The selector is on `html`, not on `.admin-shell`, so the no-flash script in

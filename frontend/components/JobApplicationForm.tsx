@@ -101,7 +101,7 @@ export default function JobApplicationForm({ jobs }: { jobs: SiteJob[] }) {
   if (done) {
     return (
       <div className="text-center">
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-cream-100 text-orange-700">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-smoke-100 text-orange-700">
           <Icon name="check-circle" className="h-7 w-7" />
         </span>
         <h3 className="mt-5 text-2xl">Application received</h3>
