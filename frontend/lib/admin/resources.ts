@@ -1917,6 +1917,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-payments',
+    linkFirstCell: true,
     label: 'Payments to schools',
     singular: 'payment',
     group: 'Programmes',

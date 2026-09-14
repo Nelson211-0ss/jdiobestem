@@ -79,6 +79,11 @@ class RecordReport:
     #: (caption, PNG/JPEG bytes) — receipts and other attachments, shown rather
     #: than left as a URL nobody can follow on paper.
     images: list[tuple[str, bytes]] = field(default_factory=list)
+    #: A picture of whoever the record is about, at the top beside the heading
+    #: rather than in the attachments at the end. A bursary report is about a
+    #: child, and a reader should see which one before the figures — not after
+    #: three pages of them.
+    portrait: bytes | None = None
     generated_by: str = ""
     generated_at: datetime | None = None
     note: str = ""
@@ -213,6 +218,12 @@ def record_to_pdf(report: RecordReport) -> bytes:
     # percentage width on a cell, so the label column collapsed and its text ran
     # straight over the value beside it.
     blocks = []
+    if report.portrait:
+        # Passport-sized and set before the fields: it identifies the record,
+        # it is not evidence about it, so it does not belong in the gallery of
+        # receipts at the end.
+        blocks.append('<p class="face"><img src="portrait.jpg" width="96"/></p>')
+
     for label, value in report.pairs:
         shown = _escape(_text(value, label)) or "&#8212;"
         blocks.append(f'<p class="lbl">{_escape(label)}</p><p class="val">{shown}</p>')
@@ -241,12 +252,15 @@ def record_to_pdf(report: RecordReport) -> bytes:
     p.section { font-size: 10pt; font-weight: bold; color: #fe5c00;
                 margin: 16px 0 4px 0; }
     p.shot { margin: 0 0 10px 0; }
+    p.face { margin: 0 0 8px 0; }
     """
 
     # Attachments are put in an archive Story can resolve <img src> against; a
     # receipt is the evidence the record is about, so it belongs on the page
     # rather than as a link that cannot be clicked on paper.
-    archive = pymupdf.Archive() if report.images else None
+    archive = pymupdf.Archive() if (report.images or report.portrait) else None
+    if report.portrait:
+        archive.add(report.portrait, "portrait.jpg")
     for index, (caption, data) in enumerate(report.images):
         name = f"attachment-{index}.jpg"
         archive.add(data, name)

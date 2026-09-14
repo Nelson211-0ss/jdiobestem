@@ -257,6 +257,16 @@ class ExportableMixin:
         """
         return []
 
+    def export_portrait(self, obj) -> str:
+        """The address of a picture of whoever this record is about.
+
+        Separate from the attachments: a student's photograph identifies the
+        record and belongs at the top, where a receipt is evidence about it and
+        belongs at the end. Most records are about no one, so the default is
+        none.
+        """
+        return ""
+
     @action(detail=True, methods=["get"], url_path="export")
     def export_record(self, request, *args, **kwargs):
         """One record as a document: label and value, then anything under it."""
@@ -275,6 +285,16 @@ class ExportableMixin:
         # _lookup, not data.get: a page record keeps its columns in one JSON
         # blob, so `values.text8` is a path and a plain get misses it.
         pairs = [(label, _lookup(data, name)) for name, label in pairs_spec]
+
+        # The portrait is taken out of the fields entirely rather than left as
+        # "shown below": it is on the page above, and a record often carries the
+        # same address twice — once as the photograph, once as the thumbnail the
+        # tables use — which would otherwise print the child's picture twice.
+        portrait_url = self.export_portrait(obj) if fmt == "pdf" else ""
+        portrait = _fetch_attachment(portrait_url) if portrait_url else None
+        if portrait:
+            pairs = [(label, value) for label, value in pairs if value != portrait_url]
+
         tables = self.export_detail_tables(obj)
         # Only worth fetching for something that can show them.
         images = self.export_attachments(pairs, tables) if fmt == "pdf" else []
@@ -308,6 +328,7 @@ class ExportableMixin:
             pairs=pairs,
             tables=tables,
             images=images,
+            portrait=portrait,
             generated_by=(person.get_full_name() or person.username) if person else "",
             generated_at=datetime.now(),
         )

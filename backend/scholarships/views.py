@@ -40,6 +40,9 @@ class ScholarshipViewSet(ScopedViewSet):
     ordering_fields = ["student_name", "school__name", "started_on", "status", "created_at"]
     ordering = ["student_name"]
 
+    def export_portrait(self, obj) -> str:
+        return obj.photo or ""
+
     def export_detail_tables(self, obj):
         """A bursary report is only useful with the money on the same sheet."""
         payments = obj.payments.select_related("recorded_by", "paid_by", "term").order_by("-paid_on")
@@ -84,6 +87,10 @@ class ScholarshipTermViewSet(ScopedViewSet):
     queryset = ScholarshipTerm.objects.select_related("scholarship", "scholarship__school")
     resource = "scholarship-terms"
     serializer_class = ScholarshipTermSerializer
+
+    def export_portrait(self, obj) -> str:
+        """Whose term this is. Same picture as the bursary's."""
+        return obj.scholarship.photo or ""
     filterset_fields = ["scholarship", "academic_year"]
     search_fields = ["label", "academic_year", "scholarship__student_name"]
     ordering_fields = ["starts_on", "ends_on", "label"]
@@ -96,6 +103,10 @@ class ScholarshipPaymentViewSet(ScopedViewSet):
     )
     resource = "scholarship-payments"
     serializer_class = ScholarshipPaymentSerializer
+
+    def export_portrait(self, obj) -> str:
+        """Whose fees this paid."""
+        return obj.scholarship.photo or ""
     filterset_fields = ["scholarship", "method", "term", "paid_by"]
     search_fields = [
         "reference", "notes", "term__label", "scholarship__student_name",
