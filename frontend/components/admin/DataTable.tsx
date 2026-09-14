@@ -161,6 +161,22 @@ export default function DataTable({
   const pathname = usePathname();
   const params = useSearchParams();
   const [pending, startTransition] = useTransition();
+  /**
+   * Where a row goes when clicked.
+   *
+   * Usually the record's own page. A resource that declares `detailsAt` has
+   * none — a term leads to its student instead — and falls back to its own
+   * route only if the row is missing the id to follow.
+   */
+  const hrefFor = (row: Row) => {
+    const at = resource.detailsAt;
+    const target = at ? row[at.field] : null;
+    if (at && target !== null && target !== undefined && target !== '') {
+      return `/admin/${at.resource}/${String(target)}`;
+    }
+    return `/admin/${resource.key}/${row.id}`;
+  };
+
   const [term, setTerm] = useState(params.get('search') ?? '');
 
   const setParam = (key: string, value: string) => {
@@ -260,7 +276,7 @@ export default function DataTable({
               </TableRow>
             ) : (
               rows.map((row) => {
-                const href = `/admin/${resource.key}/${row.id}`;
+                const href = hrefFor(row);
                 // Which cell carries the row's link. A picture is not a
                 // name, so it goes on the first cell that reads as one.
                 const linkedCell = resource.columns.find((c) => !c.thumb)?.name;
@@ -317,7 +333,7 @@ export default function DataTable({
           <li className="py-12 text-center text-muted-foreground">Nothing here yet.</li>
         ) : (
           rows.map((row) => {
-            const href = `/admin/${resource.key}/${row.id}`;
+            const href = hrefFor(row);
             const named = resource.columns.filter((c) => !c.thumb);
             const [lead, ...rest] = named;
             const picture = resource.columns.find((c) => c.thumb);

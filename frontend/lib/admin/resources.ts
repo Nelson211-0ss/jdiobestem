@@ -159,6 +159,18 @@ export type Resource = {
    */
   unlisted?: boolean;
   /**
+   * This record has no page of its own; its row leads somewhere else.
+   *
+   * A term is a row of dates and figures about one student — opening it showed
+   * the same fields again with nothing around them, when what somebody clicking
+   * a term wants is that student. `field` names the column on the row holding
+   * the id to go to.
+   *
+   * The detail route refuses for a resource that declares this, so there is one
+   * answer to "where does this go" rather than two.
+   */
+  detailsAt?: { resource: string; field: string };
+  /**
    * Written by the application, never by a person. Its detail page is shown as
    * a record rather than as a form nobody may submit, and it offers no create.
    */
@@ -1878,7 +1890,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-terms',
-    related: [{ resource: 'scholarship-payments', by: 'term', label: 'Payments against this term' }],
+    detailsAt: { resource: 'scholarships', field: 'scholarship' },
     label: 'Terms and fees due',
     singular: 'term',
     group: 'Programmes',

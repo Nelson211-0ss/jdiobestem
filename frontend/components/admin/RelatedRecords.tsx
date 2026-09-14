@@ -106,7 +106,11 @@ export default async function RelatedRecords({
                     >
                       {index === 0 ? (
                         <Link
-                          href={`/admin/${spec.resource}/${row.id}`}
+                          href={
+                            target.detailsAt && row[target.detailsAt.field]
+                              ? `/admin/${target.detailsAt.resource}/${String(row[target.detailsAt.field])}`
+                              : `/admin/${spec.resource}/${row.id}`
+                          }
                           className="font-medium underline-offset-2 hover:underline"
                         >
                           {cell(row, c)}

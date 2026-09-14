@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import type { Field, Resource } from '@/lib/admin/resources';
 import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
-import { fileNameFrom, isImage } from '@/lib/media';
+import { isImage } from '@/lib/media';
 import FilePreview from './FilePreview';
 import { toFileList } from '@/lib/files';
 import { DetailSection, DetailTable, DetailTableRow } from './Shell';
@@ -65,9 +65,6 @@ function attachment(value: unknown, label: string): React.ReactNode {
           decoding="async"
           className="max-h-56 w-auto max-w-full rounded-lg border object-contain"
         />
-        <span className="mt-1.5 block text-xs font-normal text-muted-foreground">
-          {fileNameFrom(raw)}
-        </span>
       </a>
     );
   }
@@ -208,8 +205,16 @@ export default function ResourceDetail({
       <DetailTable>
         {resource.fields
           .filter((f) => f.name !== 'changes' && f.name !== 'change_summary')
+          // The heading already says it. A "Student name" row under a page
+          // titled with the student's name is the same words twice.
+          .filter((f) => f.name !== (resource.titleField ?? ''))
           .map((field) => (
-            <DetailTableRow key={field.name} label={field.label}>
+            <DetailTableRow
+              key={field.name}
+              // A photograph is shown, not labelled: "Photograph" beside a
+              // photograph is a word telling you what your eyes already have.
+              label={field.type === 'upload' || field.type === 'uploads' ? undefined : field.label}
+            >
               {field.name === 'action_display' && record[field.name] ? (
                 <Badge variant="secondary">{String(record[field.name])}</Badge>
               ) : field.type === 'uploads' ? (

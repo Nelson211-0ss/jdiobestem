@@ -22,7 +22,10 @@ export default async function ResourceDetailPage({
 }) {
   const { resource: key, id } = await params;
   const base = RESOURCE_BY_KEY[key];
-  if (!base) notFound();
+  // A resource whose rows lead somewhere else has no page here — see
+  // `detailsAt`. Refused rather than rendered, so there is one answer to
+  // "where does a term go" instead of two that disagree.
+  if (!base || base.detailsAt) notFound();
 
   const [identity, options] = await Promise.all([getIdentity(), getOptionLists()]);
   const resource = withOptions(base, options);

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
@@ -110,12 +111,53 @@ export function FormShell({
  * reading one record feel like the same act — and a long record stays scannable
  * where a run of loose label/value pairs starts to drift.
  */
+/** Rows shown before a record has to be asked to open. */
+const FIELDS_BEFORE_FOLD = 9;
+
 export function DetailTable({ children }: { children: React.ReactNode }) {
+  const rows = React.Children.count(children);
+  // A record of thirty fields is a page somebody scrolls past to reach what is
+  // beside it. Folded to about a screenful, with the rest one press away.
+  //
+  // Done with a checkbox and its labels rather than state, so the card stays a
+  // server component and opens without waiting for JavaScript. Both labels are
+  // siblings of the input because that is what `peer-checked:` can see.
+  const foldable = rows > FIELDS_BEFORE_FOLD;
+
+  const table = (
+    <table className="w-full text-sm">
+      <tbody className="divide-y divide-border/40">{children}</tbody>
+    </table>
+  );
+
+  if (!foldable) return <div className="overflow-hidden rounded-xl">{table}</div>;
+
   return (
-    <div className="overflow-hidden rounded-xl">
-      <table className="w-full text-sm">
-        <tbody className="divide-y divide-border/40">{children}</tbody>
-      </table>
+    <div className="relative">
+      <input type="checkbox" id="detail-all" className="peer sr-only" />
+
+      <div className="overflow-hidden rounded-xl transition-[max-height] max-h-[44rem] peer-checked:max-h-none">
+        {table}
+      </div>
+
+      {/* The fade says there is more below without adding a line. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-12 h-20 bg-gradient-to-t from-card to-transparent peer-checked:hidden"
+      />
+
+      <label
+        htmlFor="detail-all"
+        className="mt-3 inline-flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground peer-checked:hidden"
+      >
+        Show all {rows} fields
+      </label>
+      <label
+        htmlFor="detail-all"
+        className="mt-3 hidden cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground peer-checked:inline-flex"
+      >
+        Show fewer
+      </label>
     </div>
   );
 }
@@ -125,9 +167,20 @@ export function DetailTableRow({
   label,
   children,
 }: {
-  label: string;
+  /** Omitted for a row that is a picture: the image is not an answer to a
+   *  question, and "Photograph" beside a photograph says nothing. */
+  label?: string;
   children: React.ReactNode;
 }) {
+  if (!label) {
+    return (
+      <tr className="align-top">
+        <td colSpan={2} className="px-4 py-3">
+          {children}
+        </td>
+      </tr>
+    );
+  }
   return (
     <tr className="align-top">
       <th
