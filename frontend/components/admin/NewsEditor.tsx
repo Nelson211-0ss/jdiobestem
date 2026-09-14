@@ -464,7 +464,7 @@ export default function NewsEditor({
         </p>
       ) : null}
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:left-64">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:left-80">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
           {canDelete && !isNew ? (
             <Button type="button" variant="outline" className="text-destructive" onClick={remove} disabled={saving}>

@@ -19,21 +19,15 @@ export function ListCard({ children, className }: { children: React.ReactNode; c
   );
 }
 
-export function ListHeader({
-  title,
-  subtitle,
-  actions,
-}: {
-  title: string;
-  subtitle?: string;
-  actions?: React.ReactNode;
-}) {
+export function ListHeader({ title, actions }: { title: string; actions?: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap items-start justify-between gap-4 pb-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-        {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}
-      </div>
+    // The description that used to sit under the title is gone. It explained
+    // the screen to somebody opening it for the first time and then said the
+    // same thing every day after — and being the widest thing in the row, it
+    // pushed the actions onto a line of their own. They sit beside the title
+    // now, which is where the eye already is.
+    <div className="flex flex-wrap items-center justify-between gap-3 pb-6">
+      <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
       {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
     </div>
   );
@@ -121,7 +115,7 @@ export function FormShell({
       </div>
 
       {footer ? (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:left-64">
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:left-80">
           <div className="mx-auto flex max-w-3xl items-center justify-end gap-3 px-4 py-3 sm:px-0">
             {footer}
           </div>

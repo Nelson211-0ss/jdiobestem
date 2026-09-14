@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import * as Icons from 'lucide-react';
 
+import Logo from '@/components/Logo';
 import { cn } from '@/lib/utils';
 import { GROUP_ORDER, RESOURCES, type Resource } from '@/lib/admin/resources';
 import type { BoardIndex } from '@/lib/admin/boards';
@@ -92,16 +93,10 @@ export default function Sidebar({
   permissions,
   boardIndex,
   onNavigate,
-  collapsed = false,
-  onExpand,
 }: {
   permissions: Record<string, string[]>;
   boardIndex: BoardIndex;
   onNavigate?: () => void;
-  /** Icons only, no labels. */
-  collapsed?: boolean;
-  /** Ask the shell to open the rail again — a group cannot show its children in it. */
-  onExpand?: () => void;
 }) {
   const pathname = usePathname();
   // `unlisted` resources are reachable but not navigated to: see the note on
@@ -166,7 +161,7 @@ export default function Sidebar({
       'flex items-center rounded-md text-sm transition-colors',
       // Collapsed, the icon is the whole control, so it is centred in a square
       // rather than left-aligned with a gap where the label used to be.
-      collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3.5 py-2.5',
+      'gap-3 px-3.5 py-2.5',
       current
         ? 'bg-secondary font-semibold text-secondary-foreground'
         : 'font-medium text-foreground hover:bg-muted'
@@ -258,25 +253,16 @@ export default function Sidebar({
       <div key={group.path}>
         <button
           type="button"
-          aria-expanded={collapsed ? false : expanded}
-          title={collapsed ? group.name : undefined}
-          aria-label={collapsed ? group.name : undefined}
-          onClick={() => {
-            if (collapsed) {
-              onExpand?.();
-              setOpen((prev) => new Set([...prev, ...chain(group.path)]));
-              return;
-            }
-            toggle(group.path);
-          }}
+          aria-expanded={expanded}
+          onClick={() => toggle(group.path)}
           className={cn(
             nested
               ? cn(childClass(holdsCurrent && !expanded), 'w-full text-left')
-              : cn(itemClass(holdsCurrent && !expanded), !collapsed && 'w-full text-left')
+              : cn(itemClass(holdsCurrent && !expanded), 'w-full text-left')
           )}
         >
           {nested ? null : <Icon className={iconClass(holdsCurrent)} />}
-          {collapsed ? null : (
+          {(
             <>
               <span className="flex-1 truncate">{group.name}</span>
               <Icons.ChevronDown
@@ -289,7 +275,7 @@ export default function Sidebar({
           )}
         </button>
 
-        {expanded && !collapsed ? (
+        {expanded ? (
           // The rule down the left is what ties the children to their row.
           <div className="ml-5 mt-1.5 space-y-1 border-l border-border/40 pl-3">
             {(group.boards ?? []).map((board) => {
@@ -332,19 +318,29 @@ export default function Sidebar({
         'flex h-full flex-col overflow-y-auto overflow-x-hidden',
         // Sticks below the 4rem header while the column behind it stretches
         // to the full page height.
-        'lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]',
-        collapsed ? 'items-center gap-3 p-2' : 'gap-1.5 px-5 py-4'
+        'lg:sticky lg:top-0 lg:h-screen',
+        'gap-1.5 px-11 pb-6 pt-9'
       )}
     >
+      {/* The wordmark belongs over the items it names, level with the search
+          beside it. Hidden below `lg`, where the header carries one instead —
+          there is no rail on screen to put it in. */}
       <Link
         href="/admin"
         onClick={onNavigate}
-        title={collapsed ? 'Overview' : undefined}
-        aria-label={collapsed ? 'Overview' : undefined}
+        aria-label="Jdiobe STEM Foundation dashboard"
+        className="mb-8 hidden h-10 shrink-0 items-center px-3.5 lg:flex"
+      >
+        <Logo className="h-7 w-auto text-foreground" />
+      </Link>
+
+      <Link
+        href="/admin"
+        onClick={onNavigate}
         className={itemClass(isCurrent('/admin'))}
       >
         <Overview className={iconClass(isCurrent('/admin'))} />
-        {collapsed ? null : 'Overview'}
+        Overview
       </Link>
 
       {SECTION_ORDER.map((section) => {
@@ -361,13 +357,9 @@ export default function Sidebar({
           <section
             key={section}
             aria-label={section}
-            className={collapsed ? 'w-full' : undefined}
-          >
-            {collapsed ? (
-              <hr className="mx-auto mb-2 w-6 border-t border-border" aria-hidden="true" />
-            ) : null}
-
-            <div className={cn('space-y-1.5', collapsed && 'flex flex-col items-center')}>
+                      >
+            
+            <div className={'space-y-1.5'}>
               {resources.map((r) => {
                 const Icon = iconFor(r.icon);
                 const href = `/admin/${r.key}`;
@@ -377,12 +369,10 @@ export default function Sidebar({
                     key={r.key}
                     href={href}
                     onClick={onNavigate}
-                    title={collapsed ? r.label : undefined}
-                    aria-label={collapsed ? r.label : undefined}
                     className={itemClass(current)}
                   >
                     <Icon className={iconClass(current)} />
-                    {collapsed ? null : <span className="truncate">{r.label}</span>}
+                    <span className="truncate">{r.label}</span>
                   </Link>
                 );
               })}
@@ -398,21 +388,12 @@ export default function Sidebar({
                   <div key={category.name}>
                     <button
                       type="button"
-                      aria-expanded={collapsed ? false : expanded}
-                      title={collapsed ? `${category.name} (${category.boards.length})` : undefined}
-                      aria-label={collapsed ? category.name : undefined}
-                      onClick={() => {
-                        if (collapsed) {
-                          onExpand?.();
-                          setOpen((prev) => new Set(prev).add(category.name));
-                          return;
-                        }
-                        toggle(category.name);
-                      }}
-                      className={cn(itemClass(holdsCurrent && !expanded), !collapsed && 'w-full text-left')}
+                      aria-expanded={expanded}
+                      onClick={() => toggle(category.name)}
+                      className={cn(itemClass(holdsCurrent && !expanded), 'w-full text-left')}
                     >
                       <Icon className={iconClass(holdsCurrent)} />
-                      {collapsed ? null : (
+                      {(
                         <>
                           <span className="flex-1 truncate">{category.name}</span>
                           <span className="text-xs tabular text-muted-foreground">
@@ -428,7 +409,7 @@ export default function Sidebar({
                       )}
                     </button>
 
-                    {expanded && !collapsed ? (
+                    {expanded ? (
                       // The rule down the left is what ties the children to
                       // their parent, as in the reference.
                       <div className="ml-5 mt-1.5 space-y-1 border-l border-border/40 pl-3">

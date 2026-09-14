@@ -49,44 +49,10 @@ export default function AdminShell({
 }) {
   const [navOpen, setNavOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
-  // Starts expanded and is corrected on mount from what this person chose last
-  // time. Reading storage during render would make the server and the client
-  // disagree about the first paint.
-  const [collapsed, setCollapsed] = useState(false);
+  // The rail used to collapse to a strip of icons. It no longer does: the
+  // control for it was one more thing in a header meant to be quiet, and a nav
+  // whose labels disappear is a nav somebody has to learn by shape.
   const router = useRouter();
-
-  // Below `lg` the nav is a drawer that is either open or shut, so collapsing
-  // does not apply there — a rail of icons inside a full-width drawer would be
-  // the worst of both.
-  const [isDesktop, setIsDesktop] = useState(true);
-
-  useEffect(() => {
-    try {
-      setCollapsed(window.localStorage.getItem(NAV_KEY) === 'collapsed');
-    } catch {
-      // A browser refusing storage is not a reason to fail to draw the nav.
-    }
-
-    const query = window.matchMedia(DESKTOP);
-    const sync = () => setIsDesktop(query.matches);
-    sync();
-    query.addEventListener('change', sync);
-    return () => query.removeEventListener('change', sync);
-  }, []);
-
-  const railCollapsed = collapsed && isDesktop;
-
-  const toggleRail = () => {
-    setCollapsed((was) => {
-      const next = !was;
-      try {
-        window.localStorage.setItem(NAV_KEY, next ? 'collapsed' : 'expanded');
-      } catch {
-        // Preference is lost on reload; the dashboard still works.
-      }
-      return next;
-    });
-  };
 
   const initials =
     (identity.name || identity.username)
@@ -104,10 +70,33 @@ export default function AdminShell({
   };
 
   return (
-    <div className="admin-ground min-h-screen">
-      {/* The chrome and the page are one surface, and the cards are the
-            only thing lifted off it. A nav panel in its own colour, with its
-            own edge, is a second thing to read before the first. */}
+    <div className="admin-ground flex min-h-screen">
+        {/* Wider than before: the items sit further in and still have room for
+            their labels, and the wordmark at the top needs the width. */}
+        <aside
+          className={cn(
+            'admin-ground fixed bottom-0 left-0 top-16 z-30 w-80 transition-transform lg:static lg:top-0 lg:z-auto lg:translate-x-0 lg:border-r lg:border-border/40',
+            navOpen ? 'translate-x-0' : '-translate-x-full'
+          )}
+        >
+          <Sidebar
+            permissions={identity.permissions}
+            boardIndex={boardIndex}
+            onNavigate={() => setNavOpen(false)}
+          />
+        </aside>
+        {navOpen ? (
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-0 z-20 bg-black/40 lg:hidden"
+            onClick={() => setNavOpen(false)}
+          />
+        ) : null}
+
+      {/* The header sits beside the rail rather than over it, so the wordmark
+          at the top of the nav is level with the search rather than below it. */}
+      <div className="flex min-w-0 flex-1 flex-col">
         <header className="admin-ground sticky top-0 z-40">
         {/* Indented to the same rhythm as the nav beneath it and the page
                 beside it, so the wordmark, the first nav label and the card's
@@ -124,41 +113,16 @@ export default function AdminShell({
             {navOpen ? <X /> : <Menu />}
           </Button>
 
+          {/* The wordmark lives at the top of the nav now, over the items it
+              belongs to. Only the phone keeps one here, where there is no nav
+              on screen to put it in. */}
           <Link
             href="/admin"
             aria-label="Jdiobe STEM Foundation dashboard"
-            className="shrink-0"
+            className="shrink-0 lg:hidden"
           >
-            {/* Collapsed, the rail is too narrow for the wordmark, so the mark
-                stands in for it — still the Foundation's, still a link home. */}
-            <span
-              className={cn(
-                'hidden lg:block',
-                // Matches the rail beneath it, so the mark sits over the icons
-                // rather than floating above the middle of nothing.
-                railCollapsed ? 'lg:w-8' : 'lg:w-56'
-              )}
-            >
-              {railCollapsed ? (
-                <LogoMark className="h-8 w-auto" />
-              ) : (
-                <Logo className="h-7 w-auto text-foreground" />
-              )}
-            </span>
-            <Logo className="h-7 w-auto text-foreground lg:hidden" />
+            <Logo className="h-7 w-auto text-foreground" />
           </Link>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden shrink-0 lg:inline-flex"
-            aria-label={railCollapsed ? 'Expand the menu' : 'Collapse the menu'}
-            aria-pressed={railCollapsed}
-            title={railCollapsed ? 'Expand the menu' : 'Collapse the menu'}
-            onClick={toggleRail}
-          >
-            {railCollapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
-          </Button>
 
           <div className="min-w-0 flex-1">
             <HeaderSearch />
@@ -224,40 +188,6 @@ export default function AdminShell({
           </DropdownMenu>
         </div>
       </header>
-
-      {/* min-height so the nav column still reaches the bottom of the window
-          on a short page; the row is otherwise only as tall as its content. */}
-      <div className="flex min-h-[calc(100vh-4rem)]">
-        <aside
-          className={cn(
-            'admin-ground fixed bottom-0 left-0 top-16 z-30 w-64 transition-all lg:static lg:z-auto lg:translate-x-0 lg:border-r lg:border-border/40',
-            navOpen ? 'translate-x-0' : '-translate-x-full',
-            // Narrow only from `lg` up. On a phone the nav is a drawer that is
-            // either open or shut, and a 4rem drawer would be neither.
-            railCollapsed && 'lg:w-16'
-          )}
-        >
-          <Sidebar
-            permissions={identity.permissions}
-            boardIndex={boardIndex}
-            collapsed={railCollapsed}
-            onExpand={() => setCollapsed(false)}
-            onNavigate={() => setNavOpen(false)}
-          />
-        </aside>
-
-        {navOpen ? (
-          <button
-            type="button"
-            aria-label="Close menu"
-            className="fixed inset-0 z-20 bg-black/40 lg:hidden"
-            onClick={() => setNavOpen(false)}
-          />
-        ) : null}
-
-        {/* More room on the right than on the left: the nav already holds the
-              left edge, so matching padding on both sides left the content
-              running up against the window. */}
           <main className="min-w-0 flex-1 p-4 pr-5 sm:p-6 sm:pr-8 lg:p-8 lg:pr-12 xl:pr-16">
             {children}
           </main>

@@ -193,7 +193,6 @@ export default async function BoardPage({
       <ListCard>
       <ListHeader
         title={board.name}
-        subtitle={board.description}
         actions={
           <div className="flex flex-wrap items-center gap-3">
             {showsInvoices ? (

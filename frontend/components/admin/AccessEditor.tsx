@@ -411,7 +411,7 @@ export default function AccessEditor({
         </p>
       ) : null}
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:left-64">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur lg:left-80">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-0">
           {saved ? (
             <p className="text-sm font-medium text-green-700">Saved.</p>

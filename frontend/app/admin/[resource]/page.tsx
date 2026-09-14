@@ -78,7 +78,6 @@ export default async function ResourceListPage({
     <ListCard>
       <ListHeader
         title={resource.label}
-        subtitle={resource.description}
         actions={
           <div className="flex flex-wrap items-center gap-3">
             {/* Only the donations table has anywhere to pull from. */}
