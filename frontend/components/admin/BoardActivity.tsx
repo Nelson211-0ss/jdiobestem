@@ -53,7 +53,7 @@ export default async function BoardActivity({
   const href = `/admin/operations/${slug}`;
 
   return (
-    <section className="rounded-3xl border bg-card p-5 shadow-sm">
+    <section className="rounded-2xl border border-border/40 bg-card p-5">
       <h2 className="px-1 text-sm font-semibold tracking-tight">{board.name}</h2>
       <p className="mb-3 px-1 text-xs text-muted-foreground">
         {page.count} {page.count === 1 ? 'record' : 'records'} under this programme
@@ -63,7 +63,7 @@ export default async function BoardActivity({
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+              <tr className="border-b border-border/50 text-left text-xs uppercase tracking-wide text-muted-foreground">
                 <th className="px-1 py-1.5">Name</th>
                 {columns.map((c) => (
                   <th
@@ -77,7 +77,7 @@ export default async function BoardActivity({
             </thead>
             <tbody>
               {rows.map((record) => (
-                <tr key={record.id} className="border-b last:border-0 hover:bg-muted/50">
+                <tr key={record.id} className="hover:bg-muted/60">
                   <td className="px-1 py-1.5">
                     <Link
                       href={`${href}/${record.id}`}

@@ -1589,7 +1589,7 @@ export const RESOURCES: Resource[] = [
     noCreate: true,
     readOnly: true,
     columns: [
-      { name: 'created_at', label: 'When' },
+      { name: 'created_at', label: 'When', date: true },
       { name: 'actor_name', label: 'Who' },
       { name: 'action_display', label: 'Did what', badge: true },
       { name: 'object_label', label: 'To which record' },

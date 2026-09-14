@@ -104,13 +104,11 @@ export default function AdminShell({
   };
 
   return (
-    <div className="min-h-screen bg-muted/40">
-      {/* The chrome is one surface, and the same one the cards are: in dark
-          the page is tinted lighter than `--background`, which left the nav
-          reading as a hole rather than as a panel. Identical in light, where
-          --card and --background are both white. The header goes with it, or
-          the two halves of the same L would not match. */}
-      <header className="sticky top-0 z-40 bg-card">
+    <div className="admin-ground min-h-screen">
+      {/* The chrome and the page are one surface, and the cards are the
+            only thing lifted off it. A nav panel in its own colour, with its
+            own edge, is a second thing to read before the first. */}
+        <header className="admin-ground sticky top-0 z-40">
         <div className="flex h-16 items-center gap-3 px-4">
           <Button
             variant="ghost"
@@ -228,7 +226,7 @@ export default function AdminShell({
       <div className="flex min-h-[calc(100vh-4rem)]">
         <aside
           className={cn(
-            'fixed bottom-0 left-0 top-16 z-30 w-64 bg-card transition-all lg:static lg:z-auto lg:translate-x-0',
+            'admin-ground fixed bottom-0 left-0 top-16 z-30 w-64 transition-all lg:static lg:z-auto lg:translate-x-0 lg:border-r lg:border-border/40',
             navOpen ? 'translate-x-0' : '-translate-x-full',
             // Narrow only from `lg` up. On a phone the nav is a drawer that is
             // either open or shut, and a 4rem drawer would be neither.

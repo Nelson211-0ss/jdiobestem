@@ -79,7 +79,7 @@ export default async function RelatedRecords({
   const listHref = `/admin/${spec.resource}?${query.toString()}`;
 
   return (
-    <section className="rounded-3xl border bg-card p-5 shadow-sm">
+    <section className="rounded-2xl border border-border/40 bg-card p-5">
       <h2 className="px-1 text-sm font-semibold tracking-tight">{spec.label ?? target.label}</h2>
       <p className="mb-3 px-1 text-xs text-muted-foreground">
         {page.count} {page.count === 1 ? target.singular : target.label.toLowerCase()}
@@ -88,7 +88,7 @@ export default async function RelatedRecords({
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+              <tr className="border-b border-border/50 text-left text-xs uppercase tracking-wide text-muted-foreground">
                 {columns.map((c) => (
                   <th key={c.name} className={`px-1 py-1.5 ${c.numeric ? 'text-right' : ''}`}>
                     {c.label}
@@ -98,7 +98,7 @@ export default async function RelatedRecords({
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={String(row.id)} className="border-b last:border-0 hover:bg-muted/50">
+                <tr key={String(row.id)} className="hover:bg-muted/60">
                   {columns.map((c, index) => (
                     <td
                       key={c.name}

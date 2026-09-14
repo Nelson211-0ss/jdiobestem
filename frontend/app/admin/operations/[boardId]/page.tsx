@@ -307,7 +307,7 @@ export default async function BoardPage({
           <li className="py-12 text-center text-muted-foreground">No records match.</li>
         ) : (
           data.results.map((record) => (
-            <li key={record.id} className="rounded-xl border bg-card p-3.5 shadow-sm">
+            <li key={record.id} className="rounded-2xl border border-border/40 bg-card p-3.5">
               <div className="flex items-start gap-3">
                 <Link
                   href={`/admin/operations/${boardId}/${record.id}`}

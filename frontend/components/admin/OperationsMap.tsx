@@ -91,7 +91,7 @@ export default function OperationsMap({ countries }: { countries: CountryFigures
   const largest = Math.max(...countries.map(valueFor), 1);
 
   return (
-    <Card className="overflow-hidden rounded-3xl shadow-sm">
+    <Card className="overflow-hidden rounded-2xl">
       <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] lg:p-8">
         <div className="space-y-5">
           <div>

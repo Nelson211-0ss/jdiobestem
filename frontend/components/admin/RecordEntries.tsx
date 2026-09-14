@@ -33,7 +33,7 @@ export default function RecordEntries({
   const remaining = amount - itemised;
 
   return (
-    <section className="rounded-3xl border bg-card p-5 shadow-sm">
+    <section className="rounded-2xl border border-border/40 bg-card p-5">
       <h2 className="px-1 text-sm font-semibold tracking-tight">Entries</h2>
       <p className="mb-3 px-1 text-xs text-muted-foreground">
         {lines.length
@@ -44,7 +44,7 @@ export default function RecordEntries({
       {lines.length ? (
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+          <tr className="border-b border-border/50 text-left text-xs uppercase tracking-wide text-muted-foreground">
             <th className="px-1 py-1.5">For</th>
             <th className="px-1 py-1.5">Date</th>
             <th className="px-1 py-1.5 text-right">Amount</th>
@@ -52,7 +52,7 @@ export default function RecordEntries({
         </thead>
         <tbody>
           {lines.map((line, index) => (
-            <tr key={line.id ?? index} className="border-b last:border-0">
+            <tr key={line.id ?? index}>
               <td className="px-1 py-1.5 font-medium">{line.name}</td>
               <td className="px-1 py-1.5 whitespace-nowrap">
                 {new Date(String(line.incurred_on)).toLocaleDateString('en-GB', {

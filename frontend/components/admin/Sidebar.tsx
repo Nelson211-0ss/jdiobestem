@@ -166,7 +166,7 @@ export default function Sidebar({
       'flex items-center rounded-md text-sm transition-colors',
       // Collapsed, the icon is the whole control, so it is centred in a square
       // rather than left-aligned with a gap where the label used to be.
-      collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3 py-2',
+      collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3 py-2.5',
       current
         ? 'bg-secondary font-semibold text-secondary-foreground'
         : 'font-medium text-foreground hover:bg-muted'
@@ -291,7 +291,7 @@ export default function Sidebar({
 
         {expanded && !collapsed ? (
           // The rule down the left is what ties the children to their row.
-          <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
+          <div className="ml-5 mt-1.5 space-y-1 border-l border-border/40 pl-3">
             {(group.boards ?? []).map((board) => {
               const href = `/admin/operations/${board.slug || board.monday_id}`;
               return (
@@ -333,7 +333,7 @@ export default function Sidebar({
         // Sticks below the 4rem header while the column behind it stretches
         // to the full page height.
         'lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]',
-        collapsed ? 'items-center gap-3 p-2' : 'gap-0.5 p-4'
+        collapsed ? 'items-center gap-3 p-2' : 'gap-1.5 p-4'
       )}
     >
       <Link
@@ -367,7 +367,7 @@ export default function Sidebar({
               <hr className="mx-auto mb-2 w-6 border-t border-border" aria-hidden="true" />
             ) : null}
 
-            <div className={cn('space-y-0.5', collapsed && 'flex flex-col items-center')}>
+            <div className={cn('space-y-1.5', collapsed && 'flex flex-col items-center')}>
               {resources.map((r) => {
                 const Icon = iconFor(r.icon);
                 const href = `/admin/${r.key}`;
@@ -431,7 +431,7 @@ export default function Sidebar({
                     {expanded && !collapsed ? (
                       // The rule down the left is what ties the children to
                       // their parent, as in the reference.
-                      <div className="ml-5 mt-0.5 space-y-0.5 border-l pl-3">
+                      <div className="ml-5 mt-1.5 space-y-1 border-l border-border/40 pl-3">
                         {category.boards.map((board) => {
                           const href = `/admin/operations/${board.slug || board.monday_id}`;
                           const current = pathname.startsWith(href);

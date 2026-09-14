@@ -63,7 +63,7 @@ export default async function CountryPage({ params }: { params: Promise<{ id: st
         canDelete={can(identity, 'countries', 'delete')}
       />
 
-      <section className="mt-8 rounded-3xl bg-card p-6 shadow-sm sm:p-8">
+      <section className="mt-8 rounded-2xl border border-border/40 bg-card p-6 sm:p-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-xl font-bold tracking-tight">Offices</h2>

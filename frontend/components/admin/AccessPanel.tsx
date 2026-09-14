@@ -30,7 +30,7 @@ export default function AccessPanel({
 
   if (!account) {
     return (
-      <section className="rounded-3xl border bg-card p-5 shadow-sm">
+      <section className="rounded-2xl border border-border/40 bg-card p-5">
         <h2 className="px-1 text-sm font-semibold tracking-tight">Dashboard access</h2>
         <p className="mt-2 px-1 text-sm text-muted-foreground">
           {name} has no account, so cannot sign in.
@@ -74,7 +74,7 @@ export default function AccessPanel({
   ];
 
   return (
-    <section className="rounded-3xl border bg-card p-5 shadow-sm">
+    <section className="rounded-2xl border border-border/40 bg-card p-5">
       <h2 className="px-1 text-sm font-semibold tracking-tight">Dashboard access</h2>
       <p className="mb-3 px-1 text-xs text-muted-foreground">What their login lets them open</p>
 

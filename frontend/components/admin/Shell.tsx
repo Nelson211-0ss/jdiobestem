@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 /** A list page: one white card holding the title, controls and table. */
 export function ListCard({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn('rounded-3xl border bg-card p-6 shadow-sm sm:p-8', className)}>{children}</div>
+    <div className={cn('rounded-2xl border border-border/40 bg-card p-6 sm:p-8', className)}>{children}</div>
   );
 }
 
@@ -81,7 +81,7 @@ export function FormShell({
         href={backHref}
         aria-label={backLabel}
         title={backLabel}
-        className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-card text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
       </Link>
@@ -93,9 +93,9 @@ export function FormShell({
   );
 
   const card = (
-    <div className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
+    <div className="rounded-2xl border border-border/40 bg-card p-6 sm:p-8">
       {actions ? (
-        <div className="mb-6 flex flex-wrap items-center justify-end gap-3 border-b pb-5">
+        <div className="mb-6 flex flex-wrap items-center justify-end gap-3">
           {actions}
         </div>
       ) : null}
@@ -141,9 +141,9 @@ export function FormShell({
  */
 export function DetailTable({ children }: { children: React.ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-xl border">
+    <div className="overflow-hidden rounded-xl">
       <table className="w-full text-sm">
-        <tbody className="divide-y">{children}</tbody>
+        <tbody className="divide-y divide-border/40">{children}</tbody>
       </table>
     </div>
   );

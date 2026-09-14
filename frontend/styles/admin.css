@@ -67,6 +67,14 @@ html:has(.admin-shell) {
   --radius: 0.65rem;
 
   /*
+   * The ground the whole dashboard sits on: the page, the header and the nav,
+   * all one surface. Cards are the only thing lifted off it, and they are
+   * lifted by their fill rather than by a line around them — which is what
+   * lets the chrome carry no borders at all.
+   */
+  --shell: 0 0% 96%;
+
+  /*
    * Status tints for badges. Kept as their own tokens rather than as fixed
    * `bg-green-100` utilities in the component, because a tint that works as
    * pale-wash-with-dark-ink in the light theme has to invert to
@@ -109,13 +117,14 @@ html:has(.admin-shell) {
  */
 html[data-admin-theme='dark'] .admin-shell {
   --background: 240 8% 9%;
+  --shell: 240 8% 9%;
   --foreground: 33 22% 91%;
 
   /* Lighter than the page, not level with it. The shell tints the page
      with muted at 40%, which in dark comes out near 11% — a card at 12%
      then had no edge at all. In light the same rule works because muted
      is darker than white; only the dark value has to be lifted. */
-  --card: 240 8% 17%;
+  --card: 240 8% 14%;
   --card-foreground: 33 22% 91%;
 
   --popover: 240 8% 13%;
@@ -406,4 +415,16 @@ html[data-admin-theme='dark'] .admin-shell {
  */
 .admin-shell :is(.grid, .flex) > * {
   min-width: 0;
+}
+
+/*
+ * One surface for the chrome and the page behind the cards.
+ *
+ * A dashboard reads as clean when the separation comes from fill and space
+ * rather than from a line around everything. The header, the nav and the page
+ * share this; a card is the same shape a shade off it, with no border and no
+ * shadow.
+ */
+.admin-ground {
+  background-color: hsl(var(--shell));
 }

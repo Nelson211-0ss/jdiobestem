@@ -322,7 +322,7 @@ export default function DataTable({
             const [lead, ...rest] = named;
             const picture = resource.columns.find((c) => c.thumb);
             return (
-              <li key={String(row.id)} className="rounded-xl border bg-card p-3.5 shadow-sm">
+              <li key={String(row.id)} className="rounded-2xl border border-border/40 bg-card p-3.5">
                 <div className="flex items-start gap-3">
                   {picture ? <span className="shrink-0">{renderCell(row, picture)}</span> : null}
                   <Link href={href} className="min-w-0 flex-1 font-semibold underline-offset-4 hover:underline">

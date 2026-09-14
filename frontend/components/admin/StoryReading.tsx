@@ -23,7 +23,7 @@ export default function StoryReading({ story }: { story: Record<string, unknown>
   const busiest = Math.max(...days.map((d) => d.opens), 1);
 
   return (
-    <section className="rounded-3xl border bg-card p-5 shadow-sm">
+    <section className="rounded-2xl border border-border/40 bg-card p-5">
       <h2 className="px-1 text-sm font-semibold tracking-tight">Reading</h2>
       <p className="mb-4 px-1 text-xs text-muted-foreground">
         {openedTotal ? `Since it was published` : 'Nobody has opened this yet'}

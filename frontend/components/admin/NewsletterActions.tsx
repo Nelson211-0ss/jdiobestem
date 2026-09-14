@@ -112,7 +112,7 @@ export default function NewsletterActions({
   const willSend = audience?.will_send ?? 0;
 
   return (
-    <section className="mt-8 rounded-3xl bg-card p-6 shadow-sm sm:p-8">
+    <section className="mt-8 rounded-2xl border border-border/40 bg-card p-6 sm:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-xl font-bold tracking-tight">Sending</h2>
         <p className="text-sm text-muted-foreground">
