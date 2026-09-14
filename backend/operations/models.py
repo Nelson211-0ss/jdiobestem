@@ -40,7 +40,9 @@ class BoardCategory(models.TextChoices):
     FINANCE = "finance", "Finance"
     PROGRAMMES = "programmes", "Programmes"
     PEOPLE = "people", "People & HR"
-    GOVERNANCE = "governance", "Governance & compliance"
+    # Named for what it holds rather than for the idea behind it: the filings
+    # and licences, and the countries, offices and rates they are filed in.
+    GOVERNANCE = "governance", "Compliance & offices"
     OPERATIONS = "operations", "Operations"
     MARKETING = "marketing", "Marketing & events"
     OTHER = "other", "Other"

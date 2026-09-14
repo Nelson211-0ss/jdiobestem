@@ -514,9 +514,10 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'contact-messages',
+    parent: 'Marketing & events',
     label: 'Contact messages',
     singular: 'contact message',
-    group: 'Inbox',
+    group: 'Website',
     icon: 'Mail',
     titleField: 'name',
     noCreate: true,
@@ -1361,7 +1362,7 @@ export const RESOURCES: Resource[] = [
     label: 'Countries',
     singular: 'country',
     group: 'Operations',
-    parent: 'Governance & compliance',
+    parent: 'Compliance & offices',
     icon: 'Globe',
     description:
       'Where the Foundation operates. Country and currency choices everywhere else are drawn from here.',
@@ -1499,7 +1500,7 @@ export const RESOURCES: Resource[] = [
     label: 'Exchange rates',
     singular: 'rate',
     group: 'Operations',
-    parent: 'Governance & compliance',
+    parent: 'Compliance & offices',
     icon: 'ArrowLeftRight',
     description:
       'The rates used to state the accounting figures in one currency. Entered rather than fetched: a figure converted at a rate nobody recorded cannot be checked a year later.',
@@ -1538,7 +1539,7 @@ export const RESOURCES: Resource[] = [
     label: 'Offices',
     singular: 'office',
     group: 'Operations',
-    parent: 'Governance & compliance',
+    parent: 'Compliance & offices',
     icon: 'Building2',
     description: 'Where the Foundation works from. One main office per country, plus any others.',
     titleField: 'name',

@@ -32,7 +32,7 @@ const CATEGORY_ICON: Record<string, string> = {
   Finance: 'Wallet',
   Programmes: 'Rocket',
   'People & HR': 'Users',
-  'Governance & compliance': 'ShieldCheck',
+  'Compliance & offices': 'ShieldCheck',
   'Marketing & events': 'Megaphone',
   Operations: 'Settings2',
 };
@@ -42,7 +42,7 @@ const PARENT_ICON: Record<string, string> = {
   Website: 'LayoutTemplate',
   // Shared with CATEGORY_ICON: this is both a board category and a group
   // holding the countries, offices and rates, drawn as one row.
-  'Governance & compliance': 'ShieldCheck',
+  'Compliance & offices': 'ShieldCheck',
   // Shared with CATEGORY_ICON: People & HR is both a board category and a
   // group holding the team and what they are paid, drawn as one row.
   'People & HR': 'Users',
@@ -64,7 +64,7 @@ const CATEGORY_SECTION: Record<string, Resource['group'] | 'Operations'> = {
   Finance: 'Giving',
   Programmes: 'Programmes',
   'People & HR': 'Operations',
-  'Governance & compliance': 'Operations',
+  'Compliance & offices': 'Operations',
   'Marketing & events': 'Website',
   Operations: 'Operations',
 };
@@ -333,7 +333,7 @@ export default function Sidebar({
         // Sticks below the 4rem header while the column behind it stretches
         // to the full page height.
         'lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]',
-        collapsed ? 'items-center gap-3 p-2' : 'gap-5 p-4'
+        collapsed ? 'items-center gap-3 p-2' : 'gap-0.5 p-4'
       )}
     >
       <Link
