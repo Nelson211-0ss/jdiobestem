@@ -11,8 +11,8 @@ import { cn } from '@/lib/utils';
  * Convenient, but it must not take the page away from someone who was doing
  * something else — selecting an email address to copy, or using a control that
  * happens to sit inside the row. Modified clicks are left alone so cmd-click
- * still opens a new tab, and every row that uses this keeps a real link in its
- * last cell: that is what a screen reader announces and what the keyboard
+ * still opens a new tab, and every row that uses this keeps a real link on the
+ * cell naming the record: that is what a screen reader announces and what the keyboard
  * reaches. The row itself is not focusable, so tabbing through a long table
  * does not stop twice on every line.
  */

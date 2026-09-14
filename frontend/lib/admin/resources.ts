@@ -139,17 +139,6 @@ export type Resource = {
   /** A record of what someone sent — creating one by hand makes no sense. */
   noCreate?: boolean;
   /**
-   * Drop the Open link at the end of each row and make the first text cell the
-   * link instead.
-   *
-   * The row is already clickable, so a column repeating "Open" on every line
-   * is noise. It cannot simply be deleted, though: ClickableRow relies on
-   * there being a real anchor somewhere in the row — that is what a screen
-   * reader announces and what the keyboard reaches — so the link moves rather
-   * than going away.
-   */
-  linkFirstCell?: boolean;
-  /**
    * Written by the application, never by a person. Its detail page is shown as
    * a record rather than as a form nobody may submit, and it offers no create.
    */
@@ -1878,7 +1867,6 @@ export const RESOURCES: Resource[] = [
   {
     key: 'scholarship-terms',
     related: [{ resource: 'scholarship-payments', by: 'term', label: 'Payments against this term' }],
-    linkFirstCell: true,
     label: 'Terms and fees due',
     singular: 'term',
     group: 'Programmes',
@@ -1927,7 +1915,6 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'scholarship-payments',
-    linkFirstCell: true,
     label: 'Payments to schools',
     singular: 'payment',
     group: 'Programmes',

@@ -157,8 +157,18 @@ export default async function BoardPage({
                     {/* There was a badge here marking records created in the
                         dashboard rather than imported from monday. Every record
                         is now created here — nothing was ever imported — so it
-                        marked every row and distinguished nothing. */}
-                    {record.name}
+                        marked every row and distinguished nothing.
+
+                        The name carries the row's link. The row is clickable
+                        anywhere, but ClickableRow needs a real anchor in it —
+                        that is what a screen reader announces and what the
+                        keyboard reaches. */}
+                    <Link
+                      href={`/admin/operations/${boardId}/${record.id}`}
+                      className="underline-offset-4 hover:underline"
+                    >
+                      {record.name}
+                    </Link>
                   </TableCell>
                   {columns.map((c) => {
                     // A file column is the attachment itself, so the cell shows
@@ -262,12 +272,6 @@ export default async function BoardPage({
                   ) : null}
                   <TableCell className="w-px whitespace-nowrap text-right">
                     <span className="flex items-center justify-end gap-3">
-                      <Link
-                        href={`/admin/operations/${boardId}/${record.id}`}
-                        className="text-sm font-medium text-accent-foreground underline-offset-4 hover:underline"
-                      >
-                        Open
-                      </Link>
                       {/* Revealed on hover, and on keyboard focus — a control
                           that only appears under a pointer cannot be reached by
                           anyone navigating with a keyboard. */}
