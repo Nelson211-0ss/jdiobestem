@@ -145,6 +145,20 @@ export type Resource = {
   /** A record of what someone sent — creating one by hand makes no sense. */
   noCreate?: boolean;
   /**
+   * Reachable, but not listed in the nav.
+   *
+   * For a resource that is always arrived at from somewhere else: a
+   * colleague's access is read on their own record, and the history of a
+   * record sits beside that record. A nav row for either is a second way to
+   * something nobody looks for on its own — and every row costs the ones
+   * around it.
+   *
+   * It hides the row and nothing else. The routes, the permissions and the
+   * links into them are untouched, which is what makes it safe to use on the
+   * access screen: it is still the only place access is granted.
+   */
+  unlisted?: boolean;
+  /**
    * Written by the application, never by a person. Its detail page is shown as
    * a record rather than as a form nobody may submit, and it offers no create.
    */
@@ -1559,6 +1573,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'activity',
+    unlisted: true,
     label: 'Activity log',
     singular: 'entry',
     group: 'Access',
@@ -1611,6 +1626,7 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'users',
+    unlisted: true,
     label: 'Staff access',
     singular: 'account',
     group: 'Access',

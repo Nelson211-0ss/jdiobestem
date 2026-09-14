@@ -151,9 +151,18 @@ def board_index(request):
     if not policy.can(request.user, "boards", "view"):
         return Response({"categories": []})
 
-    boards = Board.objects.filter(is_visible=True).order_by("category", "name")
+    # A page a programme has claimed is read on that programme, so listing it
+    # here as well would be two ways to the same records and a category row
+    # holding one page nobody goes to that way.
+    from content_cms.models import Programme
+
+    claimed = set(Programme.objects.exclude(board="").values_list("board", flat=True))
+
     grouped: dict[str, list] = {}
+    boards = Board.objects.filter(is_visible=True).order_by("category", "name")
     for board in boards:
+        if board.slug in claimed:
+            continue
         grouped.setdefault(board.get_category_display(), []).append(
             {
                 "monday_id": board.monday_id,

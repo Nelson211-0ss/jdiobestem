@@ -104,7 +104,13 @@ export default function Sidebar({
   onExpand?: () => void;
 }) {
   const pathname = usePathname();
-  const visible = RESOURCES.filter((r) => permissions[r.key]?.includes('view'));
+  // `unlisted` resources are reachable but not navigated to: see the note on
+  // the field. They are filtered here rather than at each use, so nothing
+  // downstream — the groups, the board merge, the current-page chain — has to
+  // know the concept exists.
+  const visible = RESOURCES.filter(
+    (r) => !r.unlisted && permissions[r.key]?.includes('view')
+  );
   const canSeeBoards = Boolean(permissions.boards?.includes('view'));
 
   const isCurrent = (href: string) =>
