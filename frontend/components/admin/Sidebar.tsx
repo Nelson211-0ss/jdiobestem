@@ -166,7 +166,7 @@ export default function Sidebar({
       'flex items-center rounded-md text-sm transition-colors',
       // Collapsed, the icon is the whole control, so it is centred in a square
       // rather than left-aligned with a gap where the label used to be.
-      collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3 py-2.5',
+      collapsed ? 'h-10 w-10 justify-center' : 'gap-3 px-3.5 py-2.5',
       current
         ? 'bg-secondary font-semibold text-secondary-foreground'
         : 'font-medium text-foreground hover:bg-muted'
@@ -333,7 +333,7 @@ export default function Sidebar({
         // Sticks below the 4rem header while the column behind it stretches
         // to the full page height.
         'lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)]',
-        collapsed ? 'items-center gap-3 p-2' : 'gap-1.5 p-4'
+        collapsed ? 'items-center gap-3 p-2' : 'gap-1.5 px-5 py-4'
       )}
     >
       <Link

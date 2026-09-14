@@ -109,7 +109,11 @@ export default function AdminShell({
             only thing lifted off it. A nav panel in its own colour, with its
             own edge, is a second thing to read before the first. */}
         <header className="admin-ground sticky top-0 z-40">
-        <div className="flex h-16 items-center gap-3 px-4">
+        {/* Indented to the same rhythm as the nav beneath it and the page
+                beside it, so the wordmark, the first nav label and the card's
+                edge all start from one line — and the account never sits
+                against the window. */}
+          <div className="flex h-16 items-center gap-3 px-5 py-4 sm:px-6 sm:pr-8 lg:px-8 lg:pr-12 xl:pr-16">
           <Button
             variant="ghost"
             size="icon"
@@ -251,7 +255,12 @@ export default function AdminShell({
           />
         ) : null}
 
-        <main className="min-w-0 flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+        {/* More room on the right than on the left: the nav already holds the
+              left edge, so matching padding on both sides left the content
+              running up against the window. */}
+          <main className="min-w-0 flex-1 p-4 pr-5 sm:p-6 sm:pr-8 lg:p-8 lg:pr-12 xl:pr-16">
+            {children}
+          </main>
       </div>
     </div>
   );
