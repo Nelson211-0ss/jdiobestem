@@ -41,7 +41,7 @@ html body {
 /* ---------------------------------------------------------------- headings */
 
 /*
- * Headings run on Overpass, body copy on Vistol. The list below is the full
+ * Headings run on Chivo, body copy on Vistol. The list below is the full
  * definition of "a heading" on this site: the six elements, plus the classed
  * titles and pull quotes that are headings typographically but are not h tags
  * (a card title inside a link, a stage title in an ordered list, and so on).
@@ -65,7 +65,7 @@ h6,
 .magazine-back-title,
 .magazine-quote blockquote,
 .testimonial-quote {
-  font-family: var(--font-overpass);
+  font-family: var(--font-chivo);
 }
 
 h1,
@@ -75,9 +75,11 @@ h4,
 h5,
 h6 {
   color: var(--charcoal);
-  font-weight: 800;
+  /* Chivo carries weight further than Overpass did, so the display headings go
+     to the top of its range; the tracking eases off a touch to let it. */
+  font-weight: 900;
   line-height: 1.06;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.022em;
   text-wrap: balance;
 }
 
@@ -260,5 +262,14 @@ body h3,
 body h4,
 body h5,
 body h6 {
-  font-weight: 800;
+  font-weight: 900;
+}
+
+/* This blanket rule was flattening h4-h6 to the display weight, which is why
+   the lighter setting a few rules above never took. Restated here, where it
+   outranks Tailwind's font utilities the same way. */
+body h4,
+body h5,
+body h6 {
+  font-weight: 700;
 }

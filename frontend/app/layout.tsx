@@ -31,16 +31,19 @@ const vistol = localFont({
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 });
 
-// Overpass, self-hosted, for headings only. One variable file covering 100-900
-// rather than a stack of statics, subset to the Latin range the site actually
-// uses (verified against every character in content/, components/ and app/) —
-// 63 KB instead of 315 KB. Anything outside that range falls through to Vistol,
-// which is why it heads the fallback list rather than a generic sans.
-const overpass = localFont({
-  src: './fonts/Overpass-Variable.woff2',
+// Chivo, self-hosted, for headings only. One variable file covering 100-900,
+// Latin subset — 32 KB, half what Overpass cost. Anything outside that range
+// falls through to Vistol, which is why it heads the fallback list rather than
+// a generic sans.
+//
+// Variable matters here: the type scale asks display headings for 900 and the
+// smaller ones for 700, and a face with a single weight would have the browser
+// fake both.
+const chivo = localFont({
+  src: './fonts/Chivo-Variable.woff2',
   weight: '100 900',
   style: 'normal',
-  variable: '--font-overpass',
+  variable: '--font-chivo',
   display: 'swap',
   fallback: ['var(--font-vistol)'],
 });
@@ -66,7 +69,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${vistol.variable} ${overpass.variable}`}>
+    <html lang="en" className={`${vistol.variable} ${chivo.variable}`}>
       <body className="min-h-screen text-charcoal-700 antialiased">{children}</body>
     </html>
   );

@@ -377,10 +377,10 @@
 /*
  * Headings, and the classed titles typography.css counts as headings.
  *
- * Those all carry `font-family: var(--font-overpass)` of their own, and a rule
- * on the element beats the family inherited from the page around it — so
- * setting the family on `.magazine-page` alone left every heading on this page
- * still running on Overpass. Each has to be named here to actually change.
+ * Those all carry `font-family: var(--font-chivo)` of their own, and a rule on
+ * the element beats the family inherited from the page around it — so setting
+ * the family on `.magazine-page` alone left every heading on this page still
+ * running on the heading face. Each has to be named here to actually change.
  */
 .magazine-page h1,
 .magazine-page h2,
