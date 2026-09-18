@@ -1,6 +1,6 @@
 /*
- * Type scale — Vistol Sans throughout, loaded by next/font in app/layout.tsx
- * and exposed as --font-vistol.
+ * Type scale — Chivo throughout, loaded by next/font in app/layout.tsx and
+ * exposed as --font-chivo.
  *
  * The shape is taken from the reference sites: display headings set very heavy
  * (700–800) with leading pulled in tight (~1.0–1.1) and tracking slightly
@@ -19,7 +19,7 @@ html {
 }
 
 html body {
-  font-family: var(--font-vistol), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-chivo), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.65;
   letter-spacing: -0.006em;
@@ -41,13 +41,12 @@ html body {
 /* ---------------------------------------------------------------- headings */
 
 /*
- * Headings run on Chivo, body copy on Vistol. The list below is the full
- * definition of "a heading" on this site: the six elements, plus the classed
- * titles and pull quotes that are headings typographically but are not h tags
- * (a card title inside a link, a stage title in an ordered list, and so on).
- * Eyebrows and kickers are deliberately absent — they are labels, and they
- * stay on Vistol so they read as a different voice from the heading they
- * introduce.
+ * Headings and body copy are one family now; what separates them is weight and
+ * tracking, not a second typeface. The list below is still the full definition
+ * of "a heading" on this site — the six elements, plus the classed titles and
+ * pull quotes that are headings typographically but are not h tags (a card
+ * title inside a link, a stage title in an ordered list, and so on) — because
+ * the weight and the tracking still have to find them.
  */
 h1,
 h2,

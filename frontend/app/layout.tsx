@@ -12,40 +12,20 @@ import './globals.css';
 import '../styles/pages.css';
 
 
-// Vistol Sans, self-hosted. One family across the whole site — headings lean on
-// weight (700–800) rather than a second typeface for contrast.
-const vistol = localFont({
-  src: [
-    { path: './fonts/VistolSans-Light.woff2', weight: '300', style: 'normal' },
-    { path: './fonts/VistolSans-Regular.woff2', weight: '400', style: 'normal' },
-    { path: './fonts/VistolSans-Italic.woff2', weight: '400', style: 'italic' },
-    { path: './fonts/VistolSans-Medium.woff2', weight: '500', style: 'normal' },
-    { path: './fonts/VistolSans-SemiBold.woff2', weight: '600', style: 'normal' },
-    { path: './fonts/VistolSans-Bold.woff2', weight: '700', style: 'normal' },
-    { path: './fonts/VistolSans-BoldItalic.woff2', weight: '700', style: 'italic' },
-    { path: './fonts/VistolSans-ExtraBold.woff2', weight: '800', style: 'normal' },
-    { path: './fonts/VistolSans-Black.woff2', weight: '900', style: 'normal' },
-  ],
-  variable: '--font-vistol',
-  display: 'swap',
-  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
-});
-
-// Chivo, self-hosted, for headings only. One variable file covering 100-900,
-// Latin subset — 32 KB, half what Overpass cost. Anything outside that range
-// falls through to Vistol, which is why it heads the fallback list rather than
-// a generic sans.
+// Chivo, self-hosted, for the whole site. One variable file covering 100-900,
+// Latin subset — 32 KB, against the nine static files and 280 KB that Vistol
+// Sans took to cover the same range.
 //
-// Variable matters here: the type scale asks display headings for 900 and the
-// smaller ones for 700, and a face with a single weight would have the browser
-// fake both.
+// One family throughout: headings are a matter of weight (900 for display, 700
+// for the smaller ones) and tracking, not of a second typeface. Vistol's files
+// are still in ./fonts if this turns out to be one voice too few.
 const chivo = localFont({
   src: './fonts/Chivo-Variable.woff2',
   weight: '100 900',
   style: 'normal',
   variable: '--font-chivo',
   display: 'swap',
-  fallback: ['var(--font-vistol)'],
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
@@ -69,7 +49,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${vistol.variable} ${chivo.variable}`}>
+    <html lang="en" className={chivo.variable}>
       <body className="min-h-screen text-charcoal-700 antialiased">{children}</body>
     </html>
   );
