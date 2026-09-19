@@ -80,8 +80,19 @@
 
   /* --- rhythm ----------------------------------------------------------- */
   --section-y: clamp(3.5rem, 2.2rem + 5.2vw, 7rem);
-  --gutter: clamp(1.25rem, 0.9rem + 1.6vw, 2rem);
-  --content: 75rem;
+  /*
+   * Stepped rather than fluid, because it has to land on the same pixel as the
+   * sections built with Tailwind's `px-6 lg:px-8`. A clamp cannot step at a
+   * breakpoint, so at 768px the hero sat 27px in against the sections' 24.
+   */
+  --gutter: 1.5rem;
+  /*
+   * 80rem, matching the `max-w-7xl` most sections are built with. It was 75rem,
+   * which is why the header and the hero — the two things using the shared
+   * container — sat 40px further in than every band beneath them at wide
+   * widths. The gutter already agreed; only the measure did not.
+   */
+  --content: 80rem;
 
   /* --- lift ------------------------------------------------------------- */
   --shadow-card: 0 2px 4px -2px rgb(58 59 71 / 0.06), 0 12px 28px -12px rgb(58 59 71 / 0.14);
@@ -627,6 +638,12 @@ a.card:hover,
 .section-tight {
   padding-top: calc(var(--section-y) * 0.62);
   padding-bottom: calc(var(--section-y) * 0.62);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 2rem;
+  }
 }
 
 .container-page {
