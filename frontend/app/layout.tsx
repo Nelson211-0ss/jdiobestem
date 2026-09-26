@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { metadataBase, siteDescription, socialMetadata } from '@/lib/social-metadata';
 
 // Import order reproduces the cascade the design system expects: the site's own
 // stylesheets first, Tailwind's layers last. Several utilities the markup relies
@@ -29,12 +30,13 @@ const chivo = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase,
+  ...socialMetadata(),
   title: {
     default: 'Jdiobe STEM Foundation',
     template: '%s - Jdiobe STEM Foundation',
   },
-  description:
-    'The Jdiobe STEM Foundation provides underserved students in Uganda and South Sudan with access to education, scholarships, mentorship, and real world STEM opportunities.',
+  description: siteDescription,
   icons: {
     icon: [{ url: '/favicon.png?v=3', type: 'image/png', sizes: '256x256' }],
     apple: '/favicon.png?v=3',

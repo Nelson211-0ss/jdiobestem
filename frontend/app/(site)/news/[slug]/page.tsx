@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import NewsArticle from '@/content/news-article';
 import StoryEngagement from '@/components/StoryEngagement';
 import { getStories, getStory } from '@/lib/site-content';
+import { socialMetadata } from '@/lib/social-metadata';
 
 /**
  * Stories come from the CMS now, so the set of slugs is not known at build
@@ -25,7 +26,19 @@ export async function generateMetadata({
   const { slug } = await params;
   const story = await getStory(slug);
   if (!story) return { title: 'News' };
-  return { title: story.title, description: story.excerpt };
+  return {
+    title: story.title,
+    description: story.excerpt,
+    ...socialMetadata({
+      title: story.title,
+      description: story.excerpt,
+      path: `/news/${encodeURIComponent(story.slug)}`,
+      card: 'news',
+      image: story.image,
+      imageAlt: story.imageAlt,
+      article: true,
+    }),
+  };
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
