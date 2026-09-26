@@ -1,5 +1,5 @@
 import HomeContent from '@/content/home';
-import { getSiteStats } from '@/lib/site-content';
+import { getSiteStats, getStories } from '@/lib/site-content';
 import { siteName, socialMetadata } from '@/lib/social-metadata';
 
 export const metadata = {
@@ -8,6 +8,7 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const stats = await getSiteStats();
-  return <HomeContent stats={stats} />;
+  const [stats, stories] = await Promise.all([getSiteStats(), getStories()]);
+  const featuredStory = stories.find(story => story.slug === 'nambiro-scholarship');
+  return <HomeContent stats={stats} featuredStory={featuredStory} />;
 }

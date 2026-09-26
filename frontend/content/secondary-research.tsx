@@ -24,11 +24,19 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
                   Get the handbook
                 </a>
               </div>
+              <dl className="program-quickfacts">
+                <div><dt>Who can enter</dt><dd>Ugandan secondary school students, with a teacher mentor</dd></div>
+                <div><dt>Entry fee</dt><dd>Free to participate</dd></div>
+                <div><dt>Dates</dt><dd>Announced to schools each year</dd></div>
+              </dl>
             </div>
           </header>
+          <nav className="container-page program-jumps" aria-label="Science Fair sections">
+            <a href="#overview">Overview</a><a href="#who-can-enter">Eligibility</a><a href="#how-it-works">How it works</a><a href="#downloads">Downloads</a><a href="#apply">Register</a>
+          </nav>
 
           {/* Program Overview */}
-          <section className="py-12 md:py-16">
+          <section id="overview" className="py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
                 <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">

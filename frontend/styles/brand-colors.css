@@ -1799,9 +1799,9 @@ body:has(.hero-home) .preloader {
  * `+ section` keeps the seam off the first section on a page, where there is
  * nothing above it but the header.
  */
-main > section + section,
-main > header + section,
-main > section + header {
+main:not(.editorial-home) > section + section,
+main:not(.editorial-home) > header + section,
+main:not(.editorial-home) > section + header {
   box-shadow: 0 -22px 34px -30px rgb(58 59 71 / 0.22);
 }
 
@@ -1813,14 +1813,14 @@ main > section + header {
  * left alone, and adjacent siblings always land on opposite parity, so the
  * alternation holds however many coloured sections sit between them.
  */
-main > section:nth-of-type(even):not([class*='bg-']):not([class*='surface-']):not([class*='hero']) {
+main:not(.editorial-home) > section:nth-of-type(even):not([class*='bg-']):not([class*='surface-']):not([class*='hero']) {
   background-color: var(--smoke);
 }
 
 /* No seam directly under the home hero — it ends on its own change of
    background colour, and a shadow there reads as a rule under the masthead.
    Inner-page heroes are white like the section below them, so they keep it. */
-main > section:first-child + section {
+main:not(.editorial-home) > section:first-child + section {
   box-shadow: none;
 }
 
@@ -1834,7 +1834,7 @@ main > section:first-child + section {
 
 /* Full-width bands lift off the smoke-white page rather than butting against it. */
 .surface-white,
-main > section.bg-white {
+main:not(.editorial-home) > section.bg-white {
   box-shadow: 0 -22px 36px -30px rgb(58 59 71 / 0.2);
 }
 

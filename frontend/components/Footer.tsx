@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import NewsletterForm from './NewsletterForm';
-import SocialIcon from './SocialIcon';
 
 /**
  * Site footer.
@@ -132,21 +131,6 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div className="mt-14 flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-              <span className="mr-2 text-xs font-extrabold uppercase tracking-[0.14em] text-white/60">Follow</span>
-              <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-orange-500 hover:text-charcoal-900" aria-label="Facebook">
-                <SocialIcon name="facebook" className="w-[18px] h-[18px]"/>
-              </a>
-              <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-orange-500 hover:text-charcoal-900" aria-label="X">
-                <SocialIcon name="x" className="w-[18px] h-[18px]"/>
-              </a>
-              <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-orange-500 hover:text-charcoal-900" aria-label="YouTube">
-                <SocialIcon name="youtube" className="w-[18px] h-[18px]"/>
-              </a>
-              <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-orange-500 hover:text-charcoal-900" aria-label="LinkedIn">
-                <SocialIcon name="linkedin" className="w-[18px] h-[18px]"/>
-              </a>
-            </div>
             {/* Copyright and the legal links read as one line. `flex-wrap`
                 only comes into play on a narrow phone, where the alternative
                 is the line overflowing the gutter. */}

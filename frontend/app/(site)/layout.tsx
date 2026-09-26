@@ -1,7 +1,6 @@
 import FaqAccordions from '@/components/FaqAccordions';
 import Footer from '@/components/Footer';
 import Header, { type MegaFeature } from '@/components/Header';
-import Preloader from '@/components/Preloader';
 import ScrollEffects from '@/components/ScrollEffects';
 import { getIssues, getStories } from '@/lib/site-content';
 
@@ -10,7 +9,7 @@ import { getIssues, getStories } from '@/lib/site-content';
  *
  * It lives here rather than in the root layout so the dashboard does not
  * inherit it — an admin page has no business rendering the marketing header,
- * the footer newsletter form, or the preloader overlay.
+ * or the footer newsletter form.
  *
  * The newest story and issue are read here and handed to the header, because
  * the header is a client component and cannot fetch. Both calls are the same
@@ -52,7 +51,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <>
-      <Preloader />
       <Header features={features} />
       {children}
       <Footer />

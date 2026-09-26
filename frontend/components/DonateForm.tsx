@@ -12,7 +12,7 @@ import { validateValue } from '@/lib/validation';
  * /api/create-checkout-session for a Stripe Checkout URL and redirects there.
  *
  * Laid out the way the reference design lays it out: the amount is the first
- * thing you touch, as a row of chips with a "more" chip that opens the custom
+ * thing you touch, as a row of presets with an "Other amount" button that opens the custom
  * field, then who you are, then the total and one full-width submit.
  *
  * The practice mode from the static build is preserved: on localhost only, with
@@ -159,7 +159,7 @@ export default function DonateForm() {
 
       {/* Amount — the first decision, the way the reference orders it. */}
       <fieldset className="amount-fieldset">
-        <legend className="field-label">Choose an amount</legend>
+        <legend className="field-label">Choose an amount <span className="amount-currency">USD</span></legend>
         <div className="amount-row">
           {PRESET_AMOUNTS.map((value) => (
             <button
@@ -181,11 +181,11 @@ export default function DonateForm() {
             type="button"
             aria-expanded={showCustom}
             aria-controls="custom-amount"
-            aria-label="Enter another amount"
+            aria-label="Other amount"
             className={`amount-chip amount-chip-more${custom !== '' ? ' is-selected' : ''}`}
             onClick={openCustom}
           >
-            <span aria-hidden="true">&middot;&middot;&middot;</span>
+            Other amount
           </button>
         </div>
       </fieldset>

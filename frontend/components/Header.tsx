@@ -351,7 +351,7 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
             </Link>
             <Link href="/secondary-research" className="mega-link">
               <MegaIcon name="research" className="mega-ico" />
-              <span>Secondary Research</span>
+              <span>Science Fair</span>
             </Link>
             <Link href="/mentorship" className="mega-link">
               <MegaIcon name="volunteers" className="mega-ico" />
@@ -450,7 +450,7 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
               ['/youth-stem', 'Youth STEM'],
               ['/aerospace-institute', 'Aerospace Institute'],
               ['/community-outreach', 'Community Outreach'],
-              ['/secondary-research', 'Secondary Research'],
+              ['/secondary-research', 'Science Fair'],
               ['/mentorship', 'Mentorship'],
             ].map(([href, label]) => (
               <Link

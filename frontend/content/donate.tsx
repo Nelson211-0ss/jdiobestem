@@ -1,4 +1,3 @@
-import DonateActions from '@/components/DonateActions';
 import DonateForm from '@/components/DonateForm';
 
 /**
@@ -23,7 +22,6 @@ export default function DonateContent() {
             </p>
 
             <DonateForm />
-            <DonateActions />
           </div>
 
           <div className="donate-hero__media">
