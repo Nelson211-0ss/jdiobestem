@@ -34,6 +34,18 @@ export function FileThumb({
   preview?: string;
 }) {
   const [src, setSrc] = useState(() => thumbFor(url));
+  const img = useRef<HTMLImageElement>(null);
+
+  // A new file means a new small copy to try: without this, replacing a photo
+  // in a form kept showing the old one.
+  useEffect(() => setSrc(thumbFor(url)), [url]);
+
+  // The <img> is in the server HTML, so a missing small copy can 404 before
+  // React is listening, and onError never fires. Catch that case on mount.
+  useEffect(() => {
+    const el = img.current;
+    if (el && el.complete && el.naturalWidth === 0 && src !== url) setSrc(url);
+  }, [src, url]);
 
   if (!url) {
     return (
@@ -88,6 +100,7 @@ export function FileThumb({
   return (
     <button type="button" onClick={onOpen} className={cn('block', className)} title={fileNameFrom(url)}>
       <img
+        ref={img}
         src={src}
         alt={alt}
         loading="lazy"

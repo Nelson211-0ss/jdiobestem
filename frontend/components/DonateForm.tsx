@@ -45,7 +45,9 @@ export default function DonateForm() {
   const [errors, setErrors] = useState<{ name?: string; email?: string; amount?: string }>({});
 
   // The custom amount is grouped as it is typed, and held as a plain number.
-  const customField = useGroupedNumber(custom, (raw) => {
+  // `commit` is pulled out rather than spread: it is a handler for the blur, not
+  // an attribute, and handing it to the <input> is what React was warning about.
+  const { commit: commitCustom, ...customField } = useGroupedNumber(custom, (raw) => {
     setCustom(raw);
     setPreset(null);
     setError('');
@@ -205,7 +207,7 @@ export default function DonateForm() {
             className={`field${errors.amount ? ' is-invalid' : ''}`}
             aria-invalid={Boolean(errors.amount)}
             aria-describedby={errors.amount ? 'custom-amount-error' : undefined}
-            onBlur={customField.commit}
+            onBlur={commitCustom}
           />
         </div>
         <FieldError id="custom-amount-error" message={errors.amount} />

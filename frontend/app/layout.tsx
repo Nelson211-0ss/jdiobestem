@@ -52,7 +52,10 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={chivo.variable}>
+    // The admin's saved theme is stamped on <html> by a script before React
+    // loads, so the page never flashes the wrong one. The server cannot know
+    // it, so that one attribute is expected to differ.
+    <html lang="en" className={chivo.variable} suppressHydrationWarning>
       <body className="min-h-screen text-charcoal-700 antialiased">{children}</body>
     </html>
   );
