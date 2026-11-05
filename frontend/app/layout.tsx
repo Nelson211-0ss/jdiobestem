@@ -12,6 +12,7 @@ import '../styles/brand-colors.css';
 import './globals.css';
 import '../styles/pages.css';
 import '../styles/editorial.css';
+import '../styles/programs.css';
 
 
 // Chivo, self-hosted, for the whole site. One variable file covering 100-900,

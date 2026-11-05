@@ -6,7 +6,7 @@ import Icon from '@/components/Icon';
 export default function CommunityOutreachContent({ blocks }: { blocks: Record<string, string> }) {
   return (
     <>
-      <main>
+      <main className="program-page program-page--community-outreach">
           {/* Hero */}
           <header className="page-hero">
             <img src="/images/teachers.jpeg" alt="" className="page-hero__bg" width="1600" height="900"/>

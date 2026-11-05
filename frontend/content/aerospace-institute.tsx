@@ -14,7 +14,7 @@ import Icon from '@/components/Icon';
  */
 export default function AerospaceInstituteContent({ blocks }: { blocks: Record<string, string> }) {
   return (
-    <main>
+    <main className="program-page program-page--aerospace-institute">
       {/*
         No page hero and no breadcrumb here — the heading below is the h1 and the
         first thing on the page. `body` already pads for the fixed masthead, and

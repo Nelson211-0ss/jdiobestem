@@ -6,7 +6,7 @@ import Icon from '@/components/Icon';
 export default function ScholarshipContent({ blocks }: { blocks: Record<string, string> }) {
   return (
     <>
-      <main>
+      <main className="program-page program-page--scholarship">
           {/* Hero */}
           <header className="page-hero">
             <img src="/images/hero-students-community.png" alt="" className="page-hero__bg object-top" width="1600" height="900"/>
@@ -36,7 +36,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                   <div className="surface-brand p-7">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <FeatureIcon name="award" className="feature-ico shrink-0" />
-                      <span className="on-dark inline-flex items-center gap-1.5 rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">
+                      <span className="on-dark inline-flex items-center gap-1.5 rounded-full scholarship-closed px-3 py-1 text-xs font-semibold text-white">
                         <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Closed
                       </span>
                     </div>
@@ -64,8 +64,8 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                       </div>
                     </dl>
                     <div className="mt-7 flex flex-wrap gap-3">
-                      <Link href="/contact" className="btn-primary">Apply Now <Icon name="arrow-right" className="h-4 w-4"/></Link>
-                      <Link href="/contact" className="btn-ghost">Learn More</Link>
+                      <Link href="/contact" className="btn-primary">Ask about the next round <Icon name="arrow-right" className="h-4 w-4"/></Link>
+
                     </div>
                   </div>
                 </article>
@@ -101,7 +101,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                       </li>
                     </ul>
                     <div className="mt-auto flex flex-wrap gap-3 pt-7">
-                      <Link href="/contact" className="btn-primary">Apply Now <Icon name="arrow-right" className="h-4 w-4"/></Link>
+                      <Link href="/contact" className="btn-primary">Enquire about applying <Icon name="arrow-right" className="h-4 w-4"/></Link>
                     </div>
                   </div>
                 </article>
@@ -136,8 +136,8 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
                       </li>
                     </ul>
                     <div className="mt-auto flex flex-wrap gap-3 pt-7">
-                      <Link href="/contact" className="btn-primary">Apply Now <Icon name="arrow-right" className="h-4 w-4"/></Link>
-                      <Link href="/contact" className="btn-ghost">Learn More</Link>
+                      <Link href="/contact" className="btn-primary">Enquire about applying <Icon name="arrow-right" className="h-4 w-4"/></Link>
+
                     </div>
                   </div>
                 </article>

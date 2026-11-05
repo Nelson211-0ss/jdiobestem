@@ -1,0 +1,48 @@
+/* Light-touch refinements: original content and page structure, quieter styling. */
+.program-page { text-align: left; }
+.program-page .page-hero { background: #fff; margin-top: 0; padding-block: 48px; }
+.program-page .page-hero__bg,
+.program-page .page-hero__overlay { display: none; }
+body .program-page h1 { font-size: clamp(2.1rem, 3.6vw, 3.4rem); line-height: 1.1; letter-spacing: -.025em; }
+body .program-page h2 { font-size: clamp(1.65rem, 2.5vw, 2.35rem); line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
+body .program-page h3 { font-size: 1.2rem; line-height: 1.35; font-weight: 700; }
+.program-page .page-hero__lede { max-width: 62ch; font-size: 1.05rem; line-height: 1.75; }
+.program-page .page-hero__eyebrow { font-size: .7rem; letter-spacing: .12em; }
+.program-page .text-center,
+.program-page .section-head { text-align: left; }
+.program-page .section-head .lede { margin-left: 0; }
+.program-page .shadow-card,
+.program-page .card { box-shadow: none; }
+.program-page .feature-ico,
+.program-page .h-14 { width: 30px; height: 30px; }
+.program-page .card,
+.program-page article { border-radius: 8px; }
+.program-page :is(.page-hero,section) p { text-wrap: pretty; }
+.program-page--scholarship article { border-top: 2px solid var(--line); }
+.program-page--scholarship article>.surface-brand { background: #fff; padding-bottom: 0; }
+.program-page--scholarship article>.surface-brand .feature-ico { display: none; }
+.program-page--scholarship article>.surface-brand :is(h3,p) { color: var(--charcoal); }
+.program-page--scholarship article .scholarship-closed { background: #eee; color: var(--charcoal); }
+.program-page--scholarship article .bg-green-600 { background: #eaf2e8; color: #365b35; }
+.program-page--scholarship article li .feature-ico,
+.program-page--scholarship article dl .feature-ico { width: 20px; height: 20px; }
+.program-page .panel-dark { border-radius: 8px; }
+.program-page .handbook-cover { max-width: 200px; }
+.program-page .split>figure { max-width: 400px; }
+.program-page .split>figure img { max-height: 460px; }
+.program-page>section { padding-block: 56px; }
+/* Override the old automatic section shadows without changing other pages. */
+main.program-page>section+section,
+main.program-page>header+section,
+main.program-page>section.bg-white { box-shadow: none; }
+@media (max-width: 767px) {
+  .program-page .page-hero { padding-block: 28px; }
+  .program-page>section { padding-block: 36px; }
+  .program-page .page-hero__lede { font-size: 1rem; }
+  .program-page .page-hero__inner { text-align: left; }
+  .program-page .page-hero .justify-center { justify-content: flex-start; }
+  .program-page .grid-cols-2:has(>div>h3) { grid-template-columns: 1fr; }
+}
+
+.program-page--scholarship>section>.mx-auto { max-width: var(--content); padding-inline: var(--gutter); }
+.program-page--scholarship section .max-w-3xl { margin-left: 0; }

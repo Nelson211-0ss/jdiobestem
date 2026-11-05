@@ -6,7 +6,7 @@ import ProposalForm from '@/components/ProposalForm';
 export default function SecondaryResearchContent({ blocks }: { blocks: Record<string, string> }) {
   return (
     <>
-      <main>
+      <main className="program-page program-page--secondary-research">
           {/* Hero */}
           <header className="page-hero">
             <img src="/images/robot.jpeg" alt="" className="page-hero__bg" width="1600" height="900"/>

@@ -38,7 +38,7 @@ const HANDBOOKS = [
 
 export default function MentorshipContent({ blocks }: { blocks: Record<string, string> }) {
   return (
-    <main>
+    <main className="program-page program-page--mentorship">
       <header className="page-hero">
         <div className="page-hero__inner">
           <p className="page-hero__eyebrow">Initiatives</p>

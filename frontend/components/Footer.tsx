@@ -131,6 +131,29 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div className="mt-14 flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
+            {/* ElevenLabs Impact Program acknowledgement — a condition of the
+                programme (logo + backlink). The white wordmark is the official
+                version for dark backgrounds; ElevenLabs' brand rules ask for
+                clear space equal to the logo's height on every side, which the
+                p-4 around a 16px-tall mark provides. Served from public/ rather
+                than their CDN so the footer never depends on a third party. */}
+            <a
+              href="https://elevenlabs.io/impact-program"
+              target="_blank"
+              rel="noopener"
+              className="-m-4 flex items-center gap-3 p-4 text-xs text-white/55 transition hover:text-orange-400"
+            >
+              <span>Supported by</span>
+              <img
+                src="/images/partners/elevenlabs-logo-white.svg"
+                alt="ElevenLabs Impact Program"
+                width="123"
+                height="16"
+                className="h-4 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
             {/* Copyright and the legal links read as one line. `flex-wrap`
                 only comes into play on a narrow phone, where the alternative
                 is the line overflowing the gutter. */}
