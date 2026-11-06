@@ -210,17 +210,6 @@ body .lede {
   max-width: 40rem;
 }
 
-/* Small caps eyebrow above a heading — the reference sites both use one. */
-.eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--brand-orange-text);
-}
-
 /* Footer text steps down one notch from body copy. */
 #footer .text-sm {
   font-size: 0.9375rem;

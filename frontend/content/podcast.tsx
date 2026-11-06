@@ -42,8 +42,7 @@ export default function PodcastContent({ blocks }: { blocks: Record<string, stri
     <main>
       <header className="page-hero">
         <div className="page-hero__inner">
-          <p className="page-hero__eyebrow">Resources</p>
-          <h1 className="mt-3 max-w-[16ch]">{text(blocks, 'hero.heading', 'The podcast')}</h1>
+          <h1 className="max-w-[16ch]">{text(blocks, 'hero.heading', 'The podcast')}</h1>
           <p className="page-hero__lede">
             {text(
               blocks,
@@ -95,7 +94,6 @@ export default function PodcastContent({ blocks }: { blocks: Record<string, stri
       <section className="section-tight">
         <div className="container-page">
           <div className="section-head">
-            <p className="eyebrow">In the meantime</p>
             <h2>{text(blocks, 'elsewhere.heading', 'There is plenty to read')}</h2>
           </div>
 

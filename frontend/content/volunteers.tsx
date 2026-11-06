@@ -63,8 +63,7 @@ export default function VolunteersContent({
       {/* Hero — one colour block, one heading, one ask. */}
       <section className="page-hero surface-brand">
         <div className="page-hero__inner text-center">
-          <p className="page-hero__eyebrow">{text(blocks, "p.get-involved", "Get Involved")}</p>
-          <h1 className="mx-auto mt-3 max-w-[18ch]">{text(blocks, "h1.volunteer-with-us", "Volunteer with us")}</h1>
+          <h1 className="mx-auto max-w-[18ch]">{text(blocks, "h1.volunteer-with-us", "Volunteer with us")}</h1>
           <p className="page-hero__lede mx-auto">{text(blocks, "p.help-us-put-stem-within", "Help us put STEM within reach of students who would not otherwise get near it. Share a few hours, a skill, or a career’s worth of experience.")}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link href="#apply" className="btn-on-brand">
@@ -85,8 +84,7 @@ export default function VolunteersContent({
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
             <div className="text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.why-we-need-you", "Why we need you")}</p>
-              <h2 className="mt-3">{text(blocks, "h2.talent-is-everywhere-opportunity-is", "Talent is everywhere. Opportunity is not.")}</h2>
+              <h2>{text(blocks, "h2.talent-is-everywhere-opportunity-is", "Talent is everywhere. Opportunity is not.")}</h2>
             </div>
             <p className="mt-6 text-lg leading-8 text-charcoal-600">{text(blocks, "p.across-uganda-and-south-sudan", "Across Uganda and South Sudan, students with real ability in science, technology, engineering, and mathematics are held back by things that have nothing to do with ability: the cost of education, no laboratory to work in, no one to ask, and no professional network to show them what the work leads to.")}</p>
             <p className="mt-5 text-lg leading-8 text-charcoal-600">{text(blocks, "p.volunteers-are-how-that-last", "Volunteers are how that last gap closes. An engineer who explains what the job is actually like, a teacher who keeps a workshop moving, a graduate who answers a question about university applications — none of it requires a budget, and all of it changes what a student believes is available to them.")}</p>
@@ -99,10 +97,7 @@ export default function VolunteersContent({
         <div className="container-page">
           <div className="split">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                The work
-              </p>
-              <h2 className="mt-3">{text(blocks, "h2.what-it-means-to-volunteer", "What it means to volunteer")}</h2>
+              <h2>{text(blocks, "h2.what-it-means-to-volunteer", "What it means to volunteer")}</h2>
               <p className="mt-5 text-lg leading-8 text-charcoal-600">{text(blocks, "p.it-is-not-a-lecture", "It is not a lecture series. Volunteering with the foundation runs from mentoring one student through their next decision, to standing at the back of a science fair making sure twenty projects get set up on time.")}</p>
               <p className="mt-4 text-base leading-7 text-charcoal-600">{text(blocks, "p.you-do-not-have-to", "You do not have to be an engineer. Teachers, university students, organisers, writers, and photographers all have a place here — and so does anyone willing to take a student’s question seriously.")}</p>
               <Link href="#apply" className="btn-primary mt-8">
@@ -207,10 +202,7 @@ export default function VolunteersContent({
         <section className="section-tight bg-smoke-100">
           <div className="container-page">
             <div className="section-head">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                Recognition
-              </p>
-              <h2 className="mt-3">
+              <h2>
                 {text(blocks, 'recognition.heading', 'Volunteers who went further')}
               </h2>
               <p className="mt-4 text-lg leading-8 text-charcoal-600">

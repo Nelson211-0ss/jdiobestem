@@ -24,8 +24,7 @@ export default function CareersContent({
     <main>
       <header className="page-hero surface-brand">
         <div className="page-hero__inner text-center">
-          <p className="page-hero__eyebrow">Careers</p>
-          <h1 className="mx-auto mt-3 max-w-[20ch]">
+          <h1 className="mx-auto max-w-[20ch]">
             {text(blocks, 'hero.heading', 'Work with us')}
           </h1>
           <p className="page-hero__lede mx-auto">

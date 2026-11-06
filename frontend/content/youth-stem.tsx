@@ -12,7 +12,6 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
             <img src="/images/hero-diy-stem-car.png" alt="" className="page-hero__bg" width="1600" height="900"/>
             <div className="page-hero__overlay" aria-hidden="true"></div>
             <div className="page-hero__inner">
-              <p className="page-hero__eyebrow">{text(blocks, "p.youth-stem-school-program", "Youth STEM School Program")}</p>
               <h1>{text(blocks, "h1.inspiring-young-minds-building-future", "Inspiring young minds, building future innovators")}</h1>
               <p className="page-hero__lede">{text(blocks, "p.hands-on-stem-experiences-that", "Hands-on STEM experiences that introduce primary and middle school students to science, technology, engineering, and mathematics through fun, engaging, and interactive learning.")}</p>
               <div className="mt-7 flex flex-wrap gap-4">
@@ -29,8 +28,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
                 <img src="/images/catapilar.jpeg" alt="Students building and experimenting in a STEM workshop" className="aspect-[4/3] w-full object-cover lg:min-h-[380px]" width="1000" height="750" loading="lazy" decoding="async"/>
               </div>
               <div>
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700 justify-center md:justify-start w-full md:w-auto"><Icon name="smile" className="h-4 w-4"/> Why This Program Matters</p>
-                <h2 className="sr-fade-up mt-3 text-center md:text-left text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.every-child-is-born-curious", "Every child is born curious")}</h2>
+                <h2 className="sr-fade-up text-center md:text-left text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.every-child-is-born-curious", "Every child is born curious")}</h2>
                 <div className="mt-6 space-y-5 text-base leading-7 text-gray-600">
                   <p className="sr-fade-up">{text(blocks, "p.early-exposure-to-stem-helps", "Early exposure to STEM helps students develop confidence, creativity, teamwork, and problem-solving skills that prepare them for success in school and future careers.")}</p>
                   <p className="sr-fade-up">{text(blocks, "p.our-interactive-workshops-transform-classrooms", "Our interactive workshops transform classrooms into innovation labs where students learn by exploring, building, experimenting, and discovering — while introducing them to careers they may never have imagined.")}</p>
@@ -43,8 +41,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="bg-white py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="star" className="h-4 w-4"/> Program Highlights</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.learning-that-sticks", "Learning that sticks")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.learning-that-sticks", "Learning that sticks")}</h2>
               </div>
               <div className="sr-stagger mt-9 grid gap-6 md:grid-cols-3">
                 <div className="sr-fade-up rounded-2xl bg-white p-8 shadow-card">
@@ -70,8 +67,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="activity" className="h-4 w-4"/> Program Activities</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-students-experience", "What students experience")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-students-experience", "What students experience")}</h2>
               </div>
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="measure" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.science-experiments", "Science Experiments")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.interactive-experiments-that-make-science", "Interactive experiments that make science exciting.")}</p></div>
@@ -88,8 +84,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="bg-white py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="book-open" className="h-4 w-4"/> STEM Learning Areas</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.four-pillars-of-discovery", "Four pillars of discovery")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.four-pillars-of-discovery", "Four pillars of discovery")}</h2>
               </div>
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
                 <article className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="measure" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">Science</h3><ul className="mt-3 space-y-1.5 text-sm text-gray-600"><li>Experiments</li><li>Biology</li><li>Chemistry</li><li>Physics</li></ul></article>
@@ -104,8 +99,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="clock" className="h-4 w-4"/> A Typical STEM Day</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.a-day-with-jdiobe-stem", "A day with Jdiobe STEM")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.a-day-with-jdiobe-stem", "A day with Jdiobe STEM")}</h2>
               </div>
               <ol className="sr-stagger mt-9 grid grid-cols-2 gap-4 lg:grid-cols-4">
                 <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">01</p><div className="mt-3 flex items-center gap-3"><Icon name="sun" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.welcome-icebreaker", "Welcome & Icebreaker")}</h3></div></li>
@@ -124,8 +118,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="bg-white py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="gift" className="h-4 w-4"/> What Students Take Away</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.skills-for-life", "Skills for life")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.skills-for-life", "Skills for life")}</h2>
               </div>
               <div className="sr-stagger mx-auto mt-9 grid max-w-5xl grid-cols-2 gap-4 lg:grid-cols-3">
                 <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="check-circle" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Curiosity</span></div>
@@ -145,8 +138,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="compass" className="h-4 w-4"/> STEM Career Exploration</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-can-you-become", "What can you become?")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-can-you-become", "What can you become?")}</h2>
                 <p className="sr-fade-up mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">{text(blocks, "p.helping-children-connect-today-s", "Helping children connect today's activities with tomorrow's careers.")}</p>
               </div>
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -170,8 +162,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="bg-white py-12 md:py-14">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="image" className="h-4 w-4"/> Photo Gallery</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.see-stem-in-action", "See STEM in action")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.see-stem-in-action", "See STEM in action")}</h2>
               </div>
               <div className="sr-stagger mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
                 <img src="/images/robot.jpeg" alt="Students building robots" className="h-40 w-full rounded-lg object-cover sm:h-52" width="500" height="330" loading="lazy" decoding="async"/>
@@ -188,8 +179,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section id="impact" className="surface-brand py-12 md:py-14">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-200"><Icon name="bar-chart-2" className="h-4 w-4"/> Program Impact</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.creating-opportunities-through-stem", "Creating opportunities through STEM")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.creating-opportunities-through-stem", "Creating opportunities through STEM")}</h2>
               </div>
               <dl className="sr-stagger mt-9 grid grid-cols-2 gap-6 text-center md:grid-cols-3 lg:grid-cols-5">
                 <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="2500" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Students Inspired</dd></div>
@@ -205,8 +195,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="message-circle" className="h-4 w-4"/> Testimonials</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.in-their-words", "In their words")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.in-their-words", "In their words")}</h2>
               </div>
               <div className="sr-stagger mt-9 grid gap-6 md:grid-cols-2">
                 <figure className="sr-fade-up rounded-2xl bg-white p-8 shadow-card"><Icon name="star" className="h-6 w-6 text-orange-700"/><blockquote className="mt-4 text-lg leading-8 text-gray-800">&quot;Before this program I had never touched a robot. Now I want to become an engineer.&quot;</blockquote><figcaption className="mt-4 text-sm font-semibold text-orange-700">Secondary School Student</figcaption></figure>
@@ -219,8 +208,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
           <section className="bg-white py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700"><Icon name="git-branch" className="h-4 w-4"/> Our STEM Pathway</p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.this-is-just-the-beginning", "This is just the beginning")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.this-is-just-the-beginning", "This is just the beginning")}</h2>
                 <p className="sr-fade-up mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">{text(blocks, "p.we-support-students-from-their", "We support students from their first exposure to STEM all the way to university and professional careers.")}</p>
               </div>
               <ol className="sr-stagger mx-auto mt-9 grid max-w-6xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">

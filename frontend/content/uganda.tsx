@@ -17,11 +17,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
 
             <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
               <div className="max-w-2xl">
-                <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">
-                  <Icon name="map-pin" className="h-4 w-4"/>
-                  {' '}Areas of Operation
-                </p>
-                <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight drop-shadow-card sm:text-5xl lg:text-[3.5rem]">
+                <h1 className="text-4xl font-bold leading-tight tracking-tight drop-shadow-card sm:text-5xl lg:text-[3.5rem]">
                   Uganda
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-white/90">{text(blocks, "p.uganda-is-where-the-jdiobe", "Uganda is where the Jdiobe STEM Foundation began. We work directly with schools, teachers, and communities to remove the practical barriers that keep capable students out of science and engineering.")}</p>
@@ -80,8 +76,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
           <section className="bg-white pb-14 pt-20 md:pb-16 md:pt-20">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="max-w-3xl">
-                <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.on-the-ground", "On the ground")}</p>
-                <h2 className="sr-fade-up mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.what-our-work-in-uganda", "What our work in Uganda looks like")}</h2>
+                <h2 className="sr-fade-up text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.what-our-work-in-uganda", "What our work in Uganda looks like")}</h2>
               </div>
 
               <div className="sr-fade-up mt-9 grid gap-x-10 gap-y-8 pt-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -112,8 +107,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
                 <img src="/images/hero-science-fair-projects.png" alt="Students presenting science fair projects including solar wiring and microcontrollers" className="h-[400px] w-full object-cover" width="1920" height="1080" loading="lazy" decoding="async"/>
               </div>
               <div className="sr-fade-up">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.hands-on-stem-education", "Hands-on STEM education")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.hands-on-stem-education", "Hands-on STEM education")}</h2>
                 <p className="mt-6 text-lg leading-8 text-stone-600">{text(blocks, "p.workshops-and-school-partnerships-that", "Workshops and school partnerships that put equipment in students' hands. Learners move from theory to circuits, sensors, and structures they build and test themselves.")}</p>
                 <ul className="mt-8 space-y-3 pt-6">
                   <li className="flex items-start gap-3 text-base text-stone-700">
@@ -140,8 +134,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
                 <img src="/images/robot.jpeg" alt="A student-built robot on a workbench during a robotics session" className="h-[400px] w-full object-cover" loading="lazy" decoding="async"/>
               </div>
               <div className="sr-fade-up lg:order-1">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.student-led-innovation", "Student-led innovation")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.student-led-innovation", "Student-led innovation")}</h2>
                 <p className="mt-6 text-lg leading-8 text-stone-600">{text(blocks, "p.teams-identify-a-problem-in", "Teams identify a problem in their own community and build toward it — assistive devices, robotics, translation tools, environmental monitoring. The brief is always local.")}</p>
                 <Link href="/secondary-research" className="mt-8 btn-primary">
                   Explore the projects <Icon name="arrow-right" className="h-4 w-4"/>
@@ -155,8 +148,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="grid gap-9 lg:grid-cols-2 lg:gap-16">
                 <div className="sr-fade-up">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">{text(blocks, "p.looking-ahead", "Looking ahead")}</p>
-                  <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "h2.where-we-are-focusing-next", "Where we are focusing next in Uganda")}</h2>
+                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "h2.where-we-are-focusing-next", "Where we are focusing next in Uganda")}</h2>
                   <p className="mt-6 text-lg leading-8 on-brand-muted">{text(blocks, "p.deepening-what-already-works-and", "Deepening what already works, and extending it to more schools and districts.")}</p>
                 </div>
                 <ul className="sr-fade-up self-center lg:pl-4">

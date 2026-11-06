@@ -12,7 +12,6 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
             <img src="/images/robot.jpeg" alt="" className="page-hero__bg" width="1600" height="900"/>
             <div className="page-hero__overlay" aria-hidden="true"></div>
             <div className="page-hero__inner">
-              <p className="page-hero__eyebrow">{text(blocks, "p.uganda-national-secondary-school-science", "Uganda National Secondary School Science Fair")}</p>
               <h1>{text(blocks, "h1.projects-research-and-the-science", "Projects, research, and the Science Fair")}</h1>
               <p className="page-hero__lede">{text(blocks, "p.secondary-school-students-design-a", "Secondary school students design a real project, write a real proposal, and defend it in front of judges — from a school fair, to a regional fair, to the national fair. No laboratory required.")}</p>
               <div className="mt-7 flex flex-wrap gap-4">
@@ -39,11 +38,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section id="overview" className="py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="compass" className="h-4 w-4"/>
-                  {' '}Program Overview
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.discover-research-before-university", "Discover research before university")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.discover-research-before-university", "Discover research before university")}</h2>
                 <p className="sr-fade-up mx-auto mt-4 text-base leading-7 text-gray-600">{text(blocks, "p.the-program-introduces-talented-secondary", "The program introduces talented secondary school students to scientific research, engineering design, innovation, and entrepreneurship. Students work alongside university faculty, engineers, scientists, and industry professionals to develop practical solutions to real-world challenges while building the skills that prepare them for university and STEM careers.")}</p>
               </div>
               <div className="sr-stagger mx-auto mt-10 flex max-w-5xl flex-wrap justify-center gap-2.5">
@@ -67,11 +62,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="bg-white py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="check-square" className="h-4 w-4"/>
-                  {' '}Why Join?
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-students-will-do", "What students will do")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-students-will-do", "What students will do")}</h2>
               </div>
               <div className="sr-stagger mx-auto mt-9 grid max-w-5xl grid-cols-2 gap-4 lg:grid-cols-3">
                 <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="check-circle" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Conduct real research projects</span></div>
@@ -92,7 +83,6 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="section-tight" id="how-it-works">
             <div className="container-page">
               <div className="section-head">
-                <p className="eyebrow">{text(blocks, "p.how-it-works", "How it works")}</p>
                 <h2>{text(blocks, "h2.from-an-idea-to-the", "From an idea to the national fair")}</h2>
                 <p className="lede">{text(blocks, "p.projects-advance-from-a-school", "Projects advance from a school-level fair, to a regional fair, to the national fair. Dates for each stage are announced to schools each year.")}</p>
               </div>
@@ -124,7 +114,6 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="section-tight">
             <div className="container-page">
               <div className="section-head">
-                <p className="eyebrow">Categories</p>
                 <h2>{text(blocks, "h2.six-categories-to-enter", "Six categories to enter")}</h2>
                 <p className="lede">{text(blocks, "p.every-project-is-entered-in", "Every project is entered in one category. Choose the one your work sits in most naturally — judges compare projects within a category, not across them.")}</p>
               </div>
@@ -151,11 +140,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="box" className="h-4 w-4"/>
-                  {' '}Example Student Projects
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.imagine-what-you-could-build", "Imagine what you could build")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.imagine-what-you-could-build", "Imagine what you could build")}</h2>
               </div>
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><Icon name="droplet" className="h-6 w-6 text-orange-700"/><h3 className="mt-4 text-base font-bold text-gray-900">{text(blocks, "h3.autonomous-water-monitoring-robot", "Autonomous Water Monitoring Robot")}</h3><p className="mt-2 text-sm leading-6 text-gray-600">{text(blocks, "p.a-student-built-solution-for", "A student-built solution for testing water quality.")}</p></div>
@@ -174,11 +159,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section id="impact" className="surface-brand py-12 md:py-14">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">
-                  <Icon name="bar-chart-2" className="h-4 w-4"/>
-                  {' '}Program Impact
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.research-that-adds-up", "Research that adds up")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.research-that-adds-up", "Research that adds up")}</h2>
               </div>
               <dl className="sr-stagger mt-9 grid grid-cols-2 gap-6 text-center md:grid-cols-3 lg:grid-cols-5">
                 <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="50" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Students trained annually</dd></div>
@@ -194,11 +175,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="bg-white py-12 md:py-16">
             <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:px-8">
               <div className="text-center md:text-left">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="home" className="h-4 w-4"/>
-                  {' '}Research Facilities
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.where-students-will-work", "Where students will work")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.where-students-will-work", "Where students will work")}</h2>
                 <ul className="sr-stagger mt-6 grid grid-cols-2 gap-3">
                   <li className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-4 shadow-card"><Icon name="thermometer" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">University laboratories</span></li>
                   <li className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-4 shadow-card"><Icon name="tool" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Engineering workshops</span></li>
@@ -209,11 +186,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
                 </ul>
               </div>
               <div className="text-center md:text-left">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="award" className="h-4 w-4"/>
-                  {' '}Annual Research Symposium
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.present-compete-inspire", "Present. Compete. Inspire.")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.present-compete-inspire", "Present. Compete. Inspire.")}</h2>
                 <p className="sr-fade-up mt-4 text-base leading-7 text-gray-600">{text(blocks, "p.every-participating-student-presents-their", "Every participating student presents their research at the Jdiobe STEM Research Symposium before judges from universities and industry. Award categories may include:")}</p>
                 <ul className="sr-stagger mt-6 grid grid-cols-2 gap-3">
                   <li className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-4 shadow-card"><Icon name="tool" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Best Engineering Project</span></li>
@@ -232,8 +205,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
             <div className="container-page">
               <div className="split">
                 <div>
-                  <p className="eyebrow">{text(blocks, "p.who-may-enter", "Who may enter")}</p>
-                  <h2 className="mt-3">{text(blocks, "h2.any-student-any-school", "Any student, any school")}</h2>
+                  <h2>{text(blocks, "h2.any-student-any-school", "Any student, any school")}</h2>
                   <p className="mt-5 text-lg leading-8 text-charcoal-600">{text(blocks, "p.the-science-fair-is-open", "The Science Fair is open to students enrolled at a Ugandan secondary school, entering individually or as a team, supervised by a teacher mentor.")}</p>
                   <p className="mt-4 text-lg leading-8 text-charcoal-600">{text(blocks, "p.you-do-not-need-a", "You do not need a laboratory, and you do not need previous research experience. The strongest projects usually come from noticing something wrong close to home and being stubborn about measuring it.")}</p>
                   <p className="mt-4 text-charcoal-500">{text(blocks, "p.exact-class-levels-any-age", "Exact class levels, any age limits and maximum team size are confirmed with schools each year when the handbook is released.")}</p>
@@ -253,7 +225,6 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="section-tight">
             <div className="container-page">
               <div className="section-head">
-                <p className="eyebrow">{text(blocks, "p.the-proposal", "The proposal")}</p>
                 <h2>{text(blocks, "h2.what-you-are-asked-to", "What you are asked to write")}</h2>
                 <p className="lede">{text(blocks, "p.the-proposal-workbook-walks-you", "The Proposal Workbook walks you through twenty-two sections. It is long on purpose: most of it is teaching, and you fill in the blanks as you go.")}</p>
               </div>
@@ -295,8 +266,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
                   </div>
 
                   <div>
-                    <p className="eyebrow">Download</p>
-                    <h2 className="mt-3">{text(blocks, "h2.the-handbook-and-the-forms", "The handbook and the forms")}</h2>
+                    <h2>{text(blocks, "h2.the-handbook-and-the-forms", "The handbook and the forms")}</h2>
                     <p className="mt-5 text-lg leading-8 text-white/80">{text(blocks, "p.read-the-handbook-before-you", "Read the handbook before you start. Fill in the workbook as you go — it is designed to be worked through, not filled in at the end.")}</p>
 
                     <ul className="download-list">
@@ -338,7 +308,6 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="section-tight" id="apply">
             <div className="container-page">
               <div className="section-head">
-                <p className="eyebrow">Apply</p>
                 <h2>{text(blocks, "h2.register-your-project", "Register your project")}</h2>
                 <p className="lede">{text(blocks, "p.tell-us-who-you-are", "Tell us who you are and what you want to work on. This is the online step; the formal submission is the completed workbook, signed by you, your mentor and your head teacher, with the school stamp.")}</p>
               </div>
@@ -353,11 +322,7 @@ export default function SecondaryResearchContent({ blocks }: { blocks: Record<st
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-3xl px-6 lg:px-8">
               <div className="text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="help-circle" className="h-4 w-4"/>
-                  {' '}Frequently Asked Questions
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.answers-for-applicants", "Answers for applicants")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.answers-for-applicants", "Answers for applicants")}</h2>
               </div>
               <div className="sr-stagger mt-10 space-y-3">
                 <div className="sr-fade-up overflow-hidden rounded-lg bg-white shadow-card">

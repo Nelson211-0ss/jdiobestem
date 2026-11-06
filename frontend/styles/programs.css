@@ -7,7 +7,6 @@ body .program-page h1 { font-size: clamp(2.1rem, 3.6vw, 3.4rem); line-height: 1.
 body .program-page h2 { font-size: clamp(1.65rem, 2.5vw, 2.35rem); line-height: 1.2; font-weight: 700; letter-spacing: -.02em; }
 body .program-page h3 { font-size: 1.2rem; line-height: 1.35; font-weight: 700; }
 .program-page .page-hero__lede { max-width: 62ch; font-size: 1.05rem; line-height: 1.75; }
-.program-page .page-hero__eyebrow { font-size: .7rem; letter-spacing: .12em; }
 .program-page .text-center,
 .program-page .section-head { text-align: left; }
 .program-page .section-head .lede { margin-left: 0; }

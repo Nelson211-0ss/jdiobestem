@@ -32,8 +32,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
           <section className="bg-white py-14">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl text-center md:text-left">
-                <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.impact-snapshot", "Impact Snapshot")}</p>
-                <h2 className="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{text(blocks, "h2.early-progress-real-students-and", "Early progress, real students, and growing momentum")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{text(blocks, "h2.early-progress-real-students-and", "Early progress, real students, and growing momentum")}</h2>
                 <p className="sr-fade-up mt-6 text-base leading-7 text-gray-600">{text(blocks, "p.these-figures-should-be-updated", "These figures should be updated regularly as programs expand. Even at an early stage, clear reporting helps donors, partners, and grant reviewers understand what has already begun.")}</p>
               </div>
 
@@ -83,8 +82,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
           <section className="relative overflow-hidden bg-smoke-100 py-14 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <header className="sr-fade-up max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.impact-story", "Impact Story")}</p>
-                <h2 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "h2.behind-every-number-is-a", "Behind every number is a student with potential.")}</h2>
+                <h2 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "h2.behind-every-number-is-a", "Behind every number is a student with potential.")}</h2>
               </header>
 
               <div className="mt-10 grid gap-9 pt-10 lg:grid-cols-12 lg:gap-16">
@@ -129,8 +127,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid gap-9 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
-                  <p className="sr-fade-up text-center md:text-left text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{text(blocks, "p.what-we-measure", "What We Measure")}</p>
-                  <h2 className="sr-fade-up mt-4 text-center md:text-left text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.we-track-outcomes-that-show", "We track outcomes that show whether students are moving forward.")}</h2>
+                  <h2 className="sr-fade-up text-center md:text-left text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.we-track-outcomes-that-show", "We track outcomes that show whether students are moving forward.")}</h2>
                   <p className="sr-fade-up mt-6 text-center md:text-left text-base leading-7 text-orange-100">{text(blocks, "p.our-work-is-strongest-when", "Our work is strongest when it can be measured. As programs grow, we will continue tracking both quantitative and qualitative indicators of student progress.")}</p>
                   <div className="sr-fade-up mt-8 grid grid-cols-2 gap-3">
                     <div className="overflow-hidden rounded-lg ring-1 ring-white/20">
@@ -173,8 +170,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
               <div className="lg:grid lg:grid-cols-12 lg:items-start lg:gap-10">
                 <header className="sr-fade-up lg:col-span-4 lg:sticky lg:top-24 text-center md:text-left">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.evidence-of-activity", "Evidence of Activity")}</p>
-                  <h2 className="mt-3 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{text(blocks, "h2.impact-grows-through-consistent-visible", "Impact grows through consistent, visible action.")}</h2>
+                  <h2 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{text(blocks, "h2.impact-grows-through-consistent-visible", "Impact grows through consistent, visible action.")}</h2>
                   <p className="mt-4 text-base leading-relaxed text-stone-600">{text(blocks, "p.from-scholarships-and-mentorship-to", "From scholarships and mentorship to hands-on STEM learning, our programs create progress students and partners can see and measure.")}</p>
                   <p className="mt-6 rounded-xl bg-smoke-200 px-4 py-3 text-sm leading-relaxed text-stone-700">{text(blocks, "p.each-area-below-reflects-work", "Each area below reflects work already underway — not future plans — as we build toward broader reach across Uganda.")}</p>
                 </header>
@@ -225,8 +221,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
           <section className="bg-white py-14">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl text-center md:text-left">
-                <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.looking-ahead", "Looking Ahead")}</p>
-                <h2 className="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{text(blocks, "h2.our-next-phase-is-focused", "Our next phase is focused on scale, structure, and stronger measurement.")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{text(blocks, "h2.our-next-phase-is-focused", "Our next phase is focused on scale, structure, and stronger measurement.")}</h2>
                 <p className="sr-fade-up mt-6 text-base leading-7 text-gray-600">{text(blocks, "p.as-the-foundation-grows-we", "As the foundation grows, we aim to expand the number of students reached while strengthening the systems used to track outcomes, report progress, and sustain long term impact.")}</p>
               </div>
 
@@ -254,8 +249,7 @@ export default function ImpactContent({ blocks }: { blocks: Record<string, strin
           {/* CTA */}
           <section className="py-14">
             <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-              <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.support-the-impact", "Support the Impact")}</p>
-              <h2 className="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "h2.help-more-students-move-from", "Help more students move from potential to opportunity.")}</h2>
+              <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "h2.help-more-students-move-from", "Help more students move from potential to opportunity.")}</h2>
               <p className="sr-fade-up mx-auto mt-6 max-w-3xl text-base leading-7 text-gray-600">{text(blocks, "p.your-support-helps-expand-scholarships", "Your support helps expand scholarships, mentorship, STEM training, and innovation opportunities for underserved students in Uganda.")}</p>
               <div className="sr-fade-up mt-8 flex flex-wrap justify-center gap-4">
                 <Link href="/donate" className="btn-primary">

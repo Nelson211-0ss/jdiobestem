@@ -20,11 +20,7 @@ export default function SouthSudanContent({ blocks }: { blocks: Record<string, s
 
             <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
               <div className="max-w-2xl">
-                <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">
-                  <Icon name="map-pin" className="h-4 w-4"/>
-                  {' '}Areas of Operation
-                </p>
-                <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight drop-shadow-card sm:text-5xl lg:text-[3.5rem]">
+                <h1 className="text-4xl font-bold leading-tight tracking-tight drop-shadow-card sm:text-5xl lg:text-[3.5rem]">
                   South Sudan
                 </h1>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-white/90">{text(blocks, "p.extending-the-foundation-s-work", "Extending the foundation's work beyond Uganda. In South Sudan we focus on the earliest barriers to STEM — access to teaching, equipment, and a reason to believe a technical career is possible.")}</p>
@@ -84,8 +80,7 @@ export default function SouthSudanContent({ blocks }: { blocks: Record<string, s
           <section className="bg-white pb-14 pt-20 md:pb-16 md:pt-20">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="max-w-3xl">
-                <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.our-approach", "Our approach")}</p>
-                <h2 className="sr-fade-up mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.building-the-foundations-first", "Building the foundations first")}</h2>
+                <h2 className="sr-fade-up text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.building-the-foundations-first", "Building the foundations first")}</h2>
                 <p className="sr-fade-up mt-4 text-lg leading-relaxed text-stone-600">{text(blocks, "p.we-start-where-the-need", "We start where the need is most basic and build upward — working with local schools and partners rather than around them.")}</p>
               </div>
 
@@ -116,8 +111,7 @@ export default function SouthSudanContent({ blocks }: { blocks: Record<string, s
                 <img src="/images/teachers.jpeg" alt="Teachers taking part in a foundation training session" className="h-[400px] w-full object-cover" loading="lazy" decoding="async"/>
               </div>
               <div className="sr-fade-up">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.teacher-support-and-training", "Teacher support and training")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.teacher-support-and-training", "Teacher support and training")}</h2>
                 <p className="mt-6 text-lg leading-8 text-stone-600">{text(blocks, "p.the-fastest-way-to-reach", "The fastest way to reach many students is through the person already standing in front of them. We work with teachers on practical STEM instruction, low-cost demonstrations, and shared materials.")}</p>
                 <ul className="mt-8 space-y-3 pt-6">
                   <li className="flex items-start gap-3 text-base text-stone-700">
@@ -143,8 +137,7 @@ export default function SouthSudanContent({ blocks }: { blocks: Record<string, s
                 <img src="/images/inspect.jpeg" alt="Students examining a STEM project at an exhibition" className="h-[400px] w-full object-cover" loading="lazy" decoding="async"/>
               </div>
               <div className="sr-fade-up lg:order-1">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Programme</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.access-to-equipment-and-materials", "Access to equipment and materials")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.access-to-equipment-and-materials", "Access to equipment and materials")}</h2>
                 <p className="mt-6 text-lg leading-8 text-stone-600">{text(blocks, "p.practical-science-needs-practical-things", "Practical science needs practical things. We supply kits and materials that let a classroom run real experiments, chosen for durability and for what can be repaired or replaced locally.")}</p>
                 <Link href="/contact" className="mt-8 btn-primary">
                   Get in touch <Icon name="arrow-right" className="h-4 w-4"/>
@@ -157,8 +150,7 @@ export default function SouthSudanContent({ blocks }: { blocks: Record<string, s
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="grid gap-9 lg:grid-cols-2 lg:gap-16">
                 <div className="sr-fade-up">
-                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">{text(blocks, "p.looking-ahead", "Looking ahead")}</p>
-                  <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "h2.growing-this-work-responsibly", "Growing this work responsibly")}</h2>
+                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "h2.growing-this-work-responsibly", "Growing this work responsibly")}</h2>
                   <p className="mt-6 text-lg leading-8 on-brand-muted">{text(blocks, "p.we-would-rather-do-a", "We would rather do a small amount well and grow from proof than announce more than we can sustain.")}</p>
                 </div>
                 <ul className="sr-fade-up self-center lg:pl-4">

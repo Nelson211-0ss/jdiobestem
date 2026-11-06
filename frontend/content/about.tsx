@@ -80,8 +80,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
 
             <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
               <div className="sr-fade-up max-w-2xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-100">{text(blocks, "mission.eyebrow", "What drives us")}</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "mission.heading", "Mission & Vision")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "mission.heading", "Mission & Vision")}</h2>
               </div>
 
               <div className="mt-10 grid gap-9 pt-9 lg:grid-cols-2 lg:gap-0">
@@ -110,8 +109,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
           <section className="relative overflow-hidden bg-white py-12 md:py-16">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <header className="sr-fade-up max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "founder.eyebrow", "Founder’s Journey")}</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "founder.heading", "A foundation shaped by education, engineering, and service")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "founder.heading", "A foundation shaped by education, engineering, and service")}</h2>
               </header>
 
               <div className="mt-10 grid items-start gap-9 lg:grid-cols-12 lg:gap-16">
@@ -175,8 +173,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
           <section className="bg-white py-14">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl text-center md:text-left">
-                <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Our Values</p>
-                <h2 className="sr-fade-up mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{text(blocks, "values.heading", "The principles that guide our work")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{text(blocks, "values.heading", "The principles that guide our work")}</h2>
               </div>
 
               <div className="sr-stagger mt-9 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -210,8 +207,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
           <section className="relative overflow-hidden bg-smoke-100 py-12 md:py-16">
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
               <header className="sr-fade-up max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "where.eyebrow", "Where We Work")}</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "where.heading", "Rooted in Uganda, connected to global opportunity")}</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{text(blocks, "where.heading", "Rooted in Uganda, connected to global opportunity")}</h2>
               </header>
 
               <div className="mt-6 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
@@ -232,7 +228,6 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
               {/* Locations. Uganda and South Sudan link to their own pages; the other
                    two are structural rather than programme locations. */}
               <div className="mt-10 pt-9">
-                <p className="sr-fade-up eyebrow">Areas of operation</p>
 
                 <div className="sr-stagger mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   <Link href="/uganda" className="sr-fade-up group flex flex-col rounded-lg bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-900/10 shadow-card">
@@ -285,8 +280,7 @@ export default function AboutContent({ blocks }: { blocks: Record<string, string
           {/* Moving Forward CTA */}
           <section className="surface-brand py-14">
             <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-              <p className="sr-fade-up text-sm font-semibold uppercase tracking-[0.2em] text-orange-200">{text(blocks, "forward.eyebrow", "Moving Forward")}</p>
-              <h2 className="sr-fade-up mt-4 text-2xl font-bold tracking-tight sm:text-4xl">{text(blocks, "forward.heading", "We are building pathways, not just programs.")}</h2>
+              <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-4xl">{text(blocks, "forward.heading", "We are building pathways, not just programs.")}</h2>
               <p className="sr-fade-up mx-auto mt-6 max-w-3xl text-base leading-7 text-orange-100">{text(blocks, "forward.para", "Our work is about helping students see what is possible, access the support they need, and become part of the next generation of STEM leaders.")}</p>
               <div className="sr-fade-up mt-8 flex flex-wrap justify-center gap-4">
                 <Link href="/team" className="btn-outline-on-brand">

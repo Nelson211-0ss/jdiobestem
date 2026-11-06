@@ -16,14 +16,14 @@ export default function HomeContent({ stats, featuredStory }: { stats: SiteStat[
       <HeroSection />
       {stats.length > 0 && <section id="impact" className="editorial-evidence" aria-label="Foundation at a glance">
         <div className="container-page">
-          <div className="editorial-evidence__heading"><p className="eyebrow">Opportunity in numbers</p><Link href="/impact" className="editorial-link">Explore our impact ↗</Link></div>
+          <div className="editorial-evidence__heading"><Link href="/impact" className="editorial-link">Explore our impact ↗</Link></div>
           <dl>{stats.map(stat => <div key={stat.label}><dt>{stat.value.toLocaleString('en-US')}{stat.suffix}</dt><dd>{stat.label}</dd></div>)}</dl>
         </div>
       </section>}
 
       <section id="programs" className="editorial-section">
         <div className="container-page">
-          <div className="editorial-section__head"><div><p className="eyebrow">What we do</p><h2>Different paths.<br />More possibilities.</h2></div><p className="lede">Talent is everywhere. Access is not. We help students find the support, skills, and people to move forward.</p></div>
+          <div className="editorial-section__head"><div><h2>Different paths.<br />More possibilities.</h2></div><p className="lede">Talent is everywhere. Access is not. We help students find the support, skills, and people to move forward.</p></div>
           <div className="editorial-programs">{programs.map(program => <article key={program.title} className="editorial-program">
             <Link href={program.href} tabIndex={-1} aria-hidden="true"><img src={program.image} alt="" width="800" height="600" loading="lazy" className={program.contain ? 'portrait' : ''} /></Link>
             <div className="editorial-program__title"><span>{program.number}</span><h3><Link href={program.href}>{program.title}</Link></h3></div>
@@ -42,7 +42,7 @@ export default function HomeContent({ stats, featuredStory }: { stats: SiteStat[
 
       <section id="ongoing-projects" className="editorial-section">
         <div className="container-page">
-          <div className="editorial-section__head"><div><p className="eyebrow">Learning by doing</p><h2>Ideas become something real.</h2></div><p className="lede">Build, test, ask questions, and try again. Hands-on projects give students room to discover what they can do.</p></div>
+          <div className="editorial-section__head"><div><h2>Ideas become something real.</h2></div><p className="lede">Build, test, ask questions, and try again. Hands-on projects give students room to discover what they can do.</p></div>
           <div className="editorial-projects">
             <figure><img src="/images/hero-science-fair-projects.png" alt="Students presenting solar and electronics experiments at an outdoor science fair" width="1920" height="1080" loading="lazy" /><figcaption><strong>A place to share ideas</strong><span>Students present their experiments and explain how they work.</span></figcaption></figure>
             <figure><img src="/images/hero-diy-stem-car.png" alt="A model vehicle assembled from recycled materials, wheels, and a small motor" width="1920" height="1080" loading="lazy" /><figcaption><strong>Engineering from everyday materials</strong><span>A hands-on model brings movement, circuits, and design together.</span></figcaption></figure>
@@ -51,12 +51,12 @@ export default function HomeContent({ stats, featuredStory }: { stats: SiteStat[
       </section>
 
       <section className="editorial-community">
-        <div className="container-page"><div className="editorial-partner-heading"><div><p className="eyebrow">Working together</p><h2>Opportunity takes a community.</h2></div><Link href="/contact" className="editorial-link">Become a partner ↗</Link></div><PartnerMarquee />
+        <div className="container-page"><div className="editorial-partner-heading"><div><h2>Opportunity takes a community.</h2></div><Link href="/contact" className="editorial-link">Become a partner ↗</Link></div><PartnerMarquee />
           <div className="editorial-quote"><blockquote>“Our goal is not only to support students, but to empower them to become leaders and problem solvers in their communities and beyond.”</blockquote><div><img src="/images/muwanika.jpg" alt="" width="64" height="64" loading="lazy" /><p><strong>Dr. Muwanika Jdiobe</strong><span>Founder &amp; Executive Director</span><Link href="/about">Meet the Foundation ↗</Link></p></div></div>
         </div>
       </section>
 
-      <section id="get-involved" className="editorial-invitation"><div className="container-page"><div><p className="eyebrow">Be part of what comes next</p><h2>Help open the next door.</h2><p>Your support helps students access education, mentorship, and practical opportunities in STEM.</p></div><div className="editorial-actions"><Link href="/donate" className="btn-primary">Support a student <Icon name="arrow-right" /></Link><Link href="/contact" className="editorial-link">Partner with us ↗</Link></div></div></section>
+      <section id="get-involved" className="editorial-invitation"><div className="container-page"><div><h2>Help open the next door.</h2><p>Your support helps students access education, mentorship, and practical opportunities in STEM.</p></div><div className="editorial-actions"><Link href="/donate" className="btn-primary">Support a student <Icon name="arrow-right" /></Link><Link href="/contact" className="editorial-link">Partner with us ↗</Link></div></div></section>
     </main>
   );
 }

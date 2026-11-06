@@ -645,7 +645,6 @@ const SECTIONS: LegalSection[] = [
 export default function TermsContent() {
   return (
     <LegalDoc
-      eyebrow="Legal"
       title="Terms of Use"
       lede="The terms on which the Jdiobe STEM Foundation makes this website available — what you may do with it, what you are responsible for when you submit information or make a donation, and the limits of our liability."
       effective="28 August 2026"

@@ -13,8 +13,7 @@ export default function TeamContent({ people }: { people: SiteTeamMember[] }) {
           <div className="page-hero__inner">
             <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
               <div>
-                <p className="page-hero__eyebrow">Our People</p>
-                <h1 className="mt-3 max-w-[24ch]">
+                <h1 className="max-w-[24ch]">
                   Get to know the people behind the Jdiobe STEM Foundation
                 </h1>
                 <p className="page-hero__lede">
@@ -63,8 +62,7 @@ export default function TeamContent({ people }: { people: SiteTeamMember[] }) {
               </div>
 
               <div>
-                <p className="eyebrow">Our Founder</p>
-                <h2 className="mt-3">Muwanika Jdiobe, PhD</h2>
+                <h2>Muwanika Jdiobe, PhD</h2>
                 <p className="mt-2 text-lg font-bold text-orange-700">
                   Founder &amp; Executive Director
                 </p>
@@ -111,8 +109,7 @@ export default function TeamContent({ people }: { people: SiteTeamMember[] }) {
         <section className="section-tight">
           <div className="container-page">
             <div className="panel-brand text-center">
-              <p className="eyebrow">Get Involved</p>
-              <h2 className="mx-auto mt-3 max-w-[20ch]">
+              <h2 className="mx-auto max-w-[20ch]">
                 There is room here for what you know
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-lg leading-8">

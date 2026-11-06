@@ -29,14 +29,12 @@ export type LegalSection = {
 };
 
 export default function LegalDoc({
-  eyebrow,
   title,
   lede,
   updated,
   effective,
   sections,
 }: {
-  eyebrow: string;
   title: string;
   lede: string;
   updated: string;
@@ -47,7 +45,6 @@ export default function LegalDoc({
     <main className="legal-doc">
       <section className="legal-masthead">
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <p className="legal-eyebrow">{eyebrow}</p>
           <h1 className="legal-title">{title}</h1>
           <p className="legal-lede">{lede}</p>
           <dl className="legal-meta">

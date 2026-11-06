@@ -101,7 +101,6 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="section-head">
-            <p className="sr-fade-up eyebrow">{text(blocks, "p.planned-facilities", "Planned facilities")}</p>
             <h2 className="sr-fade-up text-3xl">{text(blocks, "h2.what-we-intend-to-build", "What we intend to build")}</h2>
             <p className="sr-fade-up lede">{text(blocks, "p.three-things-the-region-does", "Three things the region does not currently have in one place, and the reason the institute is worth building at all.")}</p>
           </div>
@@ -150,7 +149,6 @@ export default function AerospaceInstituteContent({ blocks }: { blocks: Record<s
       <section className="surface-smoke py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="section-head">
-            <p className="sr-fade-up eyebrow">{text(blocks, "p.the-road-there", "The road there")}</p>
             <h2 className="sr-fade-up text-3xl">{text(blocks, "h2.how-the-institute-gets-built", "How the institute gets built")}</h2>
             <p className="sr-fade-up lede">{text(blocks, "p.four-stages-in-order-we", "Four stages, in order. We will publish an opening date here once the site and the funding for it are both secured — not before.")}</p>
           </div>

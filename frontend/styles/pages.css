@@ -88,16 +88,8 @@
   border-bottom: 2px solid var(--legal-rule-strong);
 }
 
-.legal-eyebrow {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--legal-faint);
-}
-
 .legal-doc .legal-title {
-  margin-top: 0.75rem;
+  margin-top: 0;
   font-size: clamp(2rem, 1.5rem + 2.2vw, 3rem);
   font-weight: 800;
   line-height: 1.08;

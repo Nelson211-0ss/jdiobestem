@@ -41,8 +41,7 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
     <main className="program-page program-page--mentorship">
       <header className="page-hero">
         <div className="page-hero__inner">
-          <p className="page-hero__eyebrow">Initiatives</p>
-          <h1 className="mt-3 max-w-[18ch]">{text(blocks, "h1.nobody-gets-there-on-their", "Nobody gets there on their own.")}</h1>
+          <h1 className="max-w-[18ch]">{text(blocks, "h1.nobody-gets-there-on-their", "Nobody gets there on their own.")}</h1>
           <p className="page-hero__lede">{text(blocks, "p.mentorship-pairs-students-with-the", "Mentorship pairs students with the educators and professionals who have already walked the path they are trying to find — so the next decision is made with someone, not alone.")}</p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/volunteers#apply" className="btn-primary">
@@ -61,8 +60,7 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
         <div className="container-page">
           <div className="mx-auto max-w-3xl">
             <div className="text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">{text(blocks, "p.why-it-matters", "Why it matters")}</p>
-              <h2 className="mt-3">{text(blocks, "h2.the-gap-is-rarely-ability", "The gap is rarely ability.")}</h2>
+              <h2>{text(blocks, "h2.the-gap-is-rarely-ability", "The gap is rarely ability.")}</h2>
             </div>
             <p className="mt-6 text-lg leading-8 text-charcoal-600">{text(blocks, "p.a-student-in-uganda-or", "A student in Uganda or South Sudan can be the strongest mathematician in their class and still have no idea what an engineer does all day, which subjects a degree needs, or whether anyone like them has done it before. That is not a gap in talent. It is a gap in exposure and in networks — and it is the one a mentor closes.")}</p>
             <p className="mt-5 text-lg leading-8 text-charcoal-600">{text(blocks, "p.mentorship-runs-alongside-the-other", "Mentorship runs alongside the other programmes rather than instead of them. A scholarship pays the fees; a mentor is the person a student can ask what to do next.")}</p>
@@ -113,8 +111,7 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
         <div className="container-page">
           <div className="panel-dark">
             <div className="text-center">
-              <p className="eyebrow">2026/27</p>
-              <h2 className="mt-3">{text(blocks, "h2.the-mentorship-handbooks", "The mentorship handbooks")}</h2>
+              <h2>{text(blocks, "h2.the-mentorship-handbooks", "The mentorship handbooks")}</h2>
               <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-white/80">{text(blocks, "p.both-sides-of-the-pairing", "Both sides of the pairing get a handbook for the year. They are dated 10 September 2026 and prepared by Joshua Mutesasira in Kampala.")}</p>
             </div>
 
@@ -195,10 +192,7 @@ export default function MentorshipContent({ blocks }: { blocks: Record<string, s
             </figure>
 
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                A mentor
-              </p>
-              <h2 className="mt-3">Rose Auma</h2>
+              <h2>Rose Auma</h2>
               <p className="mt-2 text-lg font-bold text-orange-700">{text(blocks, "p.senior-civil-engineer", "Senior Civil Engineer")}</p>
               <p className="mt-5 text-lg leading-8 text-charcoal-600">{text(blocks, "p.a-senior-civil-engineer-specialising", "A Senior Civil Engineer specialising in dam safety and structural engineering. Rose brings professional practice and academic training together to help students see a concrete path from classroom STEM into engineering careers.")}</p>
               <Link href="/team" className="btn-ghost mt-8">

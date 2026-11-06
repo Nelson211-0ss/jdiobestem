@@ -12,7 +12,6 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
             <img src="/images/hero-students-community.png" alt="" className="page-hero__bg object-top" width="1600" height="900"/>
             <div className="page-hero__overlay" aria-hidden="true"></div>
             <div className="page-hero__inner">
-              <p className="page-hero__eyebrow">{text(blocks, "p.stem-scholarship-program", "STEM Scholarship Program")}</p>
               <h1>{text(blocks, "h1.supporting-future-stem-leaders", "Supporting future STEM leaders")}</h1>
               <p className="page-hero__lede">{text(blocks, "p.scholarships-that-reduce-financial-barriers", "Scholarships that reduce financial barriers while providing mentorship, leadership development, and professional growth for outstanding students pursuing STEM education.")}</p>
             </div>
@@ -22,11 +21,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
           <section className="py-12 md:py-16">
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="award" className="h-4 w-4"/>
-                  {' '}Featured Scholarships
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{text(blocks, "h2.opening-doors-for-the-next", "Opening doors for the next generation")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{text(blocks, "h2.opening-doors-for-the-next", "Opening doors for the next generation")}</h2>
               </div>
 
               <div className="sr-stagger mt-9 grid gap-8 lg:grid-cols-3">
@@ -150,11 +145,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
           <section className="bg-white py-12 md:py-14">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="sr-fade-up inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">
-                  <Icon name="heart" className="h-4 w-4"/>
-                  {' '}More Than Tuition
-                </p>
-                <h2 className="sr-fade-up mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{text(blocks, "h2.support-that-goes-beyond-the", "Support that goes beyond the classroom")}</h2>
+                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{text(blocks, "h2.support-that-goes-beyond-the", "Support that goes beyond the classroom")}</h2>
               </div>
               <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
                 <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">

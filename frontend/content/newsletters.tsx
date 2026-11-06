@@ -23,8 +23,7 @@ export default function NewslettersContent({
     <main>
       <header className="page-hero">
         <div className="page-hero__inner">
-          <p className="page-hero__eyebrow">Resources</p>
-          <h1 className="mt-3 max-w-[16ch]">
+          <h1 className="max-w-[16ch]">
             {text(blocks, 'hero.heading', 'The newsletter')}
           </h1>
           <p className="page-hero__lede">

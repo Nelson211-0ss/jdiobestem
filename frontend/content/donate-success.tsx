@@ -10,7 +10,6 @@ export default function DonateSuccessContent() {
           <div className="page-hero__overlay" aria-hidden="true"></div>
           <div className="page-hero__inner mx-auto max-w-2xl text-center">
             <FeatureIcon name="done" className="feature-ico mb-4" />
-            <p className="page-hero__eyebrow">Donation received</p>
             <h1>Thank you</h1>
             <DonateSuccessMessage />
             <Link href="/" className="mt-6 btn-on-brand">

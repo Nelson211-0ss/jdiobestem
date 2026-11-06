@@ -94,7 +94,6 @@ export default function Testimonials() {
     <section className="section" aria-labelledby="testimonials-heading">
       <div className="container-page">
         <div className="section-head">
-          <p className="eyebrow">In their words</p>
           <h2 id="testimonials-heading">What teachers and students say</h2>
         </div>
       </div>

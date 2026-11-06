@@ -668,7 +668,6 @@ const SECTIONS: LegalSection[] = [
 export default function PrivacyContent() {
   return (
     <LegalDoc
-      eyebrow="Legal"
       title="Privacy Policy"
       lede="How the Jdiobe STEM Foundation collects, uses, shares and protects personal information submitted through this website — including information about the students who take part in our programmes."
       effective="28 August 2026"

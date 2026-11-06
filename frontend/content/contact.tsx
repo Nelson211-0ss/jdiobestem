@@ -109,7 +109,6 @@ export default function ContactContent({ blocks }: { blocks: Record<string, stri
             <section id="faqs" className="mt-14 md:mt-20" aria-labelledby="faqs-heading">
               <div className="mx-auto max-w-3xl">
                 <div className="sr-fade-up text-center">
-                  <p className="eyebrow">Help Center</p>
                   <h2 id="faqs-heading" className="mt-3">{text(blocks, "h2.frequently-asked-questions", "Frequently asked questions")}</h2>
                   <p className="lede mx-auto mt-4">{text(blocks, "p.answers-to-common-questions-about", "Answers to common questions about our foundation, programs, and how to get involved.")}</p>
                 </div>

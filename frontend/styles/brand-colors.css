@@ -653,7 +653,7 @@ a.card:hover,
   padding-inline: var(--gutter);
 }
 
-/* Centred section intro: eyebrow, heading, lede. */
+/* Centred section intro: heading, lede. */
 .section-head {
   max-width: 46rem;
   margin-inline: auto;
@@ -1303,17 +1303,8 @@ body:has(.hero-home) .mobile-menu {
   padding-inline: var(--gutter);
 }
 
-.page-hero__eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--brand-orange-text);
-}
-
 .page-hero h1 {
-  margin-top: 0.65rem;
+  margin-top: 0;
   max-width: 20ch;
   color: var(--ink-strong);
 }
@@ -1344,7 +1335,6 @@ body:has(.hero-home) .mobile-menu {
   color: var(--on-brand);
 }
 
-.page-hero.surface-brand .page-hero__eyebrow,
 .page-hero.surface-brand .page-hero__lede {
   color: var(--on-brand-muted);
 }
@@ -1748,17 +1738,6 @@ body:has(.hero-home) .preloader {
 .on-dark-surface dt,
 .on-dark-surface strong {
   color: #fff;
-}
-
-.on-dark-surface .eyebrow,
-.surface-dark .eyebrow,
-.panel-dark .eyebrow {
-  color: var(--brand-orange-400, #ff7c33);
-}
-
-.surface-brand .eyebrow,
-.panel-brand .eyebrow {
-  color: var(--on-brand-muted);
 }
 
 .on-dark-surface .icon-plate {
