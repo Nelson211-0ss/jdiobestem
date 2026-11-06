@@ -1478,59 +1478,6 @@ footer .field-error {
   box-shadow: 0 0 0 3px #fff;
 }
 
-/* ============================================================ preloader */
-
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--white);
-  transition: opacity 0.45s ease;
-}
-
-body:has(.hero-home) .preloader {
-  background-color: var(--smoke);
-}
-
-.preloader.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.preloader-spinner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4.5rem;
-  height: 4.5rem;
-}
-
-.preloader-spinner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  border: 3px solid var(--brand-orange-soft);
-  border-top-color: var(--brand-orange);
-  animation: preloader-spin 0.85s linear infinite;
-}
-
-.preloader-icon {
-  width: 2.25rem;
-  height: 2.25rem;
-  object-fit: contain;
-}
-
-@keyframes preloader-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* ============================================================ utility */
 
 /* Stat figure — big orange number over a small charcoal label. */
@@ -1601,8 +1548,7 @@ body:has(.hero-home) .preloader {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .preloader-spinner::before {
+  .marquee-track {
     animation: none !important;
   }
 
