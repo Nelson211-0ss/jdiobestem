@@ -29,14 +29,13 @@ export default function HomeContent({ stats, featuredStory }: { stats: SiteStat[
             <div className="editorial-program__title"><span>{program.number}</span><h3><Link href={program.href}>{program.title}</Link></h3></div>
             <p>{program.description}</p><Link href={program.href} className="editorial-link">{program.cta} <Icon name="arrow-right" /></Link>
           </article>)}</div>
-          <div className="editorial-more"><span>More ways to learn</span><Link href="/youth-stem">Youth STEM ↗</Link><Link href="/community-outreach">Community outreach ↗</Link><Link href="/aerospace-institute">Aerospace Institute ↗</Link></div>
         </div>
       </section>
 
       <section className="editorial-story">
         <div className="container-page editorial-story__grid">
-          <figure><img src="/images/moses-nambiro.png" alt="Moses Nambiro, travel scholarship recipient" width="600" height="700" loading="lazy" /><figcaption>Moses Nambiro · Scholarship recipient</figcaption></figure>
-          <div><p className="eyebrow">One student. A new possibility.</p><h2>The next step toward a future in flight.</h2><p className="lede">For Moses Nambiro, admission to study Aeronautical Engineering was the beginning. Getting there was the next challenge.</p><p>On April 6, 2026, the Foundation awarded Moses a $1,000 travel scholarship to help cover airfare for his international academic journey.</p><div className="editorial-story__detail"><strong>$1,000</strong><span>Travel scholarship<br />Awarded April 2026</span></div>
+          <figure><img src="/images/moses-nambiro-cutout.png" alt="Moses Nambiro, travel scholarship recipient" width="1024" height="1536" loading="lazy" /></figure>
+          <div><h2>The next step toward a future in flight.</h2><p className="lede">For Moses Nambiro, admission to study Aeronautical Engineering was the beginning. Getting there was the next challenge.</p><p>On April 6, 2026, the Foundation awarded Moses a $1,000 travel scholarship to help cover airfare for his international academic journey.</p><div className="editorial-story__detail"><strong>$1,000</strong><span>Travel scholarship<br />Awarded April 2026</span></div>
           <Link className="editorial-link" href={featuredStory ? `/news/${featuredStory.slug}` : '/scholarship'}>{featuredStory ? 'Read Moses’s story' : 'Learn about our scholarships'} <Icon name="arrow-right" /></Link></div>
         </div>
       </section>
