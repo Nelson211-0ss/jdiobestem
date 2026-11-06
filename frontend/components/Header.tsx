@@ -303,7 +303,7 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
           <div className="mega-col lg:col-span-6">
             <Link href="/donate" className="mega-feature group">
               <img
-                src="/images/hero-students-community.png"
+                src="/images/hero-students-community.webp"
                 alt=""
                 className="mega-feature-img"
                 loading="lazy"
@@ -364,7 +364,7 @@ export default function Header({ features = [] }: { features?: MegaFeature[] }) 
             <div className="grid gap-4 sm:grid-cols-2">
               <Link href="/uganda" className="mega-place group">
                 <img
-                  src="/images/hero-science-fair-projects.png"
+                  src="/images/hero-science-fair-projects.webp"
                   alt=""
                   className="mega-place-img"
                   loading="lazy"

@@ -9,7 +9,7 @@ export default function ScholarshipContent({ blocks }: { blocks: Record<string, 
       <main className="program-page program-page--scholarship">
           {/* Hero */}
           <header className="page-hero">
-            <img src="/images/hero-students-community.png" alt="" className="page-hero__bg object-top" width="1600" height="900"/>
+            <img src="/images/hero-students-community.webp" alt="" className="page-hero__bg object-top" width="1600" height="900"/>
             <div className="page-hero__overlay" aria-hidden="true"></div>
             <div className="page-hero__inner">
               <h1>{text(blocks, "h1.supporting-future-stem-leaders", "Supporting future STEM leaders")}</h1>

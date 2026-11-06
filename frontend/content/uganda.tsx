@@ -12,7 +12,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
                colour; the gradient over it keeps the headline legible regardless of
                what part of the photo lands behind the text. */}
           <section className="on-dark-surface relative -mt-[5.5rem] md:-mt-24 flex min-h-[70vh] items-center overflow-hidden bg-charcoal-900 pb-16 pt-[9.5rem] text-white">
-            <img src="/images/hero-students-community.png" alt="Students in school uniforms gathered together outdoors in Uganda, one holding a model airplane" className="absolute inset-0 h-full w-full object-cover object-center" width="1920" height="1080" loading="eager" decoding="sync" fetchPriority="high"/>
+            <img src="/images/hero-students-community.webp" alt="Students in school uniforms gathered together outdoors in Uganda, one holding a model airplane" className="absolute inset-0 h-full w-full object-cover object-center" width="1920" height="1080" loading="eager" decoding="sync" fetchPriority="high"/>
             <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950/90 via-charcoal-950/70 via-55% to-charcoal-900/40" aria-hidden="true"></div>
 
             <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
@@ -104,7 +104,7 @@ export default function UgandaContent({ blocks }: { blocks: Record<string, strin
           <section className="py-14 md:py-16">
             <div className="mx-auto grid max-w-7xl items-center gap-9 px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
               <div className="sr-fade-up overflow-hidden rounded-lg">
-                <img src="/images/hero-science-fair-projects.png" alt="Students presenting science fair projects including solar wiring and microcontrollers" className="h-[400px] w-full object-cover" width="1920" height="1080" loading="lazy" decoding="async"/>
+                <img src="/images/hero-science-fair-projects.webp" alt="Students presenting science fair projects including solar wiring and microcontrollers" className="h-[400px] w-full object-cover" width="1920" height="1080" loading="lazy" decoding="async"/>
               </div>
               <div className="sr-fade-up">
                 <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">{text(blocks, "h2.hands-on-stem-education", "Hands-on STEM education")}</h2>

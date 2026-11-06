@@ -9,7 +9,7 @@ export default function YouthStemContent({ blocks }: { blocks: Record<string, st
       <main className="program-page program-page--youth-stem">
           {/* Hero */}
           <header className="page-hero">
-            <img src="/images/hero-diy-stem-car.png" alt="" className="page-hero__bg" width="1600" height="900"/>
+            <img src="/images/hero-diy-stem-car.webp" alt="" className="page-hero__bg" width="1600" height="900"/>
             <div className="page-hero__overlay" aria-hidden="true"></div>
             <div className="page-hero__inner">
               <h1>{text(blocks, "h1.inspiring-young-minds-building-future", "Inspiring young minds, building future innovators")}</h1>

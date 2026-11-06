@@ -14,7 +14,7 @@ export default function HeroSection() {
           </div>
         </div>
         <figure className="editorial-hero__photo">
-          <img src="/images/hero-students-community.png" alt="Students gathered outside their school, with a student holding a model airplane" width="1920" height="1080" fetchPriority="high" />
+          <img src="/images/hero-students-community.webp" alt="Students gathered outside their school, with a student holding a model airplane" width="1920" height="1080" fetchPriority="high" />
         </figure>
       </div>
     </header>

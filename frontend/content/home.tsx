@@ -5,8 +5,8 @@ import PartnerMarquee from '@/components/PartnerMarquee';
 import Icon from '@/components/Icon';
 
 const programs = [
-  { number: '01', title: 'Scholarships', image: '/images/moses-nambiro.png', alt: 'Scholarship recipient Moses Nambiro', description: 'Practical support for tuition, materials, and travel, so students can take their next step.', href: '/scholarship', cta: 'Explore scholarships', contain: true },
-  { number: '02', title: 'Hands-on STEM', image: '/images/hero-science-fair-projects.png', alt: 'Students demonstrating electronics and solar projects at a science fair', description: 'From a first experiment to the Science Fair. Turn classroom ideas into projects that solve problems.', href: '/secondary-research', cta: 'Discover the Science Fair', contain: false },
+  { number: '01', title: 'Scholarships', image: '/images/moses-nambiro.webp', alt: 'Scholarship recipient Moses Nambiro', description: 'Practical support for tuition, materials, and travel, so students can take their next step.', href: '/scholarship', cta: 'Explore scholarships', contain: true },
+  { number: '02', title: 'Hands-on STEM', image: '/images/hero-science-fair-projects.webp', alt: 'Students demonstrating electronics and solar projects at a science fair', description: 'From a first experiment to the Science Fair. Turn classroom ideas into projects that solve problems.', href: '/secondary-research', cta: 'Discover the Science Fair', contain: false },
   { number: '03', title: 'Mentorship', image: '/images/inspect.jpeg', alt: 'Students and visitors discussing projects at a STEM exhibition', description: 'Connect with educators and professionals to explore what comes next in science and engineering.', href: '/mentorship', cta: 'Explore mentorship', contain: false },
 ];
 
@@ -34,7 +34,7 @@ export default function HomeContent({ stats, featuredStory }: { stats: SiteStat[
 
       <section className="editorial-story">
         <div className="container-page editorial-story__grid">
-          <figure><img src="/images/moses-nambiro-cutout.png" alt="Moses Nambiro, travel scholarship recipient" width="1024" height="1536" loading="lazy" /></figure>
+          <figure><img src="/images/moses-nambiro-cutout.webp" alt="Moses Nambiro, travel scholarship recipient" width="1024" height="1536" loading="lazy" /></figure>
           <div><h2>The next step toward a future in flight.</h2><p className="lede">For Moses Nambiro, admission to study Aeronautical Engineering was the beginning. Getting there was the next challenge.</p><p>On April 6, 2026, the Foundation awarded Moses a $1,000 travel scholarship to help cover airfare for his international academic journey.</p><div className="editorial-story__detail"><strong>$1,000</strong><span>Travel scholarship<br />Awarded April 2026</span></div>
           <Link className="editorial-link" href={featuredStory ? `/news/${featuredStory.slug}` : '/scholarship'}>{featuredStory ? 'Read Moses’s story' : 'Learn about our scholarships'} <Icon name="arrow-right" /></Link></div>
         </div>
@@ -44,8 +44,8 @@ export default function HomeContent({ stats, featuredStory }: { stats: SiteStat[
         <div className="container-page">
           <div className="editorial-section__head"><div><h2>Ideas become something real.</h2></div><p className="lede">Build, test, ask questions, and try again. Hands-on projects give students room to discover what they can do.</p></div>
           <div className="editorial-projects">
-            <figure><img src="/images/hero-science-fair-projects.png" alt="Students presenting solar and electronics experiments at an outdoor science fair" width="1920" height="1080" loading="lazy" /><figcaption><strong>A place to share ideas</strong><span>Students present their experiments and explain how they work.</span></figcaption></figure>
-            <figure><img src="/images/hero-diy-stem-car.png" alt="A model vehicle assembled from recycled materials, wheels, and a small motor" width="1920" height="1080" loading="lazy" /><figcaption><strong>Engineering from everyday materials</strong><span>A hands-on model brings movement, circuits, and design together.</span></figcaption></figure>
+            <figure><img src="/images/hero-science-fair-projects.webp" alt="Students presenting solar and electronics experiments at an outdoor science fair" width="1920" height="1080" loading="lazy" /><figcaption><strong>A place to share ideas</strong><span>Students present their experiments and explain how they work.</span></figcaption></figure>
+            <figure><img src="/images/hero-diy-stem-car.webp" alt="A model vehicle assembled from recycled materials, wheels, and a small motor" width="1920" height="1080" loading="lazy" /><figcaption><strong>Engineering from everyday materials</strong><span>A hands-on model brings movement, circuits, and design together.</span></figcaption></figure>
           </div><Link href="/secondary-research" className="editorial-link mt-8">Find your next project <Icon name="arrow-right" /></Link>
         </div>
       </section>
