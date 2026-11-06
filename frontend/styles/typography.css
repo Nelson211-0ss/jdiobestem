@@ -1,6 +1,7 @@
 /*
- * Type scale — Chivo throughout, loaded by next/font in app/layout.tsx and
- * exposed as --font-chivo.
+ * Type scale — Sofia Sans for body copy and Sofia Sans Extra Condensed for
+ * headings, loaded by next/font in app/layout.tsx and exposed as --font-sofia
+ * and --font-sofia-condensed.
  *
  * The shape is taken from the reference sites: display headings set very heavy
  * (700–800) with leading pulled in tight (~1.0–1.1) and tracking slightly
@@ -19,7 +20,7 @@ html {
 }
 
 html body {
-  font-family: var(--font-chivo), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sofia), ui-sans-serif, system-ui, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.65;
   letter-spacing: -0.006em;
@@ -64,7 +65,7 @@ h6,
 .magazine-back-title,
 .magazine-quote blockquote,
 .testimonial-quote {
-  font-family: var(--font-chivo);
+  font-family: var(--font-sofia-condensed), var(--font-sofia), ui-sans-serif, sans-serif;
 }
 
 h1,
@@ -74,8 +75,7 @@ h4,
 h5,
 h6 {
   color: var(--charcoal);
-  /* Chivo carries weight further than Overpass did, so the display headings go
-     to the top of its range; the tracking eases off a touch to let it. */
+  /* Display headings sit at the top of the weight range. */
   font-weight: 900;
   line-height: 1.06;
   letter-spacing: -0.022em;

@@ -167,10 +167,11 @@ const config: Config = {
         teal: green,
       },
       fontFamily: {
-        sans: ['var(--font-vistol)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        // Headings run on Overpass; everything else stays on Vistol.
-        heading: ['var(--font-overpass)'],
-        body: ['var(--font-vistol)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Loaded in app/layout.tsx: Sofia Sans for body copy, its Extra
+        // Condensed width for headings.
+        sans: ['var(--font-sofia)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-sofia-condensed)', 'var(--font-sofia)', 'ui-sans-serif', 'sans-serif'],
+        body: ['var(--font-sofia)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         // Buttons are pills; cards and panels use the large soft radii that give

@@ -13,20 +13,26 @@ import './globals.css';
 import '../styles/pages.css';
 import '../styles/editorial.css';
 import '../styles/programs.css';
+import '../styles/type-sofia.css';
 
 
-// Chivo, self-hosted, for the whole site. One variable file covering 100-900,
-// Latin subset — 32 KB, against the nine static files and 280 KB that Vistol
-// Sans took to cover the same range.
-//
-// One family throughout: headings are a matter of weight (900 for display, 700
-// for the smaller ones) and tracking, not of a second typeface. Vistol's files
-// are still in ./fonts if this turns out to be one voice too few.
-const chivo = localFont({
-  src: './fonts/Chivo-Variable.woff2',
-  weight: '100 900',
+// Sofia Sans, self-hosted, in two widths of the same family: the regular width
+// for body copy and the Extra Condensed width for headings. One variable file
+// each, Latin subset, weights 1-1000.
+const sofia = localFont({
+  src: './fonts/SofiaSans-Variable.woff2',
+  weight: '1 1000',
   style: 'normal',
-  variable: '--font-chivo',
+  variable: '--font-sofia',
+  display: 'swap',
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+});
+
+const sofiaCondensed = localFont({
+  src: './fonts/SofiaSansExtraCondensed-Variable.woff2',
+  weight: '1 1000',
+  style: 'normal',
+  variable: '--font-sofia-condensed',
   display: 'swap',
   fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
 });
@@ -56,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // The admin's saved theme is stamped on <html> by a script before React
     // loads, so the page never flashes the wrong one. The server cannot know
     // it, so that one attribute is expected to differ.
-    <html lang="en" className={chivo.variable} suppressHydrationWarning>
+    <html lang="en" className={`${sofia.variable} ${sofiaCondensed.variable}`} suppressHydrationWarning>
       <body className="min-h-screen text-charcoal-700 antialiased">{children}</body>
     </html>
   );

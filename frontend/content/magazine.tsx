@@ -1,42 +1,9 @@
 import Link from 'next/link';
-import localFont from 'next/font/local';
 
 import Icon from '@/components/Icon';
 import MagazineLogo from '@/components/MagazineLogo';
 import NewsletterForm from '@/components/NewsletterForm';
 import type { SiteIssue as Issue } from '@/lib/site-content';
-
-/**
- * Minion Pro, self-hosted, for this page alone.
- *
- * The rest of the site is Vistol — a geometric sans that suits a foundation
- * explaining itself. A magazine is a different act of reading: long passages,
- * held for minutes rather than scanned in seconds, and a text face cut for
- * that is what makes the page feel like a publication rather than a section of
- * the website with a cover picture on it.
- *
- * Four faces, not the ten in the archive. Regular and its italic carry the
- * prose, semibold the subheads, bold the mastheads; medium, the condensed cuts
- * and the bold italic were dropped because nothing here asked for them and each
- * one is another 55 KB. Declared in this file rather than the root layout so
- * Next only ships it on the routes that render this component.
- *
- * Subset to the Latin the site uses — 225 KB for four faces instead of 1.6 MB
- * of OpenType.
- */
-const minion = localFont({
-  src: [
-    { path: '../app/fonts/MinionPro-Regular.woff2', weight: '400', style: 'normal' },
-    { path: '../app/fonts/MinionPro-It.woff2', weight: '400', style: 'italic' },
-    { path: '../app/fonts/MinionPro-Semibold.woff2', weight: '600', style: 'normal' },
-    { path: '../app/fonts/MinionPro-Bold.woff2', weight: '700', style: 'normal' },
-  ],
-  variable: '--font-minion',
-  display: 'swap',
-  // Georgia is the closest thing most machines already have; the generic
-  // serif is what stops a fallback landing on a sans and undoing the point.
-  fallback: ['Georgia', 'Times New Roman', 'serif'],
-});
 
 const isPublished = (i: Issue) => i.status === 'published';
 
@@ -85,7 +52,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
   const [featured, ...archive] = issues;
   if (!featured) {
     return (
-      <main className={`${minion.variable} magazine-page`}>
+      <main className="magazine-page">
         <section className="section-tight">
           <div className="container-page text-center">
             <h1>STEM Bridge Magazine</h1>
@@ -102,7 +69,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
 
   return (
     <>
-      <main className={`${minion.variable} magazine-page`}>
+      <main className="magazine-page">
         {/* Masthead and the featured issue, on white. */}
         <section className="magazine-hero">
           <div className="container-page">
@@ -157,7 +124,6 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
           <section className="section-tight bg-white">
             <div className="container-page">
               <div className="section-head">
-                <p className="eyebrow">In this issue</p>
                 <h2>What {featured.name} covers</h2>
                 <p className="lede">The stories carried on the cover of {featured.name}.</p>
               </div>
@@ -165,8 +131,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
               <div className="grid-cards-2">
                 {featured.stories.map((story) => (
                   <article key={story.title} className="card-plain">
-                    <p className="eyebrow">Cover story</p>
-                    <h3 className="mt-3 text-2xl text-charcoal-900">
+                    <h3 className="text-2xl text-charcoal-900">
                       {story.title}
                     </h3>
                     <p className="mt-3 text-charcoal-600">{story.blurb}</p>
@@ -192,8 +157,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
             <div className="container-page">
               <div className="panel-dark">
                 <div className="magazine-rail-head">
-                  <p className="eyebrow">Read it</p>
-                  <h2 className="mt-3">
+                  <h2>
                     {downloadable.length === 1
                       ? live
                         ? `Download ${featured.name}`
@@ -275,7 +239,6 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
           <section className="section-tight" id="archive">
             <div className="container-page">
               <div className="section-head">
-                <p className="eyebrow">Archive</p>
                 <h2>Past issues</h2>
                 <p className="lede">Every issue stays free to read and download.</p>
               </div>
@@ -310,8 +273,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
           <div className="container-page">
             <div className="grid-cards-2">
               <div className="card-plain">
-                <p className="eyebrow">Stay posted</p>
-                <h2 className="mt-3">
+                <h2>
                   {live ? 'Know when the next issue lands' : 'Know when the issue lands'}
                 </h2>
                 <p className="mt-4 text-charcoal-600">
@@ -330,8 +292,7 @@ export default function MagazineContent({ issues }: { issues: Issue[] }) {
               </div>
 
               <div className="card-plain">
-                <p className="eyebrow">Contribute</p>
-                <h2 className="mt-3">Write for the magazine</h2>
+                <h2>Write for the magazine</h2>
                 <p className="mt-4 text-charcoal-600">
                   The magazine exists to publish the students in our programs &mdash; what they
                   built, what broke, and what they learned fixing it. If you are a student, mentor,

@@ -1,0 +1,63 @@
+/*
+ * Sofia Sans corrections to the type scale.
+ *
+ * The scale in typography.css (sizes, leading, tracking) was tuned for Chivo.
+ * Sofia Sans has a lower x-height (0.488em against Chivo's 0.511em), and the
+ * Extra Condensed width used for headings sets about 35% narrower than Chivo
+ * at the same size. Left alone, the same numbers read smaller, and the negative
+ * tracking that suited Chivo makes the condensed letters touch. This file makes
+ * up the difference without changing any size token; it loads last so it
+ * settles ties with the page stylesheets.
+ */
+
+/* 1. Body copy renders at Chivo's x-height, so every size reads as tuned. */
+html body {
+  font-size-adjust: 0.511;
+}
+
+/*
+ * 2. Display headings in Extra Condensed: glyphs about 20% larger to make up
+ * for the narrow width, tracking back to neutral, and leading opened so a
+ * descender never meets the ascender below it at the larger size (the face
+ * runs from -0.19em to 0.68em). !important because the same headings carry
+ * tracking and leading from Tailwind utilities and several page stylesheets.
+ */
+html body :is(h1, h2, h3):not(.text-xl, .text-lg, .text-base, .text-sm, .text-xs, .card-title, .feature-title, .stage-title, .news-item-title, .team-name, #footer *, .legal-doc :is(h2, h3)) {
+  font-size-adjust: 0.583;
+  letter-spacing: 0 !important;
+}
+
+html body :is(h1, h2):not(.text-xl, .text-lg, .text-base, .text-sm, .text-xs, #footer *, .legal-doc :is(h2, h3)) {
+  line-height: 1.1 !important;
+}
+
+html body h3:not(.text-xl, .text-lg, .text-base, .text-sm, .text-xs, .card-title, .feature-title, .stage-title, .news-item-title, .team-name, #footer *, .legal-doc :is(h2, h3)) {
+  line-height: 1.2 !important;
+}
+
+/*
+ * 3. Small headings (card, step, footer and legal-page titles, h4-h6) use the regular
+ * width: Extra Condensed is a display face and closes up below about 22px.
+ * Their own tracking and leading are kept.
+ */
+html body :is(h1, h2, h3, h4, h5, h6):is(.text-xl, .text-lg, .text-base, .text-sm, .text-xs),
+html body :is(h4, h5, h6),
+html body :is(.card-title, .feature-title, .stage-title, .news-item-title, .team-name, .mega-feature-title, .mega-place-title, .testimonial-quote, .magazine-quote blockquote),
+html body #footer :is(h2, h3, h4),
+html body .legal-doc :is(h2, h3, h4) {
+  font-family: var(--font-sofia), ui-sans-serif, system-ui, sans-serif;
+  font-size-adjust: 0.511;
+}
+
+/*
+ * 4. Display figures (the homepage numbers and the scholarship amount) set in
+ * the heading width, so a figure reads as part of the same voice as the
+ * headings around it. Neutral tracking for the same reason as above.
+ */
+html body .editorial-evidence dt,
+html body .editorial-story__detail strong {
+  font-family: var(--font-sofia-condensed), var(--font-sofia), ui-sans-serif, sans-serif;
+  font-size-adjust: 0.583;
+  font-weight: 800;
+  letter-spacing: 0;
+}
