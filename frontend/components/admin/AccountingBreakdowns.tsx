@@ -30,6 +30,10 @@ type CutKey = (typeof CUTS)[number]['key'];
 const money = (n: number, currency: string) =>
   `${currency} ${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 
+/** A row's figure led by its currency, the way every other amount reads. */
+const figure = (n: number, currency: string) =>
+  currency ? `${currency} ${n.toLocaleString('en-GB')}` : n.toLocaleString('en-GB');
+
 function Table({ rows }: { rows: Row[] }) {
   if (!rows.length) {
     return <p className="px-1 py-6 text-sm text-muted-foreground">Nothing recorded for this.</p>;
@@ -51,15 +55,15 @@ function Table({ rows }: { rows: Row[] }) {
             <tr key={`${row.label}-${row.currency}-${index}`}>
               <td className="px-2 py-2 font-medium">{row.label || '—'}</td>
               <td className="px-2 py-2 text-muted-foreground">{row.currency || '—'}</td>
-              <td className="px-2 py-2 text-right tabular">{row.in.toLocaleString()}</td>
-              <td className="px-2 py-2 text-right tabular">{row.out.toLocaleString()}</td>
+              <td className="px-2 py-2 text-right tabular">{figure(row.in, row.currency)}</td>
+              <td className="px-2 py-2 text-right tabular">{figure(row.out, row.currency)}</td>
               <td
                 className={cn(
                   'px-2 py-2 text-right font-semibold tabular',
                   row.net < 0 && 'text-muted-foreground'
                 )}
               >
-                {row.net.toLocaleString()}
+                {figure(row.net, row.currency)}
               </td>
             </tr>
           ))}

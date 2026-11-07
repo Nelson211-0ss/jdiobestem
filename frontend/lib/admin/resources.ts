@@ -1637,20 +1637,21 @@ export const RESOURCES: Resource[] = [
   },
   {
     key: 'users',
-    unlisted: true,
     label: 'Staff access',
     singular: 'account',
     group: 'Access',
     icon: 'ShieldCheck',
-    description: 'Who can sign in. Roles and country scope are set in the Django admin.',
+    description:
+      'Who can sign in and what they can open. Open an account to change its role or country, set a new password, sign it out everywhere or revoke access.',
     titleField: 'username',
     searchHint: 'username, email, name',
     columns: [
       // An access row leads to the person, not to a username.
       { name: 'team_member_name', label: 'Colleague' },
-      { name: 'username', label: 'Username' },
       { name: 'email', label: 'Email' },
-      { name: 'is_superuser', label: 'Superuser' },
+      { name: 'role_display', label: 'Role', badge: true },
+      { name: 'country_label', label: 'Sees' },
+      { name: 'last_login', label: 'Last signed in', date: true },
       { name: 'is_active', label: 'Active' },
     ],
     fields: [

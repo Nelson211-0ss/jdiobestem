@@ -131,6 +131,9 @@ class ScholarshipTermSerializer(serializers.ModelSerializer):
     thumbnail = serializers.CharField(source="scholarship.photo", read_only=True, default="")
     reference = serializers.CharField(source="scholarship.reference", read_only=True)
     school_name = serializers.CharField(source="scholarship.school.name", read_only=True, default="")
+    # A term has no currency of its own: it is billed in its bursary's. Sent
+    # with the row so the dashboard can label the term's figures with it.
+    currency = serializers.CharField(source="scholarship.currency", read_only=True, default="")
     amount_due_effective = serializers.SerializerMethodField()
     paid = serializers.SerializerMethodField()
     outstanding = serializers.SerializerMethodField()

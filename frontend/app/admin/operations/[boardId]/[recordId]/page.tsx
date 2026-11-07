@@ -10,7 +10,7 @@ import RecordEntries from '@/components/admin/RecordEntries';
 import RelatedRecords from '@/components/admin/RelatedRecords';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
-import type { BoardDetail, BoardRecord } from '@/lib/admin/boards';
+import { recordCurrency, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
 
 export const dynamic = 'force-dynamic';
 
@@ -80,6 +80,7 @@ export default async function RecordPage({
               <RecordEntries
                 record={record}
                 amount={recordedAmount}
+                currency={recordCurrency(board.columns, record.values)}
                 editHref={editable ? `/admin/operations/${boardId}/${recordId}/edit` : undefined}
               />
             ) : null}

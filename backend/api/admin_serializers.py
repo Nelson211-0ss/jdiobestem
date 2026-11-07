@@ -504,6 +504,12 @@ class UserAdminSerializer(serializers.ModelSerializer):
     team_member = serializers.IntegerField(source="team_profile.id", read_only=True, default=None)
     team_member_name = serializers.CharField(source="team_profile.name", read_only=True, default="")
     team_member_role = serializers.CharField(source="team_profile.role", read_only=True, default="")
+    # What the accounts list needs to answer "who can do what" without opening
+    # each one. Method fields: an account made outside the dashboard may have
+    # no staff profile at all.
+    role_display = serializers.SerializerMethodField()
+    country_label = serializers.SerializerMethodField()
+    has_password = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -511,8 +517,22 @@ class UserAdminSerializer(serializers.ModelSerializer):
             "id", "username", "email", "first_name", "last_name", "is_staff", "is_superuser",
             "is_active", "last_login", "date_joined",
             "team_member", "team_member_name", "team_member_role",
+            "role_display", "country_label", "has_password",
         ]
         read_only_fields = ["last_login", "date_joined"]
+
+    def get_role_display(self, obj):
+        if obj.is_superuser:
+            return "Super administrator"
+        profile = getattr(obj, "staff_profile", None)
+        return profile.get_role_display() if profile else "Viewer"
+
+    def get_country_label(self, obj):
+        profile = getattr(obj, "staff_profile", None)
+        return profile.country_label if profile else "All countries"
+
+    def get_has_password(self, obj):
+        return obj.has_usable_password()
 
 
 class SiteStatAdminSerializer(serializers.ModelSerializer):

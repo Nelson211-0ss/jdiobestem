@@ -309,6 +309,10 @@ def update_user_access(request, pk):
                 )
 
     user.refresh_from_db()
+    # Switched off through this form is switched off: end their sessions too,
+    # as Revoke access does, or a browser left open keeps working.
+    if before_flags["is_active"] and not user.is_active:
+        _sign_out_everywhere(user)
     if hasattr(user, "_override_cache"):
         del user._override_cache
 
@@ -344,3 +348,249 @@ def update_user_access(request, pk):
         )
 
     return Response(_access_payload(user))
+
+
+# --- Accounts: creating, revoking, signing out --------------------------------
+#
+# Everything above changes what an existing account may do. These are the
+# other half of looking after colleagues: giving somebody an account in the
+# first place, taking access away when they leave, and ending their sessions
+# when a laptop goes missing. All superuser-only, all on the activity log.
+
+
+def _sign_out_everywhere(user) -> int:
+    """
+    End every way this account is currently signed in. Returns how many.
+
+    The dashboard signs in with an API token; the Django admin uses a session.
+    Both are removed — revoking somebody's access while a browser of theirs is
+    still holding a live session would only look like revoking it.
+    """
+    from django.contrib.sessions.models import Session
+    from django.utils import timezone
+
+    ended, _ = Token.objects.filter(user=user).delete()
+    for session in Session.objects.filter(expire_date__gt=timezone.now()).iterator():
+        try:
+            owner = session.get_decoded().get("_auth_user_id")
+        except Exception:  # a corrupt session is nobody's
+            continue
+        if str(owner) == str(user.pk):
+            session.delete()
+            ended += 1
+    return ended
+
+
+def _free_username(email: str) -> str:
+    """`jane.doe` from `jane.doe@…`, with a number added if it is taken."""
+    base = (email.split("@")[0] or "staff").lower()[:140]
+    candidate, n = base, 1
+    while User.objects.filter(username__iexact=candidate).exists():
+        n += 1
+        candidate = f"{base}{n}"
+    return candidate
+
+
+@api_view(["GET", "POST"])
+@permission_classes([IsStaff])
+def staff_accounts(request):
+    """
+    GET: what the new-account form needs to offer.
+    POST: create an account, its role and scope, in one step.
+
+    An account made without its role was a Viewer that somebody then had to
+    remember to promote; made without a password, it was one nobody could use.
+    Both are asked for here, the password optionally — it can be set later
+    from the account's page, as before.
+    """
+    denied = _require_superuser(request)
+    if denied:
+        return denied
+
+    from content_cms.models import TeamMember
+
+    if request.method == "GET":
+        members = TeamMember.objects.filter(account__isnull=True).order_by("name")
+        return Response(
+            {
+                "roles": [{"value": v, "label": l} for v, l in Role.choices],
+                "countries": [{"value": v, "label": l or "All countries"} for v, l in Country.choices],
+                "team_members": [
+                    {"value": m.id, "label": m.name, "email": m.email or "", "role": m.get_role_display()}
+                    for m in members
+                ],
+                "email_domain": settings.STAFF_EMAIL_DOMAIN,
+            }
+        )
+
+    data = request.data or {}
+    first_name = str(data.get("first_name") or "").strip()
+    last_name = str(data.get("last_name") or "").strip()
+    email = str(data.get("email") or "").strip().lower()
+    role = str(data.get("role") or Role.VIEWER)
+    country = str(data.get("country") or "")
+    position = str(data.get("position") or "").strip()[:150]
+    password = str(data.get("password") or "")
+    member_id = data.get("team_member")
+
+    errors: dict[str, list[str]] = {}
+    if not first_name:
+        errors["first_name"] = ["Enter their first name."]
+    domain = settings.STAFF_EMAIL_DOMAIN
+    if not email:
+        errors["email"] = [f"Enter their @{domain} address — it is what they sign in with."]
+    elif not email.endswith(f"@{domain}"):
+        errors["email"] = [f"Use their @{domain} address — that is what they sign in with."]
+    else:
+        clash = User.objects.filter(email__iexact=email).first()
+        if clash:
+            errors["email"] = [f"{clash.username} already uses that address."]
+    if role not in Role.values:
+        errors["role"] = ["Choose a role."]
+    if country not in Country.values:
+        errors["country"] = ["Choose a country, or All countries."]
+
+    member = None
+    if member_id not in (None, "", 0, "0"):
+        try:
+            member = TeamMember.objects.get(pk=int(member_id))
+        except (TeamMember.DoesNotExist, TypeError, ValueError):
+            errors["team_member"] = ["That team member no longer exists."]
+        else:
+            if member.account_id:
+                errors["team_member"] = [f"{member.name} already has an account."]
+
+    username = _free_username(email) if email else ""
+    if password:
+        try:
+            validate_password(
+                password,
+                user=User(username=username, email=email, first_name=first_name, last_name=last_name),
+            )
+        except DjangoValidationError as exc:
+            errors["password"] = list(exc.messages)
+
+    if errors:
+        return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
+    with transaction.atomic():
+        user = User(
+            username=username,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            is_staff=True,
+            is_active=True,
+        )
+        if password:
+            user.set_password(password)
+        else:
+            user.set_unusable_password()
+        user.save()
+        profile, _ = StaffProfile.objects.get_or_create(user=user)
+        profile.role = role
+        profile.country = country
+        profile.position = position
+        profile.team_member = member
+        profile.save()
+        if member is not None:
+            member.account = user
+            member.save(update_fields=["account"])
+
+    record(
+        request,
+        action=ActivityLog.Action.CREATE,
+        resource="users",
+        object_id=str(user.pk),
+        object_label=user.get_full_name() or user.username,
+        detail=(
+            f"Created an account for {user.username} as {profile.get_role_display()}, "
+            f"{profile.country_label}" + ("" if password else " — no password set yet")
+        ),
+    )
+    return Response({"id": user.pk, "username": user.username}, status=status.HTTP_201_CREATED)
+
+
+@api_view(["POST"])
+@permission_classes([IsStaff])
+def set_account_active(request, pk):
+    """
+    Revoke or restore somebody's access — `{"active": false}` or `true`.
+
+    Revoking switches the account off and signs it out everywhere at once. The
+    account, its role and its history are kept: a colleague who leaves is
+    still the person who recorded last year's payments, and somebody who comes
+    back is restored rather than rebuilt.
+    """
+    denied = _require_superuser(request)
+    if denied:
+        return denied
+    try:
+        user = User.objects.select_related("staff_profile").get(pk=pk)
+    except User.DoesNotExist:
+        return Response({"detail": "No such account."}, status=status.HTTP_404_NOT_FOUND)
+
+    active = bool((request.data or {}).get("active"))
+    if not active and user.pk == request.user.pk:
+        return Response(
+            {"detail": "You cannot revoke your own access."}, status=status.HTTP_400_BAD_REQUEST
+        )
+    if not active and user.is_superuser:
+        others = User.objects.filter(is_superuser=True, is_active=True).exclude(pk=user.pk).count()
+        if others == 0:
+            return Response(
+                {"detail": "This is the only active superuser. Make someone else one first."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    was_active = user.is_active
+    user.is_active = active
+    user.save(update_fields=["is_active"])
+    ended = _sign_out_everywhere(user) if not active else 0
+
+    if was_active != active:
+        record(
+            request,
+            action=ActivityLog.Action.ACCESS_CHANGE,
+            resource="users",
+            object_id=str(user.pk),
+            object_label=user.get_full_name() or user.username,
+            changes={"is_active": {"from": was_active, "to": active}},
+            detail=(
+                f"Revoked access for {user.username} and ended {ended} signed-in session(s)"
+                if not active
+                else f"Restored access for {user.username}"
+            ),
+        )
+    return Response(_access_payload(user))
+
+
+@api_view(["POST"])
+@permission_classes([IsStaff])
+def sign_out_account(request, pk):
+    """
+    End somebody's sessions without touching their access — for a lost phone
+    or a shared computer. They can sign straight back in with their password.
+    """
+    denied = _require_superuser(request)
+    if denied:
+        return denied
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return Response({"detail": "No such account."}, status=status.HTTP_404_NOT_FOUND)
+    if user.pk == request.user.pk:
+        return Response(
+            {"detail": "To sign yourself out, use Sign out in your own menu."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    ended = _sign_out_everywhere(user)
+    record(
+        request,
+        action=ActivityLog.Action.LOGOUT,
+        resource="users",
+        object_id=str(user.pk),
+        object_label=user.get_full_name() or user.username,
+        detail=f"Signed {user.username} out everywhere ({ended} session(s) ended)",
+    )
+    return Response({"detail": f"{user.username} has been signed out everywhere.", "ended": ended})

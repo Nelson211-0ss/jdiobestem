@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Pencil, Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { formatNumber } from '@/lib/format';
+import { formatAmount } from '@/lib/format';
 import type { BoardRecord } from '@/lib/admin/boards';
 
 /**
@@ -20,11 +20,14 @@ import type { BoardRecord } from '@/lib/admin/boards';
 export default function RecordEntries({
   record,
   amount = 0,
+  currency,
   editHref,
 }: {
   record: BoardRecord;
   /** The amount recorded on the expense, which these break down. */
   amount?: number;
+  /** The expense's currency code, shown in front of every figure. */
+  currency?: string;
   /** Where to go to add or change them, when this person may. */
   editHref?: string;
 }) {
@@ -64,7 +67,7 @@ export default function RecordEntries({
                 })}
               </td>
               <td className="px-1 py-1.5 text-right tabular">
-                {formatNumber(String(line.amount), { money: true })}
+                {formatAmount(String(line.amount), currency)}
               </td>
             </tr>
           ))}
@@ -75,7 +78,7 @@ export default function RecordEntries({
               Itemised
             </td>
             <td className="px-1 pt-2 text-right font-bold tabular">
-              {formatNumber(String(itemised), { money: true })}
+              {formatAmount(String(itemised), currency)}
             </td>
           </tr>
           {amount > 0 && remaining !== 0 ? (
@@ -88,7 +91,7 @@ export default function RecordEntries({
                   remaining < 0 ? 'font-semibold text-destructive' : 'text-muted-foreground'
                 }`}
               >
-                {formatNumber(String(Math.abs(remaining)), { money: true })}
+                {formatAmount(String(Math.abs(remaining)), currency)}
               </td>
             </tr>
           ) : null}

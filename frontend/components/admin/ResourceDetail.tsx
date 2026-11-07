@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import type { Field, Resource } from '@/lib/admin/resources';
-import { formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
+import { currencyOf, formatAmount, formatNumber, isMoneyLabel, toNumber } from '@/lib/format';
 import { isImage } from '@/lib/media';
 import FilePreview from './FilePreview';
 import { toFileList } from '@/lib/files';
@@ -107,7 +107,7 @@ function collapsible(value: unknown, label: string): React.ReactNode {
   );
 }
 
-function formatValue(value: unknown, label = ''): React.ReactNode {
+function formatValue(value: unknown, label = '', currency = ''): React.ReactNode {
   if (value === null || value === undefined || value === '') {
     return <span className="font-normal text-muted-foreground">&mdash;</span>;
   }
@@ -137,7 +137,11 @@ function formatValue(value: unknown, label = ''): React.ReactNode {
   const groupable = !neverGrouped.test(label) && (isMoneyLabel(label) || counted.test(label));
 
   if (groupable && toNumber(text) !== null && /^[-+]?[\d.,]+$/.test(text)) {
-    return <span className="tabular">{formatNumber(text, { money: isMoneyLabel(label) })}</span>;
+    return (
+      <span className="tabular">
+        {isMoneyLabel(label) ? formatAmount(text, currency) : formatNumber(text)}
+      </span>
+    );
   }
   return <span className="whitespace-pre-wrap">{text}</span>;
 }
@@ -242,7 +246,7 @@ export default function ResourceDetail({
               ) : field.type === 'textarea' ? (
                 collapsible(record[field.name], field.label)
               ) : (
-                formatValue(displayValue(field, record), field.label)
+                formatValue(displayValue(field, record), field.label, currencyOf(record))
               )}
             </DetailTableRow>
           ))}

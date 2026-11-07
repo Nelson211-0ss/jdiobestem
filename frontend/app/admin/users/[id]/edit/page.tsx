@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import AccessEditor from '@/components/admin/AccessEditor';
+import AccountActionsCard from '@/components/admin/AccountActionsCard';
 import SetPasswordCard from '@/components/admin/SetPasswordCard';
 import { FormShell } from '@/components/admin/Shell';
 import { api, can, getIdentity } from '@/lib/admin/api';
@@ -48,6 +49,12 @@ export default async function StaffAccessPage({ params }: { params: Promise<{ id
           username={access.user.username}
           hasPassword={access.user.has_password}
           isActive={access.user.is_active}
+        />
+        <AccountActionsCard
+          userId={access.user.id}
+          username={access.user.username}
+          isActive={access.user.is_active}
+          isSelf={access.user.id === identity.id}
         />
         <AccessEditor access={access} canEdit />
       </div>

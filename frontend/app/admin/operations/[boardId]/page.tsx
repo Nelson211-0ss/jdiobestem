@@ -10,8 +10,8 @@ import ClickableRow from '@/components/admin/ClickableRow';
 import FilePreview from '@/components/admin/FilePreview';
 import { toFileList } from '@/lib/files';
 import { api, can, getIdentity, type Page } from '@/lib/admin/api';
-import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
-import { formatNumber, isMoneyLabel } from '@/lib/format';
+import { displayValue, recordCurrency, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
+import { formatAmount, formatNumber, isMoneyLabel } from '@/lib/format';
 import { cn } from '@/lib/utils';
 import SiteFavicon from '@/components/admin/SiteFavicon';
 import BoardFilters from '@/components/admin/BoardFilters';
@@ -40,9 +40,12 @@ export async function generateMetadata({ params }: { params: Promise<{ boardId: 
 function BoardValue({
   column,
   record,
+  currency,
 }: {
   column: BoardDetail['columns'][number];
   record: BoardRecord;
+  /** The record's own currency code, put in front of its money columns. */
+  currency?: string;
 }) {
   // A file column is the attachment itself, so it shows rather than printing a
   // URL nobody can read at a glance.
@@ -107,7 +110,9 @@ function BoardValue({
   if (column.column_type === 'numbers') {
     return (
       <span className="tabular whitespace-nowrap">
-        {formatNumber(shown, { money: isMoneyLabel(column.title) })}
+        {isMoneyLabel(column.title)
+          ? formatAmount(shown, currency)
+          : formatNumber(shown)}
       </span>
     );
   }
@@ -272,7 +277,7 @@ export default async function BoardPage({
                         c.column_type === 'file' && 'pr-0'
                       )}
                     >
-                      <BoardValue column={c} record={record} />
+                      <BoardValue column={c} record={record} currency={recordCurrency(board.columns, record.values)} />
                     </TableCell>
                   ))}                  {board.groups.length > 1 ? (
                     <TableCell className="text-muted-foreground">{record.group_title}</TableCell>
@@ -338,7 +343,7 @@ export default async function BoardPage({
                         {c.title}
                       </dt>
                       <dd className="min-w-0">
-                        <BoardValue column={c} record={record} />
+                        <BoardValue column={c} record={record} currency={recordCurrency(board.columns, record.values)} />
                       </dd>
                     </Fragment>
                   ))}

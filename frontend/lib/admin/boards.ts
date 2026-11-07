@@ -176,3 +176,21 @@ export function displayValue(value: unknown): string {
   }
   return String(value);
 }
+
+/**
+ * The currency code a record states, from its Currency column — `USD` for
+ * "USD — United States". Empty when the board has no such column or the
+ * record left it blank, which callers take as "show the number alone".
+ */
+export function recordCurrency(
+  columns: BoardColumn[],
+  values: Record<string, unknown> | undefined,
+): string {
+  const column = columns.find((c) => c.title === 'Currency');
+  if (!column) return '';
+  const raw = values?.[column.monday_id];
+  const label =
+    column.choices.find((o) => o.value === String(raw ?? ''))?.label ?? displayValue(raw);
+  const code = label.split('—')[0].trim();
+  return /^[A-Za-z]{3}$/.test(code) ? code.toUpperCase() : '';
+}

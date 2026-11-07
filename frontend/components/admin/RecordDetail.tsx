@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
-import { displayValue, inputFor, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
-import { formatNumber, isMoneyLabel } from '@/lib/format';
+import { displayValue, inputFor, recordCurrency, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
+import { formatAmount, formatNumber, isMoneyLabel } from '@/lib/format';
 import FilePreview from './FilePreview';
 import { toFileList } from '@/lib/files';
 import { DetailTable, DetailTableRow } from './Shell';
@@ -14,7 +14,15 @@ import { DetailTable, DetailTableRow } from './Shell';
  * way the table formats it so the two agree.
  */
 
-function Value({ column, record }: { column: BoardDetail['columns'][number]; record: BoardRecord }) {
+function Value({
+  column,
+  record,
+  currency,
+}: {
+  column: BoardDetail['columns'][number];
+  record: BoardRecord;
+  currency?: string;
+}) {
   const raw = record.values?.[column.monday_id];
   const text = displayValue(raw);
 
@@ -46,7 +54,9 @@ function Value({ column, record }: { column: BoardDetail['columns'][number]; rec
 
   if (column.column_type === 'numbers') {
     return (
-      <span className="tabular">{formatNumber(text, { money: isMoneyLabel(column.title) })}</span>
+      <span className="tabular">
+        {isMoneyLabel(column.title) ? formatAmount(text, currency) : formatNumber(text)}
+      </span>
     );
   }
 
@@ -100,11 +110,13 @@ export default function RecordDetail({
     (c) => c.monday_id !== 'name' && inputFor(c) !== 'readonly'
   );
 
+  const currency = recordCurrency(board.columns, record.values);
+
   return (
     <DetailTable>
       {columns.map((column) => (
         <DetailTableRow key={column.monday_id} label={column.title}>
-          <Value column={column} record={record} />
+          <Value column={column} record={record} currency={currency} />
         </DetailTableRow>
       ))}
 

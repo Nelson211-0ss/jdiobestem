@@ -108,6 +108,10 @@ urlpatterns = [
     path("uploads/<str:upload_id>/status/", chunked_uploads.status_for, name="upload-status"),
     path("uploads/<str:upload_id>/part/", chunked_uploads.part, name="upload-part"),
     path("uploads/<str:upload_id>/finish/", chunked_uploads.finish, name="upload-finish"),
+    # Before the router: its users/<pk>/ pattern would otherwise claim these.
+    path("admin/staff-accounts/", access_api.staff_accounts, name="staff-accounts"),
+    path("admin/users/<int:pk>/active/", access_api.set_account_active, name="user-set-active"),
+    path("admin/users/<int:pk>/sign-out/", access_api.sign_out_account, name="user-sign-out"),
     path("admin/", include(router.urls)),
     path("admin/board-index/", operations_views.board_index, name="board-index"),
     path("admin/options/", operations_views.option_lists, name="options"),

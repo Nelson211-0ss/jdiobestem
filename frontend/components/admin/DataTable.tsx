@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
-import { formatNumber, isMoneyLabel } from '@/lib/format';
+import { currencyOf, formatAmount, formatNumber, isMoneyLabel } from '@/lib/format';
 import type { Column, Resource } from '@/lib/admin/resources';
 import ClickableRow from './ClickableRow';
 import FilePreview from './FilePreview';
@@ -134,7 +134,9 @@ function renderCell(row: Row, column: Column) {
     // untouched, so it is not mangled into something else.
     return (
       <span className="tabular whitespace-nowrap">
-        {formatNumber(value, { money: isMoneyLabel(column.label) })}
+        {isMoneyLabel(column.label)
+          ? formatAmount(value, currencyOf(row))
+          : formatNumber(value)}
       </span>
     );
   }

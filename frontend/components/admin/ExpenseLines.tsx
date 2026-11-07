@@ -4,7 +4,7 @@ import { Plus, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { formatNumber } from '@/lib/format';
+import { formatAmount } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
 /**
@@ -115,8 +115,7 @@ export default function ExpenseLines({
         <p className="text-sm">
           <span className="text-muted-foreground">Entries come to</span>{' '}
           <span className={cn('font-bold tabular', over && 'text-destructive')}>
-            {currency ? `${currency} ` : ''}
-            {formatNumber(String(itemised), { money: true })}
+            {formatAmount(String(itemised), currency)}
           </span>
         </p>
       </div>
@@ -124,17 +123,16 @@ export default function ExpenseLines({
       {total > 0 ? (
         <p className={cn('text-xs', over ? 'font-medium text-destructive' : 'text-muted-foreground')}>
           {over
-            ? `That is ${currency ? `${currency} ` : ''}${formatNumber(String(itemised - total), {
-                money: true,
-              })} more than the ${formatNumber(String(total), { money: true })} recorded for this expense. Raise the amount or reduce an entry.`
+            ? `That is ${formatAmount(String(itemised - total), currency)} more than the ${formatAmount(
+                String(total),
+                currency
+              )} recorded for this expense. Raise the amount or reduce an entry.`
             : remaining > 0
-              ? `${formatNumber(String(remaining), { money: true })} of the ${formatNumber(
+              ? `${formatAmount(String(remaining), currency)} of the ${formatAmount(
                   String(total),
-                  { money: true }
+                  currency
                 )} recorded is not itemised yet.`
-              : `Every ${currency ? `${currency} ` : ''}${formatNumber(String(total), {
-                  money: true,
-                })} of this expense is accounted for.`}
+              : `Every ${formatAmount(String(total), currency)} of this expense is accounted for.`}
         </p>
       ) : null}
     </div>

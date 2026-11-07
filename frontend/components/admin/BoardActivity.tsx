@@ -4,8 +4,8 @@ import { Plus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { api, can, type Identity, type Page } from '@/lib/admin/api';
-import { displayValue, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
-import { formatNumber, isMoneyLabel } from '@/lib/format';
+import { displayValue, recordCurrency, type BoardDetail, type BoardRecord } from '@/lib/admin/boards';
+import { formatAmount, formatNumber, isMoneyLabel } from '@/lib/format';
 
 /**
  * What has actually been done under a programme, read on the programme.
@@ -100,7 +100,9 @@ export default async function BoardActivity({
                         ) : c.column_type === 'status' || c.column_type === 'dropdown' ? (
                           <Badge variant="secondary">{shown}</Badge>
                         ) : c.column_type === 'numbers' ? (
-                          formatNumber(shown, { money: isMoneyLabel(c.title) })
+                          isMoneyLabel(c.title)
+                            ? formatAmount(shown, recordCurrency(board.columns, record.values))
+                            : formatNumber(shown)
                         ) : (
                           shown
                         )}

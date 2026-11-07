@@ -38,7 +38,7 @@ export default function AccessPanel({
         {can(identity, 'users', 'add') ? (
           <div className="mt-3 px-1">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/admin/users/new">
+              <Link href={`/admin/users/new?member=${String(record.id ?? '')}`}>
                 <KeyRound /> Give them an account
               </Link>
             </Button>

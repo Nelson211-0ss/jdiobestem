@@ -6,12 +6,12 @@
  * read far more often than it is typed. Grouping is applied wherever a number
  * is displayed.
  *
- * No currency symbol is inserted. Amounts here are per-record: an expense
+ * A currency is never guessed. Amounts here are per-record: an expense
  * carries its own Currency column, and a board column named "Budget (local
- * currency)" is deliberately not one currency at all. Guessing a symbol would
- * label a South Sudanese figure in dollars, which is worse than no symbol —
- * so the digits are grouped and the unit is left where it already is, in the
- * column heading or the neighbouring field.
+ * currency)" is deliberately not one currency at all. Guessing would label a
+ * South Sudanese figure in dollars, which is worse than no label. Where the
+ * record states its currency, `formatAmount` puts the code in front
+ * (`USD 2,867.19`); where it does not, the digits are shown alone.
  */
 
 /** en-GB gives `1,234,567.89` — comma groups, dot decimal. */
@@ -76,6 +76,35 @@ export function formatMoney(value: unknown, currency?: string): string {
     // An unknown or made-up currency code throws rather than falling back.
     return `${currency} ${formatNumber(n, { money: true })}`;
   }
+}
+
+/**
+ * The currency code a record carries, if it carries one.
+ *
+ * Resources name it `currency` and hold either the bare code (`UGX`) or the
+ * choice label (`USD — United States`); both come back as the three letters.
+ * Anything else — blank, a made-up word — is "unknown", never a guess.
+ */
+export function currencyOf(record: Record<string, unknown> | null | undefined): string {
+  const raw = record?.currency;
+  if (typeof raw !== 'string') return '';
+  const code = raw.split('—')[0].trim();
+  return /^[A-Za-z]{3}$/.test(code) ? code.toUpperCase() : '';
+}
+
+/**
+ * An amount led by its ISO code — `USD 2,867.19`, `UGX 1,000,000.00`.
+ *
+ * The code rather than a symbol, on purpose: `$` is also the Australian and
+ * Canadian dollar, and UGX and SSP have no symbol anybody would recognise. It
+ * is also how the overview's "Recent spending" already writes amounts, so a
+ * figure reads the same on every page. Without a currency, the plain grouped
+ * number — see the note at the top about never guessing one.
+ */
+export function formatAmount(value: unknown, currency?: string): string {
+  const digits = formatNumber(value, { money: true });
+  const code = (currency ?? '').trim().toUpperCase();
+  return code && digits && toNumber(value) !== null ? `${code} ${digits}` : digits;
 }
 
 /**
