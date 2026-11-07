@@ -44,7 +44,6 @@ function Table({ rows }: { rows: Row[] }) {
         <thead>
           <tr className="border-b border-border/50 text-left text-xs uppercase tracking-wide text-muted-foreground">
             <th className="px-2 py-2">&nbsp;</th>
-            <th className="px-2 py-2">Currency</th>
             <th className="px-2 py-2 text-right">In</th>
             <th className="px-2 py-2 text-right">Out</th>
             <th className="px-2 py-2 text-right">Net</th>
@@ -54,7 +53,6 @@ function Table({ rows }: { rows: Row[] }) {
           {rows.map((row, index) => (
             <tr key={`${row.label}-${row.currency}-${index}`}>
               <td className="px-2 py-2 font-medium">{row.label || '—'}</td>
-              <td className="px-2 py-2 text-muted-foreground">{row.currency || '—'}</td>
               <td className="px-2 py-2 text-right tabular">{figure(row.in, row.currency)}</td>
               <td className="px-2 py-2 text-right tabular">{figure(row.out, row.currency)}</td>
               <td
