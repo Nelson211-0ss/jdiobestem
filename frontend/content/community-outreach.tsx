@@ -1,253 +1,85 @@
-import Link from 'next/link';
 import { text } from '@/lib/blocks';
-import FeatureIcon from '@/components/FeatureIcon';
-import Icon from '@/components/Icon';
+import {
+  Definitions, Figure, OtherProgrammes, ProgramCta, ProgramHero, ProgramSection,
+} from '@/components/program/Program';
 
+/*
+ * Community Outreach.
+ *
+ * Sources: STEM Bridge 2026, chiefly "Stewards of the Future" (the Laudato
+ * Si Green Festival, July 2026) and the Programs Coordinator's account of
+ * outreach with schools and community partners. Photographs are from the
+ * festival. The old page's counters, sample schedule and unattributed
+ * quotes are gone.
+ */
 export default function CommunityOutreachContent({ blocks }: { blocks: Record<string, string> }) {
+  const t = (key: string, fallback: string) => text(blocks, key, fallback);
+
   return (
-    <>
-      <main className="program-page program-page--community-outreach">
-          {/* Hero */}
-          <header className="page-hero">
-            <img src="/images/teachers.jpeg" alt="" className="page-hero__bg" width="1600" height="900"/>
-            <div className="page-hero__overlay" aria-hidden="true"></div>
-            <div className="page-hero__inner">
-              <h1>{text(blocks, "h1.bringing-stem-education-beyond-the", "Bringing STEM education beyond the classroom")}</h1>
-              <p className="page-hero__lede">{text(blocks, "p.we-partner-with-schools-communities", "We partner with schools, communities, universities, and industry to deliver engaging STEM experiences that inspire curiosity, foster innovation, and expand educational opportunities for learners of all ages.")}</p>
-              <div className="mt-7 flex flex-wrap gap-4">
-                <Link href="/contact" className="btn-on-brand">Request an Outreach Event</Link>
-                <Link href="/contact" className="btn-outline-on-brand">Partner With Us</Link>
-              </div>
-            </div>
-          </header>
+    <main className="prog-page">
+      <ProgramHero
+        title={t('hero.title', 'Community Outreach')}
+        lede={t('hero.lede', 'Outreach takes students’ work out of the workshop and puts it in front of other schools, families and the public, with the students who built it there to explain it.')}
+        actions={[
+          { href: '/contact', label: t('hero.action', 'Invite us to your event') },
+          { href: '#green-fest', label: t('hero.action2', 'See Green Fest 2026') },
+        ]}
+        image="/images/green-festival/web/IMG_9209.jpg"
+        imageAlt="Visiting primary pupils holding a certificate at the Laudato Si Green Festival"
+        caption={t('hero.caption', 'Visiting primary pupils at the Laudato Si Green Festival, Holy Cross Lake View S.S.S, July 2026.')}
+        facts={[
+          { term: t('facts.with.term', 'Who we work with'), detail: t('facts.with', 'Schools and community partners') },
+          { term: t('facts.who.term', 'Who presents'), detail: t('facts.who', 'Students, explaining their own work') },
+          { term: t('facts.recent.term', 'Most recent'), detail: t('facts.recent', 'Laudato Si Green Festival, July 2026') },
+          { term: t('facts.base.term', 'Based at'), detail: t('facts.base', 'Holy Cross Lake View S.S.S, Wanyange, Jinja') },
+        ]}
+      />
 
-          {/* Mission */}
-          <section className="py-12 md:py-16">
-            <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-              <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.making-stem-accessible-to-every", "Making STEM accessible to every community")}</h2>
-              <p className="sr-fade-up mt-6 text-base leading-7 text-gray-600">{text(blocks, "p.every-student-deserves-the-opportunity", "Every student deserves the opportunity to discover science, technology, engineering, and mathematics — regardless of where they live or their background. Through community outreach we bring STEM directly to schools, community centers, libraries, and public events, creating experiences that inspire lifelong learning and future careers.")}</p>
-            </div>
-          </section>
+      <ProgramSection id="why" title={t('why.title', 'Shown here, built elsewhere')}>
+        <div className="prog-prose">
+          <p className="prog-lead">{t('why.p1', 'A stand at a festival reaches a student once. A programme at the school they already attend reaches them every term. So outreach is where the work gets shown, not where it happens.')}</p>
+          <p>{t('why.p2', 'That is why our stands are run by students rather than staff. Visitors talk to the people who built the things on the table, with mentors behind them for the harder questions. Younger pupils get to watch students only a few years older explain a piece of engineering they made themselves.')}</p>
+        </div>
+      </ProgramSection>
 
-          {/* What we do */}
-          <section className="bg-white py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">What we do</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3">
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="measure" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.stem-workshops", "STEM Workshops")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.interactive-science-and-engineering-activities", "Interactive science and engineering activities designed to spark curiosity.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="chip" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.robotics-demonstrations", "Robotics Demonstrations")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.students-explore-robotics-through-live", "Students explore robotics through live demonstrations and beginner programming.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="send" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.drone-aviation-experiences", "Drone & Aviation Experiences")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.hands-on-exposure-to-drones", "Hands-on exposure to drones, aerospace engineering, and aviation careers.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="water" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.science-discovery-days", "Science Discovery Days")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.exciting-experiments-that-make-science", "Exciting experiments that make science fun and memorable.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="code" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.technology-coding-sessions", "Technology & Coding Sessions")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.students-learn-digital-skills-coding", "Students learn digital skills, coding, and emerging technologies.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="voice" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.stem-career-talks", "STEM Career Talks")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.professionals-share-their-educational-journeys", "Professionals share their educational journeys, career experiences, and advice.")}</p></div>
-              </div>
-            </div>
-          </section>
+      <ProgramSection
+        id="green-fest"
+        title={t('gf.title', 'Green Fest 2026')}
+        intro={<p>{t('gf.intro', 'In July, the Foundation joined the third Laudato Si Green Festival at Holy Cross Lake View S.S.S: two days of climate action organised by the Laudato Youth movement through its school clubs.')}</p>}
+      >
+        <div className="prog-prose">
+          <p>{t('gf.p1', 'Students from a spread of schools exhibited under marquees along the school field: the Laudato Youth delegates, visiting primary pupils, and the host school’s own students. The Foundation’s table sat among the student displays rather than in a sponsors’ row, and for most of the day it was staffed by students explaining their own work.')}</p>
+          <p>{t('gf.p2', 'The exhibits ranged from a solar array wired to storage and a multi-stage water-treatment rig to a set of model aircraft that drew a standing crowd of adults, with a queue of younger pupils waiting behind them. The festival closed with certificates.')}</p>
+        </div>
+        <div className="prog-figures">
+          <Figure src="/images/green-festival/web/IMG_8908.jpg" alt="Model aircraft and a rocket model laid out on an exhibition table" caption={t('gf.c1', 'Model aircraft on the exhibition tables.')} />
+          <Figure src="/images/green-festival/web/IMG_9044.jpg" alt="Visitors looking at model aircraft at the Foundation’s table" caption={t('gf.c2', 'Visitors at the model aircraft.')} />
+        </div>
+      </ProgramSection>
 
-          {/* Where we serve */}
-          <section className="py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.we-bring-stem-to", "We bring STEM to")}</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="home" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Primary Schools</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="book" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Secondary Schools</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="users" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Community Centers</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="book-open" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Libraries</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="flag" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">STEM Festivals</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="globe" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Rural Communities</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="award" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Universities</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="briefcase" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-semibold text-gray-800">Corporate Outreach</span></div>
-              </div>
-            </div>
-          </section>
+      <ProgramSection
+        id="invite"
+        title={t('invite.title', 'Invite us')}
+        intro={<p>{t('invite.intro', 'We join events where students can show and explain what they have built.')}</p>}
+      >
+        <Definitions
+          items={[
+            { term: t('invite.who.term', 'Who can invite us'), detail: t('invite.who', 'Schools, community organisations, and the organisers of festivals and public events.') },
+            { term: t('invite.what.term', 'What we bring'), detail: t('invite.what', 'A table of student projects, run by the students who built them, with mentors on hand.') },
+            { term: t('invite.how.term', 'How to ask'), detail: t('invite.how', 'Get in touch with the date, the place and who will be there. We will tell you what we can bring.') },
+          ]}
+        />
+      </ProgramSection>
 
-          {/* Typical event timeline */}
-          <section className="bg-white py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.how-a-day-unfolds", "How a day unfolds")}</h2>
-              </div>
-              <ol className="sr-stagger mt-9 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">01</p><div className="mt-3 flex items-center gap-3"><Icon name="sun" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.welcome-introduction", "Welcome & Introduction")}</h3></div></li>
-                <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">02</p><div className="mt-3 flex items-center gap-3"><Icon name="cast" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.interactive-presentation", "Interactive Presentation")}</h3></div></li>
-                <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">03</p><div className="mt-3 flex items-center gap-3"><Icon name="tool" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.hands-on-activity-stations", "Hands-On Activity Stations")}</h3></div></li>
-                <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">04</p><div className="mt-3 flex items-center gap-3"><Icon name="settings" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.engineering-challenge", "Engineering Challenge")}</h3></div></li>
-                <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">05</p><div className="mt-3 flex items-center gap-3"><Icon name="compass" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.career-exploration", "Career Exploration")}</h3></div></li>
-                <li className="sr-fade-up rounded-2xl bg-white p-4 sm:p-6 shadow-card"><p className="text-sm font-bold text-orange-700">06</p><div className="mt-3 flex items-center gap-3"><Icon name="help-circle" className="h-5 w-5 shrink-0 text-orange-700"/><h3 className="text-base font-semibold">{text(blocks, "h3.questions-discussion", "Questions & Discussion")}</h3></div></li>
-                <li className="sr-fade-up col-span-2 rounded-2xl bg-orange-500 p-4 sm:p-6 text-white"><div className="flex items-center gap-3"><Icon name="award" className="h-5 w-5"/><h3 className="text-base font-semibold">{text(blocks, "h3.certificates-group-photo", "Certificates & Group Photo")}</h3></div></li>
-              </ol>
-            </div>
-          </section>
-
-          {/* What participants experience */}
-          <section className="py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.hands-on-from-start-to", "Hands-on from start to finish")}</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="droplet" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Conduct science experiments</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="cpu" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Build and interact with robots</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="send" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Experience drone technology</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="settings" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Solve engineering challenges</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="user-check" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Meet STEM professionals</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="compass" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Learn about STEM careers</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="award" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Participate in competitions</span></div>
-                <div className="sr-fade-up flex items-center gap-3 rounded-lg bg-white p-5 shadow-card"><Icon name="users" className="h-5 w-5 shrink-0 text-orange-700"/><span className="text-sm font-medium text-gray-800">Develop teamwork &amp; leadership</span></div>
-              </div>
-            </div>
-          </section>
-
-          {/* Featured outreach activities */}
-          <section className="bg-white py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.stem-in-the-community", "STEM in the community")}</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid gap-6 sm:grid-cols-2">
-                <article className="sr-fade-up overflow-hidden rounded-2xl bg-white shadow-card">
-                  <img src="/images/IMG_8893.jpg" alt="STEM festival exhibition" className="aspect-[16/9] w-full object-cover" width="700" height="394" loading="lazy" decoding="async"/>
-                  <div className="p-6"><h3 className="text-lg font-bold text-gray-900">{text(blocks, "h3.stem-festival-exhibitions", "STEM Festival Exhibitions")}</h3><p className="mt-2 text-sm leading-6 text-gray-600">{text(blocks, "p.interactive-booths-featuring-robotics-engineering", "Interactive booths featuring robotics, engineering, and technology demonstrations.")}</p></div>
-                </article>
-                <article className="sr-fade-up overflow-hidden rounded-2xl bg-white shadow-card">
-                  <img src="/images/catapilar.jpeg" alt="Science in the community" className="aspect-[16/9] w-full object-cover" width="700" height="394" loading="lazy" decoding="async"/>
-                  <div className="p-6"><h3 className="text-lg font-bold text-gray-900">{text(blocks, "h3.science-in-the-community", "Science in the Community")}</h3><p className="mt-2 text-sm leading-6 text-gray-600">{text(blocks, "p.hands-on-experiments-designed-to", "Hands-on experiments designed to inspire curiosity and scientific thinking.")}</p></div>
-                </article>
-                <article className="sr-fade-up overflow-hidden rounded-2xl bg-white shadow-card">
-                  <img src="/images/robot.jpeg" alt="Engineering challenge day" className="aspect-[16/9] w-full object-cover" width="700" height="394" loading="lazy" decoding="async"/>
-                  <div className="p-6"><h3 className="text-lg font-bold text-gray-900">{text(blocks, "h3.engineering-challenge-days", "Engineering Challenge Days")}</h3><p className="mt-2 text-sm leading-6 text-gray-600">{text(blocks, "p.students-collaborate-in-teams-to", "Students collaborate in teams to design, build, and test engineering solutions.")}</p></div>
-                </article>
-                <article className="sr-fade-up overflow-hidden rounded-2xl bg-white shadow-card">
-                  <img src="/images/plane.jpg" alt="Drone discovery workshop" className="aspect-[16/9] w-full object-cover" width="700" height="394" loading="lazy" decoding="async"/>
-                  <div className="p-6"><h3 className="text-lg font-bold text-gray-900">{text(blocks, "h3.drone-discovery-workshops", "Drone Discovery Workshops")}</h3><p className="mt-2 text-sm leading-6 text-gray-600">{text(blocks, "p.learn-how-drones-are-transforming", "Learn how drones are transforming agriculture, healthcare, and emergency response.")}</p></div>
-                </article>
-              </div>
-            </div>
-          </section>
-
-          {/* Why it matters */}
-          <section className="py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.why-community-stem-outreach-matters", "Why community STEM outreach matters")}</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="vision" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.inspire-curiosity", "Inspire Curiosity")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.introduce-students-to-exciting-stem", "Introduce students to exciting STEM concepts through engaging experiences.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="shield" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.build-confidence", "Build Confidence")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.help-young-learners-develop-problem", "Help young learners develop problem-solving and critical thinking skills.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="access" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.expand-opportunities", "Expand Opportunities")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.connect-students-with-mentors-educational", "Connect students with mentors, educational pathways, and future careers.")}</p></div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card"><FeatureIcon name="people" className="feature-ico shrink-0" /><h3 className="mt-5 text-lg font-bold text-gray-900">{text(blocks, "h3.strengthen-communities", "Strengthen Communities")}</h3><p className="mt-3 text-sm leading-6 text-gray-600">{text(blocks, "p.create-partnerships-that-promote-lifelong", "Create partnerships that promote lifelong learning and innovation.")}</p></div>
-              </div>
-            </div>
-          </section>
-
-          {/* Impact (counters) */}
-          <section id="impact" className="surface-brand py-12 md:py-14">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.building-stronger-stem-communities", "Building stronger STEM communities")}</h2>
-              </div>
-              <dl className="sr-stagger mt-9 grid grid-cols-2 gap-6 text-center md:grid-cols-3 lg:grid-cols-5">
-                <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="5000" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Community Members Reached</dd></div>
-                <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="100" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Outreach Events</dd></div>
-                <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="80" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Schools &amp; Partners</dd></div>
-                <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="300" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Volunteers Engaged</dd></div>
-                <div className="sr-fade-up rounded-2xl bg-white/10 p-6 ring-1 ring-white/15"><dt className="counter text-3xl font-bold tabular-nums sm:text-4xl" data-target="15" data-suffix="+">0+</dt><dd className="mt-2 text-sm text-orange-100">Districts Served</dd></div>
-              </dl>
-            </div>
-          </section>
-
-          {/* Gallery */}
-          <section className="py-12 md:py-14">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.moments-from-the-field", "Moments from the field")}</h2>
-              </div>
-              <div className="sr-stagger mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-                <img src="/images/catapilar.jpeg" alt="Science experiments" className="h-36 w-full rounded-lg object-cover sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/robot.jpeg" alt="Robotics workshop" className="h-36 w-full rounded-lg object-cover sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/plane.jpg" alt="Drone demonstration" className="h-36 w-full rounded-lg object-cover sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/inspect.jpeg" alt="Engineering challenge" className="h-36 w-full rounded-lg object-cover sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/1713891129693.jpeg" alt="Students presenting projects" className="h-36 w-full rounded-lg object-cover object-top sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/teachers.jpeg" alt="Community STEM festival" className="h-36 w-full rounded-lg object-cover sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/1718038140753.jpeg" alt="Volunteer engagement" className="h-36 w-full rounded-lg object-cover object-top sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-                <img src="/images/185A1601-scaled.jpg" alt="Award ceremony" className="h-36 w-full rounded-lg object-cover sm:h-44" width="400" height="264" loading="lazy" decoding="async"/>
-              </div>
-            </div>
-          </section>
-
-          {/* Testimonials */}
-          <section className="bg-white py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.what-people-are-saying", "What people are saying")}</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid gap-6 lg:grid-cols-3">
-                <figure className="sr-fade-up rounded-2xl bg-white p-8 shadow-card"><Icon name="star" className="h-6 w-6 text-orange-700"/><blockquote className="mt-4 text-base leading-7 text-gray-800">&quot;The outreach program transformed how our students think about science. They were engaged, curious, and excited to learn.&quot;</blockquote><figcaption className="mt-4 text-sm font-semibold text-orange-700">School Administrator</figcaption></figure>
-                <figure className="sr-fade-up rounded-2xl bg-white p-8 shadow-card"><Icon name="star" className="h-6 w-6 text-orange-700"/><blockquote className="mt-4 text-base leading-7 text-gray-800">&quot;This was my first time seeing a drone and building a robot. Now I want to become an engineer.&quot;</blockquote><figcaption className="mt-4 text-sm font-semibold text-orange-700">Student Participant</figcaption></figure>
-                <figure className="sr-fade-up rounded-2xl bg-white p-8 shadow-card"><Icon name="star" className="h-6 w-6 text-orange-700"/><blockquote className="mt-4 text-base leading-7 text-gray-800">&quot;The hands-on activities inspired our students and showed them that STEM is both exciting and achievable.&quot;</blockquote><figcaption className="mt-4 text-sm font-semibold text-orange-700">Teacher</figcaption></figure>
-              </div>
-            </div>
-          </section>
-
-          {/* Partner + Volunteer */}
-          <section className="py-12 md:py-16">
-            <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:px-8">
-              <div className="sr-fade-up rounded-2xl bg-white p-8 shadow-card">
-                <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.let-s-expand-stem-together", "Let's expand STEM together")}</h2>
-                <p className="mt-4 text-base leading-7 text-gray-600">{text(blocks, "p.we-welcome-partnerships-with-schools", "We welcome partnerships with schools, universities, community organizations, companies, government agencies, and volunteers who share our commitment to expanding STEM education.")}</p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-orange-800">Schools</span>
-                  <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-orange-800">Universities</span>
-                  <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-orange-800">Industry</span>
-                  <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-orange-800">Government</span>
-                  <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-orange-800">Community Organizations</span>
-                  <span className="rounded-full bg-white px-4 py-2 text-sm font-medium text-orange-800">Nonprofits</span>
-                </div>
-                <Link href="/contact" className="mt-7 btn-primary">Become a Partner <Icon name="arrow-right" className="h-4 w-4"/></Link>
-              </div>
-              <div className="sr-fade-up flex flex-col justify-center rounded-2xl surface-brand p-8">
-                <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{text(blocks, "h2.help-inspire-the-next-generation", "Help inspire the next generation")}</h2>
-                <p className="mt-4 text-base leading-7 text-orange-100">{text(blocks, "p.engineers-scientists-educators-university-students", "Engineers, scientists, educators, university students, and STEM professionals can make a meaningful impact by sharing their knowledge and inspiring future innovators.")}</p>
-                <Link href="/volunteers" className="mt-7 self-start btn-on-brand">Become a Volunteer <Icon name="arrow-right" className="h-4 w-4"/></Link>
-              </div>
-            </div>
-          </section>
-
-          {/* STEM pipeline */}
-          <section className="bg-white py-12 md:py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">{text(blocks, "h2.part-of-one-connected-pathway", "Part of one connected pathway")}</h2>
-              </div>
-              <ol className="sr-stagger mx-auto mt-9 grid max-w-6xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-                <li className="sr-fade-up flex flex-col items-center rounded-2xl bg-white p-5 text-center shadow-card"><FeatureIcon name="joy" className="feature-ico shrink-0" /><p className="mt-3 text-sm font-semibold text-gray-900">{text(blocks, "p.youth-stem-school", "Youth STEM School")}</p></li>
-                <li className="sr-fade-up flex flex-col items-center rounded-2xl bg-orange-500 p-5 text-center text-white"><FeatureIcon name="globe" className="feature-ico shrink-0" /><p className="mt-3 text-sm font-semibold">{text(blocks, "p.community-outreach", "Community Outreach")}</p></li>
-                <li className="sr-fade-up flex flex-col items-center rounded-2xl bg-white p-5 text-center shadow-card"><FeatureIcon name="book" className="feature-ico shrink-0" /><p className="mt-3 text-sm font-semibold text-gray-900">{text(blocks, "p.secondary-research", "Secondary Research")}</p></li>
-                <li className="sr-fade-up flex flex-col items-center rounded-2xl bg-white p-5 text-center shadow-card"><FeatureIcon name="award" className="feature-ico shrink-0" /><p className="mt-3 text-sm font-semibold text-gray-900">{text(blocks, "p.scholarships", "Scholarships")}</p></li>
-                <li className="sr-fade-up flex flex-col items-center rounded-2xl bg-white p-5 text-center shadow-card"><FeatureIcon name="search" className="feature-ico shrink-0" /><p className="mt-3 text-sm font-semibold text-gray-900">{text(blocks, "p.university-research", "University Research")}</p></li>
-                <li className="sr-fade-up flex flex-col items-center rounded-2xl bg-white p-5 text-center shadow-card"><FeatureIcon name="growth" className="feature-ico shrink-0" /><p className="mt-3 text-sm font-semibold text-gray-900">{text(blocks, "p.careers-leadership", "Careers & Leadership")}</p></li>
-              </ol>
-            </div>
-          </section>
-
-          {/* Final CTA */}
-          <section className="surface-brand py-14">
-            <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-              <h2 className="sr-fade-up text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "h2.ready-to-bring-stem-to", "Ready to bring STEM to your community?")}</h2>
-              <p className="sr-fade-up mx-auto mt-5 max-w-2xl text-base leading-7 text-orange-100">{text(blocks, "p.together-we-can-inspire-curiosity", "Together, we can inspire curiosity, create opportunities, and prepare the next generation of STEM leaders. We work with schools, community organizations, local governments, and corporate partners to deliver engaging STEM experiences tailored to your audience.")}</p>
-              <div className="sr-fade-up mt-8 flex flex-wrap justify-center gap-4">
-                <Link href="/contact" className="btn-on-brand">Request an Outreach Event</Link>
-                <Link href="/contact" className="btn-outline-on-brand">Become a Partner</Link>
-                <Link href="/donate" className="btn-outline-on-brand">Support Our Mission</Link>
-              </div>
-            </div>
-          </section>
-
-        </main>
-    </>
+      <ProgramCta
+        title={t('cta.title', 'Bring students’ work to your community')}
+        body={t('cta.body', 'Every kilometre travelled and every piece of equipment on our table was paid for by someone who decided a student they will never meet deserved the chance.')}
+        actions={[
+          { href: '/contact', label: t('cta.action', 'Invite us to your event') },
+          { href: '/donate', label: t('cta.action2', 'Support the work') },
+        ]}
+      />
+      <OtherProgrammes current="/community-outreach" />
+    </main>
   );
 }

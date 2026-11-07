@@ -1,196 +1,128 @@
 import Link from 'next/link';
 import { text } from '@/lib/blocks';
-import FeatureIcon from '@/components/FeatureIcon';
 import Icon from '@/components/Icon';
+import type { SiteStat } from '@/lib/site-content';
+import {
+  Definitions, Figure, ItemGrid, OtherProgrammes, ProgramCta, ProgramHero, ProgramSection,
+} from '@/components/program/Program';
 
-export default function ScholarshipContent({ blocks }: { blocks: Record<string, string> }) {
+/*
+ * Scholarships.
+ *
+ * Sources: the scholarship-legacy piece written for STEM Bridge 2026 (why the
+ * scholarships carry the names they do), the magazine's account of Moses
+ * Nambiro's travel award and of how students are identified at Holy Cross
+ * Lake View S.S.S, and the open/closed status the site already published.
+ * There is no public application form, so the page says how students are
+ * actually chosen and where to ask.
+ */
+export default function ScholarshipContent({ blocks, awarded }: { blocks: Record<string, string>; awarded?: SiteStat }) {
+  const t = (key: string, fallback: string) => text(blocks, key, fallback);
+
+  const facts = [
+    { term: t('facts.covers.term', 'What a scholarship covers'), detail: t('facts.covers', 'Fees, materials or travel') },
+    { term: t('facts.how.term', 'How students are chosen'), detail: t('facts.how', 'Through the schools we work with') },
+    { term: t('facts.repay.term', 'Repayment'), detail: t('facts.repay', 'None') },
+  ];
+  if (awarded) facts.push({ term: awarded.label, detail: `${awarded.value.toLocaleString('en-US')}${awarded.suffix}` });
+
   return (
-    <>
-      <main className="program-page program-page--scholarship">
-          {/* Hero */}
-          <header className="page-hero">
-            <img src="/images/hero-students-community.webp" alt="" className="page-hero__bg object-top" width="1600" height="900"/>
-            <div className="page-hero__overlay" aria-hidden="true"></div>
-            <div className="page-hero__inner">
-              <h1>{text(blocks, "h1.supporting-future-stem-leaders", "Supporting future STEM leaders")}</h1>
-              <p className="page-hero__lede">{text(blocks, "p.scholarships-that-reduce-financial-barriers", "Scholarships that reduce financial barriers while providing mentorship, leadership development, and professional growth for outstanding students pursuing STEM education.")}</p>
-            </div>
-          </header>
+    <main className="prog-page">
+      <ProgramHero
+        title={t('hero.title', 'Scholarships')}
+        lede={t('hero.lede', 'A scholarship pays for the one thing standing between a capable student and the next step, whether that is a term’s fees, the materials for a course, or the fare to a university place.')}
+        actions={[
+          { href: '/donate', label: t('hero.action', 'Sponsor a student') },
+          { href: '#the-scholarships', label: t('hero.action2', 'See the scholarships') },
+        ]}
+        image="/images/scholarship-students.jpg"
+        imageAlt="Two students at Holy Cross Lake View S.S.S in front of the school’s Education for Service banner"
+        facts={facts}
+      />
 
-          {/* Scholarships */}
-          <section className="py-12 md:py-16">
-            <div className="mx-auto max-w-6xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{text(blocks, "h2.opening-doors-for-the-next", "Opening doors for the next generation")}</h2>
-              </div>
+      <ProgramSection
+        id="why-names"
+        title={t('names.title', 'Why our scholarships carry names')}
+      >
+        <div className="prog-prose">
+          <p className="prog-lead">{t('names.p1', 'When Muwanika Jdiobe was an undergraduate at Oklahoma State University, there were times when money nearly ended his education. People stepped in: some paid, some made calls, and some made sure an unpaid balance did not become the end of the road. Among them were Dr. Ron Beer and Regina Henry.')}</p>
+          <p>{t('names.p2', 'The scholarships named after them carry that help forward to another generation of students. Someone opens a door for you; years later, you hold it open for someone else.')}</p>
+        </div>
+        <blockquote className="prog-quote">{t('names.quote', '“The greatest way I can thank the people who invested in my education is to make sure their generosity does not end with me.”')}</blockquote>
+        <p>{t('names.quote.by', 'Muwanika Jdiobe, PhD, Founder and Executive Director')}</p>
+      </ProgramSection>
 
-              <div className="sr-stagger mt-9 grid gap-8 lg:grid-cols-3">
+      <ProgramSection
+        id="the-scholarships"
+        title={t('list.title', 'The scholarships')}
+        intro={<p>{t('list.intro', 'All three can be combined with a mentor from our mentorship programme.')}</p>}
+        wide
+      >
+        <ItemGrid
+          columns={3}
+          items={[
+            {
+              tag: t('s1.status', 'Applications closed'),
+              title: t('s1.title', 'Dr. Ron and Cara Beer STEM Scholarship'),
+              body: t('s1.body', 'Dr. Ron Beer believed in Muwanika when continuing at university was financially difficult. The scholarship in his and Cara Beer’s name supports students pursuing STEM, with mentorship, exposure and leadership development alongside the money.'),
+              children: <Link href="/contact" className="editorial-link">{t('s1.action', 'Ask about the next round')} <Icon name="arrow-right" /></Link>,
+            },
+            {
+              tag: t('s2.status', 'Applications open'),
+              title: t('s2.title', 'Regina Henry Scholarship'),
+              body: t('s2.body', 'Regina Henry helped when Muwanika was finishing his degree in the United States. The scholarship extends the same help to students facing barriers of their own.'),
+              children: <Link href="/contact" className="editorial-link">{t('s2.action', 'Ask about applying')} <Icon name="arrow-right" /></Link>,
+            },
+            {
+              tag: t('s3.status', 'Applications open'),
+              title: t('s3.title', 'Jdiobe STEM Scholarship'),
+              body: t('s3.body', 'The Foundation’s own scholarship, awarded directly to students with high potential. It can cover fees, materials, or travel and research costs.'),
+              children: <Link href="/contact" className="editorial-link">{t('s3.action', 'Ask about applying')} <Icon name="arrow-right" /></Link>,
+            },
+          ]}
+        />
+      </ProgramSection>
 
-                {/* Dr. Ron and Cara Beer STEM Scholarship */}
-                <article className="sr-fade-up flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
-                  <div className="surface-brand p-7">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <FeatureIcon name="award" className="feature-ico shrink-0" />
-                      <span className="on-dark inline-flex items-center gap-1.5 rounded-full scholarship-closed px-3 py-1 text-xs font-semibold text-white">
-                        <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Closed
-                      </span>
-                    </div>
-                    <h3 className="mt-5 text-xl font-bold md:text-2xl">{text(blocks, "h3.dr-ron-and-cara-beer", "Dr. Ron and Cara Beer STEM Scholarship")}</h3>
-                    <p className="mt-2 text-sm text-orange-100">{text(blocks, "p.established-by-dr-ron-and", "Established by Dr. Ron and Cara Beer for STEM Students.")}</p>
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <p className="text-base leading-7 text-slate-600">{text(blocks, "p.established-through-the-generosity-of", "Established through the generosity of Dr. Ron and Cara Beer, this scholarship helps remove financial barriers for students pursuing STEM education.")}</p>
-                    <dl className="mt-6 space-y-4">
-                      <div className="flex items-start gap-3">
-                        <FeatureIcon name="money" className="feature-ico mt-0.5 shrink-0" />
-                        <div><dt className="text-sm font-bold text-slate-900">Award Amount</dt><dd className="text-sm text-slate-600">Varies by year</dd></div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <FeatureIcon name="chip" className="feature-ico mt-0.5 shrink-0" />
-                        <div><dt className="text-sm font-bold text-slate-900">Field</dt><dd className="text-sm text-slate-600">STEM degrees</dd></div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <FeatureIcon name="done" className="feature-ico mt-0.5 shrink-0" />
-                        <div><dt className="text-sm font-bold text-slate-900">Eligibility</dt><dd className="text-sm text-slate-600">Academic excellence, financial need, leadership potential</dd></div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <FeatureIcon name="gift" className="feature-ico mt-0.5 shrink-0" />
-                        <div><dt className="text-sm font-bold text-slate-900">Support Includes</dt><dd className="text-sm text-slate-600">Tuition assistance, mentorship, leadership development</dd></div>
-                      </div>
-                    </dl>
-                    <div className="mt-7 flex flex-wrap gap-3">
-                      <Link href="/contact" className="btn-primary">Ask about the next round <Icon name="arrow-right" className="h-4 w-4"/></Link>
+      <ProgramSection
+        id="moses"
+        title={t('moses.title', 'One obstacle, removed')}
+        intro={<p>{t('moses.intro', 'We do not try to fund whole educations. We look for the single point where a promising student would otherwise stop, and pay for that.')}</p>}
+      >
+        <div className="prog-person">
+          <img src="/images/moses-nambiro.webp" alt="Moses Nambiro" width="400" height="500" loading="lazy" />
+          <div>
+            <h3>{t('moses.name', 'Moses Nambiro')}</h3>
+            <p className="prog-person__role">{t('moses.role', 'Travel scholarship, April 2026')}</p>
+            <p>{t('moses.body', 'Moses had a place to study Aeronautical Engineering abroad, and no way to pay the airfare. On 6 April 2026 the Foundation awarded him a $1,000 travel scholarship. It does not pay for his degree. It paid for the one thing that would otherwise have kept him at home.')}</p>
+            <Link href="/news/nambiro-scholarship" className="editorial-link">{t('moses.action', 'Read Moses’s story')} <Icon name="arrow-right" /></Link>
+          </div>
+        </div>
+      </ProgramSection>
 
-                    </div>
-                  </div>
-                </article>
+      <ProgramSection
+        id="how-chosen"
+        title={t('chosen.title', 'How students are chosen')}
+        intro={<p>{t('chosen.intro', 'There is no application form on this website. If you are a student, parent or teacher, contact us and we will tell you about the next round.')}</p>}
+      >
+        <Definitions
+          items={[
+            { term: t('chosen.1.term', 'Through the school'), detail: t('chosen.1', 'At Holy Cross Lake View S.S.S in Jinja, where our work in Uganda is based, an on-site coordinator identifies students who would benefit and keeps the records our scholarship committee decides from.') },
+            { term: t('chosen.3.term', 'What it can cover'), detail: t('chosen.3', 'Tuition and school fees, course materials, and travel when the place is already won and the fare is the obstacle.') },
+            { term: t('chosen.4.term', 'What we ask back'), detail: t('chosen.4', 'Nothing has to be repaid. We hope only that when their chance comes, scholars will open the door for someone else.') },
+          ]}
+        />
+        <Figure src="/images/hero-students-community.webp" alt="Students gathered outside their school, one holding a model airplane" caption={t('chosen.caption', 'Students at Holy Cross Lake View S.S.S, Wanyange, Jinja.')} />
+      </ProgramSection>
 
-                {/* Regina Henry Scholarship */}
-                <article className="sr-fade-up flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
-                  <div className="surface-brand p-7">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <FeatureIcon name="award" className="feature-ico shrink-0" />
-                      <span className="on-dark inline-flex items-center gap-1.5 rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">
-                        <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Open
-                      </span>
-                    </div>
-                    <h3 className="mt-5 text-xl font-bold md:text-2xl">{text(blocks, "h3.regina-henry-scholarship", "Regina Henry Scholarship")}</h3>
-                    <p className="mt-2 text-sm text-orange-100">{text(blocks, "p.established-by-regina-henry", "Established by Regina Henry")}</p>
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <p className="text-base leading-7 text-slate-600">{text(blocks, "p.supporting-promising-students-whose-determination", "Supporting promising students whose determination, character, and commitment to education position them to become future leaders in STEM and their communities.")}</p>
-                    <p className="mt-4 text-base leading-7 text-slate-600">{text(blocks, "p.it-helps-students-continue-their", "It helps students continue their education with confidence by providing financial support, encouragement, and a stronger path toward STEM leadership.")}</p>
-                    <p className="mt-5 text-sm font-bold text-slate-900">{text(blocks, "p.this-scholarship-includes", "This scholarship includes")}</p>
-                    <ul className="mt-3 space-y-3">
-                      <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <FeatureIcon name="money" className="feature-ico shrink-0" />
-                        {' '}Financial support
-                      </li>
-                      <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <FeatureIcon name="book" className="feature-ico shrink-0" />
-                        {' '}Academic encouragement
-                      </li>
-                      <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <FeatureIcon name="people" className="feature-ico shrink-0" />
-                        {' '}Professional mentorship
-                      </li>
-                    </ul>
-                    <div className="mt-auto flex flex-wrap gap-3 pt-7">
-                      <Link href="/contact" className="btn-primary">Enquire about applying <Icon name="arrow-right" className="h-4 w-4"/></Link>
-                    </div>
-                  </div>
-                </article>
-
-                {/* Jdiobe STEM Scholarship */}
-                <article className="sr-fade-up flex flex-col overflow-hidden rounded-2xl bg-white shadow-card">
-                  <div className="surface-brand p-7">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <FeatureIcon name="award" className="feature-ico shrink-0" />
-                      <span className="on-dark inline-flex items-center gap-1.5 rounded-full bg-green-600 px-3 py-1 text-xs font-semibold text-white">
-                        <Icon name="check-circle" className="h-3.5 w-3.5"/> Applications Open
-                      </span>
-                    </div>
-                    <h3 className="mt-5 text-xl font-bold md:text-2xl">{text(blocks, "h3.jdiobe-stem-scholarship", "Jdiobe STEM Scholarship")}</h3>
-                    <p className="mt-2 text-sm text-orange-100">{text(blocks, "p.our-foundation-s-flagship-scholarship", "Our foundation's flagship scholarship")}</p>
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <p className="text-base leading-7 text-slate-600">{text(blocks, "p.awarded-directly-by-jdiobe-stem", "Awarded directly by Jdiobe STEM Foundation to high-potential students, removing practical barriers so they can begin or continue their STEM education journey.")}</p>
-                    <p className="mt-5 text-sm font-bold text-slate-900">{text(blocks, "p.this-scholarship-includes-2", "This scholarship includes")}</p>
-                    <ul className="mt-3 space-y-3">
-                      <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <FeatureIcon name="money" className="feature-ico shrink-0" />
-                        {' '}Financial support
-                      </li>
-                      <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <FeatureIcon name="compass" className="feature-ico shrink-0" />
-                        {' '}Travel &amp; research grants
-                      </li>
-                      <li className="flex items-center gap-3 text-sm text-slate-600">
-                        <FeatureIcon name="people" className="feature-ico shrink-0" />
-                        {' '}Professional mentorship
-                      </li>
-                    </ul>
-                    <div className="mt-auto flex flex-wrap gap-3 pt-7">
-                      <Link href="/contact" className="btn-primary">Enquire about applying <Icon name="arrow-right" className="h-4 w-4"/></Link>
-
-                    </div>
-                  </div>
-                </article>
-
-              </div>
-            </div>
-          </section>
-
-          {/* What every scholarship provides */}
-          <section className="bg-white py-12 md:py-14">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-3xl text-center">
-                <h2 className="sr-fade-up text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">{text(blocks, "h2.support-that-goes-beyond-the", "Support that goes beyond the classroom")}</h2>
-              </div>
-              <div className="sr-stagger mt-9 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <FeatureIcon name="money" className="feature-ico shrink-0" />
-                  <h3 className="mt-5 text-lg font-bold text-slate-900">{text(blocks, "h3.tuition-assistance", "Tuition Assistance")}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.reducing-the-financial-barriers-to", "Reducing the financial barriers to STEM education.")}</p>
-                </div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <FeatureIcon name="people" className="feature-ico shrink-0" />
-                  <h3 className="mt-5 text-lg font-bold text-slate-900">Mentorship</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.guidance-from-engineers-scientists-and", "Guidance from engineers, scientists, and educators.")}</p>
-                </div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <FeatureIcon name="flag" className="feature-ico shrink-0" />
-                  <h3 className="mt-5 text-lg font-bold text-slate-900">{text(blocks, "h3.leadership-development", "Leadership Development")}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.building-the-skills-to-lead", "Building the skills to lead in STEM and community.")}</p>
-                </div>
-                <div className="sr-fade-up rounded-2xl bg-white p-4 sm:p-7 shadow-card">
-                  <FeatureIcon name="growth" className="feature-ico shrink-0" />
-                  <h3 className="mt-5 text-lg font-bold text-slate-900">{text(blocks, "h3.professional-growth", "Professional Growth")}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{text(blocks, "p.pathways-into-research-internships-and", "Pathways into research, internships, and careers.")}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* CTA */}
-          <section className="surface-brand py-14">
-            <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:px-8">
-              <div className="text-center md:text-left">
-                <h2 className="sr-fade-up text-3xl font-bold tracking-tight sm:text-4xl">{text(blocks, "h2.fund-the-future-of-stem", "Fund the future of STEM")}</h2>
-                <p className="sr-fade-up mt-5 max-w-2xl text-base leading-7 text-orange-100">{text(blocks, "p.your-generosity-can-help-remove", "Your generosity can help remove financial barriers for a talented student — or establish a named scholarship of your own. Together we can turn potential into opportunity.")}</p>
-              </div>
-              <div className="sr-fade-up flex flex-col gap-3">
-                <Link href="/donate" className="btn-on-brand">
-                  <span className="inline-flex items-center gap-2"><Icon name="heart" className="h-4 w-4"/> Sponsor a Student</span><span aria-hidden="true">&rarr;</span>
-                </Link>
-                <Link href="/contact" className="btn-outline-on-brand">
-                  <span className="inline-flex items-center gap-2"><Icon name="award" className="h-4 w-4"/> Establish a Scholarship</span><span aria-hidden="true">&rarr;</span>
-                </Link>
-              </div>
-            </div>
-          </section>
-
-        </main>
-    </>
+      <ProgramCta
+        title={t('cta.title', 'Fund the next scholarship')}
+        body={t('cta.body', 'A gift can cover a term’s fees, a set of materials or a fare. You can also set up a scholarship in someone’s name.')}
+        actions={[
+          { href: '/donate', label: t('cta.action', 'Sponsor a student') },
+          { href: '/contact', label: t('cta.action2', 'Set up a named scholarship') },
+        ]}
+      />
+      <OtherProgrammes current="/scholarship" />
+    </main>
   );
 }

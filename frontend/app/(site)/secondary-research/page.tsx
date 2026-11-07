@@ -5,7 +5,7 @@ import SecondaryResearchContent from '@/content/secondary-research';
 import { getPageBlocks } from '@/lib/site-content';
 
 export const metadata: Metadata = socialMetadata({
-  title: 'Secondary School Research Program',
+  title: 'Science Fair',
   path: '/secondary-research',
   card: 'secondary-research',
 });
