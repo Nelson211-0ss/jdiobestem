@@ -14,16 +14,20 @@ import { checkField, checkForm, isRequired } from '@/lib/publicForms';
  * teacher's endorsement and a school stamp, so it stays a document. This form
  * registers the project and starts the conversation.
  *
- * Field names and the category list are taken from the workbook, not invented.
+ * Field names are taken from the workbook. The category list is the nine in the
+ * Student Project Handbook 2026/27, which replaced the workbook's provisional six.
  */
 
 const CATEGORIES = [
-  'Physical Sciences (Physics, Chemistry, Materials)',
-  'Life & Environmental Sciences (Biology, Agriculture, Ecology, Public Health)',
-  'Engineering & Technology (Devices, Mechanical/Electrical Systems, Renewable Energy)',
-  'Computer Science & Software (Applications, Websites, Data Systems, AI Tools)',
-  'Innovation & Entrepreneurship (New Products, Business Models with a Technical Core)',
-  'Community & Social Impact Projects',
+  'Engineering and Design (Structures, machines, transport, water systems, materials)',
+  'Robotics and Automation (Robots, control systems, sensors, mechatronics)',
+  'Computer Science and Artificial Intelligence (Software, apps, machine learning, data systems)',
+  'Physical Sciences (Physics, chemistry, astronomy, energy, electricity)',
+  'Biological and Life Sciences (Plant science, safe microbiology, ecology, physiology)',
+  'Environmental Science and Climate (Water, air, soil, waste, climate resilience)',
+  'Agriculture and Food Security (Crops, irrigation, post-harvest, food preservation)',
+  'Health and Biomedical Innovation (Public health, assistive and non-diagnostic technology)',
+  'Mathematics and Data Science (Models, optimisation, statistics, data analysis)',
 ];
 
 const PROJECT_TYPES = [

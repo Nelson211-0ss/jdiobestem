@@ -190,13 +190,23 @@ class ProjectProposal(SubmissionBase):
     mentor's evaluation, a head teacher's endorsement and a school stamp.
     """
 
+    # The nine categories in the Student Project Handbook 2026/27, then the
+    # Proposal Workbook's provisional six, kept so earlier registrations stay valid.
     CATEGORY_CHOICES = [
-        ("physical", "Physical Sciences (Physics, Chemistry, Materials)"),
-        ("life", "Life & Environmental Sciences (Biology, Agriculture, Ecology, Public Health)"),
-        ("engineering", "Engineering & Technology (Devices, Mechanical/Electrical Systems, Renewable Energy)"),
-        ("software", "Computer Science & Software (Applications, Websites, Data Systems, AI Tools)"),
-        ("innovation", "Innovation & Entrepreneurship (New Products, Business Models with a Technical Core)"),
-        ("community", "Community & Social Impact Projects"),
+        ("engineering_design", "Engineering and Design"),
+        ("robotics", "Robotics and Automation"),
+        ("computing_ai", "Computer Science and Artificial Intelligence"),
+        ("physical", "Physical Sciences"),
+        ("biological", "Biological and Life Sciences"),
+        ("environment", "Environmental Science and Climate"),
+        ("agriculture", "Agriculture and Food Security"),
+        ("health", "Health and Biomedical Innovation"),
+        ("mathematics", "Mathematics and Data Science"),
+        ("life", "Life & Environmental Sciences (earlier list)"),
+        ("engineering", "Engineering & Technology (earlier list)"),
+        ("software", "Computer Science & Software (earlier list)"),
+        ("innovation", "Innovation & Entrepreneurship (earlier list)"),
+        ("community", "Community & Social Impact Projects (earlier list)"),
     ]
 
     # Section 1 — student

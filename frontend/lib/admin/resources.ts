@@ -319,12 +319,22 @@ const INTEREST_OPTIONS = [
 ];
 
 const CATEGORY_OPTIONS = [
+  // The nine categories in the Student Project Handbook 2026/27.
+  { value: 'engineering_design', label: 'Engineering and Design' },
+  { value: 'robotics', label: 'Robotics and Automation' },
+  { value: 'computing_ai', label: 'Computer Science and Artificial Intelligence' },
   { value: 'physical', label: 'Physical Sciences' },
-  { value: 'life', label: 'Life & Environmental Sciences' },
-  { value: 'engineering', label: 'Engineering & Technology' },
-  { value: 'software', label: 'Computer Science & Software' },
-  { value: 'innovation', label: 'Innovation & Entrepreneurship' },
-  { value: 'community', label: 'Community & Social Impact' },
+  { value: 'biological', label: 'Biological and Life Sciences' },
+  { value: 'environment', label: 'Environmental Science and Climate' },
+  { value: 'agriculture', label: 'Agriculture and Food Security' },
+  { value: 'health', label: 'Health and Biomedical Innovation' },
+  { value: 'mathematics', label: 'Mathematics and Data Science' },
+  // The workbook's earlier six, kept so registrations made before the change still display.
+  { value: 'life', label: 'Life & Environmental Sciences (earlier list)' },
+  { value: 'engineering', label: 'Engineering & Technology (earlier list)' },
+  { value: 'software', label: 'Computer Science & Software (earlier list)' },
+  { value: 'innovation', label: 'Innovation & Entrepreneurship (earlier list)' },
+  { value: 'community', label: 'Community & Social Impact (earlier list)' },
 ];
 
 /** The eight stages published on /secondary-research, in order. */

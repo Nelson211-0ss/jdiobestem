@@ -27,12 +27,15 @@ const FIELD_MAP = FIELD_MAPS.proposal;
 
 /** The form sends the full category label; the backend stores a short key. */
 const CATEGORY_KEYS: Record<string, string> = {
+  'Engineering and Design': 'engineering_design',
+  'Robotics and Automation': 'robotics',
+  'Computer Science and Artificial Intelligence': 'computing_ai',
   'Physical Sciences': 'physical',
-  'Life & Environmental Sciences': 'life',
-  'Engineering & Technology': 'engineering',
-  'Computer Science & Software': 'software',
-  'Innovation & Entrepreneurship': 'innovation',
-  'Community & Social Impact Projects': 'community',
+  'Biological and Life Sciences': 'biological',
+  'Environmental Science and Climate': 'environment',
+  'Agriculture and Food Security': 'agriculture',
+  'Health and Biomedical Innovation': 'health',
+  'Mathematics and Data Science': 'mathematics',
 };
 
 function categoryKey(label: string) {
