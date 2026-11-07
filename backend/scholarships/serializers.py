@@ -179,7 +179,11 @@ class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerial
     # Whose fees this paid, as a face. Same source as the bursary's own
     # picture — there is one photograph of a student, on their bursary.
     thumbnail = serializers.CharField(source="scholarship.photo", read_only=True, default="")
-    term_label = serializers.CharField(source="term.__str__", read_only=True, default="")
+    # A method field rather than `source="term.__str__"`: with no term, DRF
+    # resolves that path on None — which has a `__str__` of its own — and the
+    # list showed "<method-wrapper '__str__' of NoneType object …>" instead of
+    # a blank. A payment with no term yet is normal (see above).
+    term_label = serializers.SerializerMethodField()
     recorded_by_name = serializers.CharField(
         source="recorded_by.get_full_name", read_only=True, default=""
     )
@@ -191,6 +195,9 @@ class ScholarshipPaymentSerializer(LabelledChoicesMixin, serializers.ModelSerial
         model = ScholarshipPayment
         fields = "__all__"
         read_only_fields = ["created_at", "updated_at", "recorded_by"]
+
+    def get_term_label(self, obj):
+        return str(obj.term) if obj.term_id else ""
 
     def to_internal_value(self, data):
         """Resolve a term that does not exist yet.
