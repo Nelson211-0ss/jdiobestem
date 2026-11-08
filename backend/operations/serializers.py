@@ -165,11 +165,17 @@ class RecordSerializer(serializers.ModelSerializer):
                     start=Decimal("0"),
                 )
                 if itemised > total:
+                    currency_column = self._column(board, "Currency")
+                    code = ""
+                    if currency_column is not None:
+                        raw = str(values.get(currency_column.monday_id) or "")
+                        code = raw.split("—")[0].strip().upper()
+                        code = f"{code} " if len(code) == 3 and code.isalpha() else ""
                     raise serializers.ValidationError(
                         {
                             "expense_lines": (
-                                f"The entries come to {itemised:,.2f}, which is more than the "
-                                f"{total:,.2f} recorded for this expense. Raise the amount or "
+                                f"The entries come to {code}{itemised:,.2f}, which is more than the "
+                                f"{code}{total:,.2f} recorded for this expense. Raise the amount or "
                                 "reduce an entry."
                             )
                         }

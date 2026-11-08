@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { api, can, type Identity, type Page } from '@/lib/admin/api';
+import { currencyOf, formatAmount, formatNumber, isMoneyLabel } from '@/lib/format';
 import { RESOURCE_BY_KEY, type Column, type Related } from '@/lib/admin/resources';
 
 /**
@@ -41,6 +42,12 @@ function cell(row: Record<string, unknown>, column: Column) {
       month: 'short',
       year: 'numeric',
     });
+  }
+  // Figures read as they do in every other table: grouped, and money led by
+  // the row's own currency — `USD 2,500.00`. A figure the server already
+  // formatted ("UGX 1,450,000.00") comes back untouched.
+  if (column.numeric) {
+    return isMoneyLabel(column.label) ? formatAmount(text, currencyOf(row)) : formatNumber(text);
   }
   return text;
 }

@@ -56,6 +56,7 @@ class ScholarshipViewSet(ScopedViewSet):
                         "term": str(t), "starts": t.starts_on, "ends": t.ends_on,
                         "due": f"{t.due:,.0f}", "paid": f"{t.paid:,.0f}",
                         "outstanding": f"{t.outstanding:,.0f}" if t.outstanding else "Settled",
+                        "currency": obj.currency,
                     }
                     for t in obj.terms.all()
                 ],
@@ -71,6 +72,7 @@ class ScholarshipViewSet(ScopedViewSet):
                         "amount": f"{p.amount:,.0f}", "method": p.get_method_display(),
                         "by": p.paid_by.get_full_name() if p.paid_by_id else "",
                         "reference": p.reference, "receipts": p.receipts,
+                        "currency": p.currency or obj.currency,
                     }
                     for p in payments
                 ],

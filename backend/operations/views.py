@@ -262,14 +262,14 @@ class InvoiceViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet)
         expense = obj.expense
         if expense is None:
             return []
-        amount = next(
-            (
-                (expense.values or {}).get(c.monday_id)
-                for c in expense.board.columns.all()
-                if c.title == "Amount"
-            ),
-            None,
-        )
+        from api.accounting import currency_code
+
+        by_title = {c.title: c.monday_id for c in expense.board.columns.all()}
+        values = expense.values or {}
+        amount = values.get(by_title["Amount"]) if "Amount" in by_title else None
+        currency = (
+            currency_code(values.get(by_title["Currency"])) if "Currency" in by_title else ""
+        ) or obj.currency
         return [
             (
                 "Settled by",
@@ -278,6 +278,7 @@ class InvoiceViewSet(ExportableMixin, LoggedViewSetMixin, viewsets.ModelViewSet)
                     {
                         "expense": expense.name,
                         "amount": amount or "",
+                        "currency": currency,
                         "paid": obj.paid_on.strftime("%d %b %Y") if obj.paid_on else "",
                     }
                 ],
@@ -469,8 +470,11 @@ def _expense_options():
     board = Board.objects.filter(slug="expenses").prefetch_related("columns").first()
     if board is None:
         return []
+    from api.accounting import currency_code, to_number
+
     by_title = {c.title: c.monday_id for c in board.columns.all()}
     date_id, amount_id = by_title.get("Date Incurred"), by_title.get("Amount")
+    currency_id = by_title.get("Currency")
     rows = []
     for record in board.records.order_by("-created_at")[:300]:
         values = record.values or {}
@@ -480,7 +484,10 @@ def _expense_options():
             bits.append(when)
         spent = values.get(amount_id) if amount_id else None
         if spent:
-            bits.append(str(spent))
+            # `USD 2,867.19`, as the expense reads everywhere else.
+            code = currency_code(values.get(currency_id)) if currency_id else ""
+            figure = f"{to_number(spent):,.2f}"
+            bits.append(f"{code} {figure}" if code else figure)
         rows.append({"value": str(record.pk), "label": " — ".join(bits)[:140]})
     return rows
 

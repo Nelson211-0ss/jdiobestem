@@ -117,7 +117,8 @@ class Report:
         return [label for _, label in self.columns]
 
     def cells(self, row: dict) -> list[str]:
-        return [_text(_lookup(row, name), label) for name, label in self.columns]
+        currency = _row_currency(row, self.columns)
+        return [_text(_lookup(row, name), label, currency) for name, label in self.columns]
 
     def subtitle(self) -> str:
         shown = len(self.rows)
@@ -156,7 +157,37 @@ def _looks_like_money(label: str) -> bool:
     return any(word in lowered for word in MONEY_WORDS)
 
 
-def _text(value, label: str = "") -> str:
+def _currency_code(value) -> str:
+    """`USD` from "USD" or "USD — United States"; empty for anything else.
+
+    Never guessed: a figure with no stated currency is printed bare rather
+    than labelled with one it may not be in.
+    """
+    if not isinstance(value, str):
+        return ""
+    code = value.split("—")[0].strip()
+    return code.upper() if len(code) == 3 and code.isalpha() else ""
+
+
+def _row_currency(row: dict, columns=()) -> str:
+    """A row's currency: its own `currency` field, or a column titled Currency
+    (a board record keeps it inside its values, under the column's id)."""
+    if isinstance(row, dict) and row.get("currency"):
+        return _currency_code(row.get("currency"))
+    for name, label in columns:
+        if str(label).strip().lower() == "currency":
+            return _currency_code(_lookup(row, name))
+    return ""
+
+
+def _pairs_currency(pairs) -> str:
+    for label, value in pairs:
+        if str(label).strip().lower() == "currency":
+            return _currency_code(value if isinstance(value, str) else "")
+    return ""
+
+
+def _text(value, label: str = "", currency: str = "") -> str:
     if value is None or value == "":
         return ""
     if isinstance(value, bool):
@@ -164,7 +195,7 @@ def _text(value, label: str = "") -> str:
     # One field can hold several files. Rendering the Python list would put
     # brackets and quotes on the page.
     if isinstance(value, (list, tuple)):
-        return ", ".join(_text(item, label) for item in value if item not in (None, ""))
+        return ", ".join(_text(item, label, currency) for item in value if item not in (None, ""))
 
     text = str(value)
     if label and _looks_like_money(label):
@@ -173,7 +204,10 @@ def _text(value, label: str = "") -> str:
         except (TypeError, ValueError):
             return text
         # Whole amounts read better without a trailing .00; fractions keep it.
-        return f"{number:,.0f}" if number == int(number) else f"{number:,.2f}"
+        shown = f"{number:,.0f}" if number == int(number) else f"{number:,.2f}"
+        # Led by its currency where the record states one — `USD 2,500`, the
+        # way the dashboard shows it.
+        return f"{currency} {shown}" if currency else shown
     return text
 
 
@@ -232,15 +266,21 @@ def record_to_pdf(report: RecordReport) -> bytes:
         # receipts at the end.
         blocks.append('<p class="face"><img src="portrait.jpg" width="96"/></p>')
 
+    currency = _pairs_currency(report.pairs)
     for label, value in report.pairs:
-        shown = _escape(_text(value, label)) or "&#8212;"
+        shown = _escape(_text(value, label, currency)) or "&#8212;"
         blocks.append(f'<p class="lbl">{_escape(label)}</p><p class="val">{shown}</p>')
 
     for heading, columns, rows in report.tables:
         blocks.append(f"<p class=\"section\">{_escape(heading)}</p>")
         head = "".join(f"<th>{_escape(l)}</th>" for _, l in columns)
         body = "".join(
-            "<tr>" + "".join(f"<td>{_escape(_text(_lookup(r, n), l))}</td>" for n, l in columns) + "</tr>"
+            "<tr>"
+            + "".join(
+                f"<td>{_escape(_text(_lookup(r, n), l, _row_currency(r, columns) or currency))}</td>"
+                for n, l in columns
+            )
+            + "</tr>"
             for r in rows
         )
         if not body:
@@ -306,14 +346,17 @@ def record_to_csv(report: RecordReport) -> bytes:
     if report.heading:
         writer.writerow([report.heading])
     writer.writerow([])
+    currency = _pairs_currency(report.pairs)
     for label, value in report.pairs:
-        writer.writerow([label, _text(value, label)])
+        writer.writerow([label, _text(value, label, currency)])
     for heading, columns, rows in report.tables:
         writer.writerow([])
         writer.writerow([heading])
         writer.writerow([l for _, l in columns])
         for r in rows:
-            writer.writerow([_text(_lookup(r, n), l) for n, l in columns])
+            writer.writerow(
+                [_text(_lookup(r, n), l, _row_currency(r, columns) or currency) for n, l in columns]
+            )
     return buf.getvalue().encode("utf-8-sig")
 
 
