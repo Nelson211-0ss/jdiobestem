@@ -1,4 +1,4 @@
-# Deployment — 147.224.178.246
+# Deployment — 16.171.108.119
 
 The backend and database run as Docker containers on a **shared** host that also
 carries several unrelated services. Nothing here binds a port another stack
@@ -6,7 +6,7 @@ holds, and none of the host's own configuration is modified.
 
 | | |
 |---|---|
-| API | `https://147-224-178-246.nip.io` |
+| API | `https://16-171-108-119.nip.io` |
 | Django admin | **closed** — see below |
 | Directory | `~/jdiobestem-platform` on the host |
 | Compose project | `jdiobestem` |
@@ -17,7 +17,7 @@ The provider exposes only ports **22, 80 and 443** to the internet, and 80
 belongs to the host's own nginx (it path-proxies several other tenants). So this
 stack owns 443 and nothing else.
 
-`nip.io` resolves `<anything>.147-224-178-246.nip.io` to this IP, which supplies
+`nip.io` resolves `<anything>.16-171-108-119.nip.io` to this IP, which supplies
 a real hostname without owning a domain.
 
 When a real domain points here, this is a three-line change: add the names to
@@ -105,10 +105,14 @@ $DC up -d --build web          # after changing backend code
 # alongside `frontend/`, so this path is unchanged by the reorganisation
 tar czf - --exclude=__pycache__ --exclude='*.pyc' --exclude=.env \
           --exclude=media --exclude=staticfiles backend \
-  | ssh dockeruser@147.224.178.246 'tar xzf - -C ~/jdiobestem-platform'
-ssh dockeruser@147.224.178.246 \
-  'cd ~/jdiobestem-platform && docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build web'
+  | ssh -i ~/.ssh/apps-server.pem ubuntu@16.171.108.119 \
+      'sudo -u dockeruser tar xzf - -C /home/dockeruser/jdiobestem-platform'
+ssh -i ~/.ssh/apps-server.pem ubuntu@16.171.108.119 \
+  'sudo -u dockeruser -H sh -c "cd ~/jdiobestem-platform && docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build web"'
 ```
+
+The host takes key logins only: `ubuntu` with the `apps-server.pem` key. The
+stack itself still lives in, and runs as, `dockeruser`.
 
 `migrate` and `collectstatic` run automatically on every container start.
 
@@ -150,7 +154,7 @@ SITE_ORIGIN=https://<the site's origin>
 CORS_ALLOWED_ORIGINS=https://<the site's origin>
 ```
 
-and give the Next.js app `BACKEND_URL=https://147-224-178-246.nip.io` plus the
+and give the Next.js app `BACKEND_URL=https://16-171-108-119.nip.io` plus the
 `SERVICE_API_KEY` from `.env.prod` (server-side only — never `NEXT_PUBLIC_*`).
 
 Deploying the dashboard itself on `admin.<domain>` means swapping the `444`

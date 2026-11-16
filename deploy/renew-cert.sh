@@ -9,7 +9,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 DC="docker compose -f docker-compose.prod.yml --env-file .env.prod"
-CERTDIR=acme/147-224-178-246.nip.io_ecc
+CERTDIR=acme/16-171-108-119.nip.io_ecc
 
 log() { echo "[$(date -u +%FT%TZ)] $*"; }
 
@@ -31,7 +31,7 @@ if [ -f "$CERTDIR/fullchain.cer" ]; then
   # Only reinstall when the issued cert is actually newer than the one nginx has.
   if [ "$CERTDIR/fullchain.cer" -nt nginx/certs/server.crt ]; then
     cp "$CERTDIR/fullchain.cer" nginx/certs/server.crt
-    cp "$CERTDIR/147-224-178-246.nip.io.key" nginx/certs/server.key
+    cp "$CERTDIR/16-171-108-119.nip.io.key" nginx/certs/server.key
     chmod 644 nginx/certs/server.crt; chmod 600 nginx/certs/server.key
     log "installed refreshed certificate"
   else
